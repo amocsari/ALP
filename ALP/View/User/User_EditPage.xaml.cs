@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ALP.View
+namespace ALP.View.User
 {
     /// <summary>
-    /// Interaction logic for WelcomePage.xaml
+    /// Interaction logic for EditPage.xaml
     /// </summary>
-    public partial class WelcomePage : Page
+    public partial class EditPage : Page
     {
-        public WelcomePage()
+        public EditPage()
         {
             InitializeComponent();
         }

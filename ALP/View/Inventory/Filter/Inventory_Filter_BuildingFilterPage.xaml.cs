@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ALP.View
+namespace ALP.View.Inventory.Filter
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BuildingFilterPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BuildingFilterPage : Page
     {
-        public MainWindow()
+        public BuildingFilterPage()
         {
             InitializeComponent();
         }

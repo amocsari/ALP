@@ -59,11 +59,94 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ViewModel\System\LoginWindowViewModel.cs" />
+    <Compile Include="ViewModel\System\WelcomeScreenViewModel.cs" />
+    <Compile Include="View\Department\Department_EditPage.xaml.cs">
+      <DependentUpon>Department_EditPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\System\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    <Compile Include="View\Department\Department_SearchPage.xaml.cs">
+      <DependentUpon>Department_SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Inventory_EditPage.xaml.cs">
+      <DependentUpon>Inventory_EditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Inventory_ExportWindow.xaml.cs">
+      <DependentUpon>Inventory_ExportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Inventory_FilterWindow.xaml.cs">
+      <DependentUpon>Inventory_FilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_BuildingFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_BuildingFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_DepartmentFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_DepartmentFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_FloorFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_FloorFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_OwnerFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_OwnerFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_RoomFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_RoomFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_SectionFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_SectionFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_StateFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_StateFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Filter\Inventory_Filter_TypeFilterPage.xaml.cs">
+      <DependentUpon>Inventory_Filter_TypeFilterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Inventory_ImportWindow.xaml.cs">
+      <DependentUpon>Inventory_ImportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Inventory_OperationRequestPage.xaml.cs">
+      <DependentUpon>Inventory_OperationRequestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Inventory_OperationWindow.xaml.cs">
+      <DependentUpon>Inventory_OperationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Operation\Inventory_Operation_ScrapOperationPage.xaml.cs">
+      <DependentUpon>Inventory_Operation_ScrapOperationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentChiefOperationPage.xaml.cs">
+      <DependentUpon>Inventory_Operation_TransferToDepartmentChiefOperationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentOperationPage.xaml.cs">
+      <DependentUpon>Inventory_Operation_TransferToDepartmentOperationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Operation\Inventory_Operation_TransferToOwnerOperationPage.xaml.cs">
+      <DependentUpon>Inventory_Operation_TransferToOwnerOperationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inventory\Inventory_SearchPage.xaml.cs">
+      <DependentUpon>Inventory_SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\System\System_SettingsPage.xaml.cs">
+      <DependentUpon>System_SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\System\System_RecentChangesPage.xaml.cs">
+      <DependentUpon>System_RecentChangesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\System\System_PasswordChangeWindow.xaml.cs">
+      <DependentUpon>System_PasswordChangeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\System\System_LoginWindow.xaml.cs">
+      <DependentUpon>System_LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Main_MainWindow.xaml.cs">
+      <DependentUpon>Main_MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\System\System_WelcomePage.xaml.cs">
+      <DependentUpon>System_WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\User\User_EditPage.xaml.cs">
+      <DependentUpon>User_EditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\User\User_SearchPage.xaml.cs">
+      <DependentUpon>User_SearchPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -94,18 +177,122 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
-    <Folder Include="View\Department\" />
-    <Folder Include="View\Inventory\" />
     <Folder Include="View\Repository\" />
-    <Folder Include="View\User\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="View\Department\Department_EditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\System\WelcomePage.xaml">
+    <Page Include="View\Department\Department_SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Inventory_EditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Inventory_ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Inventory_FilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_BuildingFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_DepartmentFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_FloorFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_OwnerFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_RoomFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_SectionFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_StateFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Filter\Inventory_Filter_TypeFilterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Inventory_ImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Inventory_OperationRequestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Inventory_OperationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Operation\Inventory_Operation_ScrapOperationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentChiefOperationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentOperationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Operation\Inventory_Operation_TransferToOwnerOperationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Inventory\Inventory_SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\System\System_SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\System\System_RecentChangesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\System\System_PasswordChangeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\System\System_LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Main_MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\System\System_WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\User\User_EditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\User\User_SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
