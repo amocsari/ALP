@@ -1,8 +1,11 @@
 ﻿CREATE TABLE [dbo].[User]
 (
 	[UserId] INT NOT NULL IDENTITY(1,1),
-    [UserName] VARCHAR(250) NOT NULL,
-	[DepartmentId] INT NOT NULL,
+	[Username] VARCHAR(250) NOT NULL,
+	[Password] VARCHAR(250) NOT NULL,
+	[Profile] INT NOT NULL,
+	[Role] INT NOT NULL,
 	CONSTRAINT [pkUser] PRIMARY KEY CLUSTERED ([UserId] ASC),
-	CONSTRAINT [fkUserDepartment] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department] ([DepartmentId])
+	CONSTRAINT [fkUserEmployee] FOREIGN KEY ([Profile]) REFERENCES [dbo].[Employee] ([EmployeeId]),
+	CONSTRAINT [fkUserRole] FOREIGN KEY ([Role]) REFERENCES [dbo].[Role] ([RoleId])
 )
