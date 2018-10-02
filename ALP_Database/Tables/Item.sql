@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Item]
+(
+	[ItemId] INT NOT NULL IDENTITY(1,1),
+    [ItemName] VARCHAR(250) NOT NULL
+	CONSTRAINT [pkItem] PRIMARY KEY CLUSTERED ([ItemId] ASC)
+)
