@@ -1,6 +1,29 @@
 ﻿CREATE TABLE [dbo].[Item]
 (
 	[ItemId] INT NOT NULL IDENTITY(1,1),
-    [ItemName] VARCHAR(250) NOT NULL
-	CONSTRAINT [pkItem] PRIMARY KEY CLUSTERED ([ItemId] ASC)
+	[InventoryNumber] VARCHAR(10),
+	--TODO: 50 helyett a karakterkód hossza
+	[OldInventoryNumber] VARCHAR(50),
+	[SerialNumber] VARCHAR(50),
+	[AccreditaionNumber] VARCHAR(50),
+	[YellowNumber] INT,
+    [ItemName] VARCHAR(250) NOT NULL,
+	[Manufacturer] VARCHAR(100),
+	[ModelType] VARCHAR(100),
+	[ItemNature] INT,
+	[ItemType] INT NOT NULL,
+	[ProductionYear] DATETIME,
+	[Department] INT,
+	[Section] INT,
+	[Owner] INT,
+	[Room] INT,
+	[ItemState] INT,
+	[DateOfCreation] DATE,
+	CONSTRAINT [pkItem] PRIMARY KEY CLUSTERED ([ItemId] ASC),
+	CONSTRAINT [fkItemUser] FOREIGN KEY ([Owner]) REFERENCES [dbo].[User] ([UserId]),
+	CONSTRAINT [fkItemSection] FOREIGN KEY ([Section]) REFERENCES [dbo].[Section] ([SectionId]),
+	CONSTRAINT [fkItemItemNature] FOREIGN KEY ([ItemNature]) REFERENCES [dbo].[ItemNature] ([ItemNatureId]),
+	CONSTRAINT [fkItemItemType] FOREIGN KEY ([ItemType]) REFERENCES [dbo].[ItemType] ([ItemTypeId]),
+	CONSTRAINT [fkItemDepartment] FOREIGN KEY ([Department]) REFERENCES [dbo].[Department] ([DepartmentId]),
+	CONSTRAINT [fkItemItemState] FOREIGN KEY ([ItemState]) REFERENCES [dbo].[ItemState] ([ItemStateId]),
 )

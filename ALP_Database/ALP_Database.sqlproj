@@ -69,6 +69,10 @@
     <Build Include="Tables\Item.sql" />
     <Build Include="Tables\Section.sql" />
     <Build Include="Tables\Table1.sql" />
+    <Build Include="Tables\Location.sql" />
+    <Build Include="Tables\ItemNature.sql" />
+    <Build Include="Tables\Operation.sql" />
+    <Build Include="Tables\OperationType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ALP_Database.refactorlog" />
