@@ -1,7 +1,0 @@
-{
-  "name": "asp.net",
-  "private": true,
-  "dependencies": {
-  },
-  "connectionString": "data source=*************;initial catalog=****;user id=***;password=****;MultipleActiveResultSets=True;Connection Timeout=300;"
-}
