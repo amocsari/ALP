@@ -1,4 +1,5 @@
-﻿using DAL.Entity;
+﻿using System.Linq;
+using DAL.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Context
@@ -30,8 +31,20 @@ namespace DAL.Context
             base.SaveChanges();
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //}
+        IQueryable<T> IAlpContext.Set<T>()
+        {
+            return base.Set<T>();
+        }
+
+        void IAlpContext.Add<T>(T entity)
+        {
+            base.Add(entity);
+            base.SaveChanges();
+        }
+
+        void IAlpContext.Remove<T>(T entity)
+        {
+            base.Remove(entity);
+        }
     }
 }

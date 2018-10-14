@@ -3,9 +3,9 @@ using DAL.Entity;
 
 namespace DAL.Service
 {
-    public class LocationService : BaseService<Location>, ILocationService
+    public class FloorService: BaseService<Floor>, IFloorService
     {
-        public LocationService(IAlpContext context)
+        public FloorService(IAlpContext context)
         {
             _context = context;
         }

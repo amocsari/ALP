@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using DAL.Entity;
+using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller
@@ -11,5 +9,35 @@ namespace API.Controller
     [ApiController]
     public class FloorController : ControllerBase
     {
+        private readonly IFloorService _floorService;
+
+        public FloorController(IFloorService floorService)
+        {
+            _floorService = floorService;
+        }
+
+        [HttpGet]
+        public List<Floor> GetAllFloors()
+        {
+            return _floorService.GetAll();
+        }
+
+        [HttpGet]
+        public Floor GetFloorById(int floorId)
+        {
+            return _floorService.GetSingle(b => b.FloorID == floorId);
+        }
+
+        [HttpPost]
+        public void AddNewFloor([FromBody] Floor floor)
+        {
+            _floorService.InsertNew(floor);
+        }
+
+        [HttpDelete]
+        public void DeleteFloorById(int floorId)
+        {
+            _floorService.Remove(b => b.FloorID == floorId);
+        }
     }
 }

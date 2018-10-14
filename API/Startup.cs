@@ -31,7 +31,19 @@ namespace DAL
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IAlpContext, ALPContext>();
             services.AddSingleton<IAccountService, AccountService>();
+            services.AddSingleton<IBuildingService, BuildingService>();
+            services.AddSingleton<IDepartmentService, DepartmentService>();
+            services.AddSingleton<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IFloorService, FloorService>();
+            services.AddSingleton<IItemStateService, ItemStateService>();
+            services.AddSingleton<IItemNatureService, ItemNatureService>();
+            services.AddSingleton<IItemService, ItemService>();
+            services.AddSingleton<IItemTypeService, ItemTypeService>();
             services.AddSingleton<ILocationService, LocationService>();
+            services.AddSingleton<IOperationService, OperationService>();
+            services.AddSingleton<IOperationTypeService, OperationTypeService>();
+            services.AddSingleton<IRoleService, RoleService>();
+            services.AddSingleton<ISectionService, SectionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

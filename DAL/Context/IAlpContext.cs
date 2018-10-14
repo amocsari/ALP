@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using DAL.Entity;
 
 namespace DAL.Context
@@ -6,6 +7,9 @@ namespace DAL.Context
     public interface IAlpContext
     {
         void SaveChanges();
+        IQueryable<T> Set<T>() where T : class;
+        void Add<T>(T entity) where T : class;
+        void Remove<T>(T entity) where T : class;
 
         DbSet<Account> Account { get; set; }
         DbSet<Building> Building { get; set; }

@@ -1,5 +1,4 @@
-﻿using System;
-using DAL.Service;
+﻿using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DAL.Controller
@@ -8,17 +7,11 @@ namespace DAL.Controller
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private IAccountService _accountService;
+        private readonly IAccountService _accountService;
 
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-        }
-
-        [HttpGet]
-        public void AddAccount()
-        {
-            _accountService.AddAccount();
         }
     }
 }

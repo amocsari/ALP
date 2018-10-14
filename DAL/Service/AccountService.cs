@@ -1,11 +1,10 @@
 ﻿using DAL.Context;
+using DAL.Entity;
 
 namespace DAL.Service
 {
-    public class AccountService: IAccountService
+    public class AccountService: BaseService<Account>, IAccountService
     {
-        private readonly IAlpContext _context;
-
         public AccountService(IAlpContext context)
         {
             _context = context;
