@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "ALP\Client.csproj
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{8866C5BF-21C4-49A4-85F4-CBCE70CBE272}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{EF9287E9-CDD0-49B8-98B1-BE596E4CA614}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{8866C5BF-21C4-49A4-85F4-CBCE70CBE272}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8866C5BF-21C4-49A4-85F4-CBCE70CBE272}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8866C5BF-21C4-49A4-85F4-CBCE70CBE272}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EF9287E9-CDD0-49B8-98B1-BE596E4CA614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF9287E9-CDD0-49B8-98B1-BE596E4CA614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF9287E9-CDD0-49B8-98B1-BE596E4CA614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF9287E9-CDD0-49B8-98B1-BE596E4CA614}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
