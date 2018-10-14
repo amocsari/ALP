@@ -73,6 +73,6 @@
     <Build Include="Tables\OperationType.sql" />
     <Build Include="Tables\Role.sql" />
     <Build Include="Tables\Section.sql" />
-    <Build Include="Tables\User.sql" />
+    <Build Include="Tables\Account.sql" />
   </ItemGroup>
 </Project>

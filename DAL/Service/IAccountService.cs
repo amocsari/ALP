@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Service
+namespace DAL.Service
 {
-    public class AccountService
+    public interface IAccountService
     {
+        void AddAccount();
     }
 }
