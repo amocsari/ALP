@@ -1,7 +1,7 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Windows.Input;
 using ALP.Navigation;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 
 namespace ALP.ViewModel
@@ -35,22 +35,23 @@ namespace ALP.ViewModel
         public MainWindowViewModel(IAlpNavigationService navigationService)
         {
             _navigationService = navigationService;
-            LoginCommand = new Command(OnLoginCommand);
-            LogoutCommand = new Command(OnLogoutCommand, IsLoggedIn);
-            PasswordChangeCommand = new Command(OnPasswordChangeCommand, IsLoggedIn);
-            ChangesCommand = new Command(OnChangesCommand);
-            SystemSettingsCommand = new Command(OnSystemSettingsCommand, IsLoggedIn && IsAdmin);
-            ExitCommand = new Command(OnExitCommand);
-            ItemTypeCommand = new Command(OnItemTypeCommand, IsLoggedIn && IsAdmin);
-            ItemStateCommand = new Command(OnItemStateCommand, IsLoggedIn && IsAdmin);
-            FloorCommand = new Command(OnFloorCommand, IsLoggedIn && IsAdmin);
-            SectionCommand = new Command(OnSectionCommand, IsLoggedIn && IsAdmin);
-            BuildingCommand = new Command(OnBuildingCommand, IsLoggedIn && IsAdmin);
-            ItemSearchCommand = new Command(OnItemSearchCommand, IsLoggedIn);
-            RequestsCommand = new Command(OnRequestsCommand, IsLoggedIn && IsAdmin);
-            ImportCommand = new Command(OnImportCommand, IsLoggedIn && IsAdmin);
-            EmployeeSearchCommand = new Command(OnEmployeeSearchCommand, IsLoggedIn && IsAdmin);
-            DepartmentSearchCommand = new Command(OnDepartmentSearchCommand, IsLoggedIn && IsAdmin);
+
+            LoginCommand = new RelayCommand(OnLoginCommand);
+            LogoutCommand = new RelayCommand(OnLogoutCommand, IsLoggedIn);
+            PasswordChangeCommand = new RelayCommand(OnPasswordChangeCommand, IsLoggedIn);
+            ChangesCommand = new RelayCommand(OnChangesCommand);
+            SystemSettingsCommand = new RelayCommand(OnSystemSettingsCommand, IsLoggedIn && IsAdmin);
+            ExitCommand = new RelayCommand(OnExitCommand);
+            ItemTypeCommand = new RelayCommand(OnItemTypeCommand, IsLoggedIn && IsAdmin);
+            ItemStateCommand = new RelayCommand(OnItemStateCommand, IsLoggedIn && IsAdmin);
+            FloorCommand = new RelayCommand(OnFloorCommand, IsLoggedIn && IsAdmin);
+            SectionCommand = new RelayCommand(OnSectionCommand, IsLoggedIn && IsAdmin);
+            BuildingCommand = new RelayCommand(OnBuildingCommand, IsLoggedIn && IsAdmin);
+            ItemSearchCommand = new RelayCommand(OnItemSearchCommand, IsLoggedIn);
+            RequestsCommand = new RelayCommand(OnRequestsCommand, IsLoggedIn && IsAdmin);
+            ImportCommand = new RelayCommand(OnImportCommand, IsLoggedIn && IsAdmin);
+            EmployeeSearchCommand = new RelayCommand(OnEmployeeSearchCommand, IsLoggedIn && IsAdmin);
+            DepartmentSearchCommand = new RelayCommand(OnDepartmentSearchCommand, IsLoggedIn && IsAdmin);
         }
 
         private void OnExitCommand()
@@ -115,7 +116,7 @@ namespace ALP.ViewModel
 
         private void OnChangesCommand()
         {
-            throw new NotImplementedException();
+            _navigationService.NavigateTo(ViewModelLocator.SystemRecentChanges);
         }
 
         private void OnPasswordChangeCommand()

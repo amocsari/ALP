@@ -60,8 +60,8 @@ namespace ALP.Navigation
         public static void SetupNavigation()
         {
             var navigationService = new AlpNavigationService()
-                .RegisterPage(SystemSettings, new Uri("../View/System/System_SettingsPage.xaml", UriKind.Relative));
-            SimpleIoc.Default.Register<IAlpNavigationService>(() => navigationService);
+                .RegisterPage(SystemSettings, new Uri("../View/System/System_SettingsPage.xaml", UriKind.Relative))
+                .RegisterPage(SystemRecentChanges, new Uri("../View/System/System_RecentChangesPage.xaml", UriKind.Relative));
         }
         
         public static void Cleanup()

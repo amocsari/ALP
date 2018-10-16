@@ -81,11 +81,12 @@
     <Compile Include="Navigation\IAlpNavigationService.cs" />
     <Compile Include="Ninject\IocConfiguration.cs" />
     <Compile Include="Ninject\IocKernel.cs" />
-    <Compile Include="ViewModel\Command.cs" />
     <Compile Include="Navigation\AlpNavigationService.cs" />
     <Compile Include="Extensions\Extensions.Navigation.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\System\ChangesViewModel.cs" />
     <Compile Include="ViewModel\System\LoginWindowViewModel.cs" />
+    <Compile Include="ViewModel\System\SettingsViewModel.cs" />
     <Compile Include="ViewModel\System\WelcomeScreenViewModel.cs" />
     <Compile Include="Navigation\ViewModelLocator.cs" />
     <Compile Include="View\Department\Department_EditPage.xaml.cs">
@@ -151,6 +152,7 @@
     <Compile Include="View\Inventory\Inventory_SearchPage.xaml.cs">
       <DependentUpon>Inventory_SearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\System\ChangeListItemViewModel.cs" />
     <Compile Include="View\System\System_SettingsPage.xaml.cs">
       <DependentUpon>System_SettingsPage.xaml</DependentUpon>
     </Compile>

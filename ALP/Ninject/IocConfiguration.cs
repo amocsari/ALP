@@ -12,10 +12,23 @@ namespace ALP.Ninject
 {
     class IocConfiguration : NinjectModule
     {
-        public override void Load()
+        private void BindViewModels()
+        {
+            Bind<MainWindowViewModel>().ToSelf().InTransientScope();
+            Bind<WelcomeScreenViewModel>().ToSelf().InTransientScope();
+            Bind<SettingsViewModel>().ToSelf().InTransientScope();
+            Bind<ChangesViewModel>().ToSelf().InTransientScope();
+        }
+
+        private void BindServices()
         {
             Bind<IAlpNavigationService>().To<AlpNavigationService>().InSingletonScope();
-            Bind<MainWindowViewModel>().ToSelf().InTransientScope();
+        }
+
+        public override void Load()
+        {
+            BindViewModels();
+            BindServices();
         }
     }
 }
