@@ -2,6 +2,6 @@
   <Application.Resources>
     <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:ALP.Navigation" />
-    </ResourceDictionary>
+        </ResourceDictionary>
   </Application.Resources>
 </Application>

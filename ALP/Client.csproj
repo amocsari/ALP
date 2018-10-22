@@ -83,6 +83,8 @@
     <Compile Include="Ninject\IocKernel.cs" />
     <Compile Include="Navigation\AlpNavigationService.cs" />
     <Compile Include="Extensions\Extensions.Navigation.cs" />
+    <Compile Include="ViewModel\Lookup\Location\LocationEditorWindowViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\Location\LocationViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\System\ChangesViewModel.cs" />
     <Compile Include="ViewModel\System\LoginWindowViewModel.cs" />
@@ -153,6 +155,12 @@
       <DependentUpon>Inventory_SearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\System\ChangeListItemViewModel.cs" />
+    <Compile Include="View\Lookup\Location\Lookup_LocationsPage.xaml.cs">
+      <DependentUpon>Lookup_LocationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\Location\LookupLocationEditorWindow.xaml.cs">
+      <DependentUpon>LookupLocationEditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\System\System_SettingsPage.xaml.cs">
       <DependentUpon>System_SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -173,9 +181,6 @@
     </Compile>
     <Compile Include="View\User\User_EditPage.xaml.cs">
       <DependentUpon>User_EditPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\User\User_SearchPage.xaml.cs">
-      <DependentUpon>User_SearchPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="View\Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\Department\Department_EditPage.xaml">
@@ -295,6 +299,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Lookup\Location\Lookup_LocationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\Location\LookupLocationEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\System\System_SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -323,10 +335,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\User\User_SearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{586c9cf2-6c66-40ea-8f4e-f5e4b9140abf}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

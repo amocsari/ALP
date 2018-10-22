@@ -25,6 +25,7 @@
                 <MenuItem Header="Emelet" Command="{Binding FloorCommand}"/>
                 <MenuItem Header="Részleg" Command="{Binding SectionCommand}"/>
                 <MenuItem Header="Épület" Command="{Binding BuildingCommand}"/>
+                <MenuItem Header="Telephely" Command="{Binding LocationCommand}"/>
             </MenuItem>
             <MenuItem Header="Leltár Adatok">
                 <MenuItem Header="Keresés" Command="{Binding ItemSearchCommand}"/>

@@ -61,9 +61,10 @@ namespace ALP.Navigation
         {
             var navigationService = new AlpNavigationService()
                 .RegisterPage(SystemSettings, new Uri("../View/System/System_SettingsPage.xaml", UriKind.Relative))
-                .RegisterPage(SystemRecentChanges, new Uri("../View/System/System_RecentChangesPage.xaml", UriKind.Relative));
+                .RegisterPage(SystemRecentChanges, new Uri("../View/System/System_RecentChangesPage.xaml", UriKind.Relative))
+                .RegisterPage(LookupLocations, new Uri("../View/Lookup/Location/Lookup_LocationsPage.xaml", UriKind.Relative));
         }
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

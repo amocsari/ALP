@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using ALP.Navigation;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
 
 namespace ALP.ViewModel
 {
@@ -26,6 +25,7 @@ namespace ALP.ViewModel
         public ICommand ImportCommand { get; private set; }
         public ICommand EmployeeSearchCommand { get; private set; }
         public ICommand DepartmentSearchCommand { get; private set; }
+        public ICommand LocationCommand { get; private set; }
 
         //TODO: moack, ha kész az authentikáció, akkor cserélni
         private bool IsLoggedIn { get => true; }
@@ -52,6 +52,12 @@ namespace ALP.ViewModel
             ImportCommand = new RelayCommand(OnImportCommand, IsLoggedIn && IsAdmin);
             EmployeeSearchCommand = new RelayCommand(OnEmployeeSearchCommand, IsLoggedIn && IsAdmin);
             DepartmentSearchCommand = new RelayCommand(OnDepartmentSearchCommand, IsLoggedIn && IsAdmin);
+            LocationCommand = new RelayCommand(OnLocationCommand, IsLoggedIn && IsAdmin);
+        }
+
+        private void OnLocationCommand()
+        {
+            _navigationService.NavigateTo(ViewModelLocator.LookupLocations);
         }
 
         private void OnExitCommand()

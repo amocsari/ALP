@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ALP.View.User
+namespace ALP.View.Lookup
 {
     /// <summary>
-    /// Interaction logic for SearchPage.xaml
+    /// Interaction logic for LookupLocationEditor.xaml
     /// </summary>
-    public partial class SearchPage : Page
+    public partial class LookupLocationEditorWindow : Window
     {
-        public SearchPage()
+        public LookupLocationEditorWindow()
         {
             InitializeComponent();
         }
