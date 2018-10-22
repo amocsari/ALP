@@ -79,8 +79,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="API\Interface\ILocationApi.cs" />
-    <Compile Include="API\LocationApi.cs" />
+    <Compile Include="Service\Interface\ILocationApi.cs" />
+    <Compile Include="Service\LocationApi.cs" />
     <Compile Include="App.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

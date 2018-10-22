@@ -5,6 +5,7 @@ using ALP.API;
 using ALP.View.Lookup;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Views;
 using Model;
 
 namespace ALP.ViewModel.Lookup
@@ -27,16 +28,16 @@ namespace ALP.ViewModel.Lookup
                 }
             }
         }
+        public Task Initialization { get; private set; }
         public ICommand NewLocationCommand { get; private set; }
 
-        private readonly ILocationApi _locationApi;
-        public Task Initialization { get; private set; }
+        private readonly ILocationService _locationApi;
 
-        public LocationViewModel(ILocationApi locationApi)
+        public LocationViewModel(ILocationService locationApi)
         {
-            NewLocationCommand = new RelayCommand(OnNewLocationCommand);
             _locationApi = locationApi;
 
+            NewLocationCommand = new RelayCommand(OnNewLocationCommand);
             Initialization = InitializeAsync();
         }
 
@@ -49,10 +50,11 @@ namespace ALP.ViewModel.Lookup
 
         private void OnNewLocationCommand()
         {
+            //TODO: kiszervezni külön service-be
             var locationEditorWindow = new LookupLocationEditorWindow();
             if (locationEditorWindow.ShowDialog() == true)
             {
-
+                locations.Add(((LocationEditorWindowViewModel)locationEditorWindow.DataContext).Location);
             }
         }
     }

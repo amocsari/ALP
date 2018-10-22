@@ -26,7 +26,7 @@ namespace ALP.Ninject
         private void BindServices()
         {
             Bind<IAlpNavigationService>().To<AlpNavigationService>().InSingletonScope();
-            Bind<ILocationApi>().To<LocationApi>().InSingletonScope();
+            Bind<ILocationService>().To<LocationService>().InSingletonScope();
         }
 
         public override void Load()

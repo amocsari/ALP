@@ -22,19 +22,25 @@ namespace ALP.ViewModel.Lookup
 
         public LocationEditorWindowViewModel()
         {
-            SaveCommand = new RelayCommand(OnSaveCommand, CanSave);
+            SaveCommand = new RelayCommand<Window>(OnSaveCommand, CanSave);
             CancelCommand = new RelayCommand<Window>(OnCancelCommand);
+            Location = new LocationDto();
         }
 
-        private void OnSaveCommand()
+        private void OnSaveCommand(Window window)
         {
-            throw new NotImplementedException();
+            if (window != null)
+            {
+                window.DialogResult = true;
+                window.Close();
+            }
         }
 
         private void OnCancelCommand(Window window)
         {
             if (window != null)
             {
+                window.DialogResult = false;
                 window.Close();
             }
         }

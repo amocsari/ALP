@@ -16,7 +16,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
             <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" Content="Mégse" Margin="5"/>
-            <Button Command="{Binding SaveCommand}" Content="Mentés" Margin="5"/>
+            <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=Window}" Content="Mentés" Margin="5"/>
         </StackPanel>
     </StackPanel>
 </Window>

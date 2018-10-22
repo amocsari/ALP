@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ALP.API
 {
-    public interface ILocationApi
+    public interface ILocationService
     {
         Task<List<LocationDto>> GetAllLocations();
+        Task AddLocation(LocationDto location);
     }
 }
