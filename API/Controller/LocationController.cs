@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using DAL;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model;
 
 namespace API.Controller
 {
@@ -17,9 +20,9 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<Location> GetAllLocations()
+        public List<LocationDto> GetAllLocations()
         {
-            return _locationService.GetAll();
+            return _locationService.GetAll().Select(x => x.EntityToDto()).ToList();
         }
 
         [HttpGet]

@@ -11,7 +11,7 @@ using Model;
 
 namespace ALP.ViewModel.Lookup
 {
-    public class LocationEditorWindowViewModel: DialogViewModel
+    public class LocationEditorWindowViewModel
     {
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }

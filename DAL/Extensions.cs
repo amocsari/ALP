@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL.Entity;
+using Model;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -15,6 +17,15 @@ namespace DAL
             }
 
             return query;
+        }
+
+        public static LocationDto EntityToDto(this Location location)
+        {
+            return new LocationDto
+            {
+                Name = location.LocationName,
+                Id = location.LocationID
+            };
         }
     }
 }
