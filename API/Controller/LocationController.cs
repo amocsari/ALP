@@ -32,9 +32,9 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public void AddNewLocation([FromBody] Location location)
+        public void AddNewLocation([FromBody] LocationDto location)
         {
-            _locationService.InsertNew(location);
+            _locationService.InsertNew(location.DtoToEntity());
         }
 
         [HttpDelete]

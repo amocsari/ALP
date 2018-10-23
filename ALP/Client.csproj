@@ -79,6 +79,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DialogResult.cs" />
+    <Compile Include="Service\ApiService.cs" />
+    <Compile Include="Service\AlpDialogService.cs" />
+    <Compile Include="Service\IAlpDialogService.cs" />
+    <Compile Include="Service\Interface\IApiService.cs" />
     <Compile Include="Service\Interface\ILocationApi.cs" />
     <Compile Include="Service\LocationApi.cs" />
     <Compile Include="App.cs" />
@@ -91,6 +96,7 @@
     <Compile Include="Ninject\IocKernel.cs" />
     <Compile Include="Navigation\AlpNavigationService.cs" />
     <Compile Include="Extensions\Extensions.Navigation.cs" />
+    <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\Lookup\Location\LocationEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\Location\LocationViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

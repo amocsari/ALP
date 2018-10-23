@@ -2,51 +2,28 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ALP.Service;
 using Model;
 
 namespace ALP.API
 {
     public class LocationService : ILocationService
     {
-        public async Task AddLocation(LocationDto location)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:1707/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                var response = await client.PostAsJsonAsync("api/Location/AddLocation", location);
+        private readonly IApiService _apiService;
 
-                if (response.IsSuccessStatusCode)
-                {
-                    //return await response.Content.ReadAsAsync<List<LocationDto>>();
-                }
-                else
-                {
-                    //TODO: create exception
-                    throw new Exception();
-                }
-            }
+        public LocationService(IApiService apiService)
+        {
+            _apiService = apiService;
+        }
+
+        public async Task<bool> AddLocation(LocationDto location)
+        {
+            return await _apiService.PostAsync("Location/AddNewLocation", location);
         }
 
         public async Task<List<LocationDto>> GetAllLocations()
         {
-            using(var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:1707/");
-                client.DefaultRequestHeaders.Accept.Clear();
-
-                var response = await client.GetAsync("api/Location/GetAllLocations");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<List<LocationDto>>();
-                }
-                else
-                {
-                    //TODO: create exception
-                    throw new Exception();
-                }
-            }
+            return await _apiService.GetAsync<List<LocationDto>>("Location/GetAllLocations");
         }
 
 

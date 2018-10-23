@@ -10,6 +10,6 @@ namespace ALP.API
     public interface ILocationService
     {
         Task<List<LocationDto>> GetAllLocations();
-        Task AddLocation(LocationDto location);
+        Task<bool> AddLocation(LocationDto location);
     }
 }

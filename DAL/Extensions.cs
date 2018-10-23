@@ -27,5 +27,14 @@ namespace DAL
                 Id = location.LocationID
             };
         }
+
+        public static Location DtoToEntity(this LocationDto dto)
+        {
+            return new Location
+            {
+                LocationName = dto.Name,
+                LocationID = dto.Id
+            };
+        }
     }
 }

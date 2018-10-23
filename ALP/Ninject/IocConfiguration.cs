@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ALP.API;
 using ALP.Navigation;
+using ALP.Service;
 using ALP.ViewModel;
 using ALP.ViewModel.Lookup;
 using GalaSoft.MvvmLight.Views;
@@ -27,6 +28,8 @@ namespace ALP.Ninject
         {
             Bind<IAlpNavigationService>().To<AlpNavigationService>().InSingletonScope();
             Bind<ILocationService>().To<LocationService>().InSingletonScope();
+            Bind<IApiService>().To<ApiService>().InSingletonScope();
+            Bind<IAlpDialogService>().To<AlpDialogService>().InSingletonScope();
         }
 
         public override void Load()
