@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DAL.Entity;
 
@@ -6,10 +7,16 @@ namespace DAL.Context
 {
     public interface IAlpContext
     {
-        void SaveChanges();
         IQueryable<T> Set<T>() where T : class;
+
+        void SaveChanges();
+        Task SaveChangesAsync();
+
         void Add<T>(T entity) where T : class;
+        Task AddAsync<T>(T entity) where T : class;
+
         void Remove<T>(T entity) where T : class;
+        Task RemoveAsync<T>(T entity) where T : class;
 
         DbSet<Account> Account { get; set; }
         DbSet<Building> Building { get; set; }

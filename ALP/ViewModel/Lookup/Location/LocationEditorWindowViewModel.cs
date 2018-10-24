@@ -11,15 +11,15 @@ using Model;
 
 namespace ALP.ViewModel.Lookup
 {
-    public class LocationEditorWindowViewModel : IDialogViewModel<LocationDto, LocationDto>
+    public class LocationEditorWindowViewModel : ViewModelBase, IDialogViewModel<LocationDto, LocationDto>
     {
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
 
-        public LocationDto Parameter { get; set; }
-        public LocationDto ReturnParameter { get => Location; set {} }
+        public LocationDto location;
+        public LocationDto Parameter { get => location; set { Set(ref location, value); } }
+        public LocationDto ReturnParameter { get => location; set { } }
 
-        public LocationDto Location { get; set; }
 
         private bool CanSave { get => !string.IsNullOrEmpty(Parameter?.Name); }
 
@@ -28,7 +28,7 @@ namespace ALP.ViewModel.Lookup
             SaveCommand = new RelayCommand<Window>(OnSaveCommand, CanSave);
             CancelCommand = new RelayCommand<Window>(OnCancelCommand);
 
-            Location = new LocationDto();
+            location = new LocationDto();
         }
 
         private void OnSaveCommand(Window window)

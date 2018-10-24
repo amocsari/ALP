@@ -98,6 +98,7 @@
     <Compile Include="Extensions\Extensions.Navigation.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\Lookup\Location\LocationEditorWindowViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\Location\LocationListItemViewModel.cs" />
     <Compile Include="ViewModel\Lookup\Location\LocationViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\System\ChangesViewModel.cs" />

@@ -16,9 +16,9 @@ namespace ALP.API
             _apiService = apiService;
         }
 
-        public async Task<bool> AddLocation(LocationDto location)
+        public async Task<LocationDto> AddLocation(LocationDto location)
         {
-            return await _apiService.PostAsync("Location/AddNewLocation", location);
+            return await _apiService.PostAsync<LocationDto, LocationDto>("Location/AddNewLocation", location);
         }
 
         public async Task<List<LocationDto>> GetAllLocations()
@@ -26,6 +26,9 @@ namespace ALP.API
             return await _apiService.GetAsync<List<LocationDto>>("Location/GetAllLocations");
         }
 
-
+        public async Task<LocationDto> UpdateLocation(LocationDto location)
+        {
+            return await _apiService.PostAsync<LocationDto, LocationDto>("Location/UpdateLocation", location);
+        }
     }
 }

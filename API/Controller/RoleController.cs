@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,13 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<Role> GetAllRoles()
+        public Task<List<Role>> GetAllRoles()
         {
             return _roleService.GetAll();
         }
 
         [HttpGet]
-        public Role GetRoleById(int roleId)
+        public Task<Role> GetRoleById(int roleId)
         {
             return _roleService.GetSingle(b => b.RoleID == roleId);
         }

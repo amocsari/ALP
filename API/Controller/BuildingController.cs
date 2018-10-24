@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,13 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<Building> GetAllBuildings()
+        public  Task<List<Building>> GetAllBuildings()
         {
             return _buildingService.GetAll();
         }
 
         [HttpGet]
-        public Building GetBuildingById(int buildingId)
+        public Task<Building> GetBuildingById(int buildingId)
         {
             return _buildingService.GetSingle(b => b.BuildingID == buildingId);
         }

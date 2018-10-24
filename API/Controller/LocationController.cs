@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DAL;
 using DAL.Entity;
 using DAL.Service;
@@ -20,27 +21,33 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<LocationDto> GetAllLocations()
+        public Task<List<LocationDto>> GetAllLocations()
         {
-            return _locationService.GetAll().Select(x => x.EntityToDto()).ToList();
+            return _locationService.GetAllLocations();
         }
 
         [HttpGet]
-        public Location GetLocationById(int locationId)
+        public Task<LocationDto> GetLocationById(int locationId)
         {
-            return _locationService.GetSingle(b => b.LocationID == locationId);
+            return _locationService.GetLocationById(locationId);
         }
 
         [HttpPost]
-        public void AddNewLocation([FromBody] LocationDto location)
+        public Task<LocationDto> AddNewLocation([FromBody] LocationDto location)
         {
-            _locationService.InsertNew(location.DtoToEntity());
+            return _locationService.AddNewLocation(location);
         }
 
         [HttpDelete]
         public void DeleteLocationById(int locationId)
         {
             _locationService.Remove(b => b.LocationID == locationId);
+        }
+
+        [HttpPost]
+        public void UpdateLocation(LocationDto location)
+        {
+            _locationService.UpdateLocation(location);
         }
     }
 }

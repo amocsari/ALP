@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,13 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<ItemState> GetAllItemStates()
+        public Task<List<ItemState>> GetAllItemStates()
         {
             return _itemStateService.GetAll();
         }
 
         [HttpGet]
-        public ItemState GetItemStateById(int itemStateId)
+        public Task<ItemState> GetItemStateById(int itemStateId)
         {
             return _itemStateService.GetSingle(b => b.ItemStateID == itemStateId);
         }

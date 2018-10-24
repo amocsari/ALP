@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,13 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<OperationType> GetAllOperationTypes()
+        public Task<List<OperationType>> GetAllOperationTypes()
         {
             return _operationTypeService.GetAll();
         }
 
         [HttpGet]
-        public OperationType GetOperationTypeById(int operationTypeId)
+        public Task<OperationType> GetOperationTypeById(int operationTypeId)
         {
             return _operationTypeService.GetSingle(b => b.OperationTypeID == operationTypeId);
         }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using DAL.Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,11 +27,6 @@ namespace DAL.Context
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ALP;Trusted_Connection=True;");
         }
 
-        void IAlpContext.SaveChanges()
-        {
-            base.SaveChanges();
-        }
-
         IQueryable<T> IAlpContext.Set<T>()
         {
             return base.Set<T>();
@@ -42,9 +38,30 @@ namespace DAL.Context
             base.SaveChanges();
         }
 
+        async Task IAlpContext.AddAsync<T>(T entity)
+        {
+            await base.AddAsync(entity);
+            await base.SaveChangesAsync();
+        }
+
         void IAlpContext.Remove<T>(T entity)
         {
             base.Remove(entity);
+        }
+
+        Task IAlpContext.RemoveAsync<T>(T entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IAlpContext.SaveChanges()
+        {
+            base.SaveChanges();
+        }
+
+        async Task IAlpContext.SaveChangesAsync()
+        {
+            await base.SaveChangesAsync();
         }
     }
 }

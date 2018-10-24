@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using DAL.Context;
 
 namespace DAL.Service
@@ -11,33 +12,42 @@ namespace DAL.Service
     {
         protected IAlpContext _context;
 
-        public List<T> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            return _context.Set<T>().AsNoTracking().ToList();
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public List<T> GetByExpression(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties)
+        public async Task<List<T>> GetByExpression(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties)
         {
-            return _context.Set<T>().AsNoTracking().Include(navigationProperties).Where(expression).ToList();
+            return await _context.Set<T>().AsNoTracking().Include(navigationProperties).Where(expression).ToListAsync();
         }
 
-        public T GetSingle(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties)
+        public async Task<T> GetSingle(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties)
         {
-            return _context.Set<T>().AsNoTracking().Include(navigationProperties).FirstOrDefault(expression);
+            return await _context.Set<T>().AsNoTracking().Include(navigationProperties).FirstOrDefaultAsync(expression);
         }
 
-        public void InsertNew(T entity)
+        public async Task<T> InsertNew(T entity)
         {
-            _context.Add(entity);
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public void Remove(Expression<Func<T, bool>> expression)
+        public async Task Remove(Expression<Func<T, bool>> expression)
         {
-            var entity = _context.Set<T>().FirstOrDefault(expression);
+            var entity = await _context.Set<T>().FirstOrDefaultAsync(expression);
             if (entity != null)
             {
                 _context.Remove(entity);
             }
+        }
+
+        public async Task Update(Expression<Func<T, bool>> expression, T newValue)
+        {
+            var entities = _context.Set<T>().Where(expression);
+            await entities.ForEachAsync(entity => entity = newValue);
+            await _context.SaveChangesAsync();
         }
     }
 }

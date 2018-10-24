@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,13 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<ItemNature> GetAllItemNatures()
+        public Task<List<ItemNature>> GetAllItemNatures()
         {
             return _itemNatureService.GetAll();
         }
 
         [HttpGet]
-        public ItemNature GetItemNatureById(int itemNatureId)
+        public Task<ItemNature> GetItemNatureById(int itemNatureId)
         {
             return _itemNatureService.GetSingle(b => b.ItemNatureID == itemNatureId);
         }

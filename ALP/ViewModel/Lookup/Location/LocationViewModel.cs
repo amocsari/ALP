@@ -1,9 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ALP.API;
 using ALP.Service;
 using ALP.View.Lookup;
+using ALP.ViewModel.Lookup.Location;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Views;
@@ -11,10 +14,10 @@ using Model;
 
 namespace ALP.ViewModel.Lookup
 {
-    public class LocationViewModel: ViewModelBase
+    public class LocationViewModel : ViewModelBase
     {
-        private ObservableCollection<LocationDto> locations;
-        public ObservableCollection<LocationDto> Locations
+        private ObservableCollection<LocationListItemViewModel> locations;
+        public ObservableCollection<LocationListItemViewModel> Locations
         {
             get
             {
@@ -22,7 +25,7 @@ namespace ALP.ViewModel.Lookup
             }
             set
             {
-                if(value != locations)
+                if (value != locations)
                 {
                     locations = value;
                     RaisePropertyChanged(nameof(Locations));
@@ -31,6 +34,7 @@ namespace ALP.ViewModel.Lookup
         }
         public Task Initialization { get; private set; }
         public ICommand NewLocationCommand { get; private set; }
+        public ICommand ListItemClickCommand { get; set; }
 
         private readonly ILocationService _locationApi;
         private readonly IAlpDialogService _dialogService;
@@ -39,28 +43,49 @@ namespace ALP.ViewModel.Lookup
         {
             _locationApi = locationApi;
             _dialogService = dialogService;
-            
+
             NewLocationCommand = new RelayCommand(OnNewLocationCommand);
             Initialization = InitializeAsync();
         }
 
         private async Task InitializeAsync()
         {
-            var result = await _locationApi.GetAllLocations();
+            var reply = await _locationApi.GetAllLocations();
 
-            Locations = new ObservableCollection<LocationDto>(result);
+            if (reply != null)
+            {
+                var result = reply.Select(location => new LocationListItemViewModel(location, OnListItemDoubleClickCommand));
+                Locations = new ObservableCollection<LocationListItemViewModel>(result);
+            }
+            else
+            {
+                Locations = new ObservableCollection<LocationListItemViewModel>();
+            }
         }
 
         //relay command void-t vár
         private async void OnNewLocationCommand()
         {
-            var result = _dialogService.ShowDialog<LookupLocationEditorWindow, LocationEditorWindowViewModel, LocationDto, LocationDto>(new LocationDto {Name = "asd"});
-            
-            if (result != null && result.Accepted && result.Value != null)
+            var dialogResult = _dialogService.ShowDialog<LookupLocationEditorWindow, LocationEditorWindowViewModel, LocationDto, LocationDto>(new LocationDto());
+
+            if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
             {
-                var newLocation = result.Value;
-                if (await _locationApi.AddLocation(newLocation))
-                    locations.Add(newLocation);
+                var newLocation = dialogResult.Value;
+                var reply = await _locationApi.AddLocation(newLocation);
+                if (reply != null)
+                {
+                    locations.Add(new LocationListItemViewModel(reply, OnListItemDoubleClickCommand));
+                }
+            }
+        }
+
+        private void OnListItemDoubleClickCommand(LocationDto location)
+        {
+            var dialogResult = _dialogService.ShowDialog<LookupLocationEditorWindow, LocationEditorWindowViewModel, LocationDto, LocationDto>(location);
+            if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
+            {
+                var updatedLocation = dialogResult.Value;
+                
             }
         }
     }

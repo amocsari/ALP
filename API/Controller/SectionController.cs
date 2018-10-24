@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,13 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<Section> GetAllSections()
+        public Task<List<Section>> GetAllSections()
         {
             return _sectionService.GetAll();
         }
 
         [HttpGet]
-        public Section GetSectionById(int sectionId)
+        public Task<Section> GetSectionById(int sectionId)
         {
             return _sectionService.GetSingle(b => b.SectionID == sectionId);
         }
