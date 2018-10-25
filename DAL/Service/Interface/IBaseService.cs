@@ -12,6 +12,6 @@ namespace DAL.Service
         Task<T> GetSingle(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties);
         Task<List<T>> GetAll();
         Task<List<T>> GetByExpression(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties);
-        Task Update(Expression<Func<T, bool>> expression, T newValue);
+        Task<T> Update(T entity);
     }
 }

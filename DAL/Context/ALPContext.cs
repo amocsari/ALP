@@ -47,11 +47,13 @@ namespace DAL.Context
         void IAlpContext.Remove<T>(T entity)
         {
             base.Remove(entity);
+            base.SaveChanges();
         }
 
-        Task IAlpContext.RemoveAsync<T>(T entity)
+        async Task IAlpContext.RemoveAsync<T>(T entity)
         {
-            throw new System.NotImplementedException();
+            base.Remove(entity);
+            await base.SaveChangesAsync();
         }
 
         void IAlpContext.SaveChanges()
@@ -62,6 +64,13 @@ namespace DAL.Context
         async Task IAlpContext.SaveChangesAsync()
         {
             await base.SaveChangesAsync();
+        }
+
+        async Task<T> IAlpContext.Update<T>(T entity)
+        {
+            var result = base.Update(entity);
+            await SaveChangesAsync();
+            return result.Entity;
         }
     }
 }

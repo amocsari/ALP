@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Service
 {
@@ -17,12 +16,12 @@ namespace DAL.Service
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public async Task<List<T>> GetByExpression(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties)
+        public async Task<List<T>> GetByExpression(System.Linq.Expressions.Expression<Func<T, bool>> expression, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
         {
             return await _context.Set<T>().AsNoTracking().Include(navigationProperties).Where(expression).ToListAsync();
         }
 
-        public async Task<T> GetSingle(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties)
+        public async Task<T> GetSingle(System.Linq.Expressions.Expression<Func<T, bool>> expression, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
         {
             return await _context.Set<T>().AsNoTracking().Include(navigationProperties).FirstOrDefaultAsync(expression);
         }
@@ -30,11 +29,10 @@ namespace DAL.Service
         public async Task<T> InsertNew(T entity)
         {
             await _context.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task Remove(Expression<Func<T, bool>> expression)
+        public async Task Remove(System.Linq.Expressions.Expression<Func<T, bool>> expression)
         {
             var entity = await _context.Set<T>().FirstOrDefaultAsync(expression);
             if (entity != null)
@@ -43,11 +41,9 @@ namespace DAL.Service
             }
         }
 
-        public async Task Update(Expression<Func<T, bool>> expression, T newValue)
+        public async Task<T> Update(T entity)
         {
-            var entities = _context.Set<T>().Where(expression);
-            await entities.ForEachAsync(entity => entity = newValue);
-            await _context.SaveChangesAsync();
+            return await _context.Update(entity);
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {
-    public class LocationDto
+    public class LocationDto: IEquatable<LocationDto>
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public bool Equals(LocationDto other)
+        {
+            return Id == other.Id && Name == other.Name;
+        }
     }
 }

@@ -16,7 +16,8 @@ namespace DAL.Service
 
         public async Task<LocationDto> AddNewLocation(LocationDto location)
         {
-            return (await InsertNew(location.DtoToEntity())).EntityToDto();
+            var entity = await InsertNew(location.DtoToEntity());
+            return entity.EntityToDto();
         }
 
         public async Task DeleteLocationById(int locationId)
@@ -26,22 +27,21 @@ namespace DAL.Service
 
         public async Task<List<LocationDto>> GetAllLocations()
         {
-            return (await GetAll()).ToList().Select(location => location.EntityToDto()).ToList();
+            var entites = await GetAll();
+            return entites.Select(e => e.EntityToDto()).ToList();
         }
 
         public async Task<LocationDto> GetLocationById(int locationId)
         {
-            return (await GetSingle(location => location.LocationID == locationId)).EntityToDto();
+            var entity = await GetSingle(location => location.LocationID == locationId);
+            return entity.EntityToDto();
         }
 
-        public async Task UpdateLocation(LocationDto dto)
+        public async Task<LocationDto> UpdateLocation(LocationDto dto)
         {
-            await Update(location => location.LocationID == dto.Id, dto.DtoToEntity());
-        }
-
-        Task<LocationDto> ILocationService.UpdateLocation(LocationDto location)
-        {
-            throw new System.NotImplementedException();
+            var entity = dto.DtoToEntity();
+            var updatedEntity = await Update(entity);
+            return updatedEntity.EntityToDto();
         }
     }
 }

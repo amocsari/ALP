@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,7 +8,6 @@ using ALP.View.Lookup;
 using ALP.ViewModel.Lookup.Location;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Views;
 using Model;
 
 namespace ALP.ViewModel.Lookup
@@ -85,7 +83,10 @@ namespace ALP.ViewModel.Lookup
             if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
             {
                 var updatedLocation = dialogResult.Value;
-                
+                if (updatedLocation.Equals(location))
+                {
+                    _locationApi.UpdateLocation(updatedLocation);
+                }
             }
         }
     }

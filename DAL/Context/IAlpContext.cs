@@ -18,6 +18,8 @@ namespace DAL.Context
         void Remove<T>(T entity) where T : class;
         Task RemoveAsync<T>(T entity) where T : class;
 
+        Task<T> Update<T>(T entity) where T : class;
+
         DbSet<Account> Account { get; set; }
         DbSet<Building> Building { get; set; }
         DbSet<Department> Department { get; set; }
