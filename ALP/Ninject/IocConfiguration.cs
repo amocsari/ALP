@@ -30,6 +30,7 @@ namespace ALP.Ninject
             Bind<ILocationService>().To<LocationService>().InSingletonScope();
             Bind<IApiService>().To<ApiService>().InSingletonScope();
             Bind<IAlpDialogService>().To<AlpDialogService>().InSingletonScope();
+            Bind<IAlpResourceService>().To<AlpResourceService>().InSingletonScope();
         }
 
         public override void Load()

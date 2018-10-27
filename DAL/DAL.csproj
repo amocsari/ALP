@@ -141,7 +141,8 @@
     <Compile Include="Entity\OperationType.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Section.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions\Extensions.Location.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\AccountService.cs" />
     <Compile Include="Service\BaseService.cs" />

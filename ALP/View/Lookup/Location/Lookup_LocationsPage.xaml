@@ -10,18 +10,25 @@
 
     <Page.Resources>
         <DataTemplate x:Key="LocationTemplate">
-            <StackPanel>
-                <StackPanel.InputBindings>
+            <Grid HorizontalAlignment="Stretch" Margin="2">
+                <Grid.InputBindings>
                     <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Location}"/>
-                </StackPanel.InputBindings>
-                <TextBlock Text="{Binding Location.Name}"/>
-            </StackPanel>
+                </Grid.InputBindings>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Name="LocationTextBlock"  Text="{Binding Location.Name}" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Button Command="{Binding LockCommand}" CommandParameter="{Binding Location}" Grid.Column="1" MaxHeight="20" MinHeight="20">
+                    <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
+                </Button>
+            </Grid>
         </DataTemplate>
     </Page.Resources>
 
     <StackPanel>
         <TextBlock Text="Telephelyek" FontSize="32" HorizontalAlignment="Center"/>
-        <ListView ItemTemplate="{StaticResource LocationTemplate}" ItemsSource="{Binding Locations}"/>
+        <ListView ItemTemplate="{StaticResource LocationTemplate}" ItemsSource="{Binding Locations}" HorizontalAlignment="Stretch" Margin="10"/>
         <Button Content="Új Telephely" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewLocationCommand}"/>
     </StackPanel>
 </Page>

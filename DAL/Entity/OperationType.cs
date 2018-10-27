@@ -10,5 +10,7 @@ namespace DAL.Entity
         public int OperationTypeID { get; set; }
         [Required]
         public string OperationTypeName { get; set; }
+        [Required]
+        public bool Locked { get; set; }
     }
 }

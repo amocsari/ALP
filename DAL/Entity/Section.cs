@@ -16,6 +16,8 @@ namespace DAL.Entity
         [Required]
         [ForeignKey("Floor")]
         public int FloorID { get; set; }
+        [Required]
+        public bool Locked { get; set; }
 
         public virtual Floor Floor { get; set; }
         public virtual Department Department { get; set; }

@@ -13,6 +13,8 @@ namespace DAL.Entity
         [Required]
         [ForeignKey("Building")]
         public int BuildingID { get; set; }
+        [Required]
+        public bool Locked { get; set; }
 
         public virtual Building Building { get; set; }
     }

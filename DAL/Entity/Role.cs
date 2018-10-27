@@ -10,5 +10,7 @@ namespace DAL.Entity
         public int RoleID { get; set; }
         [Required]
         public string RoleName { get; set; }
+        [Required]
+        public bool Locked { get; set; }
     }
 }

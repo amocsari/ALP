@@ -6,10 +6,11 @@ namespace Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Locked { get; set; }
 
         public bool Equals(LocationDto other)
         {
-            return Id == other.Id && Name == other.Name;
+            return Id == other.Id && Name == other.Name && Locked == other.Locked;
         }
     }
 }

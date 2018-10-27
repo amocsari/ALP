@@ -45,9 +45,15 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public void UpdateLocation(LocationDto location)
+        public void UpdateLocation([FromBody] LocationDto location)
         {
             _locationService.UpdateLocation(location);
+        }
+
+        [HttpPost]
+        public void ToggleLocationLockStateById([FromBody] int locationId)
+        {
+            _locationService.ToggleLocationLockStateById(locationId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -52,7 +53,7 @@ namespace ALP.ViewModel.Lookup
 
             if (reply != null)
             {
-                var result = reply.Select(location => new LocationListItemViewModel(location, OnListItemDoubleClickCommand));
+                var result = reply.Select(location => new LocationListItemViewModel(location, OnListItemDoubleClickCommand, OnLockCommand));
                 Locations = new ObservableCollection<LocationListItemViewModel>(result);
             }
             else
@@ -72,7 +73,7 @@ namespace ALP.ViewModel.Lookup
                 var reply = await _locationApi.AddLocation(newLocation);
                 if (reply != null)
                 {
-                    locations.Add(new LocationListItemViewModel(reply, OnListItemDoubleClickCommand));
+                    locations.Add(new LocationListItemViewModel(reply, OnListItemDoubleClickCommand, OnLockCommand));
                 }
             }
         }
@@ -88,6 +89,12 @@ namespace ALP.ViewModel.Lookup
                     _locationApi.UpdateLocation(updatedLocation);
                 }
             }
+        }
+
+        private void OnLockCommand(LocationDto location)
+        {
+            _locationApi.ToggleLocationLockStateById(location.Id);
+            location.Locked = !location.Locked;
         }
     }
 }

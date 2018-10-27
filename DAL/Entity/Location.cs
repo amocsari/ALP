@@ -10,5 +10,7 @@ namespace DAL.Entity
         public int LocationID { get; set; }
         [Required]
         public string LocationName { get; set; }
+        [Required]
+        public bool Locked { get; set; }
     }
 }

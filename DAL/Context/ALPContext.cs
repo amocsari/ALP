@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DAL.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DAL.Context
 {
@@ -66,11 +67,12 @@ namespace DAL.Context
             await base.SaveChangesAsync();
         }
 
-        async Task<T> IAlpContext.Update<T>(T entity)
+        async Task<T> IAlpContext.Update<T>(T newEntity)
         {
-            var result = base.Update(entity);
+            var entity = await Set<T>().FirstOrDefaultAsync();
+            entity = newEntity;
             await SaveChangesAsync();
-            return result.Entity;
+            return entity;
         }
     }
 }

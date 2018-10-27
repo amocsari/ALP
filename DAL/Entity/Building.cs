@@ -13,6 +13,8 @@ namespace DAL.Entity
         [Required]
         [ForeignKey("Location")]
         public int LocationID { get; set; }
+        [Required]
+        public bool Locked { get; set; }
 
         public virtual Location Location { get; set; }
     }

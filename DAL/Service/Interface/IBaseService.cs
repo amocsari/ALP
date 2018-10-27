@@ -9,9 +9,9 @@ namespace DAL.Service
     {
         Task<T> InsertNew(T entity);
         Task Remove(Expression<Func<T, bool>> expression);
-        Task<T> GetSingle(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties);
-        Task<List<T>> GetAll();
-        Task<List<T>> GetByExpression(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] navigationProperties);
+        Task<T> GetSingle(Expression<Func<T, bool>> expression, bool requireTracking = false, params Expression<Func<T, object>>[] navigationProperties);
+        Task<List<T>> GetAll(bool requireTracking = false);
+        Task<List<T>> GetByExpression(Expression<Func<T, bool>> expression, bool requireTracking = false, params Expression<Func<T, object>>[] navigationProperties);
         Task<T> Update(T entity);
     }
 }

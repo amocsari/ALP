@@ -13,6 +13,8 @@ namespace DAL.Entity
         [Required]
         [ForeignKey("Employee")]
         public int EmployeeID { get; set; }
+        [Required]
+        public bool Locked { get; set; }
 
         public virtual Employee Employee { get; set; }
     }

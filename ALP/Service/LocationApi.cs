@@ -26,6 +26,11 @@ namespace ALP.API
             return await _apiService.GetAsync<List<LocationDto>>("Location/GetAllLocations");
         }
 
+        public async Task ToggleLocationLockStateById(int locationId)
+        {
+            await _apiService.PostAsync("Location/ToggleLocationLockStateById", locationId);
+        }
+
         public async Task<LocationDto> UpdateLocation(LocationDto location)
         {
             return await _apiService.PostAsync<LocationDto, LocationDto>("Location/UpdateLocation", location);

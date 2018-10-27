@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAL.Context;
+using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Service
@@ -11,19 +12,40 @@ namespace DAL.Service
     {
         protected IAlpContext _context;
 
-        public async Task<List<T>> GetAll()
+        public async Task<List<T>> GetAll(bool requireTracking = false)
         {
-            return await _context.Set<T>().AsNoTracking().ToListAsync();
+            var set = _context.Set<T>();
+
+            //if (!requireTracking)
+            //{
+            //    set = set.AsNoTracking();
+            //}
+
+            return await set.ToListAsync();
         }
 
-        public async Task<List<T>> GetByExpression(System.Linq.Expressions.Expression<Func<T, bool>> expression, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
+        public async Task<List<T>> GetByExpression(System.Linq.Expressions.Expression<Func<T, bool>> expression, bool requireTracking = false, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
         {
-            return await _context.Set<T>().AsNoTracking().Include(navigationProperties).Where(expression).ToListAsync();
+            var set = _context.Set<T>();
+
+            //if (!requireTracking)
+            //{
+            //    set = set.AsNoTracking();
+            //}
+
+            return await set.Include(navigationProperties).Where(expression).ToListAsync();
         }
 
-        public async Task<T> GetSingle(System.Linq.Expressions.Expression<Func<T, bool>> expression, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
+        public async Task<T> GetSingle(System.Linq.Expressions.Expression<Func<T, bool>> expression, bool requireTracking = false, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
         {
-            return await _context.Set<T>().AsNoTracking().Include(navigationProperties).FirstOrDefaultAsync(expression);
+            var set = _context.Set<T>();
+
+            //if (!requireTracking)
+            //{
+            //    set = set.AsNoTracking();
+            //}
+
+            return await set.Include(navigationProperties).FirstOrDefaultAsync(expression);
         }
 
         public async Task<T> InsertNew(T entity)
@@ -34,7 +56,7 @@ namespace DAL.Service
 
         public async Task Remove(System.Linq.Expressions.Expression<Func<T, bool>> expression)
         {
-            var entity = await _context.Set<T>().FirstOrDefaultAsync(expression);
+            var entity = await GetSingle(expression);
             if (entity != null)
             {
                 _context.Remove(entity);

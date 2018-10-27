@@ -12,5 +12,6 @@ namespace ALP.API
         Task<List<LocationDto>> GetAllLocations();
         Task<LocationDto> AddLocation(LocationDto location);
         Task<LocationDto> UpdateLocation(LocationDto location);
+        Task ToggleLocationLockStateById(int locationId);
     }
 }

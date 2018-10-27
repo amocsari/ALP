@@ -10,5 +10,7 @@ namespace DAL.Entity
         public int ItemTypeID { get; set; }
         [Required]
         public string ItemTypeName { get; set; }
+        [Required]
+        public bool Locked { get; set; }
     }
 }
