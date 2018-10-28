@@ -10,10 +10,10 @@ using Model.Dto;
 
 namespace ALP.ViewModel.Lookup
 {
-    public class LocationListViewModel : ViewModelBase
+    public class LookupListViewModel<T> : ViewModelBase where T : LookupDtoBase, new()
     {
-        private ObservableCollection<LookupListItemViewModel<LocationDto>> locations;
-        public ObservableCollection<LookupListItemViewModel<LocationDto>> Locations
+        private ObservableCollection<LookupListItemViewModel<T>> locations;
+        public ObservableCollection<LookupListItemViewModel<T>> Locations
         {
             get { return locations; }
             set
@@ -26,13 +26,13 @@ namespace ALP.ViewModel.Lookup
         }
         public ICommand NewLocationCommand { get; private set; }
 
-        private readonly ILocationApiService _locationApiService;
+        private readonly ILookupApiService<T> _lookupApiService;
         private readonly IAlpDialogService _dialogService;
         private Task Initialization { get; set; }
 
-        public LocationListViewModel(ILocationApiService locationApiService, IAlpDialogService dialogService)
+        public LookupListViewModel(ILookupApiService<T> locationApiService, IAlpDialogService dialogService)
         {
-            _locationApiService = locationApiService;
+            _lookupApiService = locationApiService;
             _dialogService = dialogService;
 
             NewLocationCommand = new RelayCommand(OnNewLocationCommand);
@@ -41,51 +41,51 @@ namespace ALP.ViewModel.Lookup
 
         private async Task InitializeAsync()
         {
-            var reply = await _locationApiService.GetAllLocations();
+            var reply = await _lookupApiService.GetAll();
 
             if (reply != null)
             {
-                var result = reply.Select(location => new LookupListItemViewModel<LocationDto>(location, OnListItemDoubleClickCommand, OnLockCommand));
-                Locations = new ObservableCollection<LookupListItemViewModel<LocationDto>>(result);
+                var result = reply.Select(location => new LookupListItemViewModel<T>(location, OnListItemDoubleClickCommand, OnLockCommand));
+                Locations = new ObservableCollection<LookupListItemViewModel<T>>(result);
             }
             else
             {
-                Locations = new ObservableCollection<LookupListItemViewModel<LocationDto>>();
+                Locations = new ObservableCollection<LookupListItemViewModel<T>>();
             }
         }
 
         //relay command void-t vár
         private async void OnNewLocationCommand()
         {
-            var dialogResult = _dialogService.ShowDialog<LookupLocationEditorWindow, LookupEditorWindowViewModel<LocationDto>, LocationDto, LocationDto>(new LocationDto());
+            var dialogResult = _dialogService.ShowDialog<LookupLocationEditorWindow, LookupEditorWindowViewModel<T>, T, T>(new T());
 
             if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
             {
                 var newLocation = dialogResult.Value;
-                var reply = await _locationApiService.AddLocation(newLocation);
+                var reply = await _lookupApiService.Add(newLocation);
                 if (reply != null)
                 {
-                    locations.Add(new LookupListItemViewModel<LocationDto>(reply, OnListItemDoubleClickCommand, OnLockCommand));
+                    locations.Add(new LookupListItemViewModel<T>(reply, OnListItemDoubleClickCommand, OnLockCommand));
                 }
             }
         }
 
-        private void OnListItemDoubleClickCommand(LocationDto location)
+        private void OnListItemDoubleClickCommand(T location)
         {
-            var dialogResult = _dialogService.ShowDialog<LookupLocationEditorWindow, LookupEditorWindowViewModel<LocationDto>, LocationDto, LocationDto>(location);
+            var dialogResult = _dialogService.ShowDialog<LookupLocationEditorWindow, LookupEditorWindowViewModel<T>, T, T>(location);
             if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
             {
                 var updatedLocation = dialogResult.Value;
                 if (updatedLocation.Equals(location))
                 {
-                    _locationApiService.UpdateLocation(updatedLocation);
+                    _lookupApiService.Update(updatedLocation);
                 }
             }
         }
 
-        private void OnLockCommand(LocationDto location)
+        private void OnLockCommand(T location)
         {
-            _locationApiService.ToggleLocationLockStateById(location.Id);
+            _lookupApiService.ToggleLockStateById(location.Id);
             location.Locked = !location.Locked;
         }
     }

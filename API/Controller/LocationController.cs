@@ -22,7 +22,7 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<LocationDto>> GetAllLocations()
+        public Task<List<LocationDto>> GetAllLocation()
         {
             return _locationService.GetAllLocations();
         }
@@ -52,7 +52,7 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public void ToggleLocationLockStateById([FromBody] int locationId)
+        public void ToggleLockStateByIdLocation([FromBody] int locationId)
         {
             _locationService.ToggleLocationLockStateById(locationId);
         }

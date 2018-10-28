@@ -1,7 +1,6 @@
 ﻿using ALP.Ninject;
 using ALP.ViewModel;
 using ALP.ViewModel.Lookup;
-using ALP.ViewModel.Lookup.Building;
 using Model.Dto;
 
 namespace ALP.Navigation
@@ -18,8 +17,8 @@ namespace ALP.Navigation
         public WelcomeScreenViewModel WelcomeScreenViewModel { get => IocKernel.Get<WelcomeScreenViewModel>(); }
         public SettingsViewModel SettingsViewModel { get => IocKernel.Get<SettingsViewModel>(); }
         public ChangesViewModel ChangesViewModel { get => IocKernel.Get<ChangesViewModel>(); }
-        public LocationListViewModel LocationListViewModel { get => IocKernel.Get<LocationListViewModel>(); }
+        public LookupListViewModel<LocationDto> LocationListViewModel { get => IocKernel.Get<LookupListViewModel<LocationDto>>(); }
         public LookupEditorWindowViewModel<LocationDto> LocationEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<LocationDto>>(); }
-        public BuildingListViewModel BuildingListViewModel { get => IocKernel.Get<BuildingListViewModel>(); }
+        public LookupListViewModel<BuildingDto> BuildingListViewModel { get => IocKernel.Get<LookupListViewModel<BuildingDto>>(); }
     }
 }
