@@ -29,21 +29,21 @@ namespace DAL.Service
             await Remove(location => location.LocationID == locationId);
         }
 
-        public async Task<List<LocationDto>> GetAllLocations(bool requiresTracking = false)
+        public async Task<List<LocationDto>> GetAllLocations()
         {
-            var entites = await GetAll(requiresTracking);
+            var entites = await GetAll();
             return entites.Select(e => e.EntityToDto()).ToList();
         }
 
-        public async Task<LocationDto> GetLocationById(int locationId, bool requiresTracking = false)
+        public async Task<LocationDto> GetLocationById(int locationId)
         {
-            var entity = await GetSingle(location => location.LocationID == locationId, requiresTracking);
+            var entity = await GetSingle(location => location.LocationID == locationId);
             return entity.EntityToDto();
         }
 
         public async Task ToggleLocationLockStateById(int locationId)
         {
-            var location = await GetLocationById(locationId, true);
+            var location = await GetLocationById(locationId);
             location.Locked = !location.Locked;
             await UpdateLocation(location);
         }

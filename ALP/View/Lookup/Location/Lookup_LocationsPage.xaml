@@ -28,7 +28,7 @@
 
     <StackPanel>
         <TextBlock Text="Telephelyek" FontSize="32" HorizontalAlignment="Center"/>
-        <ListView ItemTemplate="{StaticResource LocationTemplate}" ItemsSource="{Binding Locations}" HorizontalAlignment="Stretch" Margin="10"/>
-        <Button Content="Új Telephely" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewLocationCommand}"/>
+        <ListView ItemTemplate="{StaticResource LocationTemplate}" ItemsSource="{Binding Values}" HorizontalAlignment="Stretch" Margin="10"/>
+        <Button Content="Új Telephely" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
     </StackPanel>
 </Page>

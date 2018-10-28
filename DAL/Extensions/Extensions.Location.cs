@@ -6,18 +6,28 @@ namespace DAL.Extensions
 {
     public static partial class Extensions
     {
-        public static LocationDto EntityToDto(this Location location)
+        public static LocationDto EntityToDto(this Location entity)
         {
+            if(entity == null)
+            {
+                return null;
+            }
+
             return new LocationDto
             {
-                Name = location.LocationName,
-                Id = location.LocationID,
-                Locked = location.Locked
+                Name = entity.LocationName,
+                Id = entity.LocationID,
+                Locked = entity.Locked
             };
         }
 
         public static Location DtoToEntity(this LocationDto dto)
         {
+            if(dto == null)
+            {
+                return null;
+            }
+
             return new Location
             {
                 LocationName = dto.Name,
@@ -26,11 +36,15 @@ namespace DAL.Extensions
             };
         }
 
-        public static Location UpdateEntityByDto(this Location entity, LocationDto dto)
+        public static void UpdateEntityByDto(this Location entity, LocationDto dto)
         {
+            if(dto == null || entity == null)
+            {
+                return;
+            }
+
             entity.LocationName = dto.Name;
             entity.Locked = dto.Locked;
-            return entity;
         }
     }
 }

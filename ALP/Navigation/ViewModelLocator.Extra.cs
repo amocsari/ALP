@@ -20,5 +20,6 @@ namespace ALP.Navigation
         public LookupListViewModel<LocationDto> LocationListViewModel { get => IocKernel.Get<LookupListViewModel<LocationDto>>(); }
         public LookupEditorWindowViewModel<LocationDto> LocationEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<LocationDto>>(); }
         public LookupListViewModel<BuildingDto> BuildingListViewModel { get => IocKernel.Get<LookupListViewModel<BuildingDto>>(); }
+        public LookupBuildingEditorWindowViewModel BuildingEditorWindowViewModel { get => IocKernel.Get<LookupBuildingEditorWindowViewModel>(); }
     }
 }

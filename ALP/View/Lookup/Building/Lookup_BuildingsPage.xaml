@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="0.33*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Name="BuildingNameTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Name="BuildingLocationNameTextBlock" Text="{Binding Value.Location.Name}" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,5,5"/>
+                <TextBlock Name="BuildingLocationNameTextBlock" Text="{Binding Value.Location.Name}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0"/>
                 <Button Command="{Binding LockCommand}" CommandParameter="{Binding Value}" Grid.Column="2" MaxHeight="20" MinHeight="20">
                     <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
                 </Button>
@@ -30,7 +30,7 @@
 
     <StackPanel>
         <TextBlock Text="Épületek" FontSize="32" HorizontalAlignment="Center"/>
-        <ListView ItemTemplate="{StaticResource BuildingTemplate}" ItemsSource="{Binding Buildings}" HorizontalAlignment="Stretch" Margin="10"/>
-        <Button Content="Új Épület" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewBuildingCommand}"/>
+        <ListView ItemTemplate="{StaticResource BuildingTemplate}" ItemsSource="{Binding Values}" HorizontalAlignment="Stretch" Margin="10"/>
+        <Button Content="Új Épület" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
     </StackPanel>
 </Page>

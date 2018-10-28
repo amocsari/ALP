@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Dto;
 
 namespace API.Controller
 {
@@ -18,27 +19,27 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public  Task<List<Building>> GetAllBuildings()
+        public  Task<List<BuildingDto>> GetAllBuilding()
         {
-            return _buildingService.GetAll();
+            return _buildingService.GetAllBuildings();
         }
 
         [HttpGet]
-        public Task<Building> GetBuildingById(int buildingId)
+        public Task<BuildingDto> GetBuildingById(int buildingId)
         {
-            return _buildingService.GetSingle(b => b.BuildingID == buildingId);
+            return _buildingService.GetBuildingById(buildingId);
         }
 
         [HttpPost]
-        public void AddNewBuilding([FromBody] Building building)
+        public void AddNewBuilding([FromBody] BuildingDto building)
         {
-            _buildingService.InsertNew(building);
+            _buildingService.InsertNewBuilding(building);
         }
 
         [HttpDelete]
         public void DeleteBuildingById(int buildingId)
         {
-            _buildingService.Remove(b => b.BuildingID == buildingId);
+            _buildingService.DeleteBuildingById(buildingId);
         }
     }
 }

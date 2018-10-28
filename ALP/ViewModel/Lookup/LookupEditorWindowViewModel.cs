@@ -11,9 +11,9 @@ namespace ALP.ViewModel
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
 
-        public T location;
-        public T Parameter { get => location; set { Set(ref location, value); } }
-        public T ReturnParameter { get => location; set { } }
+        public T dto;
+        public T Parameter { get => dto; set { Set(ref dto, value); } }
+        public T ReturnParameter { get => dto; set { dto = value; } }
 
 
         private bool CanSave { get => !string.IsNullOrEmpty(Parameter?.Name); }
@@ -23,7 +23,7 @@ namespace ALP.ViewModel
             SaveCommand = new RelayCommand<Window>(OnSaveCommand, CanSave);
             CancelCommand = new RelayCommand<Window>(OnCancelCommand);
 
-            location = new T();
+            dto = new T();
         }
 
         private void OnSaveCommand(Window window)

@@ -3,10 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ALP.View.Lookup.Building"
+        DataContext="{Binding BuildingEditorWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="LookupLocationEditor" Height="180" Width="350">
-    <Grid>
-        
-    </Grid>
+        x:Name="Window"
+        Title="LookupLocationEditor" Height="210" Width="350">
+    <StackPanel>
+        <TextBlock Text="Épület" HorizontalAlignment="Center" FontSize="32" Margin="10"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Név" Margin="10"/>
+            <TextBox Text="{Binding Parameter.Name}" Width="200" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Telephely" Margin="10"/>
+            <ComboBox ItemsSource="{Binding Locations}" DisplayMemberPath="Name" SelectedItem="{Binding ReturnParameter.Location, Mode=TwoWay}" Width="200" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" Content="Mégse" Margin="5"/>
+            <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=Window}" Content="Mentés" Margin="5"/>
+        </StackPanel>
+    </StackPanel>
 </Window>

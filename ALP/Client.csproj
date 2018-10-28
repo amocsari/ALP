@@ -99,6 +99,7 @@
     <Compile Include="Extensions\Extensions.Navigation.cs" />
     <Compile Include="Service\AlpResourceService.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

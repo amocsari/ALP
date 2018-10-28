@@ -20,9 +20,9 @@ namespace ALP.Service
             _apiService = apiService;
         }
 
-        public async Task<T> Add(T dto)
+        public async Task<T> AddNew(T dto)
         {
-            return await _apiService.PostAsync<T, T>(CreateUrl(nameof(Add)), dto);
+            return await _apiService.PostAsync<T, T>(CreateUrl(nameof(AddNew)), dto);
         }
 
         public async Task<List<T>> GetAll()
