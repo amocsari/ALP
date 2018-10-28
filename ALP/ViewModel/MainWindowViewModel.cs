@@ -92,7 +92,7 @@ namespace ALP.ViewModel
 
         private void OnBuildingCommand()
         {
-            throw new NotImplementedException();
+            _navigationService.NavigateTo(ViewModelLocator.LookupBuildings);
         }
 
         private void OnSectionCommand()

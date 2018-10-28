@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ALP.API;
+using ALP.Service;
 using ALP.Navigation;
 using ALP.Service;
 using ALP.ViewModel;
 using ALP.ViewModel.Lookup;
 using GalaSoft.MvvmLight.Views;
 using Ninject.Modules;
+using ALP.ViewModel.Lookup.Building;
 
 namespace ALP.Ninject
 {
@@ -21,16 +22,18 @@ namespace ALP.Ninject
             Bind<WelcomeScreenViewModel>().ToSelf().InTransientScope();
             Bind<SettingsViewModel>().ToSelf().InTransientScope();
             Bind<ChangesViewModel>().ToSelf().InTransientScope();
-            Bind<LocationViewModel>().ToSelf().InTransientScope();
+            Bind<LocationListViewModel>().ToSelf().InTransientScope();
+            Bind<BuildingListViewModel>().ToSelf().InTransientScope();
         }
 
         private void BindServices()
         {
             Bind<IAlpNavigationService>().To<AlpNavigationService>().InSingletonScope();
-            Bind<ILocationService>().To<LocationService>().InSingletonScope();
+            Bind<ILocationApiService>().To<LocationApiService>().InSingletonScope();
             Bind<IApiService>().To<ApiService>().InSingletonScope();
             Bind<IAlpDialogService>().To<AlpDialogService>().InSingletonScope();
             Bind<IAlpResourceService>().To<AlpResourceService>().InSingletonScope();
+            Bind<IBuildingApiService>().To<BuildingApiService>().InSingletonScope();
         }
 
         public override void Load()

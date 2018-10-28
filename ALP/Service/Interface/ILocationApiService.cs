@@ -1,13 +1,10 @@
-﻿using Model;
-using System;
+﻿using Model.Dto;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace ALP.API
+namespace ALP.Service
 {
-    public interface ILocationService
+    public interface ILocationApiService
     {
         Task<List<LocationDto>> GetAllLocations();
         Task<LocationDto> AddLocation(LocationDto location);

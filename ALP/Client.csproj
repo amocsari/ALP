@@ -82,11 +82,13 @@
     <Compile Include="DialogResult.cs" />
     <Compile Include="Service\ApiService.cs" />
     <Compile Include="Service\AlpDialogService.cs" />
+    <Compile Include="Service\BuildingApiService.cs" />
     <Compile Include="Service\Interface\IAlpDialogService.cs" />
     <Compile Include="Service\Interface\IApiService.cs" />
-    <Compile Include="Service\Interface\ILocationApi.cs" />
+    <Compile Include="Service\Interface\IBuildingApiService.cs" />
+    <Compile Include="Service\Interface\ILocationApiService.cs" />
     <Compile Include="Service\Interface\IAlpResourceService.cs" />
-    <Compile Include="Service\LocationApi.cs" />
+    <Compile Include="Service\LocationApiService.cs" />
     <Compile Include="App.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -99,9 +101,9 @@
     <Compile Include="Extensions\Extensions.Navigation.cs" />
     <Compile Include="Service\AlpResourceService.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
-    <Compile Include="ViewModel\Lookup\Location\LocationEditorWindowViewModel.cs" />
-    <Compile Include="ViewModel\Lookup\Location\LocationListItemViewModel.cs" />
-    <Compile Include="ViewModel\Lookup\Location\LocationViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\Building\BuildingListViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\Location\LocationListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\System\ChangesViewModel.cs" />
     <Compile Include="ViewModel\System\LoginWindowViewModel.cs" />
@@ -172,12 +174,19 @@
       <DependentUpon>Inventory_SearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\System\ChangeListItemViewModel.cs" />
+    <Compile Include="View\Lookup\Building\LookupBuildingEditorWindow.xaml.cs">
+      <DependentUpon>LookupBuildingEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\Building\Lookup_BuildingsPage.xaml.cs">
+      <DependentUpon>Lookup_BuildingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lookup\Location\Lookup_LocationsPage.xaml.cs">
       <DependentUpon>Lookup_LocationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lookup\Location\LookupLocationEditorWindow.xaml.cs">
       <DependentUpon>LookupLocationEditorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Lookup\LookupListItemViewModel.cs" />
     <Compile Include="View\System\System_SettingsPage.xaml.cs">
       <DependentUpon>System_SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -228,9 +237,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="View\Department\Department_EditPage.xaml">
       <SubType>Designer</SubType>
@@ -313,6 +320,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Inventory\Inventory_SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\Building\LookupBuildingEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\Building\Lookup_BuildingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

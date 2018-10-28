@@ -7,6 +7,7 @@ using DAL.Entity;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Model;
+using Model.Dto;
 
 namespace DAL.Service
 {

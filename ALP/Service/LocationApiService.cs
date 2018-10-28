@@ -4,14 +4,15 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ALP.Service;
 using Model;
+using Model.Dto;
 
-namespace ALP.API
+namespace ALP.Service
 {
-    public class LocationService : ILocationService
+    public class LocationApiService : ILocationApiService
     {
         private readonly IApiService _apiService;
 
-        public LocationService(IApiService apiService)
+        public LocationApiService(IApiService apiService)
         {
             _apiService = apiService;
         }

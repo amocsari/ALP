@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      DataContext="{Binding LocationViewModel, Source={StaticResource Locator}}"
+      DataContext="{Binding LocationListViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Lookup_Locations">
@@ -12,14 +12,14 @@
         <DataTemplate x:Key="LocationTemplate">
             <Grid HorizontalAlignment="Stretch" Margin="2">
                 <Grid.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Location}"/>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Value}"/>
                 </Grid.InputBindings>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Name="LocationTextBlock"  Text="{Binding Location.Name}" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <Button Command="{Binding LockCommand}" CommandParameter="{Binding Location}" Grid.Column="1" MaxHeight="20" MinHeight="20">
+                <TextBlock Name="LocationTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Button Command="{Binding LockCommand}" CommandParameter="{Binding Value}" Grid.Column="1" MaxHeight="20" MinHeight="20">
                     <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
                 </Button>
             </Grid>
