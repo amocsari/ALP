@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -6,7 +7,7 @@ using Model.Dto;
 
 namespace ALP.ViewModel
 {
-    public class LookupEditorWindowViewModel<T> : ViewModelBase, IDialogViewModel<T, T> where T: LookupDtoBase, new()
+    public class LookupEditorWindowViewModel<T> : AlpViewModelBase, IDialogViewModel<T, T> where T: LookupDtoBase, new()
     {
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
@@ -42,6 +43,11 @@ namespace ALP.ViewModel
                 window.DialogResult = false;
                 window.Close();
             }
+        }
+
+        protected override Task InitializeAsync()
+        {
+            return Task.CompletedTask;
         }
     }
 }

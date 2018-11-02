@@ -16,9 +16,9 @@ namespace DAL.Service
             _context = context;
         }
 
-        public void DeleteBuildingById(int buildingId)
+        public async Task DeleteBuildingById(int buildingId)
         {
-            throw new System.NotImplementedException();
+            await Remove(building => building.BuildingID == buildingId);
         }
 
         public async Task<List<BuildingDto>> GetAllBuildings()
@@ -30,15 +30,31 @@ namespace DAL.Service
             return buildings.Select(building => building.EntityToDto()).ToList();
         }
 
-        public Task<BuildingDto> GetBuildingById(int buildingId)
+        public async Task<BuildingDto> GetBuildingById(int buildingId)
         {
-            throw new System.NotImplementedException();
+            var entity = await GetSingle(building => building.BuildingID == buildingId);
+            return entity.EntityToDto();
         }
 
         public async Task<BuildingDto> InsertNewBuilding(BuildingDto building)
         {
             var entity = await InsertNew(building.DtoToEntity());
             return entity.EntityToDto();
+        }
+
+        public async Task ToggleLocationLockStateById(int buildingId)
+        {
+            var building = await GetBuildingById(buildingId);
+            building.Locked = !building.Locked;
+            await UpdateBuilding(building);
+        }
+
+        public async Task<BuildingDto> UpdateBuilding(BuildingDto dto)
+        {
+            var updatedEntity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingID == dto.Id);
+            updatedEntity.UpdateEntityByDto(dto);
+            await _context.SaveChangesAsync();
+            return updatedEntity.EntityToDto();
         }
     }
 }

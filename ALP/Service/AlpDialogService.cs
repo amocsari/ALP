@@ -12,7 +12,7 @@ using Model.Dto;
 
 namespace ALP.Service
 {
-    public class AlpDialogService: IAlpDialogService
+    public class AlpDialogService : IAlpDialogService
     {
         private Window GetLookupWindowByDto(LookupDtoBase dtoBase)
         {
@@ -26,8 +26,8 @@ namespace ALP.Service
         public DialogResult<T> ShowDtoEditorWindow<T>(T dto) where T : LookupDtoBase, new()
         {
             var window = GetLookupWindowByDto(dto);
-            ((LookupEditorWindowViewModel<T>)window.DataContext).Parameter = dto;
-            if(window.ShowDialog() == true)
+            ((LookupEditorWindowViewModel<T>)window.DataContext).Parameter = (T)dto.Copy();
+            if (window.ShowDialog() == true)
             {
                 return new DialogResult<T>()
                 {
@@ -42,24 +42,24 @@ namespace ALP.Service
             };
         }
 
-    public DialogResult<TReturnParameter> ShowDialog<TWindow, TViewModel, TParameter, TReturnParameter>(TParameter parameter) where TWindow : Window, new()
-                                                                                                                where TViewModel : IDialogViewModel<TReturnParameter, TParameter>
-    {
-        var window = new TWindow();
-        ((TViewModel)window.DataContext).Parameter = parameter;
-        if (window.ShowDialog() == true)
+        public DialogResult<TReturnParameter> ShowDialog<TWindow, TViewModel, TParameter, TReturnParameter>(TParameter parameter) where TWindow : Window, new()
+                                                                                                                    where TViewModel : IDialogViewModel<TReturnParameter, TParameter>
         {
-            return new DialogResult<TReturnParameter>()
+            var window = new TWindow();
+            ((TViewModel)window.DataContext).Parameter = parameter;
+            if (window.ShowDialog() == true)
             {
-                Value = ((TViewModel)window.DataContext).ReturnParameter,
-                Accepted = true,
+                return new DialogResult<TReturnParameter>()
+                {
+                    Value = ((TViewModel)window.DataContext).ReturnParameter,
+                    Accepted = true,
+                };
+            }
+
+            return new DialogResult<TReturnParameter>
+            {
+                Accepted = false,
             };
         }
-
-        return new DialogResult<TReturnParameter>
-        {
-            Accepted = false,
-        };
     }
-}
 }

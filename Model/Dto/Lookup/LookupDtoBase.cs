@@ -12,9 +12,10 @@ namespace Model.Dto
         public string Name { get; set; }
         public bool Locked { get; set; }
 
-        public bool Equals(LookupDtoBase other)
-        {
-            return Id == other.Id && Name == other.Name && Locked == other.Locked;
-        }
+        public abstract bool Equals(LookupDtoBase other);
+
+        public abstract LookupDtoBase Copy();
+
+        public abstract void UpdateByDto(LookupDtoBase sourceDto);
     }
 }

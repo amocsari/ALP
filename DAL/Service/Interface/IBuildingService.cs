@@ -11,6 +11,8 @@ namespace DAL.Service
         Task<List<BuildingDto>> GetAllBuildings();
         Task<BuildingDto> GetBuildingById(int buildingId);
         Task<BuildingDto> InsertNewBuilding(BuildingDto building);
-        void DeleteBuildingById(int buildingId);
+        Task DeleteBuildingById(int buildingId);
+        Task ToggleLocationLockStateById(int locationId);
+        Task<BuildingDto> UpdateBuilding(BuildingDto dto);
     }
 }

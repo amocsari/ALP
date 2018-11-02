@@ -31,15 +31,21 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public void AddNewBuilding([FromBody] BuildingDto building)
+        public Task<BuildingDto> AddNewBuilding([FromBody] BuildingDto building)
         {
-            _buildingService.InsertNewBuilding(building);
+            return _buildingService.InsertNewBuilding(building);
         }
 
         [HttpDelete]
         public void DeleteBuildingById(int buildingId)
         {
             _buildingService.DeleteBuildingById(buildingId);
+        }
+
+        [HttpPost]
+        public void ToggleLockStateByIdBuilding([FromBody] int locationId)
+        {
+            _buildingService.ToggleLocationLockStateById(locationId);
         }
     }
 }
