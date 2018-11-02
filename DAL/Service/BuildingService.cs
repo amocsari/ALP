@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Linq;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DAL.Service
 {
-    public class BuildingService: BaseService<Building>, IBuildingService
+    public class BuildingService : BaseService<Building>, IBuildingService
     {
         public BuildingService(IAlpContext context)
         {
@@ -18,43 +19,89 @@ namespace DAL.Service
 
         public async Task DeleteBuildingById(int buildingId)
         {
-            await Remove(building => building.BuildingID == buildingId);
+            try
+            {
+                await Remove(building => building.BuildingID == buildingId);
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+            }
         }
 
         public async Task<List<BuildingDto>> GetAllBuildings()
         {
-            //var buildings = await _context.Building.Include(building => building.Location).ToListAsync();
-            //return buildings.Select(building => building.EntityToDto()).ToList();
+            try
+            {
+                //var buildings = await _context.Building.Include(building => building.Location).ToListAsync();
+                //return buildings.Select(building => building.EntityToDto()).ToList();
 
-            var buildings = await GetAll(navigationProperties: building => building.Location);
-            return buildings.Select(building => building.EntityToDto()).ToList();
+                var buildings = await GetAll(navigationProperties: building => building.Location);
+                return buildings.Select(building => building.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
 
         public async Task<BuildingDto> GetBuildingById(int buildingId)
         {
-            var entity = await GetSingle(building => building.BuildingID == buildingId);
-            return entity.EntityToDto();
+            try
+            {
+                var entity = await GetSingle(building => building.BuildingID == buildingId);
+                return entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
 
         public async Task<BuildingDto> InsertNewBuilding(BuildingDto building)
         {
-            var entity = await InsertNew(building.DtoToEntity());
-            return entity.EntityToDto();
+            try
+            {
+                var entity = await InsertNew(building.DtoToEntity());
+                return entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
 
         public async Task ToggleBuildingLockStateById(int buildingId)
         {
-            var building = await GetBuildingById(buildingId);
-            building.Locked = !building.Locked;
-            await UpdateBuilding(building);
+            try
+            {
+                var building = await GetBuildingById(buildingId);
+                building.Locked = !building.Locked;
+                await UpdateBuilding(building);
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+            }
         }
 
         public async Task<BuildingDto> UpdateBuilding(BuildingDto dto)
         {
-            var updatedEntity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingID == dto.Id);
-            updatedEntity.UpdateEntityByDto(dto);
-            await _context.SaveChangesAsync();
-            return updatedEntity.EntityToDto();
+            try
+            {
+                var updatedEntity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingID == dto.Id);
+                updatedEntity.UpdateEntityByDto(dto);
+                await _context.SaveChangesAsync();
+                return updatedEntity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
     }
 }
