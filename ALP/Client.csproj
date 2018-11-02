@@ -105,6 +105,7 @@
     <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupFloorEditorWindowViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\LookupItemTypeEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\System\ChangesViewModel.cs" />
@@ -203,6 +204,12 @@
     <Compile Include="View\Lookup\ItemState\Lookup_ItemStatesPage.xaml.cs">
       <DependentUpon>Lookup_ItemStatesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lookup\ItemType\LookupItemTypeEditorWindow.xaml.cs">
+      <DependentUpon>LookupItemTypeEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\ItemType\Lookup_ItemTypesPage.xaml.cs">
+      <DependentUpon>Lookup_ItemTypesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lookup\Location\Lookup_LocationsPage.xaml.cs">
       <DependentUpon>Lookup_LocationsPage.xaml</DependentUpon>
     </Compile>
@@ -260,9 +267,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Lookup\ItemType\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="View\Department\Department_EditPage.xaml">
       <SubType>Designer</SubType>
@@ -381,6 +386,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lookup\ItemState\Lookup_ItemStatesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\ItemType\LookupItemTypeEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\ItemType\Lookup_ItemTypesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

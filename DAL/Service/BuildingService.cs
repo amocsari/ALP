@@ -36,7 +36,7 @@ namespace DAL.Service
                 //var buildings = await _context.Building.Include(building => building.Location).ToListAsync();
                 //return buildings.Select(building => building.EntityToDto()).ToList();
 
-                var buildings = await GetAll(navigationProperties: building => building.Location);
+                var buildings = await GetAll(building => building.Location);
                 return buildings.Select(building => building.EntityToDto()).ToList();
             }
             catch (Exception e)

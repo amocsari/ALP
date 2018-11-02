@@ -2,6 +2,7 @@
 using ALP.View.Lookup;
 using ALP.View.Lookup.Building;
 using ALP.View.Lookup.Floor;
+using ALP.View.Lookup.ItemType;
 using ALP.ViewModel;
 using Model.Dto;
 
@@ -21,6 +22,8 @@ namespace ALP.Service
                 return new LookupItemNatureEditorWindow();
             if(dtoBase is ItemStateDto)
                 return new LookupItemStateEditorWindow();
+            if(dtoBase is ItemTypeDto)
+                return new LookupItemTypeEditorWindow();
             return null;
         }
 

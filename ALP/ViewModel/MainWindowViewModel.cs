@@ -119,7 +119,7 @@ namespace ALP.ViewModel
 
         private void OnItemTypeCommand()
         {
-            throw new NotImplementedException();
+            _navigationService.NavigateTo(ViewModelLocator.LookupItemTypes);
         }
 
         private void OnSystemSettingsCommand()

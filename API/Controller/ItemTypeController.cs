@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Dto;
 
 namespace API.Controller
 {
@@ -18,27 +19,39 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<ItemType>> GetAllItemTypes()
+        public Task<List<ItemTypeDto>> GetAllItemType()
         {
-            return _itemTypeService.GetAll();
+            return _itemTypeService.GetAllItemTypes();
         }
 
         [HttpGet]
-        public Task<ItemType> GetItemTypeById(int itemTypeId)
+        public Task<ItemTypeDto> GetItemTypeById(int itemTypeId)
         {
-            return _itemTypeService.GetSingle(b => b.ItemTypeID == itemTypeId);
+            return _itemTypeService.GetItemTypeById(itemTypeId);
         }
 
         [HttpPost]
-        public void AddNewItemType([FromBody] ItemType itemType)
+        public Task<ItemTypeDto> AddNewItemType([FromBody] ItemTypeDto itemType)
         {
-            _itemTypeService.InsertNew(itemType);
+            return _itemTypeService.InsertNewItemType(itemType);
+        }
+
+        [HttpPost]
+        public void UpdateItemType([FromBody] ItemTypeDto itemType)
+        {
+            _itemTypeService.UpdateItemType(itemType);
         }
 
         [HttpDelete]
         public void DeleteItemTypeById(int itemTypeId)
         {
-            _itemTypeService.Remove(b => b.ItemTypeID == itemTypeId);
+            _itemTypeService.DeleteItemTypeById(itemTypeId);
+        }
+
+        [HttpPost]
+        public void ToggleLockStateByIdItemType([FromBody] int itemTypeId)
+        {
+            _itemTypeService.ToggleItemTypeLockStateById(itemTypeId);
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿<Page x:Class="ALP.View.Lookup.ItemType.Lookup_ItemTypesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:view="clr-namespace:ALP.View"
+      DataContext="{Binding ItemTypeListViewModel, Source={StaticResource Locator}}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Lookup_ItemTypePage">
+
+    <Page.Resources>
+        <DataTemplate x:Key="ItemTypeTemplate">
+            <Grid HorizontalAlignment="Stretch" Margin="2">
+                <Grid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Value}"/>
+                </Grid.InputBindings>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.33*"/>
+                    <ColumnDefinition Width="0.33*"/>
+                    <ColumnDefinition Width="0.33*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Name="ItemTypeNameTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center"/>
+                <TextBlock Name="ItemTypeItemNatureNameTextBlock" Text="{Binding Value.ItemNature.Name}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                <Button Command="{Binding LockCommand}" CommandParameter="{Binding Value}" Grid.Column="2" MaxHeight="20" MinHeight="20">
+                    <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Eszköztípusok" FontSize="32" HorizontalAlignment="Center"/>
+            <ListView ItemTemplate="{StaticResource ItemTypeTemplate}" ItemsSource="{Binding Values}" HorizontalAlignment="Stretch" Margin="10"/>
+            <Button Content="Új Eszköztípus" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
+        </StackPanel>
+        <view:LoadingIndicator/>
+    </Grid>
+</Page>

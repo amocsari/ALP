@@ -36,7 +36,7 @@ namespace DAL.Service
                 //var Floors = await _context.Floor.Include(Floor => floor.Building).ToListAsync();
                 //return Floors.Select(Floor => floor.EntityToDto()).ToList();
 
-                var floors = await GetAll(navigationProperties: floor => floor.Building);
+                var floors = await GetAll(floor => floor.Building);
                 return floors.Select(floor => floor.EntityToDto()).ToList();
             }
             catch (Exception e)

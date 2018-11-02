@@ -13,8 +13,9 @@ namespace ALP.Navigation
         public static readonly string LookupLocations = "Lookup_Locations";
         public static readonly string LookupBuildings = "Lookup_Buildings";
         public static readonly string LookupFloors = "Lookup_Floors";
-        public static readonly string LookupItemNatures = "Lookup_ItemNature";
-        public static readonly string LookupItemStates = "Lookup_ItemState";
+        public static readonly string LookupItemNatures = "Lookup_ItemNatures";
+        public static readonly string LookupItemStates = "Lookup_ItemStates";
+        public static readonly string LookupItemTypes = "Lookup_ItemTypes";
 
         public MainWindowViewModel MainWindowViewModel { get => IocKernel.Get<MainWindowViewModel>(); }
 
@@ -38,5 +39,8 @@ namespace ALP.Navigation
         
         public LookupListViewModel<ItemStateDto> ItemStateListViewModel { get => IocKernel.Get<LookupListViewModel<ItemStateDto>>(); }
         public LookupEditorWindowViewModel<ItemStateDto> ItemStateEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<ItemStateDto>>(); }
+
+        public LookupListViewModel<ItemTypeDto> ItemTypeListViewModel { get => IocKernel.Get<LookupListViewModel<ItemTypeDto>>(); }
+        public LookupItemTypeEditorWindowViewModel ItemTypeEditorWindowViewModel { get => IocKernel.Get<LookupItemTypeEditorWindowViewModel>(); }
     }
 }

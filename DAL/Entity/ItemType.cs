@@ -11,6 +11,11 @@ namespace DAL.Entity
         [Required]
         public string ItemTypeName { get; set; }
         [Required]
+        [ForeignKey("ItemNature")]
+        public int ItemNatureID { get; set; }
+        [Required]
         public bool Locked { get; set; }
+        
+        public virtual ItemNature ItemNature { get; set; }
     }
 }

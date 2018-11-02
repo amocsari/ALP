@@ -49,9 +49,9 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdBuilding([FromBody] int locationId)
+        public void ToggleLockStateByIdBuilding([FromBody] int buildingId)
         {
-            _buildingService.ToggleBuildingLockStateById(locationId);
+            _buildingService.ToggleBuildingLockStateById(buildingId);
         }
     }
 }
