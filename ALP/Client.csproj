@@ -104,6 +104,7 @@
     <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\LookupFloorEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\System\ChangesViewModel.cs" />
@@ -183,6 +184,12 @@
     </Compile>
     <Compile Include="View\Lookup\Building\Lookup_BuildingsPage.xaml.cs">
       <DependentUpon>Lookup_BuildingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\Floor\LookupFloorEditorWindow.xaml.cs">
+      <DependentUpon>LookupFloorEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\Floor\Lookup_FloorsPage.xaml.cs">
+      <DependentUpon>Lookup_FloorsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lookup\Location\Lookup_LocationsPage.xaml.cs">
       <DependentUpon>Lookup_LocationsPage.xaml</DependentUpon>
@@ -336,6 +343,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lookup\Building\Lookup_BuildingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\Floor\LookupFloorEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\Floor\Lookup_FloorsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

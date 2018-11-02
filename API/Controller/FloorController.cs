@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Dto;
 
 namespace API.Controller
 {
@@ -18,27 +18,39 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<Floor>> GetAllFloors()
+        public Task<List<FloorDto>> GetAllFloor()
         {
-            return _floorService.GetAll();
+            return _floorService.GetAllFloors();
         }
 
         [HttpGet]
-        public Task<Floor> GetFloorById(int floorId)
+        public Task<FloorDto> GetFloorById(int floorId)
         {
-            return _floorService.GetSingle(b => b.FloorID == floorId);
+            return _floorService.GetFloorById(floorId);
         }
 
         [HttpPost]
-        public void AddNewFloor([FromBody] Floor floor)
+        public Task<FloorDto> AddNewFloor([FromBody] FloorDto floor)
         {
-            _floorService.InsertNew(floor);
+            return _floorService.InsertNewFloor(floor);
+        }
+
+        [HttpPost]
+        public void UpdateFloor([FromBody] FloorDto floor)
+        {
+            _floorService.UpdateFloor(floor);
         }
 
         [HttpDelete]
         public void DeleteFloorById(int floorId)
         {
-            _floorService.Remove(b => b.FloorID == floorId);
+            _floorService.DeleteFloorById(floorId);
+        }
+
+        [HttpPost]
+        public void ToggleLockStateByIdFloor([FromBody] int floorId)
+        {
+            _floorService.ToggleFloorLockStateById(floorId);
         }
     }
 }

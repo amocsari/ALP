@@ -13,11 +13,8 @@
 */
 
 using System;
-using ALP.Navigation;
-using ALP.View;
 using ALP.ViewModel;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace ALP.Navigation
@@ -63,7 +60,8 @@ namespace ALP.Navigation
                 .RegisterPage(SystemSettings, new Uri("../View/System/System_SettingsPage.xaml", UriKind.Relative))
                 .RegisterPage(SystemRecentChanges, new Uri("../View/System/System_RecentChangesPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupLocations, new Uri("../View/Lookup/Location/Lookup_LocationsPage.xaml", UriKind.Relative))
-                .RegisterPage(LookupBuildings, new Uri("../View/Lookup/Building/Lookup_BuildingsPage.xaml", UriKind.Relative));
+                .RegisterPage(LookupBuildings, new Uri("../View/Lookup/Building/Lookup_BuildingsPage.xaml", UriKind.Relative))
+                .RegisterPage(LookupFloors, new Uri("../View/Lookup/Floor/Lookup_FloorsPage.xaml", UriKind.Relative));
         }
 
         public static void Cleanup()

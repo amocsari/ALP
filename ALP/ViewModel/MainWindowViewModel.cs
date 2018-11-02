@@ -102,7 +102,7 @@ namespace ALP.ViewModel
 
         private void OnFloorCommand()
         {
-            throw new NotImplementedException();
+            _navigationService.NavigateTo(ViewModelLocator.LookupFloors);
         }
 
         private void OnItemStateCommand()

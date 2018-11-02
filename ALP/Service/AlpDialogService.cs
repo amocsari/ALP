@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using ALP.View.Lookup;
 using ALP.View.Lookup.Building;
+using ALP.View.Lookup.Floor;
 using ALP.ViewModel;
-using GalaSoft.MvvmLight.Views;
 using Model.Dto;
 
 namespace ALP.Service
@@ -20,6 +15,8 @@ namespace ALP.Service
                 return new LookupLocationEditorWindow();
             if (dtoBase is BuildingDto)
                 return new LookupBuildingEditorWindow();
+            if(dtoBase is FloorDto)
+                return new LookupFloorEditorWindow();
             return null;
         }
 

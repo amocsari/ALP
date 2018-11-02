@@ -42,7 +42,7 @@ namespace DAL.Service
             return entity.EntityToDto();
         }
 
-        public async Task ToggleLocationLockStateById(int buildingId)
+        public async Task ToggleBuildingLockStateById(int buildingId)
         {
             var building = await GetBuildingById(buildingId);
             building.Locked = !building.Locked;

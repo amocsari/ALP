@@ -20,40 +20,88 @@ namespace DAL.Service
 
         public async Task<LocationDto> AddNewLocation(LocationDto location)
         {
-            var entity = await InsertNew(location.DtoToEntity());
-            return entity.EntityToDto();
+            try
+            {
+                var entity = await InsertNew(location.DtoToEntity());
+                return entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
 
         public async Task DeleteLocationById(int locationId)
         {
-            await Remove(location => location.LocationID == locationId);
+            try
+            {
+                await Remove(location => location.LocationID == locationId);
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+            }
         }
 
         public async Task<List<LocationDto>> GetAllLocations()
         {
-            var entites = await GetAll();
-            return entites.Select(e => e.EntityToDto()).ToList();
+            try
+            {
+                var entites = await GetAll();
+                return entites.Select(e => e.EntityToDto()).ToList();
+
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
 
         public async Task<LocationDto> GetLocationById(int locationId)
         {
-            var entity = await GetSingle(location => location.LocationID == locationId);
-            return entity.EntityToDto();
+            try
+            {
+                var entity = await GetSingle(location => location.LocationID == locationId);
+                return entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
 
         public async Task ToggleLocationLockStateById(int locationId)
         {
-            var location = await GetLocationById(locationId);
-            location.Locked = !location.Locked;
-            await UpdateLocation(location);
+            try
+            {
+                var location = await GetLocationById(locationId);
+                location.Locked = !location.Locked;
+                await UpdateLocation(location);
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+            }
         }
 
         public async Task<LocationDto> UpdateLocation(LocationDto dto)
         {
-            var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationID == dto.Id);
-            updatedEntity.UpdateEntityByDto(dto);
-            await _context.SaveChangesAsync();
-            return updatedEntity.EntityToDto();
+            try
+            {
+                var updatedEntity =
+                    await _context.Location.FirstOrDefaultAsync(location => location.LocationID == dto.Id);
+                updatedEntity.UpdateEntityByDto(dto);
+                await _context.SaveChangesAsync();
+                return updatedEntity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
         }
     }
 }

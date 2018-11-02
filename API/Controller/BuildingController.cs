@@ -36,6 +36,12 @@ namespace API.Controller
             return _buildingService.InsertNewBuilding(building);
         }
 
+        [HttpPost]
+        public void UpdateBuilding([FromBody] BuildingDto building)
+        {
+            _buildingService.UpdateBuilding(building);
+        }
+
         [HttpDelete]
         public void DeleteBuildingById(int buildingId)
         {
@@ -45,7 +51,7 @@ namespace API.Controller
         [HttpPost]
         public void ToggleLockStateByIdBuilding([FromBody] int locationId)
         {
-            _buildingService.ToggleLocationLockStateById(locationId);
+            _buildingService.ToggleBuildingLockStateById(locationId);
         }
     }
 }

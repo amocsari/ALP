@@ -12,7 +12,7 @@ namespace DAL.Service
         Task<BuildingDto> GetBuildingById(int buildingId);
         Task<BuildingDto> InsertNewBuilding(BuildingDto building);
         Task DeleteBuildingById(int buildingId);
-        Task ToggleLocationLockStateById(int locationId);
+        Task ToggleBuildingLockStateById(int buildingId);
         Task<BuildingDto> UpdateBuilding(BuildingDto dto);
     }
 }

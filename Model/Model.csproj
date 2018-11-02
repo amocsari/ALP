@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dto\Lookup\BuildingDto.cs" />
+    <Compile Include="Dto\Lookup\FloorDto.cs" />
     <Compile Include="Dto\Lookup\LocationDto.cs" />
     <Compile Include="Dto\Lookup\LookupDtoBase.cs" />
   </ItemGroup>
