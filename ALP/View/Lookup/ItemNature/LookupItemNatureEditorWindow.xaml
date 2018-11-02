@@ -1,0 +1,22 @@
+﻿<Window x:Class="ALP.View.Lookup.LookupItemNatureEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        DataContext="{Binding ItemNatureEditorWindowViewModel, Source={StaticResource Locator}}"
+        ResizeMode="NoResize"
+        mc:Ignorable="d"
+        x:Name="Window"
+        Title="LookupItemNatureEditor" Height="180" Width="350">
+    <StackPanel>
+        <TextBlock Text="Jelleg" HorizontalAlignment="Center" FontSize="32" Margin="10"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Név" Margin="10"/>
+            <TextBox Text="{Binding Parameter.Name}" Width="200" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" Content="Mégse" Margin="5"/>
+            <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=Window}" Content="Mentés" Margin="5"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

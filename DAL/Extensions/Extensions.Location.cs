@@ -1,5 +1,4 @@
 ﻿using DAL.Entity;
-using Model;
 using Model.Dto;
 
 namespace DAL.Extensions

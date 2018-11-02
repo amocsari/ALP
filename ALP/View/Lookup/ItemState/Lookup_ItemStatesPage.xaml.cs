@@ -3,11 +3,11 @@
 namespace ALP.View.Lookup
 {
     /// <summary>
-    /// Interaction logic for Lookup_Locations.xaml
+    /// Interaction logic for Lookup_ItemStatePage.xaml
     /// </summary>
-    public partial class Lookup_LocationsPage : Page
+    public partial class Lookup_ItemStatesPage : Page
     {
-        public Lookup_LocationsPage()
+        public Lookup_ItemStatesPage()
         {
             InitializeComponent();
         }

@@ -15,6 +15,7 @@ namespace ALP.ViewModel
         public ICommand ChangesCommand { get; private set; }
         public ICommand SystemSettingsCommand { get; private set; }
         public ICommand ExitCommand { get; private set; }
+        public ICommand ItemNatureCommand { get; private set; }
         public ICommand ItemTypeCommand { get; private set; }
         public ICommand ItemStateCommand { get; private set; }
         public ICommand FloorCommand { get; private set; }
@@ -42,6 +43,7 @@ namespace ALP.ViewModel
             ChangesCommand = new RelayCommand(OnChangesCommand);
             SystemSettingsCommand = new RelayCommand(OnSystemSettingsCommand, IsLoggedIn && IsAdmin);
             ExitCommand = new RelayCommand(OnExitCommand);
+            ItemNatureCommand = new RelayCommand(OnItemNatureCommand);
             ItemTypeCommand = new RelayCommand(OnItemTypeCommand, IsLoggedIn && IsAdmin);
             ItemStateCommand = new RelayCommand(OnItemStateCommand, IsLoggedIn && IsAdmin);
             FloorCommand = new RelayCommand(OnFloorCommand, IsLoggedIn && IsAdmin);
@@ -105,9 +107,14 @@ namespace ALP.ViewModel
             _navigationService.NavigateTo(ViewModelLocator.LookupFloors);
         }
 
+        private void OnItemNatureCommand()
+        {
+            _navigationService.NavigateTo(ViewModelLocator.LookupItemNatures);
+        }
+
         private void OnItemStateCommand()
         {
-            throw new NotImplementedException();
+            _navigationService.NavigateTo(ViewModelLocator.LookupItemStates);
         }
 
         private void OnItemTypeCommand()

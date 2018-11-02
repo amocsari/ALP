@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Dto;
 
 namespace API.Controller
 {
@@ -18,27 +18,39 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<ItemState>> GetAllItemStates()
+        public Task<List<ItemStateDto>> GetAllItemState()
         {
-            return _itemStateService.GetAll();
+            return _itemStateService.GetAllItemStates();
         }
 
         [HttpGet]
-        public Task<ItemState> GetItemStateById(int itemStateId)
+        public Task<ItemStateDto> GetItemStateById(int itemStateId)
         {
-            return _itemStateService.GetSingle(b => b.ItemStateID == itemStateId);
+            return _itemStateService.GetItemStateById(itemStateId);
         }
 
         [HttpPost]
-        public void AddNewItemState([FromBody] ItemState itemState)
+        public Task<ItemStateDto> AddNewItemState([FromBody] ItemStateDto itemState)
         {
-            _itemStateService.InsertNew(itemState);
+            return _itemStateService.AddNewItemState(itemState);
         }
 
         [HttpDelete]
         public void DeleteItemStateById(int itemStateId)
         {
             _itemStateService.Remove(b => b.ItemStateID == itemStateId);
+        }
+
+        [HttpPost]
+        public void UpdateItemState([FromBody] ItemStateDto itemState)
+        {
+            _itemStateService.UpdateItemState(itemState);
+        }
+
+        [HttpPost]
+        public void ToggleLockStateByIdItemState([FromBody] int itemStateId)
+        {
+            _itemStateService.ToggleItemStateLockStateById(itemStateId);
         }
     }
 }

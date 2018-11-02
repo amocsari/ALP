@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Dto;
 
 namespace API.Controller
 {
@@ -18,27 +18,39 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<ItemNature>> GetAllItemNatures()
+        public Task<List<ItemNatureDto>> GetAllItemNature()
         {
-            return _itemNatureService.GetAll();
+            return _itemNatureService.GetAllItemNatures();
         }
 
         [HttpGet]
-        public Task<ItemNature> GetItemNatureById(int itemNatureId)
+        public Task<ItemNatureDto> GetItemNatureById(int itemNatureId)
         {
-            return _itemNatureService.GetSingle(b => b.ItemNatureID == itemNatureId);
+            return _itemNatureService.GetItemNatureById(itemNatureId);
         }
 
         [HttpPost]
-        public void AddNewItemNature([FromBody] ItemNature itemNature)
+        public Task<ItemNatureDto> AddNewItemNature([FromBody] ItemNatureDto itemNature)
         {
-            _itemNatureService.InsertNew(itemNature);
+            return _itemNatureService.AddNewItemNature(itemNature);
         }
 
         [HttpDelete]
         public void DeleteItemNatureById(int itemNatureId)
         {
             _itemNatureService.Remove(b => b.ItemNatureID == itemNatureId);
+        }
+
+        [HttpPost]
+        public void UpdateItemNature([FromBody] ItemNatureDto itemNature)
+        {
+            _itemNatureService.UpdateItemNature(itemNature);
+        }
+
+        [HttpPost]
+        public void ToggleLockStateByIdItemNature([FromBody] int itemNatureId)
+        {
+            _itemNatureService.ToggleItemNatureLockStateById(itemNatureId);
         }
     }
 }

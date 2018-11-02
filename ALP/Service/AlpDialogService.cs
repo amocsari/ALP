@@ -17,6 +17,10 @@ namespace ALP.Service
                 return new LookupBuildingEditorWindow();
             if(dtoBase is FloorDto)
                 return new LookupFloorEditorWindow();
+            if(dtoBase is ItemNatureDto)
+                return new LookupItemNatureEditorWindow();
+            if(dtoBase is ItemStateDto)
+                return new LookupItemStateEditorWindow();
             return null;
         }
 

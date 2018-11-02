@@ -1,16 +1,16 @@
-﻿<Page x:Class="ALP.View.Lookup.Lookup_LocationsPage"
+﻿<Page x:Class="ALP.View.Lookup.Lookup_ItemStatesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:view ="clr-namespace:ALP.View"
-      DataContext="{Binding LocationListViewModel, Source={StaticResource Locator}}"
+      DataContext="{Binding ItemStateListViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Lookup_Locations">
+      Title="Lookup_ItemStates">
 
     <Page.Resources>
-        <DataTemplate x:Key="LocationTemplate">
+        <DataTemplate x:Key="ItemStateTemplate">
             <Grid HorizontalAlignment="Stretch" Margin="2">
                 <Grid.InputBindings>
                     <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Value}"/>
@@ -19,7 +19,7 @@
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Name="LocationTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock Name="ItemStateTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <Button Command="{Binding LockCommand}" CommandParameter="{Binding Value}" Grid.Column="1" MaxHeight="20" MinHeight="20">
                     <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
                 </Button>
@@ -29,9 +29,9 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="Telephelyek" FontSize="32" HorizontalAlignment="Center"/>
-            <ListView ItemTemplate="{StaticResource LocationTemplate}" ItemsSource="{Binding Values}" HorizontalAlignment="Stretch" Margin="10"/>
-            <Button Content="Új Telephely" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
+            <TextBlock Text="Állapotok" FontSize="32" HorizontalAlignment="Center"/>
+            <ListView ItemTemplate="{StaticResource ItemStateTemplate}" ItemsSource="{Binding Values}" HorizontalAlignment="Stretch" Margin="10"/>
+            <Button Content="Új Állapot" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
         </StackPanel>
         <view:LoadingIndicator/>
     </Grid>

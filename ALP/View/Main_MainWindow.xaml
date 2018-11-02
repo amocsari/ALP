@@ -19,6 +19,7 @@
                 <MenuItem Header="Kilépés" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Alapadatok">
+                <MenuItem Header="Eszköz jelleg" Command="{Binding ItemNatureCommand}"/>
                 <MenuItem Header="Eszköztípus" Command="{Binding ItemTypeCommand}"/>
                 <MenuItem Header="Eszköz állapot" Command="{Binding ItemStateCommand}"/>
                 <Separator/>

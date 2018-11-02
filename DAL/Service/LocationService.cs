@@ -6,7 +6,6 @@ using DAL.Context;
 using DAL.Entity;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Model;
 using Model.Dto;
 
 namespace DAL.Service
@@ -91,8 +90,7 @@ namespace DAL.Service
         {
             try
             {
-                var updatedEntity =
-                    await _context.Location.FirstOrDefaultAsync(location => location.LocationID == dto.Id);
+                var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationID == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();

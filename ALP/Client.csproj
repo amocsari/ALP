@@ -191,6 +191,18 @@
     <Compile Include="View\Lookup\Floor\Lookup_FloorsPage.xaml.cs">
       <DependentUpon>Lookup_FloorsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Lookup\ItemNature\LookupItemNatureEditorWindow.xaml.cs">
+      <DependentUpon>LookupItemNatureEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\ItemNature\Lookup_ItemNaturesPage.xaml.cs">
+      <DependentUpon>Lookup_ItemNaturesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\ItemState\LookupItemStateEditorWindow.xaml.cs">
+      <DependentUpon>LookupItemStateEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lookup\ItemState\Lookup_ItemStatesPage.xaml.cs">
+      <DependentUpon>Lookup_ItemStatesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lookup\Location\Lookup_LocationsPage.xaml.cs">
       <DependentUpon>Lookup_LocationsPage.xaml</DependentUpon>
     </Compile>
@@ -248,7 +260,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="View\Lookup\ItemType\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="View\Department\Department_EditPage.xaml">
       <SubType>Designer</SubType>
@@ -351,6 +365,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lookup\Floor\Lookup_FloorsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\ItemNature\LookupItemNatureEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\ItemNature\Lookup_ItemNaturesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\ItemState\LookupItemStateEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\ItemState\Lookup_ItemStatesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

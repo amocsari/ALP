@@ -61,7 +61,9 @@ namespace ALP.Navigation
                 .RegisterPage(SystemRecentChanges, new Uri("../View/System/System_RecentChangesPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupLocations, new Uri("../View/Lookup/Location/Lookup_LocationsPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupBuildings, new Uri("../View/Lookup/Building/Lookup_BuildingsPage.xaml", UriKind.Relative))
-                .RegisterPage(LookupFloors, new Uri("../View/Lookup/Floor/Lookup_FloorsPage.xaml", UriKind.Relative));
+                .RegisterPage(LookupFloors, new Uri("../View/Lookup/Floor/Lookup_FloorsPage.xaml", UriKind.Relative))
+                .RegisterPage(LookupItemNatures, new Uri("../View/Lookup/ItemNature/Lookup_ItemNaturesPage.xaml", UriKind.Relative))
+                .RegisterPage(LookupItemStates, new Uri("../View/Lookup/ItemState/Lookup_ItemStatesPage.xaml", UriKind.Relative));
         }
 
         public static void Cleanup()
