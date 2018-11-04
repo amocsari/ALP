@@ -13,7 +13,7 @@
         ItemNature = 8,
         ItemType = 9,
         ProductionYear = 10,
-        Departement = 11,
+        Department = 11,
         Section = 12,
         Employee = 13,
         Building = 14,

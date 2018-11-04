@@ -21,11 +21,12 @@ namespace Common.Model.Dto
         public int? EmployeeID { get; set; }
         public int? BuildingID { get; set; }
         public int? FloorID { get; set; }
-        public int? Room { get; set; }
+        public string Room { get; set; }
         public int? ItemStateID { get; set; }
         public DateTime? DateOfCreation { get; set; }
         public int? BruttoPrice { get; set; }
         public string Comment { get; set; }
+        public DateTime? DateOfScrap { get; set; }
 
         public ItemNatureDto ItemNature { get; set; }
         public ItemTypeDto ItemType { get; set; }

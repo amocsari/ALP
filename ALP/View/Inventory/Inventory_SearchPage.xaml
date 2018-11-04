@@ -5,47 +5,195 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:view="clr-namespace:ALP.View"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-      xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+      xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
       DataContext="{Binding InventorySearchPageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
       Title="SearchPage">
 
     <!--TODO: KIVENNI A HÁTTERET-->
-    <Grid Background="White">
+    <Grid Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-        <DockPanel>
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-            <StackPanel DockPanel.Dock="Left">
-                <!--TODO: add default style-->
-                <Label Name="LabelItemName" Tag="6">
-                    Megnevezés
+            <StackPanel DockPanel.Dock="Left" Width="Auto" VerticalAlignment="Center">
+
+                <TextBlock Text="Megnevezés" Name="LabelItemName" Tag="6" HorizontalAlignment="Center"
+                           FontWeight="Bold" Foreground="Gray" TextDecorations="Underline"/>
+
+                <TextBlock Name="TextBlockInventoryNumber" Text="Leltári szám" Tag="1" HorizontalAlignment="Center"
+                           FontWeight="Bold" Foreground="Gray" TextDecorations="Underline"/>
+
+                <TextBlock Name="TextBlockOldInventoryNumber" Text="Régi leltári szám" Tag="2" HorizontalAlignment="Center">
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseEnter">
-                            <cmd:EventToCommand Command="{Binding MouseDownCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=LabelItemName, Mode=OneWay}" MustToggleIsEnabled="True"/>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockOldInventoryNumber, Mode=OneWay}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </Label>
-                <Label Name="LabelInventoryNumber" Content="Leltári szám" Tag="1"/>
-                <Label Name="LabelOldInventoryNumber" Content="Régi leltári szám" Tag="2"/>
-                <Label Name="LabelSerialNumber" Content="Gyári szám" Tag="3"/>
-                <Label Name="LabelAccreditationNumber" Content="Akkreditációs szám" Tag="4"/>
-                <Label Name="LabelYellowNumber" Content="Sárga szám" Tag="5"/>
-                <Label Name="LabelItemNature" Content="Eszközjelleg" Tag="8"/>
-                <Label Name="LabelItemType" Content="Eszköztípus" Tag="10"/>
-                <Label Name="LabelProductionYear" Content="Gyártás éve" Tag="10"/>
-                <Label Name="LabelManufacturerType" Content="Gyártó + típus" Tag="7"/>
-                <Label Name="LabelDateOfCreation" Content="Nyilvántartásba vétel" Tag="18"/>
-                <Label Name="LabelBruttoPrice" Content="Bruttó Ár" Tag="19"/>
-                <Label Name="LabelItemState" Content="Állapot" Tag="17"/>
-                <Label Name="LabelBuilding" Content="Épület" Tag="14"/>
-                <Label Name="LabelFloor" Content="Emelet" Tag="15"/>
-                <Label Name="LabelDepartement" Content="Osztály" Tag="11"/>
-                <Label Name="LabelSection" Content="Részleg" Tag="12"/>
-                <Label Name="LabelRoom" Content="Szobaszám" Tag="16"/>
-                <Label Name="LabelEmployee" Content="Toljadonos" Tag="13"/>
-                <Label Name="LabelComment" Content="Megjegyzés" Tag="20"/>
-                <Label Name="LabelDateOfScrap" Content="Selejtezés Dátuma" Tag="21"/>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockSerialNumber" Text="Gyári szám" Tag="3" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockSerialNumber, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockAccreditationNumber" Text="Akkreditációs szám" Tag="4" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockAccreditationNumber, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockYellowNumber" Text="Sárga szám" Tag="5" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockYellowNumber, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockItemNature" Text="Eszközjelleg" Tag="8" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockItemNature, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockItemType" Text="Eszköztípus" Tag="10" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockItemType, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockProductionYear" Text="Gyártás éve" Tag="10" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockProductionYear, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockManufacturerType" Text="Gyártó + típus" Tag="7" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockManufacturerType, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockDateOfCreation" Text="Nyilvántartásba vétel" Tag="18" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockDateOfCreation, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockBruttoPrice" Text="Bruttó Ár" Tag="19" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockBruttoPrice, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockItemState" Text="Állapot" Tag="17" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockItemState, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockBuilding" Text="Épület" Tag="14" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockBuilding, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockFloor" Text="Emelet" Tag="15" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockFloor, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockDepartement" Text="Osztály" Tag="11" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockDepartement, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockSection" Text="Részleg" Tag="12" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockSection, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockRoom" Text="Szobaszám" Tag="16" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockRoom, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockEmployee" Text="Toljadonos" Tag="13" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockEmployee, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockComment" Text="Megjegyzés" Tag="20" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockComment, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+
+                <TextBlock Name="TextBlockDateOfScrap" Text="Selejtezés Dátuma" Tag="21" HorizontalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
+                                                CommandParameter="{Binding ElementName=TextBlockDateOfScrap, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
 
             </StackPanel>
 
@@ -92,12 +240,12 @@
 
                     <Label Content="Gyártási év" Grid.Column="4" Grid.Row="1"/>
 
-                    <!--TODO: BINDING-->
+                    <!--TODO: BINDING (productionyear)-->
                     <DatePicker Grid.Column="5" Grid.Row="1"/>
 
                     <Label Content="-" Grid.Column="6" Grid.Row="1"/>
 
-                    <!--TODO: BINDING-->
+                    <!--TODO: BINDING (productionyear)-->
                     <DatePicker Grid.Column="7" Grid.Row="1"/>
 
                     <Label Content="Bruttó Ár" Grid.Column="0" Grid.Row="2"/>
@@ -120,41 +268,46 @@
 
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch">
 
-                    <Button Content="Szűrő" VerticalAlignment="Bottom" Margin="5"/>
+                    <!--TODO: ikont a helyére-->
+                    <Button Content="Szűrő" ToolTip="Szűrő" Command="{Binding FilterCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
-                    <Button Content="Szűrő törlése" VerticalAlignment="Bottom" Margin="5"/>
+                    <!--TODO: ikont a helyére-->
+                    <Button Content="Szűrő törlése" ToolTip="Szűrő törlése" Command="{Binding DeleteFilterCommand}"  VerticalAlignment="Bottom" Margin="5"/>
 
-                    <Button Content="Export" VerticalAlignment="Bottom" Margin="5"/>
+                    <!--TODO: ikont a helyére-->
+                    <Button Content="Export" ToolTip="Export" Command="{Binding ExportCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
-                    <Button Content="Csoportos Beolvasás" VerticalAlignment="Bottom" Margin="5"/>
+                    <!--TODO: ikont a helyére-->
+                    <Button Content="Csoportos Beolvasás" ToolTip="Csoportos Beolvasás" Command="{Binding ImportCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
-                    <Button Content="Műveletek" VerticalAlignment="Bottom" Margin="5"/>
+                    <!--TODO: ikont a helyére-->
+                    <Button Content="Műveletek" ToolTip="Műveletek" VerticalAlignment="Bottom" Command="{Binding QuickCommandsCommand}" Margin="5"/>
 
-                    <Button Content="Keresés" VerticalAlignment="Bottom" Margin="5"/>
+                    <!--TODO: ikont a helyére-->
+                    <Button Content="Keresés" ToolTip="Keresés" Command="{Binding SearchCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">
 
                     <!--TODO: bind-->
-                    <DataGrid ItemsSource="{Binding ItemDisplayList}" HorizontalAlignment="Stretch"/>
+                    <DataGrid ItemsSource="{Binding ItemDisplayList}" AlternatingRowBackground="Gray" HorizontalAlignment="Stretch"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
                         <!--TODO: ikont a helyére-->
-                        <Button Content="&lt;&lt;" Margin="5"/>
+                        <Button Content="&lt;&lt;" Command="{Binding JumpToFirstPageCommand}" IsEnabled="{Binding IsNotFirstPage}" Margin="5"/>
 
                         <!--TODO: ikont a helyére-->
-                        <Button Content="&lt;" Margin="5"/>
+                        <Button Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding IsNotFirstPage}" Margin="5"/>
 
-                        <!--TODO: binding-->
-                        <TextBox/>
-
-                        <!--TODO: ikont a helyére-->
-                        <Button Content="&gt;" Margin="5"/>
+                        <TextBox Text="{Binding SelectedPageNumber}" TextAlignment="Center"/>
 
                         <!--TODO: ikont a helyére-->
-                        <Button Content="&gt;&gt;" Margin="5"/>
+                        <Button Content="&gt;" Command="{Binding NextPageCommand}" IsEnabled="{Binding IsNotLastPage}" Margin="5"/>
+
+                        <!--TODO: ikont a helyére-->
+                        <Button Content="&gt;&gt;" Command="{Binding JumpToLastPageCommand}" IsEnabled="{Binding IsNotLastPage}" Margin="5"/>
 
                     </StackPanel>
 

@@ -27,7 +27,7 @@ namespace ALP.Service
 
         public async Task<ItemDto> GetItemById(int itemId)
         {
-            throw new System.NotImplementedException();
+            return await _apiService.PostAsync<int, ItemDto>("Item/FindItemById", itemId);
         }
     }
 }

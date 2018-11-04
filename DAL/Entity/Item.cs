@@ -58,7 +58,7 @@ namespace DAL.Entity
         [ForeignKey("Floor")]
         public int? FloorID { get; set; }
 
-        public int? Room { get; set; }
+        public string Room { get; set; }
 
         [ForeignKey("ItemState")]
         public int? ItemStateID { get; set; }
@@ -68,6 +68,8 @@ namespace DAL.Entity
         public int? BruttoPrice { get; set; }
 
         public string Comment { get; set; }
+
+        public DateTime? DateOfScrap { get; set; }
 
 
         public virtual ItemNature ItemNature { get; set; }
