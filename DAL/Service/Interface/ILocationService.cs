@@ -7,8 +7,9 @@ namespace DAL.Service
 {
     public interface ILocationService: IBaseService<Location>
     {
-        Task<LocationDto> AddNewLocation(LocationDto location);
         Task<List<LocationDto>> GetAllLocations();
+        Task<List<LocationDto>> GetAvailableLocations();
+        Task<LocationDto> AddNewLocation(LocationDto location);
         Task<LocationDto> GetLocationById(int locationId);
         Task<LocationDto> UpdateLocation(LocationDto location);
         Task DeleteLocationById(int locationId);

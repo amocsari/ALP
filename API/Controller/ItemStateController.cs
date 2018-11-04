@@ -24,6 +24,12 @@ namespace API.Controller
         }
 
         [HttpGet]
+        public Task<List<ItemStateDto>> GetAvailableItemState()
+        {
+            return _itemStateService.GetAvailableItemStates();
+        }
+
+        [HttpGet]
         public Task<ItemStateDto> GetItemStateById(int itemStateId)
         {
             return _itemStateService.GetItemStateById(itemStateId);

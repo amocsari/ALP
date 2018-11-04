@@ -8,6 +8,7 @@ namespace DAL.Service
     public interface IBuildingService : IBaseService<Building>
     {
         Task<List<BuildingDto>> GetAllBuildings();
+        Task<List<BuildingDto>> GetAvailableBuildings();
         Task<BuildingDto> GetBuildingById(int buildingId);
         Task<BuildingDto> InsertNewBuilding(BuildingDto building);
         Task DeleteBuildingById(int buildingId);

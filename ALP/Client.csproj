@@ -82,12 +82,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DialogResult.cs" />
-    <Compile Include="Service\ApiService.cs" />
+    <Compile Include="Service\AlpApiService.cs" />
     <Compile Include="Service\AlpDialogService.cs" />
     <Compile Include="Service\Interface\IAlpDialogService.cs" />
-    <Compile Include="Service\Interface\IApiService.cs" />
+    <Compile Include="Service\Interface\IAlpApiService.cs" />
+    <Compile Include="Service\Interface\IInventoryApiService.cs" />
     <Compile Include="Service\Interface\ILookupApiService.cs" />
     <Compile Include="Service\Interface\IAlpResourceService.cs" />
+    <Compile Include="Service\InventoryApiService.cs" />
     <Compile Include="Service\LookupApiService.cs" />
     <Compile Include="App.cs" />
     <Compile Include="App.xaml.cs">

@@ -24,6 +24,12 @@ namespace API.Controller
         }
 
         [HttpGet]
+        public Task<List<LocationDto>> GetAvailableLocation()
+        {
+            return _locationService.GetAvailableLocations();
+        }
+
+        [HttpGet]
         public Task<LocationDto> GetLocationById(int locationId)
         {
             return _locationService.GetLocationById(locationId);

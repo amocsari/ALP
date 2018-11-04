@@ -58,6 +58,21 @@ namespace DAL.Service
             }
         }
 
+        public async Task<List<ItemStateDto>> GetAvailableItemStates()
+        {
+            try
+            {
+                var entites = await GetByExpression(itemState => !itemState.Locked);
+                return entites.Select(e => e.EntityToDto()).ToList();
+
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
         public async Task<ItemStateDto> GetItemStateById(int itemStateId)
         {
             try

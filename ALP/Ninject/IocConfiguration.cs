@@ -1,5 +1,6 @@
 ﻿using ALP.Service;
 using ALP.Navigation;
+using ALP.Service.Interface;
 using ALP.ViewModel;
 using ALP.ViewModel.Inventory;
 using Ninject.Modules;
@@ -23,9 +24,10 @@ namespace ALP.Ninject
         private void BindServices()
         {
             Bind<IAlpNavigationService>().To<AlpNavigationService>().InSingletonScope();
-            Bind<IApiService>().To<ApiService>().InSingletonScope();
+            Bind<IAlpApiService>().To<AlpApiService>().InSingletonScope();
             Bind<IAlpDialogService>().To<AlpDialogService>().InSingletonScope();
             Bind<IAlpResourceService>().To<AlpResourceService>().InSingletonScope();
+            Bind<IInventoryApiService>().To<InventoryApiService>().InSingletonScope();
             
             Bind(typeof(ILookupApiService<>)).To(typeof(LookupApiService<>));
         }

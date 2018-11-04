@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ALP.Service
 {
-    public class ApiService : IApiService
+    public class AlpApiService : IAlpApiService
     {
         private static readonly Uri baseAddress = new Uri("http://localhost:1707/api/");
 
@@ -57,7 +57,7 @@ namespace ALP.Service
             }
         }
 
-        public async Task<TResponse> PostAsync<TResponse, TParameter>(string path, TParameter parameter)
+        public async Task<TResponse> PostAsync<TParameter, TResponse>(string path, TParameter parameter)
         {
             using (var client = new HttpClient())
             {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DAL.Entity;
 using Common.Model.Dto;
@@ -9,6 +8,7 @@ namespace DAL.Service
     public interface IItemTypeService : IBaseService<ItemType>
     {
         Task<List<ItemTypeDto>> GetAllItemTypes();
+        Task<List<ItemTypeDto>> GetAvailableItemTypes();
         Task<ItemTypeDto> GetItemTypeById(int itemTypeId);
         Task<ItemTypeDto> InsertNewItemType(ItemTypeDto itemType);
         Task DeleteItemTypeById(int itemTypeId);

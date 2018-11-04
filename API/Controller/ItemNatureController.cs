@@ -24,6 +24,12 @@ namespace API.Controller
         }
 
         [HttpGet]
+        public Task<List<ItemNatureDto>> GetAvailableItemNature()
+        {
+            return _itemNatureService.GetAvailableItemNatures();
+        }
+
+        [HttpGet]
         public Task<ItemNatureDto> GetItemNatureById(int itemNatureId)
         {
             return _itemNatureService.GetItemNatureById(itemNatureId);

@@ -24,6 +24,12 @@ namespace API.Controller
         }
 
         [HttpGet]
+        public Task<List<FloorDto>> GetAvailableFloor()
+        {
+            return _floorService.GetAvailableFloors();
+        }
+
+        [HttpGet]
         public Task<FloorDto> GetFloorById(int floorId)
         {
             return _floorService.GetFloorById(floorId);

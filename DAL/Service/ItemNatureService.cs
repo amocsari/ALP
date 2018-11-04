@@ -58,6 +58,21 @@ namespace DAL.Service
             }
         }
 
+        public async Task<List<ItemNatureDto>> GetAvailableItemNatures()
+        {
+            try
+            {
+                var entites = await GetByExpression(itemNature => !itemNature.Locked);
+                return entites.Select(e => e.EntityToDto()).ToList();
+
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
         public async Task<ItemNatureDto> GetItemNatureById(int itemNatureId)
         {
             try

@@ -25,6 +25,12 @@ namespace API.Controller
         }
 
         [HttpGet]
+        public Task<List<ItemTypeDto>> GetAvailableItemType()
+        {
+            return _itemTypeService.GetAvailableItemTypes();
+        }
+
+        [HttpGet]
         public Task<ItemTypeDto> GetItemTypeById(int itemTypeId)
         {
             return _itemTypeService.GetItemTypeById(itemTypeId);

@@ -7,8 +7,9 @@ namespace DAL.Service
 {
     public interface IItemStateService : IBaseService<ItemState>
     {
-        Task<ItemStateDto> AddNewItemState(ItemStateDto itemState);
         Task<List<ItemStateDto>> GetAllItemStates();
+        Task<List<ItemStateDto>> GetAvailableItemStates();
+        Task<ItemStateDto> AddNewItemState(ItemStateDto itemState);
         Task<ItemStateDto> GetItemStateById(int itemStateId);
         Task<ItemStateDto> UpdateItemState(ItemStateDto itemState);
         Task DeleteItemStateById(int itemStateId);

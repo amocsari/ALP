@@ -33,10 +33,21 @@ namespace DAL.Service
         {
             try
             {
-                //var ItemTypes = await _context.ItemType.Include(ItemType => ItemType.ItemNature).ToListAsync();
-                //return ItemTypes.Select(ItemType => ItemType.EntityToDto()).ToList();
-
                 var itemTypes = await GetAll(itemType => itemType.ItemNature);
+                return itemTypes.Select(itemType => itemType.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
+        public async Task<List<ItemTypeDto>> GetAvailableItemTypes()
+        {
+            try
+            {
+                var itemTypes = await GetByExpression(itemType => !itemType.Locked, itemType => itemType.ItemNature);
                 return itemTypes.Select(itemType => itemType.EntityToDto()).ToList();
             }
             catch (Exception e)

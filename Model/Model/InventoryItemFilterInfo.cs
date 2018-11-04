@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using Model.Enum;
 
 namespace Common.Model
 {
     public class InventoryItemFilterInfo
     {
-        public string Id { get; set; }
+        public List<string> Id { get; set; }
         public string ManufacturerAndType { get; set; }
         public int? BruttoPriceMin { get; set; }
         public int? BruttoPriceMax { get; set; }
@@ -18,5 +20,6 @@ namespace Common.Model
 
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
+        public List<ItemPropertyType> SelectedProperties { get; set; }
     }
 }

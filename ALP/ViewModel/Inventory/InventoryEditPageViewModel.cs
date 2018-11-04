@@ -180,7 +180,7 @@ namespace ALP.ViewModel.Inventory
             {
                 IsLoading = true;
 
-                var itemNatureList = await _itemNatureApiService.GetAll();
+                var itemNatureList = await _itemNatureApiService.GetAvailable();
                 if (itemNatureList == null)
                 {
                     //TODO: hibakezelés
@@ -188,7 +188,7 @@ namespace ALP.ViewModel.Inventory
                 }
                 ItemNatures = new ObservableCollection<ItemNatureDto>(itemNatureList);
 
-                var itemTypeList = await _itemTypeApiService.GetAll();
+                var itemTypeList = await _itemTypeApiService.GetAvailable();
                 if (itemTypeList == null)
                 {
                     //TODO: hibakezelés
@@ -196,7 +196,7 @@ namespace ALP.ViewModel.Inventory
                 }
                 ItemTypes = new ObservableCollection<ItemTypeDto>(itemTypeList);
 
-                var itemStateList = await _itemStateApiService.GetAll();
+                var itemStateList = await _itemStateApiService.GetAvailable();
                 if (itemStateList == null)
                 {
                     //TODO: hibakezelés
@@ -204,7 +204,7 @@ namespace ALP.ViewModel.Inventory
                 }
                 ItemStates = new ObservableCollection<ItemStateDto>(itemStateList);
 
-                var buildingList = await _buildingApiService.GetAll();
+                var buildingList = await _buildingApiService.GetAvailable();
                 if (buildingList == null)
                 {
                     //TODO: hibakezelés
@@ -212,7 +212,7 @@ namespace ALP.ViewModel.Inventory
                 }
                 Buildings = new ObservableCollection<BuildingDto>(buildingList);
 
-                var floorList = await _floorApiService.GetAll();
+                var floorList = await _floorApiService.GetAvailable();
                 if (floorList == null)
                 {
                     //TODO: hibakezelés

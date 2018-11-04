@@ -132,7 +132,8 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <ListView HorizontalAlignment="Stretch"/>
+                    <!--TODO: bind-->
+                    <DataGrid HorizontalAlignment="Stretch"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 

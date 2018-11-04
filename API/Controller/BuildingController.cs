@@ -18,9 +18,15 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public  Task<List<BuildingDto>> GetAllBuilding()
+        public Task<List<BuildingDto>> GetAllBuilding()
         {
             return _buildingService.GetAllBuildings();
+        }
+
+        [HttpGet]
+        public Task<List<BuildingDto>> GetAvailableBuilding()
+        {
+            return _buildingService.GetAvailableBuildings();
         }
 
         [HttpGet]

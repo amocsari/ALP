@@ -58,6 +58,21 @@ namespace DAL.Service
             }
         }
 
+        public async Task<List<LocationDto>> GetAvailableLocations()
+        {
+            try
+            {
+                var entites = await GetByExpression(location => !location.Locked);
+                return entites.Select(e => e.EntityToDto()).ToList();
+
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
         public async Task<LocationDto> GetLocationById(int locationId)
         {
             try

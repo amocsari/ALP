@@ -48,6 +48,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\ItemPropertyType.cs" />
     <Compile Include="Model\Dto\DepartmentDto.cs" />
     <Compile Include="Model\Dto\EmployeeDto.cs" />
     <Compile Include="Model\Dto\ItemDto.cs" />

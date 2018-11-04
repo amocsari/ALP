@@ -7,11 +7,11 @@ namespace ALP.Service
 {
     public class LookupApiService<T> : ILookupApiService<T> where T : LookupDtoBase
     {
-        private readonly IApiService _apiService;
+        private readonly IAlpApiService _apiService;
         private const string dtoPostFix = "Dto";
         private string ControllerPrefix { get => typeof(T).Name.Replace(dtoPostFix,""); }
 
-        public LookupApiService(IApiService apiService)
+        public LookupApiService(IAlpApiService apiService)
         {
             _apiService = apiService;
         }
@@ -24,6 +24,11 @@ namespace ALP.Service
         public async Task<List<T>> GetAll()
         {
             return await _apiService.GetAsync<List<T>>(CreateUrl(nameof(GetAll)));
+        }
+
+        public async Task<List<T>> GetAvailable()
+        {
+            return await _apiService.GetAsync<List<T>>(CreateUrl(nameof(GetAvailable)));
         }
 
         public async Task ToggleLockStateById(int dtoId)

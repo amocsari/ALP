@@ -33,10 +33,21 @@ namespace DAL.Service
         {
             try
             {
-                //var Floors = await _context.Floor.Include(Floor => floor.Building).ToListAsync();
-                //return Floors.Select(Floor => floor.EntityToDto()).ToList();
-
                 var floors = await GetAll(floor => floor.Building);
+                return floors.Select(floor => floor.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
+        public async Task<List<FloorDto>> GetAvailableFloors()
+        {
+            try
+            {
+                var floors = await GetByExpression(floor => !floor.Locked, floor => floor.Building);
                 return floors.Select(floor => floor.EntityToDto()).ToList();
             }
             catch (Exception e)
