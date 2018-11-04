@@ -17,9 +17,9 @@ namespace ALP.View.Lookup.Floor
     /// <summary>
     /// Interaction logic for LookupFloorEditorWindow.xaml
     /// </summary>
-    public partial class LookupFloorEditorWindow : Window
+    public partial class FloorEditorWindow : Window
     {
-        public LookupFloorEditorWindow()
+        public FloorEditorWindow()
         {
             InitializeComponent();
         }

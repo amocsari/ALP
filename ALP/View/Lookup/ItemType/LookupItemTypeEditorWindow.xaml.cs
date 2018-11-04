@@ -17,9 +17,9 @@ namespace ALP.View.Lookup.ItemType
     /// <summary>
     /// Interaction logic for LookupItemTypeEditorWindow.xaml
     /// </summary>
-    public partial class LookupItemTypeEditorWindow : Window
+    public partial class ItemTypeEditorWindow : Window
     {
-        public LookupItemTypeEditorWindow()
+        public ItemTypeEditorWindow()
         {
             InitializeComponent();
         }

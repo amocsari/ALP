@@ -5,9 +5,9 @@ namespace ALP.View.Lookup
     /// <summary>
     /// Interaction logic for LookupItemNatureEditorWindow.xaml
     /// </summary>
-    public partial class LookupItemNatureEditorWindow : Window
+    public partial class ItemNatureEditorWindow : Window
     {
-        public LookupItemNatureEditorWindow()
+        public ItemNatureEditorWindow()
         {
             InitializeComponent();
         }

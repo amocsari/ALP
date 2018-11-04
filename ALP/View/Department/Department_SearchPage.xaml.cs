@@ -18,9 +18,9 @@ namespace ALP.View.Department
     /// <summary>
     /// Interaction logic for SearchPage.xaml
     /// </summary>
-    public partial class SearchPage : Page
+    public partial class DepartmentSearchPage : Page
     {
-        public SearchPage()
+        public DepartmentSearchPage()
         {
             InitializeComponent();
         }

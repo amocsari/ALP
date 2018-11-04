@@ -18,9 +18,9 @@ namespace ALP.View.User
     /// <summary>
     /// Interaction logic for EditPage.xaml
     /// </summary>
-    public partial class EditPage : Page
+    public partial class UserEditPage : Page
     {
-        public EditPage()
+        public UserEditPage()
         {
             InitializeComponent();
         }

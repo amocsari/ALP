@@ -18,9 +18,9 @@ namespace ALP.View.Lookup.Floor
     /// <summary>
     /// Interaction logic for Lookup_FloorsPage.xaml
     /// </summary>
-    public partial class Lookup_FloorsPage : Page
+    public partial class FloorsPage : Page
     {
-        public Lookup_FloorsPage()
+        public FloorsPage()
         {
             InitializeComponent();
         }

@@ -1,4 +1,4 @@
-﻿<Page x:Class="ALP.View.User.EditPage"
+﻿<Page x:Class="ALP.View.User.UserEditPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

@@ -17,9 +17,9 @@ namespace ALP.View
     /// <summary>
     /// Interaction logic for PasswordChange.xaml
     /// </summary>
-    public partial class PasswordChange : Window
+    public partial class PasswordChangePage : Window
     {
-        public PasswordChange()
+        public PasswordChangePage()
         {
             InitializeComponent();
         }

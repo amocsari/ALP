@@ -89,7 +89,7 @@ namespace ALP.ViewModel
 
         private void OnItemSearchCommand()
         {
-            throw new NotImplementedException();
+            _navigationService.NavigateTo(ViewModelLocator.InventoryEditPage);
         }
 
         private void OnBuildingCommand()

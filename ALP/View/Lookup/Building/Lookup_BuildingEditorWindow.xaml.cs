@@ -17,9 +17,9 @@ namespace ALP.View.Lookup.Building
     /// <summary>
     /// Interaction logic for LookupBuildingEditorWindow.xaml
     /// </summary>
-    public partial class LookupBuildingEditorWindow : Window
+    public partial class BuildingEditorWindow : Window
     {
-        public LookupBuildingEditorWindow()
+        public BuildingEditorWindow()
         {
             InitializeComponent();
         }

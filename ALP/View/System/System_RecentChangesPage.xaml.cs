@@ -18,9 +18,9 @@ namespace ALP.View
     /// <summary>
     /// Interaction logic for RecentChanges.xaml
     /// </summary>
-    public partial class RecentChanges : Page
+    public partial class RecentChangesPage : Page
     {
-        public RecentChanges()
+        public RecentChangesPage()
         {
             InitializeComponent();
         }

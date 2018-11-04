@@ -13,17 +13,17 @@ namespace ALP.Service
         private Window GetLookupWindowByDto(LookupDtoBase dtoBase)
         {
             if (dtoBase is LocationDto)
-                return new LookupLocationEditorWindow();
+                return new LocationEditorWindow();
             if (dtoBase is BuildingDto)
-                return new LookupBuildingEditorWindow();
+                return new BuildingEditorWindow();
             if(dtoBase is FloorDto)
-                return new LookupFloorEditorWindow();
+                return new FloorEditorWindow();
             if(dtoBase is ItemNatureDto)
-                return new LookupItemNatureEditorWindow();
+                return new ItemNatureEditorWindow();
             if(dtoBase is ItemStateDto)
-                return new LookupItemStateEditorWindow();
+                return new ItemStateEditorWindow();
             if(dtoBase is ItemTypeDto)
-                return new LookupItemTypeEditorWindow();
+                return new ItemTypeEditorWindow();
             return null;
         }
 

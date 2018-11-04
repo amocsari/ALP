@@ -1,13 +1,127 @@
-﻿<Page x:Class="ALP.View.Inventory.EditPage"
+﻿<Page x:Class="ALP.View.Inventory.InventoryEditPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:view="clr-namespace:ALP.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditPage">
 
-    <Grid>
-        
+    <!--TODO: háttérszínt kivenni-->
+    <Grid Background="White">
+
+        <StackPanel HorizontalAlignment="Stretch" Margin="10">
+
+            <TextBlock Text="Leltár elem adatok" FontSize="32" HorizontalAlignment="Center"/>
+
+            <Grid HorizontalAlignment="Stretch">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+                <Label Content="Nyilvántartásba vétel dátuma" Grid.Column="0" Grid.Row="0"/>
+                <TextBox Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="0"/>
+
+                <Label Content="Eszköz megnevezése" Grid.Column="0" Grid.Row="1"/>
+                <TextBox Grid.Column="1" Grid.Row="1"/>
+
+                <Label Content="Régi leltári szám" Grid.Column="2" Grid.Row="1"/>
+                <TextBox Grid.Column="3" Grid.Row="1"/>
+
+                <Label Content="Akkreditációs szám" Grid.Column="2" Grid.Row="2"/>
+                <TextBox Grid.Column="3" Grid.Row="2"/>
+
+                <Label Content="Gyártási év" Grid.Column="0" Grid.Row="3"/>
+                <DatePicker Grid.Column="1" Grid.Row="3"/>
+
+                <!--TODO: lehet, hogy kivenni-->
+                <Label Content="Bruttó ár" Grid.Column="2" Grid.Row="3"/>
+                <TextBox Grid.Column="3" Grid.Row="3"/>
+
+                <Label Content="Gyártmány" Grid.Column="0" Grid.Row="4"/>
+                <TextBox Grid.Column="1" Grid.Row="4"/>
+
+                <Label Content="Típus" Grid.Column="2" Grid.Row="4"/>
+                <TextBox Grid.Column="3" Grid.Row="4"/>
+
+                <Label Content="Eszköz jellege" Grid.Column="0" Grid.Row="5"/>
+                <ComboBox Grid.Column="1" Grid.Row="5"/>
+
+                <Label Content="Eszköz típusa" Grid.Column="2" Grid.Row="5"/>
+                <ComboBox Grid.Column="3" Grid.Row="5"/>
+
+                <Label Content="Osztály" Grid.Column="0" Grid.Row="6"/>
+                <ComboBox Grid.Column="1" Grid.Row="6"/>
+
+                <Label Content="Részleg" Grid.Column="2" Grid.Row="6"/>
+                <ComboBox Grid.Column="3" Grid.Row="6"/>
+
+            </Grid>
+
+            <Grid HorizontalAlignment="Stretch">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+                <Label Content="Épület" Grid.Column="0" Grid.Row="0"/>
+                <ComboBox Grid.Column="1" Grid.Row="0"/>
+
+                <Label Content="Emelet" Grid.Column="2" Grid.Row="0"/>
+                <ComboBox Grid.Column="3" Grid.Row="0"/>
+
+                <Label Content="Szombaszám" Grid.Column="4" Grid.Row="0"/>
+                <TextBox Grid.Column="5" Grid.Row="0"/>
+
+                <Label Content="Tulajdonos" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center"/>
+                <TextBox Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch"/>
+
+                <Label Content="Állapot" Grid.Column="0" Grid.Row="2"/>
+                <ComboBox Grid.Column="1" Grid.Row="2"/>
+
+            </Grid>
+
+            <Button Content="Rögzít" HorizontalAlignment="Right"/>
+
+        </StackPanel>
+
+        <!--TODO: uncomment-->
+        <!--<view:LoadingIndicator/>-->
+
     </Grid>
+
 </Page>

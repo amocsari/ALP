@@ -18,9 +18,9 @@ namespace ALP.View.Department
     /// <summary>
     /// Interaction logic for EditPage.xaml
     /// </summary>
-    public partial class EditPage : Page
+    public partial class DepartmentEditPage : Page
     {
-        public EditPage()
+        public DepartmentEditPage()
         {
             InitializeComponent();
         }

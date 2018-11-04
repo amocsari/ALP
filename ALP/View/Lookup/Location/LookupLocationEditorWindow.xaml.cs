@@ -17,9 +17,9 @@ namespace ALP.View.Lookup
     /// <summary>
     /// Interaction logic for LookupLocationEditor.xaml
     /// </summary>
-    public partial class LookupLocationEditorWindow : Window
+    public partial class LocationEditorWindow : Window
     {
-        public LookupLocationEditorWindow()
+        public LocationEditorWindow()
         {
             InitializeComponent();
         }

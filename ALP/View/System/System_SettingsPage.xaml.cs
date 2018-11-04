@@ -18,9 +18,9 @@ namespace ALP.View
     /// <summary>
     /// Interaction logic for SystemSettings.xaml
     /// </summary>
-    public partial class SystemSettings : Page
+    public partial class SettingsPage : Page
     {
-        public SystemSettings()
+        public SettingsPage()
         {
             InitializeComponent();
         }

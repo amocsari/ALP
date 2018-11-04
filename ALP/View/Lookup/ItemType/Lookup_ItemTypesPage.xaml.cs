@@ -18,9 +18,9 @@ namespace ALP.View.Lookup.ItemType
     /// <summary>
     /// Interaction logic for Lookup_ItemTypesPage.xaml
     /// </summary>
-    public partial class Lookup_ItemTypesPage : Page
+    public partial class ItemTypesPage : Page
     {
-        public Lookup_ItemTypesPage()
+        public ItemTypesPage()
         {
             InitializeComponent();
         }

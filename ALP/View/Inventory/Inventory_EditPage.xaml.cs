@@ -18,9 +18,9 @@ namespace ALP.View.Inventory
     /// <summary>
     /// Interaction logic for EditPage.xaml
     /// </summary>
-    public partial class EditPage : Page
+    public partial class InventoryEditPage : Page
     {
-        public EditPage()
+        public InventoryEditPage()
         {
             InitializeComponent();
         }

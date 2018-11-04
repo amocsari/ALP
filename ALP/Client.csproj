@@ -180,8 +180,8 @@
     <Compile Include="View\LoadingIndicator.xaml.cs">
       <DependentUpon>LoadingIndicator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Lookup\Building\LookupBuildingEditorWindow.xaml.cs">
-      <DependentUpon>LookupBuildingEditorWindow.xaml</DependentUpon>
+    <Compile Include="View\Lookup\Building\Lookup_BuildingEditorWindow.xaml.cs">
+      <DependentUpon>Lookup_BuildingEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lookup\Building\Lookup_BuildingsPage.xaml.cs">
       <DependentUpon>Lookup_BuildingsPage.xaml</DependentUpon>
@@ -357,7 +357,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Lookup\Building\LookupBuildingEditorWindow.xaml">
+    <Page Include="View\Lookup\Building\Lookup_BuildingEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

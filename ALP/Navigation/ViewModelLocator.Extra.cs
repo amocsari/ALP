@@ -16,6 +16,7 @@ namespace ALP.Navigation
         public static readonly string LookupItemNatures = "Lookup_ItemNatures";
         public static readonly string LookupItemStates = "Lookup_ItemStates";
         public static readonly string LookupItemTypes = "Lookup_ItemTypes";
+        public static readonly string InventoryEditPage = "Inventory_EditPage";
 
         public MainWindowViewModel MainWindowViewModel { get => IocKernel.Get<MainWindowViewModel>(); }
 

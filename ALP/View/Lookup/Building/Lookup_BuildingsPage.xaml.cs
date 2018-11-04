@@ -18,9 +18,9 @@ namespace ALP.View.Lookup.Building
     /// <summary>
     /// Interaction logic for Lookup_BuildingPage.xaml
     /// </summary>
-    public partial class Lookup_BuildingsPage : Page
+    public partial class BuildingsPage : Page
     {
-        public Lookup_BuildingsPage()
+        public BuildingsPage()
         {
             InitializeComponent();
         }
