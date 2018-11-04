@@ -21,6 +21,7 @@ namespace ALP.ViewModel
         public ICommand FloorCommand { get; private set; }
         public ICommand SectionCommand { get; private set; }
         public ICommand BuildingCommand { get; private set; }
+        public ICommand NewItemCommand { get; private set; }
         public ICommand ItemSearchCommand { get; private set; }
         public ICommand RequestsCommand { get; private set; }
         public ICommand ImportCommand { get; private set; }
@@ -49,12 +50,18 @@ namespace ALP.ViewModel
             FloorCommand = new RelayCommand(OnFloorCommand, IsLoggedIn && IsAdmin);
             SectionCommand = new RelayCommand(OnSectionCommand, IsLoggedIn && IsAdmin);
             BuildingCommand = new RelayCommand(OnBuildingCommand, IsLoggedIn && IsAdmin);
+            NewItemCommand = new RelayCommand(OnNewItemCommand, IsLoggedIn && IsAdmin);
             ItemSearchCommand = new RelayCommand(OnItemSearchCommand, IsLoggedIn);
             RequestsCommand = new RelayCommand(OnRequestsCommand, IsLoggedIn && IsAdmin);
             ImportCommand = new RelayCommand(OnImportCommand, IsLoggedIn && IsAdmin);
             EmployeeSearchCommand = new RelayCommand(OnEmployeeSearchCommand, IsLoggedIn && IsAdmin);
             DepartmentSearchCommand = new RelayCommand(OnDepartmentSearchCommand, IsLoggedIn && IsAdmin);
             LocationCommand = new RelayCommand(OnLocationCommand, IsLoggedIn && IsAdmin);
+        }
+
+        private void OnNewItemCommand()
+        {
+            _navigationService.NavigateTo(ViewModelLocator.InventoryItemEditPage);
         }
 
         private void OnLocationCommand()

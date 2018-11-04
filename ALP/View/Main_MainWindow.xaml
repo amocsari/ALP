@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="APL" Height="450" Width="800">
+        Title="APL" Height="Auto" Width="Auto">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Rendszer">
@@ -29,6 +29,8 @@
                 <MenuItem Header="Telephely" Command="{Binding LocationCommand}"/>
             </MenuItem>
             <MenuItem Header="Leltár Adatok">
+                <MenuItem Header="Új elem" Command="{Binding NewItemCommand}"/>
+                <Separator/>
                 <MenuItem Header="Keresés" Command="{Binding ItemSearchCommand}"/>
                 <Separator/>
                 <MenuItem Header="Leltárművelet kérvények" Command="{Binding RequestsCommand}"/>

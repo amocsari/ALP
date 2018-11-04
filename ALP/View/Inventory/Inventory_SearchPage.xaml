@@ -228,11 +228,11 @@
 
                     <Label Content="Nyilvántartásba vétel" Grid.Column="4" Grid.Row="0"/>
 
-                    <DatePicker DisplayDate="{Binding ItemFilterInfo.DateOfCreationMin}" Grid.Column="5" Grid.Row="0"/>
+                    <DatePicker SelectedDate="{Binding ItemFilterInfo.DateOfCreationMin}" Grid.Column="5" Grid.Row="0"/>
 
                     <Label Content="-" Grid.Column="6" Grid.Row="0"/>
 
-                    <DatePicker DisplayDate="{Binding ItemFilterInfo.DateOfCreationMax}" Grid.Column="7" Grid.Row="0"/>
+                    <DatePicker SelectedDate="{Binding ItemFilterInfo.DateOfCreationMax}" Grid.Column="7" Grid.Row="0"/>
 
                     <Label Content="Gyártó + Típus" Grid.Column="0" Grid.Row="1"/>
 
@@ -258,11 +258,11 @@
 
                     <Label Content="Selejtezés Dátuma" Grid.Column="4" Grid.Row="2"/>
 
-                    <DatePicker DisplayDate="{Binding ItemFilterInfo.DateOfScrapMin}" Grid.Column="5" Grid.Row="2"/>
+                    <DatePicker SelectedDate="{Binding ItemFilterInfo.DateOfScrapMin}" Grid.Column="5" Grid.Row="2"/>
 
                     <Label Content="-" Grid.Column="6" Grid.Row="2"/>
 
-                    <DatePicker DisplayDate="{Binding ItemFilterInfo.DateOfScrapMax}" Grid.Column="7" Grid.Row="2"/>
+                    <DatePicker SelectedDate="{Binding ItemFilterInfo.DateOfScrapMax}" Grid.Column="7" Grid.Row="2"/>
 
                 </Grid>
 
