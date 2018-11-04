@@ -8,7 +8,7 @@ namespace ALP.Service.Interface
     public interface IInventoryApiService
     {
         Task<bool> AddNewInventoryItem(ItemDto dto);
-        Task<List<string>> FindFilteredItemsAsStringForDisplay(InventoryItemFilterInfo info);
+        Task<List<List<string>>> FindFilteredItemsAsStringForDisplay(InventoryItemFilterInfo info);
         Task<ItemDto> GetItemById(int itemId);
     }
 }

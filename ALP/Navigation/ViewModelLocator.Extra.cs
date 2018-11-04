@@ -30,6 +30,8 @@ namespace ALP.Navigation
 
         public ItemEditPageViewModel InventoryEditPageViewModel { get => IocKernel.Get<ItemEditPageViewModel>(); }
 
+        public InventorySearchPageViewModel InventorySearchPageViewModel { get => IocKernel.Get<InventorySearchPageViewModel>(); }
+
         public LookupListViewModel<LocationDto> LocationListViewModel { get => IocKernel.Get<LookupListViewModel<LocationDto>>(); }
         public LookupEditorWindowViewModel<LocationDto> LocationEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<LocationDto>>(); }
 

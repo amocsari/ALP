@@ -1,4 +1,4 @@
-﻿namespace Model.Enum
+﻿namespace Common.Model.Enum
 {
     public enum ItemPropertyType
     {
@@ -9,20 +9,20 @@
         AccreditationNumber = 4,
         YellowNumber = 5,
         ItemName = 6,
-        Manufacturer = 7,
-        ModelType = 8,
-        ItemNatureID = 9,
-        ItemTypeID = 10,
-        ProductionYear = 11,
-        DepartementID = 12,
-        SectionID = 13,
-        EmployeeID = 14,
-        BuildingID = 15,
-        FloorID = 16,
-        Room = 17,
-        ItemStateID = 18,
-        DateOfCreation = 19,
-        BruttoPrice = 20,
-        Comment = 21,
+        ManufacturerModelType = 7,
+        ItemNature = 8,
+        ItemType = 9,
+        ProductionYear = 10,
+        Departement = 11,
+        Section = 12,
+        Employee = 13,
+        Building = 14,
+        Floor = 15,
+        Room = 16,
+        ItemState = 17,
+        DateOfCreation = 18,
+        BruttoPrice = 19,
+        Comment = 20,
+        DateOfScrap = 21,
     }
 }

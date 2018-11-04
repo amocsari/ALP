@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Model.Enum;
+using Common.Model.Enum;
 
 namespace Common.Model
 {
