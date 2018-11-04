@@ -102,6 +102,7 @@
     <Compile Include="Service\AlpResourceService.cs" />
     <Compile Include="ViewModel\AlpViewModelBase.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
+    <Compile Include="ViewModel\Inventory\InventoryEditPageViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupFloorEditorWindowViewModel.cs" />

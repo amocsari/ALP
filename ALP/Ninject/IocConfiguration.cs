@@ -1,6 +1,7 @@
 ﻿using ALP.Service;
 using ALP.Navigation;
 using ALP.ViewModel;
+using ALP.ViewModel.Inventory;
 using Ninject.Modules;
 using ALP.ViewModel.Lookup;
 
@@ -14,6 +15,7 @@ namespace ALP.Ninject
             Bind<WelcomeScreenViewModel>().ToSelf().InTransientScope();
             Bind<SettingsViewModel>().ToSelf().InTransientScope();
             Bind<ChangesViewModel>().ToSelf().InTransientScope();
+            Bind<ItemEditPageViewModel>().ToSelf().InTransientScope();
 
             Bind(typeof(LookupListViewModel<>)).ToSelf().InTransientScope();
         }

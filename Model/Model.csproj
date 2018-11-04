@@ -48,6 +48,9 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\DepartmentDto.cs" />
+    <Compile Include="Dto\EmployeeDto.cs" />
+    <Compile Include="Dto\ItemDto.cs" />
     <Compile Include="Dto\Lookup\BuildingDto.cs" />
     <Compile Include="Dto\Lookup\FloorDto.cs" />
     <Compile Include="Dto\Lookup\ItemNatureDto.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="Dto\Lookup\ItemTypeDto.cs" />
     <Compile Include="Dto\Lookup\LocationDto.cs" />
     <Compile Include="Dto\Lookup\LookupDtoBase.cs" />
+    <Compile Include="Dto\SectionDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

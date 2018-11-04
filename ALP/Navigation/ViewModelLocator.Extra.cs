@@ -1,5 +1,6 @@
 ﻿using ALP.Ninject;
 using ALP.ViewModel;
+using ALP.ViewModel.Inventory;
 using ALP.ViewModel.Lookup;
 using Model.Dto;
 
@@ -26,6 +27,8 @@ namespace ALP.Navigation
 
         public ChangesViewModel ChangesViewModel { get => IocKernel.Get<ChangesViewModel>(); }
 
+        public ItemEditPageViewModel InventoryEditPageViewModel { get => IocKernel.Get<ItemEditPageViewModel>(); }
+
         public LookupListViewModel<LocationDto> LocationListViewModel { get => IocKernel.Get<LookupListViewModel<LocationDto>>(); }
         public LookupEditorWindowViewModel<LocationDto> LocationEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<LocationDto>>(); }
 
@@ -37,7 +40,7 @@ namespace ALP.Navigation
 
         public LookupListViewModel<ItemNatureDto> ItemNatureListViewModel { get => IocKernel.Get<LookupListViewModel<ItemNatureDto>>(); }
         public LookupEditorWindowViewModel<ItemNatureDto> ItemNatureEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<ItemNatureDto>>(); }
-        
+
         public LookupListViewModel<ItemStateDto> ItemStateListViewModel { get => IocKernel.Get<LookupListViewModel<ItemStateDto>>(); }
         public LookupEditorWindowViewModel<ItemStateDto> ItemStateEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<ItemStateDto>>(); }
 
