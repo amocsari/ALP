@@ -2,7 +2,7 @@
 using ALP.ViewModel;
 using ALP.ViewModel.Inventory;
 using ALP.ViewModel.Lookup;
-using Model.Dto;
+using Common.Model.Dto;
 
 namespace ALP.Navigation
 {
@@ -17,7 +17,8 @@ namespace ALP.Navigation
         public static readonly string LookupItemNatures = "Lookup_ItemNatures";
         public static readonly string LookupItemStates = "Lookup_ItemStates";
         public static readonly string LookupItemTypes = "Lookup_ItemTypes";
-        public static readonly string InventoryEditPage = "Inventory_EditPage";
+        public static readonly string InventoryItemEditPage = "Inventory_ItemEdit";
+        public static readonly string InventoryItemSearchPage = "Inventory_ItemSearch";
 
         public MainWindowViewModel MainWindowViewModel { get => IocKernel.Get<MainWindowViewModel>(); }
 

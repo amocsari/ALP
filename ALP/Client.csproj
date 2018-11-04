@@ -103,6 +103,7 @@
     <Compile Include="ViewModel\AlpViewModelBase.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryEditPageViewModel.cs" />
+    <Compile Include="ViewModel\Inventory\InventorySearchPageViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupFloorEditorWindowViewModel.cs" />
@@ -436,9 +437,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
+    <ProjectReference Include="..\Model\Common.csproj">
       <Project>{586c9cf2-6c66-40ea-8f4e-f5e4b9140abf}</Project>
-      <Name>Model</Name>
+      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

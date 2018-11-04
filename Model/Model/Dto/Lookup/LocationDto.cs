@@ -1,17 +1,17 @@
-﻿namespace Model.Dto
+﻿namespace Common.Model.Dto
 {
-    public class ItemNatureDto : LookupDtoBase
+    public class LocationDto: LookupDtoBase
     {
         public override bool Equals(LookupDtoBase otherDto)
         {
-            var other = (ItemNatureDto)otherDto;
+            var other = (LocationDto) otherDto;
 
             return Id == other.Id && Name == other.Name && Locked == other.Locked;
         }
 
         public override LookupDtoBase Copy()
         {
-            return new ItemNatureDto
+            return new LocationDto
             {
                 Name = Name,
                 Id = Id,

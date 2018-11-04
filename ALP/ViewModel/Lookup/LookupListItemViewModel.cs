@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using Model.Dto;
+using Common.Model.Dto;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;

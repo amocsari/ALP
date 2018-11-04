@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
-using Model.Dto;
+using Common.Model.Dto;
 
 namespace API.Controller
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DAL.Entity;
-using Model.Dto;
+using Common.Model.Dto;
 
 namespace DAL.Service
 {

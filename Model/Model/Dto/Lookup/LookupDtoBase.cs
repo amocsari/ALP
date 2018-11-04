@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Model.Dto
+namespace Common.Model.Dto
 {
     public abstract class LookupDtoBase: IEquatable<LookupDtoBase>
     {

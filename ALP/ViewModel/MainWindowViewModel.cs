@@ -89,7 +89,7 @@ namespace ALP.ViewModel
 
         private void OnItemSearchCommand()
         {
-            _navigationService.NavigateTo(ViewModelLocator.InventoryEditPage);
+            _navigationService.NavigateTo(ViewModelLocator.InventoryItemSearchPage);
         }
 
         private void OnBuildingCommand()

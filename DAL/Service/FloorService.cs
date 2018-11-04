@@ -1,6 +1,6 @@
 ﻿using DAL.Entity;
 using DAL.Context;
-using Model.Dto;
+using Common.Model.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;

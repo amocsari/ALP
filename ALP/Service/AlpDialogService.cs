@@ -4,7 +4,7 @@ using ALP.View.Lookup.Building;
 using ALP.View.Lookup.Floor;
 using ALP.View.Lookup.ItemType;
 using ALP.ViewModel;
-using Model.Dto;
+using Common.Model.Dto;
 
 namespace ALP.Service
 {

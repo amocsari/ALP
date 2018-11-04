@@ -1,5 +1,5 @@
 ﻿using ALP.Service;
-using Model.Dto;
+using Common.Model.Dto;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

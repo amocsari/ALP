@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ALP.Service;
 using GalaSoft.MvvmLight.CommandWpf;
-using Model.Dto;
+using Common.Model.Dto;
 
 namespace ALP.ViewModel.Lookup
 {

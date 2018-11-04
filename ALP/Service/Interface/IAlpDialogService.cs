@@ -1,5 +1,5 @@
 ﻿using ALP.ViewModel;
-using Model.Dto;
+using Common.Model.Dto;
 using System.Windows;
 
 namespace ALP.Service

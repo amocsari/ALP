@@ -1,4 +1,4 @@
-﻿namespace Model.Dto
+﻿namespace Common.Model.Dto
 {
     public class ItemStateDto : LookupDtoBase
     {

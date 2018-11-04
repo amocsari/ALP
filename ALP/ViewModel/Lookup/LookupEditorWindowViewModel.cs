@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using Model.Dto;
+using Common.Model.Dto;
 
 namespace ALP.ViewModel
 {

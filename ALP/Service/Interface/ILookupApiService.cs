@@ -1,4 +1,4 @@
-﻿using Model.Dto;
+﻿using Common.Model.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using ALP.Service;
-using Model;
-using Model.Dto;
+using Common.Model.Dto;
 
 namespace ALP.Service
 {
