@@ -23,7 +23,7 @@ namespace DAL.Service
             {
                 await Remove(building => building.BuildingID == buildingId);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
             }
@@ -36,7 +36,7 @@ namespace DAL.Service
                 var buildings = await GetAll(building => building.Location);
                 return buildings.Select(building => building.EntityToDto()).ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -50,7 +50,7 @@ namespace DAL.Service
                 var buildings = await GetByExpression(building => !building.Locked, building => building.Location);
                 return buildings.Select(building => building.EntityToDto()).ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -64,7 +64,7 @@ namespace DAL.Service
                 var entity = await GetSingle(building => building.BuildingID == buildingId);
                 return entity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -78,7 +78,7 @@ namespace DAL.Service
                 var entity = await InsertNew(building.DtoToEntity());
                 return entity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -93,7 +93,7 @@ namespace DAL.Service
                 building.Locked = !building.Locked;
                 await UpdateBuilding(building);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
             }
@@ -108,7 +108,7 @@ namespace DAL.Service
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;

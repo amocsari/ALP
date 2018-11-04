@@ -24,7 +24,7 @@ namespace DAL.Service
                 var entity = await InsertNew(location.DtoToEntity());
                 return entity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -37,7 +37,7 @@ namespace DAL.Service
             {
                 await Remove(location => location.LocationID == locationId);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
             }
@@ -51,7 +51,7 @@ namespace DAL.Service
                 return entites.Select(e => e.EntityToDto()).ToList();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -66,7 +66,7 @@ namespace DAL.Service
                 return entites.Select(e => e.EntityToDto()).ToList();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -80,7 +80,7 @@ namespace DAL.Service
                 var entity = await GetSingle(location => location.LocationID == locationId);
                 return entity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -95,7 +95,7 @@ namespace DAL.Service
                 location.Locked = !location.Locked;
                 await UpdateLocation(location);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
             }
@@ -110,7 +110,7 @@ namespace DAL.Service
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;

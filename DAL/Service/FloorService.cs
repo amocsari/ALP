@@ -23,7 +23,7 @@ namespace DAL.Service
             {
                 await Remove(floor => floor.FloorID == floorId);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
             }
@@ -36,7 +36,7 @@ namespace DAL.Service
                 var floors = await GetAll(floor => floor.Building);
                 return floors.Select(floor => floor.EntityToDto()).ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -50,7 +50,7 @@ namespace DAL.Service
                 var floors = await GetByExpression(floor => !floor.Locked, floor => floor.Building);
                 return floors.Select(floor => floor.EntityToDto()).ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -64,7 +64,7 @@ namespace DAL.Service
                 var entity = await GetSingle(floor => floor.FloorID == floorId);
                 return entity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -78,7 +78,7 @@ namespace DAL.Service
                 var entity = await InsertNew(floor.DtoToEntity());
                 return entity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
@@ -93,7 +93,7 @@ namespace DAL.Service
                 floor.Locked = !floor.Locked;
                 await UpdateFloor(floor);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
             }
@@ -109,7 +109,7 @@ namespace DAL.Service
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //TODO: logging
                 return null;
