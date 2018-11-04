@@ -65,7 +65,7 @@ namespace ALP.Navigation
                 .RegisterPage(LookupItemNatures, new Uri("../View/Lookup/ItemNature/Lookup_ItemNaturesPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupItemStates, new Uri("../View/Lookup/ItemState/Lookup_ItemStatesPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupItemTypes, new Uri("../View/Lookup/ItemType/Lookup_ItemTypesPage.xaml", UriKind.Relative))
-                .RegisterPage(InventoryEditPage, new Uri("../View/Lookup/ItemType/Inventory_EditPage.xaml", UriKind.Relative));
+                .RegisterPage(InventoryEditPage, new Uri("../View/Inventory/Inventory_EditPage.xaml", UriKind.Relative));
         }
 
         public static void Cleanup()
