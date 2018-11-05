@@ -7,7 +7,7 @@ namespace DAL.Context
 {
     public interface IAlpContext
     {
-        IQueryable<T> Set<T>() where T : class;
+        DbSet<T> Set<T>() where T : class;
 
         void SaveChanges();
         Task SaveChangesAsync();

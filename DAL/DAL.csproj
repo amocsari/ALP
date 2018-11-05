@@ -141,6 +141,10 @@
     <Compile Include="Entity\OperationType.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Section.cs" />
+    <Compile Include="Extensions\Extensions.Section.cs" />
+    <Compile Include="Extensions\Extensions.Employee.cs" />
+    <Compile Include="Extensions\Extensions.Department.cs" />
+    <Compile Include="Extensions\Extensions.Item.cs" />
     <Compile Include="Extensions\Extensions.ItemType.cs" />
     <Compile Include="Extensions\Extensions.ItemState.cs" />
     <Compile Include="Extensions\Extensions.ItemNature.cs" />

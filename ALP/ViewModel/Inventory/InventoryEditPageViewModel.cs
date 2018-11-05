@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ALP.Service;
+using ALP.Service.Interface;
 using GalaSoft.MvvmLight.CommandWpf;
 using Common.Model.Dto;
 
@@ -85,6 +86,7 @@ namespace ALP.ViewModel.Inventory
                 if (Item.ItemNature != value)
                 {
                     Item.ItemNature = value;
+                    Item.ItemNatureID = value.Id;
                     RaisePropertyChanged();
                 }
             }
@@ -98,6 +100,7 @@ namespace ALP.ViewModel.Inventory
                 if (Item.ItemType != value)
                 {
                     Item.ItemType = value;
+                    Item.ItemTypeID = value.Id;
                     RaisePropertyChanged();
                 }
             }
@@ -111,6 +114,7 @@ namespace ALP.ViewModel.Inventory
                 if (Item.ItemState != value)
                 {
                     Item.ItemState = value;
+                    Item.ItemState.Id = value.Id;
                     RaisePropertyChanged();
                 }
             }
@@ -124,6 +128,7 @@ namespace ALP.ViewModel.Inventory
                 if (Item.Building != value)
                 {
                     Item.Building = value;
+                    Item.BuildingID = value.Id;
                     RaisePropertyChanged();
                 }
             }
@@ -137,11 +142,13 @@ namespace ALP.ViewModel.Inventory
                 if (Item.Floor != value)
                 {
                     Item.Floor = value;
+                    Item.FloorID = value.Id;
                     RaisePropertyChanged();
                 }
             }
         }
 
+        private readonly IInventoryApiService _inventoryApiService;
         private readonly ILookupApiService<ItemNatureDto> _itemNatureApiService;
         private readonly ILookupApiService<ItemTypeDto> _itemTypeApiService;
         private readonly ILookupApiService<ItemStateDto> _itemStateApiService;
@@ -154,12 +161,14 @@ namespace ALP.ViewModel.Inventory
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
 
-        public ItemEditPageViewModel(ILookupApiService<ItemNatureDto> itemNatureApiService,
+        public ItemEditPageViewModel(IInventoryApiService inventoryApiService,
+                                          ILookupApiService<ItemNatureDto> itemNatureApiService,
                                           ILookupApiService<ItemTypeDto> itemTypeApiService,
                                           ILookupApiService<ItemStateDto> itemStateApiService,
                                           ILookupApiService<BuildingDto> buildingApiService,
                                           ILookupApiService<FloorDto> floorApiService)
         {
+            _inventoryApiService = inventoryApiService;
             _itemNatureApiService = itemNatureApiService;
             _itemTypeApiService = itemTypeApiService;
             _itemStateApiService = itemStateApiService;
@@ -232,7 +241,7 @@ namespace ALP.ViewModel.Inventory
 
         private void OnSaveCommand()
         {
-            //TODO
+            _inventoryApiService.AddNewInventoryItem(Item);
         }
 
         private void OnCancelCommand()

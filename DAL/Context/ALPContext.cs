@@ -28,7 +28,7 @@ namespace DAL.Context
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ALP;Trusted_Connection=True;");
         }
 
-        IQueryable<T> IAlpContext.Set<T>()
+        DbSet<T> IAlpContext.Set<T>()
         {
             return base.Set<T>();
         }

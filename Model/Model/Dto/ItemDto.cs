@@ -13,8 +13,8 @@ namespace Common.Model.Dto
         public string ItemName { get; set; }
         public string Manufacturer { get; set; }
         public string ModelType { get; set; }
-        public int ItemNatureID { get; set; }
-        public int ItemTypeID { get; set; }
+        public int? ItemNatureID { get; set; }
+        public int? ItemTypeID { get; set; }
         public DateTime? ProductionYear { get; set; }
         public int? DepartementID { get; set; }
         public int? SectionID { get; set; }

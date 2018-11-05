@@ -16,14 +16,14 @@ namespace DAL.Service
         {
             var set = _context.Set<T>();
 
-            return await set.Include(navigationProperties).ToListAsync();
+            return await set.AsNoTracking().Include(navigationProperties).ToListAsync();
         }
 
         public async Task<List<T>> GetByExpression(System.Linq.Expressions.Expression<Func<T, bool>> expression, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
         {
             var set = _context.Set<T>();
 
-            return await set.Include(navigationProperties).Where(expression).ToListAsync();
+            return await set.AsNoTracking().Include(navigationProperties).Where(expression).ToListAsync();
         }
 
         public async Task<T> GetSingle(System.Linq.Expressions.Expression<Func<T, bool>> expression, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)

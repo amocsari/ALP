@@ -20,6 +20,5 @@ namespace Common.Model
 
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
-        public List<ItemPropertyType> SelectedProperties { get; set; }
     }
 }

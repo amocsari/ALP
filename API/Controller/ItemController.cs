@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Common.Model;
 using Common.Model.Dto;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -12,10 +14,10 @@ namespace API.Controller
     {
         private readonly IItemService _itemService;
 
-        //public ItemController(IItemService itemService)
-        //{
-        //    _itemService = itemService;
-        //}
+        public ItemController(IItemService itemService)
+        {
+            _itemService = itemService;
+        }
 
         //[HttpGet]
         //public Task<List<ItemDto>> GetAllItems()
@@ -23,17 +25,23 @@ namespace API.Controller
         //    return _itemService.GetAll();
         //}
 
+        [HttpPost]
+        public Task<List<ItemDisplay>> FindItemsForDisplay(InventoryItemFilterInfo info)
+        {
+            return _itemService.FindItemsForDisplay(info);
+        }
+
         //[HttpGet]
         //public Task<ItemDto> GetItemById(int itemId)
         //{
         //    return _itemService.GetSingle(b => b.ItemID == itemId);
         //}
 
-        //[HttpPost]
-        //public void AddNewItem([FromBody] ItemDto item)
-        //{
-        //    //_itemService.InsertNew(item);
-        //}
+        [HttpPost]
+        public Task<bool> AddNewItem([FromBody] ItemDto item)
+        {
+            return _itemService.AddNewItem(item);
+        }
 
         //[HttpDelete]
         //public void DeleteItemById(int itemId)
