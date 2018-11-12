@@ -13,7 +13,7 @@ namespace ALP.Navigation
     {
         private static Dictionary<string, Uri> pageKeys = new Dictionary<string, Uri>();
         private static Stack<string> backStack = new Stack<string>();
-        public string CurrentPageKey { get; private set; }
+        public string CurrentPageKey { get { return backStack.Last(); } }
 
         public object Parameter { get; private set; }
 
@@ -22,7 +22,7 @@ namespace ALP.Navigation
             if (backStack.Count > 1)
             {
                 backStack.Pop();
-                NavigateTo(backStack.Last());
+                NavigateTo(CurrentPageKey);
             }
         }
 
@@ -45,7 +45,6 @@ namespace ALP.Navigation
 
                     Parameter = parameter;
                     backStack.Push(pageKey);
-                    CurrentPageKey = pageKey;
                 }
             }
         }
