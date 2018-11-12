@@ -125,6 +125,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\ALPContext.Extra.cs" />
     <Compile Include="Context\ALPContext.cs" />
     <Compile Include="Context\IAlpContext.cs" />
     <Compile Include="Entity\Account.cs" />

@@ -14,9 +14,9 @@ namespace DAL.Extensions
 
             return new BuildingDto
             {
-                Id = entity.BuildingID,
+                Id = entity.BuildingId,
                 Location = entity.Location?.EntityToDto(),
-                LocationId = entity.LocationID,
+                LocationId = entity.LocationId,
                 Locked = entity.Locked,
                 Name = entity.BuildingName
             };
@@ -31,10 +31,10 @@ namespace DAL.Extensions
 
             return new Building
             {
-                BuildingID = dto.Id,
+                BuildingId = dto.Id,
                 BuildingName = dto.Name,
                 Location = dto.Location?.DtoToEntity(),
-                LocationID = dto.LocationId,
+                LocationId = dto.LocationId,
                 Locked = dto.Locked
             };
         }
@@ -47,7 +47,7 @@ namespace DAL.Extensions
             }
 
             entity.BuildingName = dto.Name;
-            entity.LocationID = dto.LocationId;
+            entity.LocationId = dto.LocationId;
             entity.Location.UpdateEntityByDto(dto.Location);
             entity.Locked = dto.Locked;
         }

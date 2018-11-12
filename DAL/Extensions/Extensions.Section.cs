@@ -17,9 +17,9 @@ namespace DAL.Extensions
                 Department = dto.Department?.DtoToEntity(),
                 Floor = dto.Floor?.DtoToEntity(),
                 Locked = dto.Locked,
-                DepartmentID = dto.DepartmentID,
-                FloorID = dto.FloorID,
-                SectionID = dto.ID,
+                DepartmentId = dto.DepartmentID,
+                FloorId = dto.FloorID,
+                SectionId = dto.ID,
                 SectionName = dto.Name
             };
         }
@@ -31,9 +31,9 @@ namespace DAL.Extensions
                 Department = entity.Department?.EntityToDto(),
                 Floor = entity.Floor?.EntityToDto(),
                 Locked = entity.Locked,
-                DepartmentID = entity.DepartmentID,
-                FloorID = entity.FloorID,
-                ID = entity.SectionID,
+                DepartmentID = entity.DepartmentId,
+                FloorID = entity.FloorId,
+                ID = entity.SectionId,
                 Name = entity.SectionName
             };
         }

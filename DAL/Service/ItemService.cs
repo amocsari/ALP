@@ -26,6 +26,16 @@ namespace DAL.Service
             try
             {
                 var entity = dto.DtoToEntity();
+
+                entity.Building = null;
+                entity.Floor = null;
+                entity.ItemNature = null;
+                entity.ItemState = null;
+                entity.ItemType = null;
+                entity.Department = null;
+                entity.Employee = null;
+                entity.Section = null;
+
                 await InsertNew(entity);
             }
             catch (Exception e)
@@ -40,6 +50,40 @@ namespace DAL.Service
 
         public async Task<List<ItemDisplay>> FindItemsForDisplay(InventoryItemFilterInfo info)
         {
+            var items = new List<Item>
+            {
+                new Item
+                {
+                    AccreditationNumber = "123456",
+                    BruttoPrice = 12000,
+                    BuildingId = 1,
+                    Comment = "wasd",
+                    DateOfCreation = DateTime.Today,
+                    DateOfScrap = DateTime.Now,
+                    FloorId = 1,
+                    ItemId = 1,
+                    ItemNatureId = 1,
+                    ItemName = "This name",
+                    ItemStateId = 1,
+                    YellowNumber = 501,
+                    ItemTypeId = 1,
+                    Manufacturer = "HP",
+                    ModelType = "COMPAQ",
+                    OldInventoryNumber = "00-00112",
+                    InventoryNumber = "349G112233",
+                    Room = "106",
+                    ProductionYear = DateTime.Today,
+                    SerialNumber = "SN123456"
+                }
+            };
+            items[0].Building = _context.Building.FirstOrDefault(b => b.BuildingId == 1);
+            items[0].Floor = _context.Floor.FirstOrDefault(f => f.FloorId == 1);
+            items[0].ItemNature = _context.ItemNature.FirstOrDefault(i => i.ItemNatureId == 1);
+            items[0].ItemType = _context.ItemType.FirstOrDefault(i => i.ItemTypeId == 1);
+            items[0].ItemState = _context.ItemState.FirstOrDefault(i => i.ItemStateId == 1);
+
+            return items.Select(i => i.EntityToDto().TransformToDisplay()).ToList();
+
             try
             {
                 //TODO: regex szerint szétszedni az azonosítókat

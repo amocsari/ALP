@@ -8,16 +8,22 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
+
         [Required]
         public string EmployeeName { get; set; }
+
         [Required]
         [ForeignKey("Department")]
-        public int DepartmentID { get; set; }
+        public int DepartmentId { get; set; }
+
         [ForeignKey("Section")]
-        public int? SectionID { get; set; }
+        public int? SectionId { get; set; }
+
         public string EmailAddress { get; set; }
+
         public DateTime? RetirementDate { get; set; }
+
 
         public virtual Department Department { get; set; }
         public virtual Section Section { get; set; }

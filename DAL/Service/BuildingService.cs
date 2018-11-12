@@ -21,7 +21,7 @@ namespace DAL.Service
         {
             try
             {
-                await Remove(building => building.BuildingID == buildingId);
+                await Remove(building => building.BuildingId == buildingId);
             }
             catch (Exception)
             {
@@ -61,7 +61,7 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await GetSingle(building => building.BuildingID == buildingId);
+                var entity = await GetSingle(building => building.BuildingId == buildingId, building => building.Location);
                 return entity.EntityToDto();
             }
             catch (Exception)
@@ -78,7 +78,7 @@ namespace DAL.Service
                 var entity = await InsertNew(building.DtoToEntity());
                 return entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
                 return null;
@@ -103,7 +103,7 @@ namespace DAL.Service
         {
             try
             {
-                var updatedEntity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingID == dto.Id);
+                var updatedEntity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();

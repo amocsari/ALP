@@ -15,7 +15,7 @@ namespace DAL.Extensions
             return new LocationDto
             {
                 Name = entity.LocationName,
-                Id = entity.LocationID,
+                Id = entity.LocationId,
                 Locked = entity.Locked
             };
         }
@@ -30,7 +30,7 @@ namespace DAL.Extensions
             return new Location
             {
                 LocationName = dto.Name,
-                LocationID = dto.Id,
+                LocationId = dto.Id,
                 Locked = dto.Locked,
             };
         }

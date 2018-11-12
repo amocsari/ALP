@@ -26,7 +26,7 @@ namespace API.Controller
         [HttpGet]
         public Task<Department> GetDepartmentById(int departmentId)
         {
-            return _departmentService.GetSingle(b => b.DepartmentID == departmentId);
+            return _departmentService.GetSingle(b => b.DepartmentId == departmentId);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteDepartmentById(int departmentId)
         {
-            _departmentService.Remove(b => b.DepartmentID == departmentId);
+            _departmentService.Remove(b => b.DepartmentId == departmentId);
         }
     }
 }

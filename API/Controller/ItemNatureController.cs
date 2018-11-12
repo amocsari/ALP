@@ -44,7 +44,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteItemNatureById(int itemNatureId)
         {
-            _itemNatureService.Remove(b => b.ItemNatureID == itemNatureId);
+            _itemNatureService.Remove(b => b.ItemNatureId == itemNatureId);
         }
 
         [HttpPost]

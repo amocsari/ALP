@@ -7,16 +7,21 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OperationID { get; set; }
+        public int OperationId { get; set; }
+
         [Required]
         [ForeignKey("OperationType")]
-        public int OperationTypeID { get; set; }
+        public int OperationTypeId { get; set; }
+
         [Required]
         [ForeignKey("Item")]
-        public int ItemID { get; set; }
-        public int? PayLoadID { get; set; }
+        public int ItemId { get; set; }
+
+        public int? PayLoadId { get; set; }
+
         [Required]
         public bool Priority { get; set; }
+
 
         public virtual OperationType OperationType { get; set; }
         public virtual Item Item { get; set; }

@@ -8,7 +8,7 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ItemID { get; set; }
+        public int ItemId { get; set; }
 
         [Index(IsUnique = true)]
         public string InventoryNumber { get; set; }
@@ -33,35 +33,35 @@ namespace DAL.Entity
         public string ModelType { get; set; }
 
         [Required]
-        [ForeignKey("ItemNature")]
-        public int? ItemNatureID { get; set; }
+        [ForeignKey(nameof(ItemNature))]
+        public int? ItemNatureId { get; set; }
 
         [Required]
-        [ForeignKey("ItemType")]
-        public int? ItemTypeID { get; set; }
+        [ForeignKey(nameof(ItemType))]
+        public int? ItemTypeId { get; set; }
 
         //TODO: int?
         public DateTime? ProductionYear { get; set; }
 
-        [ForeignKey("Department")]
-        public int? DepartementID { get; set; }
+        [ForeignKey(nameof(Department))]
+        public int? DepartmentId { get; set; }
 
-        [ForeignKey("Section")]
-        public int? SectionID { get; set; }
+        [ForeignKey(nameof(Section))]
+        public int? SectionId { get; set; }
 
-        [ForeignKey("Employee")]
-        public int? EmployeeID { get; set; }
+        [ForeignKey(nameof(Employee))]
+        public int? EmployeeId { get; set; }
 
-        [ForeignKey("Building")]
-        public int? BuildingID { get; set; }
+        [ForeignKey(nameof(Building))]
+        public int? BuildingId { get; set; }
 
-        [ForeignKey("Floor")]
-        public int? FloorID { get; set; }
+        [ForeignKey(nameof(Floor))]
+        public int? FloorId { get; set; }
 
         public string Room { get; set; }
 
-        [ForeignKey("ItemState")]
-        public int? ItemStateID { get; set; }
+        [ForeignKey(nameof(ItemState))]
+        public int? ItemStateId { get; set; }
 
         public DateTime? DateOfCreation { get; set; }
 

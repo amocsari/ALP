@@ -7,14 +7,18 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ItemTypeID { get; set; }
+        public int ItemTypeId { get; set; }
+
         [Required]
         public string ItemTypeName { get; set; }
+
         [Required]
         [ForeignKey("ItemNature")]
-        public int ItemNatureID { get; set; }
+        public int ItemNatureId { get; set; }
+
         [Required]
         public bool Locked { get; set; }
+
         
         public virtual ItemNature ItemNature { get; set; }
     }

@@ -26,7 +26,7 @@ namespace API.Controller
         [HttpGet]
         public Task<Employee> GetEmployeeById(int employeeId)
         {
-            return _employeeService.GetSingle(b => b.EmployeeID == employeeId);
+            return _employeeService.GetSingle(b => b.EmployeeId == employeeId);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteEmployeeById(int employeeId)
         {
-            _employeeService.Remove(b => b.EmployeeID == employeeId);
+            _employeeService.Remove(b => b.EmployeeId == employeeId);
         }
     }
 }

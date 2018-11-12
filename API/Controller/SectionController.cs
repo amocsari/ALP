@@ -26,7 +26,7 @@ namespace API.Controller
         [HttpGet]
         public Task<Section> GetSectionById(int sectionId)
         {
-            return _sectionService.GetSingle(b => b.SectionID == sectionId);
+            return _sectionService.GetSingle(b => b.SectionId == sectionId);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteSectionById(int sectionId)
         {
-            _sectionService.Remove(b => b.SectionID == sectionId);
+            _sectionService.Remove(b => b.SectionId == sectionId);
         }
     }
 }

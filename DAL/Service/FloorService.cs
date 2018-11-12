@@ -21,7 +21,7 @@ namespace DAL.Service
         {
             try
             {
-                await Remove(floor => floor.FloorID == floorId);
+                await Remove(floor => floor.FloorId == floorId);
             }
             catch (Exception)
             {
@@ -61,7 +61,7 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await GetSingle(floor => floor.FloorID == floorId);
+                var entity = await GetSingle(floor => floor.FloorId == floorId);
                 return entity.EntityToDto();
             }
             catch (Exception)
@@ -104,7 +104,7 @@ namespace DAL.Service
             try
             {
 
-                var updatedEntity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorID == dto.Id);
+                var updatedEntity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();

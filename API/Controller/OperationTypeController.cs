@@ -26,7 +26,7 @@ namespace API.Controller
         [HttpGet]
         public Task<OperationType> GetOperationTypeById(int operationTypeId)
         {
-            return _operationTypeService.GetSingle(b => b.OperationTypeID == operationTypeId);
+            return _operationTypeService.GetSingle(b => b.OperationTypeId == operationTypeId);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteOperationTypeById(int operationTypeId)
         {
-            _operationTypeService.Remove(b => b.OperationTypeID == operationTypeId);
+            _operationTypeService.Remove(b => b.OperationTypeId == operationTypeId);
         }
     }
 }

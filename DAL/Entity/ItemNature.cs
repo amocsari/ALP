@@ -7,9 +7,11 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ItemNatureID { get; set; }
+        public int ItemNatureId { get; set; }
+
         [Required]
         public string ItemNatureName { get; set; }
+
         [Required]
         public bool Locked { get; set; }
     }

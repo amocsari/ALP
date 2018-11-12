@@ -16,10 +16,10 @@ namespace DAL.Extensions
             {
                 Department = dto.Department?.DtoToEntity(),
                 Section = dto.Section?.DtoToEntity(),
-                DepartmentID = dto.DepartmentID,
-                SectionID = dto.SectionID,
+                DepartmentId = dto.DepartmentID,
+                SectionId = dto.SectionID,
                 EmailAddress = dto.EmailAddress,
-                EmployeeID = dto.ID,
+                EmployeeId = dto.ID,
                 EmployeeName = dto.Name,
                 RetirementDate = dto.RetirementDate
             };
@@ -31,10 +31,10 @@ namespace DAL.Extensions
             {
                 Department = entity.Department?.EntityToDto(),
                 Section = entity.Section?.EntityToDto(),
-                DepartmentID = entity.DepartmentID,
-                SectionID = entity.SectionID,
+                DepartmentID = entity.DepartmentId,
+                SectionID = entity.SectionId,
                 EmailAddress = entity.EmailAddress,
-                ID = entity.EmployeeID,
+                ID = entity.EmployeeId,
                 Name = entity.EmployeeName,
                 RetirementDate = entity.RetirementDate
             };

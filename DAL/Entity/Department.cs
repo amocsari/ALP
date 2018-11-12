@@ -7,14 +7,18 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int DepartmentID { get; set; }
+        public int DepartmentId { get; set; }
+
         [Required]
         public string DepartmentName { get; set; }
+
         [Required]
         [ForeignKey("Employee")]
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
+
         [Required]
         public bool Locked { get; set; }
+
 
         public virtual Employee Employee { get; set; }
     }

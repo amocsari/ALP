@@ -7,14 +7,18 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int FloorID { get; set; }
+        public int FloorId { get; set; }
+
         [Required]
         public string FloorName { get; set; }
+
         [Required]
         [ForeignKey("Building")]
-        public int BuildingID { get; set; }
+        public int BuildingId { get; set; }
+
         [Required]
         public bool Locked { get; set; }
+
 
         public virtual Building Building { get; set; }
     }

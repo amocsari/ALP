@@ -7,9 +7,11 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OperationTypeID { get; set; }
+        public int OperationTypeId { get; set; }
+
         [Required]
         public string OperationTypeName { get; set; }
+
         [Required]
         public bool Locked { get; set; }
     }

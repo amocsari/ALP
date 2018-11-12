@@ -44,7 +44,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteLocationById(int locationId)
         {
-            _locationService.Remove(b => b.LocationID == locationId);
+            _locationService.Remove(b => b.LocationId == locationId);
         }
 
         [HttpPost]

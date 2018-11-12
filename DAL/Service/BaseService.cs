@@ -16,7 +16,11 @@ namespace DAL.Service
         {
             var set = _context.Set<T>();
 
-            return await set.AsNoTracking().Include(navigationProperties).ToListAsync();
+            var query = set.AsNoTracking().Include(navigationProperties);
+
+            var sql = query.ToSql();
+
+            return await query.ToListAsync();
         }
 
         public async Task<List<T>> GetByExpression(System.Linq.Expressions.Expression<Func<T, bool>> expression, params System.Linq.Expressions.Expression<Func<T, object>>[] navigationProperties)
@@ -30,7 +34,11 @@ namespace DAL.Service
         {
             var set = _context.Set<T>();
 
-            return await set.Include(navigationProperties).FirstOrDefaultAsync(expression);
+            var query = set.Include(navigationProperties);
+
+            var sql = query.ToSql();
+
+            return await query.FirstOrDefaultAsync(expression);
         }
 
         public async Task<T> InsertNew(T entity)

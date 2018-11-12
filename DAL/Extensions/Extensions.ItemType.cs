@@ -14,9 +14,9 @@ namespace DAL.Extensions
 
             return new ItemTypeDto
             {
-                Id = entity.ItemTypeID,
+                Id = entity.ItemTypeId,
                 ItemNature = entity.ItemNature?.EntityToDto(),
-                ItemNatureId = entity.ItemNatureID,
+                ItemNatureId = entity.ItemNatureId,
                 Locked = entity.Locked,
                 Name = entity.ItemTypeName
             };
@@ -31,10 +31,10 @@ namespace DAL.Extensions
 
             return new ItemType
             {
-                ItemTypeID = dto.Id,
+                ItemTypeId = dto.Id,
                 ItemTypeName = dto.Name,
                 ItemNature = dto.ItemNature?.DtoToEntity(),
-                ItemNatureID = dto.ItemNatureId,
+                ItemNatureId = dto.ItemNatureId,
                 Locked = dto.Locked
             };
         }
@@ -47,7 +47,7 @@ namespace DAL.Extensions
             }
 
             entity.ItemTypeName = dto.Name;
-            entity.ItemNatureID = dto.ItemNatureId;
+            entity.ItemNatureId = dto.ItemNatureId;
             entity.ItemNature.UpdateEntityByDto(dto.ItemNature);
             entity.Locked = dto.Locked;
         }

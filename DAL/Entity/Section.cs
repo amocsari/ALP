@@ -7,17 +7,22 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int SectionID { get; set; }
+        public int SectionId { get; set; }
+
         [Required]
         public string SectionName { get; set; }
+
         [Required]
         [ForeignKey("Department")]
-        public int DepartmentID { get; set; }
+        public int DepartmentId { get; set; }
+
         [Required]
         [ForeignKey("Floor")]
-        public int FloorID { get; set; }
+        public int FloorId { get; set; }
+
         [Required]
         public bool Locked { get; set; }
+
 
         public virtual Floor Floor { get; set; }
         public virtual Department Department { get; set; }

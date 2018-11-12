@@ -15,7 +15,7 @@ namespace DAL.Extensions
             return new ItemNatureDto
             {
                 Name = entity.ItemNatureName,
-                Id = entity.ItemNatureID,
+                Id = entity.ItemNatureId,
                 Locked = entity.Locked
             };
         }
@@ -30,7 +30,7 @@ namespace DAL.Extensions
             return new ItemNature
             {
                 ItemNatureName = dto.Name,
-                ItemNatureID = dto.Id,
+                ItemNatureId = dto.Id,
                 Locked = dto.Locked,
             };
         }

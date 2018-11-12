@@ -35,7 +35,7 @@ namespace DAL.Service
         {
             try
             {
-                await Remove(itemNature => itemNature.ItemNatureID == itemNatureId);
+                await Remove(itemNature => itemNature.ItemNatureId == itemNatureId);
             }
             catch (Exception)
             {
@@ -77,7 +77,7 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await GetSingle(itemNature => itemNature.ItemNatureID == itemNatureId);
+                var entity = await GetSingle(itemNature => itemNature.ItemNatureId == itemNatureId);
                 return entity.EntityToDto();
             }
             catch (Exception)
@@ -105,7 +105,7 @@ namespace DAL.Service
         {
             try
             {
-                var updatedEntity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureID == dto.Id);
+                var updatedEntity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();

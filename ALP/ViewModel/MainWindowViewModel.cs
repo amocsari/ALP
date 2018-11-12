@@ -71,27 +71,27 @@ namespace ALP.ViewModel
 
         private void OnExitCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnDepartmentSearchCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnEmployeeSearchCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnImportCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnRequestsCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnItemSearchCommand()
@@ -106,7 +106,7 @@ namespace ALP.ViewModel
 
         private void OnSectionCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnFloorCommand()
@@ -141,17 +141,17 @@ namespace ALP.ViewModel
 
         private void OnPasswordChangeCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnLogoutCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnLoginCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
     }
 }

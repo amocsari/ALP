@@ -26,7 +26,7 @@ namespace API.Controller
         [HttpGet]
         public Task<Role> GetRoleById(int roleId)
         {
-            return _roleService.GetSingle(b => b.RoleID == roleId);
+            return _roleService.GetSingle(b => b.RoleId == roleId);
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteRoleById(int roleId)
         {
-            _roleService.Remove(b => b.RoleID == roleId);
+            _roleService.Remove(b => b.RoleId == roleId);
         }
     }
 }

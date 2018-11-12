@@ -15,7 +15,7 @@ namespace DAL.Extensions
             return new ItemStateDto
             {
                 Name = entity.ItemStateName,
-                Id = entity.ItemStateID,
+                Id = entity.ItemStateId,
                 Locked = entity.Locked
             };
         }
@@ -30,7 +30,7 @@ namespace DAL.Extensions
             return new ItemState
             {
                 ItemStateName = dto.Name,
-                ItemStateID = dto.Id,
+                ItemStateId = dto.Id,
                 Locked = dto.Locked,
             };
         }

@@ -35,7 +35,7 @@ namespace DAL.Service
         {
             try
             {
-                await Remove(location => location.LocationID == locationId);
+                await Remove(location => location.LocationId == locationId);
             }
             catch (Exception)
             {
@@ -77,7 +77,7 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await GetSingle(location => location.LocationID == locationId);
+                var entity = await GetSingle(location => location.LocationId == locationId);
                 return entity.EntityToDto();
             }
             catch (Exception)
@@ -105,7 +105,7 @@ namespace DAL.Service
         {
             try
             {
-                var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationID == dto.Id);
+                var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();

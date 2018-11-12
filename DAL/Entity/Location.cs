@@ -7,9 +7,11 @@ namespace DAL.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int LocationID { get; set; }
+        public int LocationId { get; set; }
+
         [Required]
         public string LocationName { get; set; }
+
         [Required]
         public bool Locked { get; set; }
     }
