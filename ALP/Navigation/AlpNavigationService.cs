@@ -9,20 +9,20 @@ using System.Windows.Media;
 
 namespace ALP.Navigation
 {
-    public class AlpNavigationService : IAlpNavigationService, INotifyPropertyChanged
+    public class AlpNavigationService : IAlpNavigationService
     {
         private static Dictionary<string, Uri> pageKeys = new Dictionary<string, Uri>();
-        private static List<string> history = new List<string>();
+        private static Stack<string> backStack = new Stack<string>();
         public string CurrentPageKey { get; private set; }
 
         public object Parameter { get; private set; }
 
         public void GoBack()
         {
-            if (history.Count > 1)
+            if (backStack.Count > 1)
             {
-                history.RemoveAt(history.Count - 1);
-                NavigateTo(history.Last());
+                backStack.Pop();
+                NavigateTo(backStack.Last());
             }
         }
 
@@ -44,7 +44,7 @@ namespace ALP.Navigation
                     }
 
                     Parameter = parameter;
-                    history.Add(pageKey);
+                    backStack.Push(pageKey);
                     CurrentPageKey = pageKey;
                 }
             }
@@ -89,13 +89,6 @@ namespace ALP.Navigation
                 }
             }
             return null;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
