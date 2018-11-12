@@ -3,20 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Name="ThisWindow"
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="APL" Height="Auto" Width="Auto">
+        Title="ALP" Height="Auto" Width="Auto">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Rendszer">
                 <MenuItem Header="Bejelentkezés" Command="{Binding LoginCommand}"/>
                 <MenuItem Header="Kijelentkezés" Command="{Binding LogoutCommand}"/>
                 <MenuItem Header="Jelszó változtatás" Command="{Binding PasswordChangeCommand}"/>
-                <Separator/>
+                <!--<Separator/>
                 <MenuItem Header="Változások" Command="{Binding ChangesCommand}"/>
-                <MenuItem Header="Rendszerbeállítások" Command="{Binding SystemSettingsCommand}"/>
+                <MenuItem Header="Rendszerbeállítások" Command="{Binding SystemSettingsCommand}"/>-->
                 <Separator/>
-                <MenuItem Header="Kilépés" Command="{Binding ExitCommand}"/>
+                <MenuItem Header="Kilépés" Command="{Binding ExitCommand}" CommandParameter="{Binding ElementName=ThisWindow}"/>
             </MenuItem>
             <MenuItem Header="Alapadatok">
                 <MenuItem Header="Eszköz jelleg" Command="{Binding ItemNatureCommand}"/>

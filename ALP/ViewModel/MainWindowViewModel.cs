@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using ALP.Navigation;
 using GalaSoft.MvvmLight.Command;
@@ -43,7 +44,7 @@ namespace ALP.ViewModel
             PasswordChangeCommand = new RelayCommand(OnPasswordChangeCommand, IsLoggedIn);
             ChangesCommand = new RelayCommand(OnChangesCommand);
             SystemSettingsCommand = new RelayCommand(OnSystemSettingsCommand, IsLoggedIn && IsAdmin);
-            ExitCommand = new RelayCommand(OnExitCommand);
+            ExitCommand = new RelayCommand<Window>(OnExitCommand);
             ItemNatureCommand = new RelayCommand(OnItemNatureCommand);
             ItemTypeCommand = new RelayCommand(OnItemTypeCommand, IsLoggedIn && IsAdmin);
             ItemStateCommand = new RelayCommand(OnItemStateCommand, IsLoggedIn && IsAdmin);
@@ -69,9 +70,9 @@ namespace ALP.ViewModel
             _navigationService.NavigateTo(ViewModelLocator.LookupLocations);
         }
 
-        private void OnExitCommand()
+        private void OnExitCommand(Window window)
         {
-            //TODO
+            window.Close();
         }
 
         private void OnDepartmentSearchCommand()
