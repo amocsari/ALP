@@ -8,6 +8,7 @@ namespace ALP.Navigation
 {
     public partial class ViewModelLocator
     {
+        //Key values of the pages
         public static readonly string SystemWelcomeScreen = "System_WelcomeScreen";
         public static readonly string SystemSettings = "System_Settings";
         public static readonly string SystemRecentChanges = "System_Changes";
@@ -20,6 +21,8 @@ namespace ALP.Navigation
         public static readonly string InventoryItemEditPage = "Inventory_ItemEdit";
         public static readonly string InventoryItemSearchPage = "Inventory_ItemSearch";
 
+
+        //ViewModels bound to view DataContexts in XAML code
         public MainWindowViewModel MainWindowViewModel { get => IocKernel.Get<MainWindowViewModel>(); }
 
         public WelcomeScreenViewModel WelcomeScreenViewModel { get => IocKernel.Get<WelcomeScreenViewModel>(); }

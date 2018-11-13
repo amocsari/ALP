@@ -1,16 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ALP.Service
 {
+    /// <summary>
+    /// Used to send http requests to the server
+    /// </summary>
     public class AlpApiService : IAlpApiService
     {
+        /// <summary>
+        /// The server's address
+        /// Needs to be updated
+        /// </summary>
         private static readonly Uri baseAddress = new Uri("http://localhost:1707/api/");
 
+        /// <summary>
+        /// Sends a DELETE request to the server
+        /// Returns the parsed content of the response
+        /// </summary>
+        /// <typeparam name="TResponse">Expected type of the response</typeparam>
+        /// <param name="path">path of the deletable resource</param>
+        /// <param name="id">Identification of the deletable resource</param>
+        /// <returns>Content of the server's response</returns>
         public async Task<TResponse> DeleteAsync<TResponse>(string path, int id)
         {
             using (var client = new HttpClient())
@@ -21,13 +33,21 @@ namespace ALP.Service
                 var response = await client.DeleteAsync(path + "/" + id.ToString());
 
                 if (!response.IsSuccessStatusCode)
-                    //TODO: exception
-                    throw new Exception();
+                {
+                    throw new Exception("Error during DELETE request!");
+                }
 
                 return await response.Content.ReadAsAsync<TResponse>();
             }
         }
 
+        /// <summary>
+        /// Sends a DELETE request to the server
+        /// Returns a boolean depending on the success of the request
+        /// </summary>
+        /// <param name="path">the path of the deletable resource</param>
+        /// <param name="id">the identification of the deletable resource</param>
+        /// <returns>The success of the deletion</returns>
         public async Task<bool> DeleteAsync(string path, int id)
         {
             using (var client = new HttpClient())
@@ -40,6 +60,12 @@ namespace ALP.Service
             }
         }
 
+        /// <summary>
+        /// Sends a GET request to the server
+        /// </summary>
+        /// <typeparam name="TResponse">The expected type of the response</typeparam>
+        /// <param name="path">The path of the desired resource</param>
+        /// <returns>The content of the response, desired resource</returns>
         public async Task<TResponse> GetAsync<TResponse>(string path)
         {
             using (var client = new HttpClient())
@@ -50,13 +76,23 @@ namespace ALP.Service
                 var response = await client.GetAsync(path);
 
                 if (!response.IsSuccessStatusCode)
-                    //TODO: exception
-                    throw new Exception();
+                {
+                    throw new Exception("Error during GET request!");
+                }
 
                 return await response.Content.ReadAsAsync<TResponse>();
             }
         }
 
+        /// <summary>
+        /// Sends a POST request to the server
+        /// Returns the parsed content of the response
+        /// </summary>
+        /// <typeparam name="TParameter">The type of the sent parameter</typeparam>
+        /// <typeparam name="TResponse">The expected type of the response</typeparam>
+        /// <param name="path">The path of the desired resource</param>
+        /// <param name="parameter">The sent parameter</param>
+        /// <returns>The parsed content of the response</returns>
         public async Task<TResponse> PostAsync<TParameter, TResponse>(string path, TParameter parameter)
         {
             using (var client = new HttpClient())
@@ -67,13 +103,22 @@ namespace ALP.Service
                 var response = await client.PostAsJsonAsync(path, parameter);
 
                 if (!response.IsSuccessStatusCode)
-                    //TODO: exception
-                    throw new Exception();
+                {
+                    throw new Exception("Error during POST request!");
+                }
 
                 return await response.Content.ReadAsAsync<TResponse>();
             }
         }
 
+        /// <summary>
+        /// Sends a POST request to the server
+        /// Returns a bool depending on the result of the request
+        /// </summary>
+        /// <typeparam name="TParameter">The type of the sent parameter</typeparam>
+        /// <param name="path">The path of the desired resource</param>
+        /// <param name="parameter">The sent parameter</param>
+        /// <returns>The success of the request</returns>
         public async Task<bool> PostAsync<TParameter>(string path, TParameter parameter)
         {
             using (var client = new HttpClient())

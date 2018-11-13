@@ -32,33 +32,18 @@ namespace ALP.Navigation
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
-
             SimpleIoc.Default.Register<MainWindowViewModel>();
         }
 
-        public MainWindowViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainWindowViewModel>();
-            }
-        }
-
+        /// <summary>
+        /// Registres the pages into the AlpNavigationService's dictionary
+        /// </summary>
         public static void SetupNavigation()
         {
-            var navigationService = new AlpNavigationService()
-                .RegisterPage(SystemSettings, new Uri("../View/System/System_SettingsPage.xaml", UriKind.Relative))
-                .RegisterPage(SystemRecentChanges, new Uri("../View/System/System_RecentChangesPage.xaml", UriKind.Relative))
+            var navigationService = new AlpNavigationService();
+            navigationService
+                //.RegisterPage(SystemSettings, new Uri("../View/System/System_SettingsPage.xaml", UriKind.Relative))
+                //.RegisterPage(SystemRecentChanges, new Uri("../View/System/System_RecentChangesPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupLocations, new Uri("../View/Lookup/Location/Lookup_LocationsPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupBuildings, new Uri("../View/Lookup/Building/Lookup_BuildingsPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupFloors, new Uri("../View/Lookup/Floor/Lookup_FloorsPage.xaml", UriKind.Relative))
@@ -69,9 +54,12 @@ namespace ALP.Navigation
                 .RegisterPage(InventoryItemSearchPage, new Uri("../View/Inventory/Inventory_SearchPage.xaml", UriKind.Relative));
         }
 
-        public static void Cleanup()
-        {
-            // TODO Clear the ViewModels
-        }
+        /// <summary>
+        /// Performs cleanup operations after the application finishes.
+        /// </summary>
+        //public static void Cleanup()
+        //{
+        //    // TODO Clear the ViewModels
+        //}
     }
 }

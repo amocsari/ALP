@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace ALP.ViewModel.Lookup
 {
+    /// <summary>
+    /// Used to Edit an instance of a ItemType
+    /// </summary>
     public class LookupItemTypeEditorWindowViewModel : LookupEditorWindowViewModel<ItemTypeDto>
     {
+        /// <summary>
+        /// Selectable itemNatures
+        /// </summary>
         private ObservableCollection<ItemNatureDto> itemNatures;
         public ObservableCollection<ItemNatureDto> ItemNatures
         {
@@ -21,6 +27,9 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
+        /// <summary>
+        /// Currently selected itemNature
+        /// </summary>
         public ItemNatureDto SelectedItemNature
         {
             get
@@ -36,14 +45,27 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
+        /// <summary>
+        /// Api that communicates with the server
+        /// Makes ItemNature related requests
+        /// </summary>
         private readonly ILookupApiService<ItemNatureDto> _itemNatureApiService;
 
+        /// <summary>
+        /// Constructor
+        /// Handles Dependency Injection and Initialization
+        /// </summary>
+        /// <param name="locationApiService"></param>
         public LookupItemTypeEditorWindowViewModel(ILookupApiService<ItemNatureDto> itemNatureApiService)
         {
             _itemNatureApiService = itemNatureApiService;
             Initialization = InitializeAsync();
         }
 
+        /// <summary>
+        /// Async data loading during initialization
+        /// </summary>
+        /// <returns></returns>
         protected override async Task InitializeAsync()
         {
             try

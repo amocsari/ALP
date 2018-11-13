@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace ALP.ViewModel.Lookup
 {
+    /// <summary>
+    /// Used to Edit an instance of a BuildingDto
+    /// </summary>
     public class LookupBuildingEditorWindowViewModel : LookupEditorWindowViewModel<BuildingDto>
     {
+        /// <summary>
+        /// Selectable locations
+        /// </summary>
         private ObservableCollection<LocationDto> locations;
         public ObservableCollection<LocationDto> Locations
         {
@@ -21,6 +27,9 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
+        /// <summary>
+        /// Currently selected location
+        /// </summary>
         public LocationDto SelectedLocation
         {
             get
@@ -36,14 +45,27 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
+        /// <summary>
+        /// Api that communicates with the server
+        /// Makes Location related requests
+        /// </summary>
         private readonly ILookupApiService<LocationDto> _locationApiService;
 
+        /// <summary>
+        /// Constructor
+        /// Handles Dependency Injection and Initialization
+        /// </summary>
+        /// <param name="locationApiService"></param>
         public LookupBuildingEditorWindowViewModel(ILookupApiService<LocationDto> locationApiService)
         {
             _locationApiService = locationApiService;
             Initialization = InitializeAsync();
         }
 
+        /// <summary>
+        /// Async data loading during initialization
+        /// </summary>
+        /// <returns></returns>
         protected override async Task InitializeAsync()
         {
             try

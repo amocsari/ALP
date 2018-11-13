@@ -2,8 +2,14 @@
 
 namespace ALP.ViewModel
 {
+    /// <summary>
+    /// The ViewModel of the WelcomePage
+    /// </summary>
     public class WelcomeScreenViewModel
     {
+        /// <summary>
+        /// Returns the version of the application
+        /// </summary>
         public string ApplicationVersion
         {
             get

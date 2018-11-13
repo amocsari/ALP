@@ -1,11 +1,25 @@
 ﻿namespace Common.Model.Dto
 {
+    /// <summary>
+    /// Used to store the date of a single itemType
+    /// </summary>
     public class ItemTypeDto : LookupDtoBase
     {
+        /// <summary>
+        /// Id of the ItemType's ItemNature
+        /// </summary>
         public int ItemNatureId { get; set; }
 
+        /// <summary>
+        /// Navigation property of the ItemType's ItemNature
+        /// </summary>
         public ItemNatureDto ItemNature { get; set; }
 
+        /// <summary>
+        /// Compares two itemTypes
+        /// </summary>
+        /// <param name="otherDto">The other itemType, which this is compared to.</param>
+        /// <returns>The result of the comparison</returns>
         public override bool Equals(LookupDtoBase otherDto)
         {
             var other = (ItemTypeDto)otherDto;
@@ -13,6 +27,10 @@
             return Id == other.Id && Name == other.Name && Locked == other.Locked && ItemNatureId == other.ItemNatureId && ItemNature.Equals(other.ItemNature);
         }
 
+        /// <summary>
+        /// Creates a copy of the current itemType
+        /// </summary>
+        /// <returns>A copy of the itemType</returns>
         public override LookupDtoBase Copy()
         {
             return new ItemTypeDto
@@ -25,6 +43,11 @@
             };
         }
 
+        /// <summary>
+        /// Updates the values of the itemTypes properties by another LookupDtoBase
+        /// The other Dto is also a itemTypeDto
+        /// </summary>
+        /// <param name="sourceDto">The other itemType</param>
         public override void UpdateByDto(LookupDtoBase sourceDto)
         {
             var source = (ItemTypeDto)sourceDto;

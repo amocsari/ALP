@@ -9,8 +9,15 @@ using Common.Model.Dto;
 
 namespace ALP.ViewModel.Lookup
 {
+    /// <summary>
+    /// The viewmodel of lookuplistviews
+    /// </summary>
+    /// <typeparam name="T">The Dto of the chosen lookup data</typeparam>
     public class LookupListViewModel<T> : AlpViewModelBase where T : LookupDtoBase, new()
     {
+        /// <summary>
+        /// The list of visible dtos
+        /// </summary>
         private ObservableCollection<LookupListItemViewModel<T>> values;
         public ObservableCollection<LookupListItemViewModel<T>> Values
         {
@@ -23,11 +30,22 @@ namespace ALP.ViewModel.Lookup
                 }
             }
         }
+
+        /// <summary>
+        /// The command bound to the new button
+        /// </summary>
         public ICommand NewCommand { get; private set; }
 
+        //Dependency injected services
         private readonly ILookupApiService<T> _lookupApiService;
         private readonly IAlpDialogService _dialogService;
 
+        /// <summary>
+        /// Constructor
+        /// Handles Dependency Injection
+        /// Sets commands
+        /// Initializes data
+        /// </summary>
         public LookupListViewModel(ILookupApiService<T> lookupApiService, IAlpDialogService dialogService)
         {
             _lookupApiService = lookupApiService;
@@ -37,6 +55,9 @@ namespace ALP.ViewModel.Lookup
             Initialization = InitializeAsync();
         }
 
+        /// <summary>
+        /// Loads data from the server
+        /// </summary>
         protected override async Task InitializeAsync()
         {
             try
@@ -65,7 +86,10 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
-        //relay command void-t vár
+        /// <summary>
+        /// Creates a new dto and sends it to the server to add it to the database
+        /// Returns void because RelayCommand expects void as return value
+        /// </summary>
         private async void OnNewCommand()
         {
             try
@@ -94,7 +118,12 @@ namespace ALP.ViewModel.Lookup
 
         }
 
-        private void OnListItemDoubleClickCommand(T dto)
+        /// <summary>
+        /// Edits a dto and sends it to the server to change its value in the database
+        /// Returns void because RelayCommand expects void as return value
+        /// </summary>
+        /// <param name="dto">The dto in the double clicked line</param>
+        private async void OnListItemDoubleClickCommand(T dto)
         {
             try
             {
@@ -105,7 +134,7 @@ namespace ALP.ViewModel.Lookup
                     var updateddto = dialogResult.Value;
                     if (!updateddto.Equals(dto))
                     {
-                        _lookupApiService.Update(updateddto);
+                        await _lookupApiService.Update(updateddto);
                         dto.UpdateByDto(updateddto);
                     }
                 }
@@ -120,12 +149,17 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
-        private void OnLockCommand(T dto)
+        /// <summary>
+        /// Toggles the value of the dto's locked state
+        /// Returns void because RelayCommand expects void as return value
+        /// </summary>
+        /// <param name="dto">The dto, the lock button belongs to</param>
+        private async void OnLockCommand(T dto)
         {
             try
             {
                 IsLoading = true;
-                _lookupApiService.ToggleLockStateById(dto.Id);
+                await _lookupApiService.ToggleLockStateById(dto.Id);
                 dto.Locked = !dto.Locked;
             }
             catch (Exception)

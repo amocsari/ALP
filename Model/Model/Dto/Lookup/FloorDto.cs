@@ -1,11 +1,25 @@
 ﻿namespace Common.Model.Dto
 {
+    /// <summary>
+    /// Used to store the date of a single floor
+    /// </summary>
     public class FloorDto : LookupDtoBase
     {
+        /// <summary>
+        /// Id of the floor's building
+        /// </summary>
         public int BuildingId { get; set; }
 
+        /// <summary>
+        /// Navigation property of the floor's building
+        /// </summary>
         public BuildingDto Building { get; set; }
 
+        /// <summary>
+        /// Compares two floors
+        /// </summary>
+        /// <param name="otherDto">The other floor, which this is compared to.</param>
+        /// <returns>The result of the comparison</returns>
         public override bool Equals(LookupDtoBase otherDto)
         {
             var other = (FloorDto)otherDto;
@@ -13,6 +27,10 @@
             return Id == other.Id && Name == other.Name && Locked == other.Locked && BuildingId == other.BuildingId && Building.Equals(other.Building);
         }
 
+        /// <summary>
+        /// Creates a copy of the current floor
+        /// </summary>
+        /// <returns>A copy of the floor</returns>
         public override LookupDtoBase Copy()
         {
             return new FloorDto
@@ -25,6 +43,11 @@
             };
         }
 
+        /// <summary>
+        /// Updates the values of the floors properties by another LookupDtoBase
+        /// The other Dto is also a floor
+        /// </summary>
+        /// <param name="sourceDto">The other floor</param>
         public override void UpdateByDto(LookupDtoBase sourceDto)
         {
             var source = (FloorDto)sourceDto;

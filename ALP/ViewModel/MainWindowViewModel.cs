@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ALP.Navigation;
@@ -6,12 +6,19 @@ using GalaSoft.MvvmLight.Command;
 
 namespace ALP.ViewModel
 {
-    public class MainWindowViewModel
+    /// <summary>
+    /// Used to react to the events of the MainWindow
+    /// </summary>
+    public class MainWindowViewModel: AlpViewModelBase
     {
+        /// <summary>
+        /// injected service
+        /// </summary>
         private readonly IAlpNavigationService _navigationService;
 
+        //Commands bound to the menu items
         public ICommand LoginCommand { get; private set; }
-        public ICommand LogoutCommand { get; private set; }
+        //public ICommand LogoutCommand { get; private set; }
         public ICommand PasswordChangeCommand { get; private set; }
         public ICommand ChangesCommand { get; private set; }
         public ICommand SystemSettingsCommand { get; private set; }
@@ -35,12 +42,18 @@ namespace ALP.ViewModel
         //TODO: mock ha a szerepkörök implementálva vannak, akkor cserélni
         private bool IsAdmin { get => true; }
 
+        /// <summary>
+        /// Constructor
+        /// Sets the injected service
+        /// Sets the commands
+        /// </summary>
+        /// <param name="navigationService">injected navigationservice</param>
         public MainWindowViewModel(IAlpNavigationService navigationService)
         {
             _navigationService = navigationService;
 
             LoginCommand = new RelayCommand(OnLoginCommand);
-            LogoutCommand = new RelayCommand(OnLogoutCommand, IsLoggedIn);
+            //LogoutCommand = new RelayCommand(OnLogoutCommand, IsLoggedIn);
             PasswordChangeCommand = new RelayCommand(OnPasswordChangeCommand, IsLoggedIn);
             ChangesCommand = new RelayCommand(OnChangesCommand);
             SystemSettingsCommand = new RelayCommand(OnSystemSettingsCommand, IsLoggedIn && IsAdmin);
@@ -60,6 +73,12 @@ namespace ALP.ViewModel
             LocationCommand = new RelayCommand(OnLocationCommand, IsLoggedIn && IsAdmin);
         }
 
+        /// <summary>
+        /// Initializes data
+        /// </summary>
+        protected override async Task InitializeAsync(){}
+
+        //Command functions
         private void OnNewItemCommand()
         {
             _navigationService.NavigateTo(ViewModelLocator.InventoryItemEditPage);
@@ -145,10 +164,10 @@ namespace ALP.ViewModel
             //TODO
         }
 
-        private void OnLogoutCommand()
-        {
-            //TODO
-        }
+        //private void OnLogoutCommand()
+        //{
+        //    //TODO
+        //}
 
         private void OnLoginCommand()
         {
