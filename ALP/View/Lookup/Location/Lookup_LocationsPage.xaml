@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:view ="clr-namespace:ALP.View"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
       DataContext="{Binding LocationListViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -30,7 +32,25 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="Telephelyek" FontSize="32" HorizontalAlignment="Center"/>
-            <ListView ItemTemplate="{StaticResource LocationTemplate}" ItemsSource="{Binding Values}" HorizontalAlignment="Stretch" Margin="10"/>
+            <DataGrid ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding LockCommand}" Grid.Column="1" MaxHeight="20" MinHeight="20">
+                                    <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <cmd:EventToCommand Command="{Binding ListItemDoubleClickCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
             <Button Content="Új Telephely" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
         </StackPanel>
         <view:LoadingIndicator/>

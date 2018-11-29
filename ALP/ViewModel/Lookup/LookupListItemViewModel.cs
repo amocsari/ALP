@@ -1,10 +1,11 @@
-﻿using GalaSoft.MvvmLight.Command;
-using Common.Model.Dto;
+﻿using Common.Model.Dto;
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace ALP.ViewModel.Lookup
 {
@@ -19,13 +20,24 @@ namespace ALP.ViewModel.Lookup
         public ICommand LockCommand { get; set; }
 
         //Actions that are called during the Commands
-        private readonly Action<T> onLockCommand;
-        private readonly Action<T> onListItemDoubleClickCommand;
+        private readonly Action onLockCommand;
+        private readonly Action onListItemDoubleClickCommand;
 
         /// <summary>
         /// The actual value of the dto
         /// </summary>
-        public T Value { get; set; }
+        public T Value
+        {
+            get { return value;}
+            set
+            {
+                if (value != this.value)
+                {
+                    Set(ref this.value, value);
+                }
+            }
+        }
+        private T value;
 
         /// <summary>
         /// The source of the lock button
@@ -50,13 +62,11 @@ namespace ALP.ViewModel.Lookup
         /// <param name="value"></param>
         /// <param name="onListItemDoubleClickCommand"></param>
         /// <param name="onLockCommand"></param>
-        public LookupListItemViewModel(T value, Action<T> onListItemDoubleClickCommand, Action<T> onLockCommand)
+        public LookupListItemViewModel(T value, Action listItemDoubleClickCommand, Action lockCommand)
         {
             Value = value;
-            ListItemDoubleClickCommand = new RelayCommand<T>(OnListItemDoubleClickCommand);
-            LockCommand = new RelayCommand<T>(OnLockCommand);
-            this.onLockCommand = onLockCommand;
-            this.onListItemDoubleClickCommand = onListItemDoubleClickCommand;
+            LockCommand = new RelayCommand(lockCommand);
+            ListItemDoubleClickCommand = new RelayCommand(OnListItemDoubleClickCommand);
         }
 
         /// <summary>
@@ -64,11 +74,11 @@ namespace ALP.ViewModel.Lookup
         /// Uses the onListItemDoubleClickCommand Action
         /// </summary>
         /// <param name="dto">The double clicked dto</param>
-        private void OnListItemDoubleClickCommand(T dto)
+        private void OnListItemDoubleClickCommand()
         {
             try
             {
-                onListItemDoubleClickCommand(dto);
+                onListItemDoubleClickCommand();
             }
             catch (Exception)
             {
@@ -83,11 +93,11 @@ namespace ALP.ViewModel.Lookup
         /// Uses the onLockCommand Action
         /// </summary>
         /// <param name="dto">The locked dto</param>
-        private void OnLockCommand(T dto)
+        private void OnLockCommand()
         {
             try
             {
-                onLockCommand(dto);
+                onLockCommand();
             }
             catch (Exception)
             {

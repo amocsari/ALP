@@ -37,9 +37,9 @@ namespace ALP.Service
         /// </summary>
         /// <param name="dto">dto to create a database entry from</param>
         /// <returns>dto of the inserted entry</returns>
-        public async Task<T> AddNew(T dto)
+        public async Task<bool> AddNew(T dto)
         {
-            return await _apiService.PostAsync<T, T>(CreateUrl(nameof(AddNew)), dto);
+            return await _apiService.PostAsync<T>(CreateUrl(nameof(AddNew)), dto);
         }
 
         /// <summary>

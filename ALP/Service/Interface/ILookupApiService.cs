@@ -8,7 +8,7 @@ namespace ALP.Service
     {
         Task<List<T>> GetAll();
         Task<List<T>> GetAvailable();
-        Task<T> AddNew(T dto);
+        Task<bool> AddNew(T dto);
         Task<T> Update(T dto);
         Task ToggleLockStateById(int dtoId);
     }

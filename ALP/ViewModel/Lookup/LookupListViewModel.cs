@@ -31,10 +31,12 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
-        /// <summary>
-        /// The command bound to the new button
-        /// </summary>
+        public LookupListItemViewModel<T> SelectedItem { get; set; }
+
+        //Commands
         public ICommand NewCommand { get; private set; }
+        public ICommand ListItemDoubleClickCommand { get; private set; }
+        public ICommand LockCommand { get; private set; }
 
         //Dependency injected services
         private readonly ILookupApiService<T> _lookupApiService;
@@ -52,6 +54,8 @@ namespace ALP.ViewModel.Lookup
             _dialogService = dialogService;
 
             NewCommand = new RelayCommand(OnNewCommand);
+            ListItemDoubleClickCommand = new RelayCommand(OnListItemDoubleClickCommand);
+            LockCommand = new RelayCommand(OnLockCommand);
             Initialization = InitializeAsync();
         }
 
@@ -62,19 +66,7 @@ namespace ALP.ViewModel.Lookup
         {
             try
             {
-                IsLoading = true;
-                var reply = await _lookupApiService.GetAll();
-
-                if (reply != null)
-                {
-                    var result = reply.Select(value =>
-                        new LookupListItemViewModel<T>(value, OnListItemDoubleClickCommand, OnLockCommand));
-                    Values = new ObservableCollection<LookupListItemViewModel<T>>(result);
-                }
-                else
-                {
-                    Values = new ObservableCollection<LookupListItemViewModel<T>>();
-                }
+                await ReloadList();
             }
             catch (Exception)
             {
@@ -100,10 +92,10 @@ namespace ALP.ViewModel.Lookup
                 if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
                 {
                     var newdto = dialogResult.Value;
-                    var reply = await _lookupApiService.AddNew(newdto);
-                    if (reply != null)
+                    var success = await _lookupApiService.AddNew(newdto);
+                    if (success)
                     {
-                        values.Add(new LookupListItemViewModel<T>(reply, OnListItemDoubleClickCommand, OnLockCommand));
+                        await ReloadList();
                     }
                 }
             }
@@ -123,19 +115,19 @@ namespace ALP.ViewModel.Lookup
         /// Returns void because RelayCommand expects void as return value
         /// </summary>
         /// <param name="dto">The dto in the double clicked line</param>
-        private async void OnListItemDoubleClickCommand(T dto)
+        private async void OnListItemDoubleClickCommand()
         {
             try
             {
                 IsLoading = true;
-                var dialogResult = _dialogService.ShowDtoEditorWindow(dto);
+                var dialogResult = _dialogService.ShowDtoEditorWindow(SelectedItem.Value);
                 if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
                 {
                     var updateddto = dialogResult.Value;
-                    if (!updateddto.Equals(dto))
+                    if (!updateddto.Equals(SelectedItem))
                     {
                         await _lookupApiService.Update(updateddto);
-                        dto.UpdateByDto(updateddto);
+                        await ReloadList();
                     }
                 }
             }
@@ -154,13 +146,14 @@ namespace ALP.ViewModel.Lookup
         /// Returns void because RelayCommand expects void as return value
         /// </summary>
         /// <param name="dto">The dto, the lock button belongs to</param>
-        private async void OnLockCommand(T dto)
+        private async void OnLockCommand()
         {
             try
             {
                 IsLoading = true;
-                await _lookupApiService.ToggleLockStateById(dto.Id);
-                dto.Locked = !dto.Locked;
+                await _lookupApiService.ToggleLockStateById(SelectedItem.Value.Id);
+                SelectedItem.Value.Locked = !SelectedItem.Value.Locked;
+                await ReloadList();
             }
             catch (Exception)
             {
@@ -169,6 +162,22 @@ namespace ALP.ViewModel.Lookup
             finally
             {
                 IsLoading = false;
+            }
+        }
+
+        private async Task ReloadList()
+        {
+            IsLoading = true;
+            var reply = await _lookupApiService.GetAll();
+
+            if (reply != null)
+            {
+                var list = reply.Select(value => new LookupListItemViewModel<T>(value, OnListItemDoubleClickCommand, OnLockCommand)).ToList();
+                Values = new ObservableCollection<LookupListItemViewModel<T>>(list);
+            }
+            else
+            {
+                Values = new ObservableCollection<LookupListItemViewModel<T>>();
             }
         }
     }

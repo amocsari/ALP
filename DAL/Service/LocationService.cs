@@ -51,7 +51,7 @@ namespace DAL.Service
                 return entites.Select(e => e.EntityToDto()).ToList();
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
                 return null;
