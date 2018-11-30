@@ -18,6 +18,12 @@ namespace API.Controller
             _employeeService = employeeService;
         }
 
+        [HttpPost]
+        public Task AddNewEmployee(EmployeeDto dto)
+        {
+            return _employeeService.AddNewEmployee(dto);
+        }
+
         [HttpGet]
         public Task<List<EmployeeDto>> GetAllEmployees()
         {

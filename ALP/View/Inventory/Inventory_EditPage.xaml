@@ -80,7 +80,7 @@
                     <ComboBox ItemsSource="{Binding ItemNatures}" SelectedItem="{Binding SelectedItemNature}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="7"/>
 
                     <Label Content="Eszköz típusa" Grid.Column="2" Grid.Row="7"/>
-                    <ComboBox ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding SelectedItemtype}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="7"/>
+                    <ComboBox ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding SelectedItemType}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="7"/>
 
                     <!--TODO: binding-->
                     <Label Content="Osztály" Grid.Column="0" Grid.Row="8"/>

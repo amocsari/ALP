@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Model.Dto;
 using DAL.Context;
+using DAL.Entity;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Model.Model;
@@ -17,6 +18,22 @@ namespace DAL.Service
         public EmployeeService(IAlpContext context)
         {
             _context = context;
+        }
+
+        public async Task AddNewEmployee(EmployeeDto dto)
+        {
+            try
+            {
+                var entity = dto.DtoToEntity();
+                entity.Department = null;
+                entity.Section = null;
+                await _context.Employee.AddAsync(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                //todo: logolás
+            }
         }
 
         public async Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info)

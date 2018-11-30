@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ALP.Navigation;
 using ALP.Service;
 using ALP.Service.Interface;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -118,11 +119,11 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        public ItemTypeDto SelectedItemtype
+        public ItemTypeDto SelectedItemType
         {
             get { return Item.ItemType; }
             set
-            {
+                {
                 if (Item.ItemType != value)
                 {
                     Item.ItemType = value;
@@ -140,7 +141,7 @@ namespace ALP.ViewModel.Inventory
                 if (Item.ItemState != value)
                 {
                     Item.ItemState = value;
-                    Item.ItemState.Id = value.Id;
+                    Item.ItemStateID = value.Id;
                     RaisePropertyChanged();
                 }
             }
@@ -204,6 +205,7 @@ namespace ALP.ViewModel.Inventory
 
         private readonly IInventoryApiService _inventoryApiService;
         private readonly IEmployeeApiService _employeeApiService;
+        private readonly IAlpNavigationService _navigationService;
         private readonly ILookupApiService<ItemNatureDto> _itemNatureApiService;
         private readonly ILookupApiService<ItemTypeDto> _itemTypeApiService;
         private readonly ILookupApiService<ItemStateDto> _itemStateApiService;
@@ -217,6 +219,7 @@ namespace ALP.ViewModel.Inventory
 
         public ItemEditPageViewModel(IInventoryApiService inventoryApiService,
                                           IEmployeeApiService employeeApiService,
+                                          IAlpNavigationService navigationService,
                                           ILookupApiService<ItemNatureDto> itemNatureApiService,
                                           ILookupApiService<ItemTypeDto> itemTypeApiService,
                                           ILookupApiService<ItemStateDto> itemStateApiService,
@@ -227,6 +230,7 @@ namespace ALP.ViewModel.Inventory
         {
             _inventoryApiService = inventoryApiService;
             _employeeApiService = employeeApiService;
+            _navigationService = navigationService;
             _itemNatureApiService = itemNatureApiService;
             _itemTypeApiService = itemTypeApiService;
             _itemStateApiService = itemStateApiService;
@@ -318,6 +322,7 @@ namespace ALP.ViewModel.Inventory
         private void OnSaveCommand()
         {
             _inventoryApiService.AddNewInventoryItem(Item);
+            _navigationService.NavigateTo(ViewModelLocator.InventoryItemSearchPage);
         }
 
         private void OnCancelCommand()

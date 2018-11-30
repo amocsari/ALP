@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ALP.Navigation;
 using ALP.Service;
+using ALP.Service.Interface;
 using Common.Model.Dto;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -15,7 +16,19 @@ namespace ALP.ViewModel.Employee
 {
     public class EmployeeEditPageViewModel : AlpViewModelBase
     {
-        public EmployeeListItemViewModel Employee;
+        private EmployeeListItemViewModel employee;
+
+        public EmployeeListItemViewModel Employee
+        {
+            get { return employee; }
+            set
+            {
+                if(employee != value)
+                {
+                    Set(ref employee, value);
+                }
+            }
+        }
 
         private ObservableCollection<DepartmentDto> departments;
         public ObservableCollection<DepartmentDto> Departments
@@ -78,14 +91,16 @@ namespace ALP.ViewModel.Employee
         private readonly ILookupApiService<DepartmentDto> _departmentApiService;
         private readonly ILookupApiService<SectionDto> _sectionApiService;
         private readonly IAlpNavigationService _navigationService;
+        private readonly IEmployeeApiService _employeeApiService;
 
-        public EmployeeEditPageViewModel(ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService, IAlpNavigationService navigationService)
+        public EmployeeEditPageViewModel(ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService, IAlpNavigationService navigationService, IEmployeeApiService employeeApiService)
         {
             Employee = new EmployeeListItemViewModel(new EmployeeDto());
 
             _departmentApiService = departmentApiService;
             _sectionApiService = sectionApiService;
             _navigationService = navigationService;
+            _employeeApiService = employeeApiService;
 
             SaveCommand = new RelayCommand(OnSaveCommand);
             CancelCommand = new RelayCommand(OnCancelCommand);
@@ -94,9 +109,17 @@ namespace ALP.ViewModel.Employee
             Initialization = InitializeAsync();
         }
 
-        private void OnSaveCommand()
+        private async void OnSaveCommand()
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _employeeApiService.AddNewEmployee(Employee.Value);
+            }
+            catch (Exception e)
+            {
+                //todo logolás
+            }
+            _navigationService.GoBack();
         }
 
         private void OnCancelCommand()

@@ -15,6 +15,11 @@ namespace ALP.Service
             _apiService = apiService;
         }
 
+        public async Task AddNewEmployee(EmployeeDto dto)
+        {
+            await _apiService.PostAsync<EmployeeDto>("Employee/AddNewEmployee",dto);
+        }
+
         public async Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info)
         {
             return await _apiService.PostAsync<EmployeeFilterInfo, List<EmployeeDto>>("Employee/FilterEmployees", info);
