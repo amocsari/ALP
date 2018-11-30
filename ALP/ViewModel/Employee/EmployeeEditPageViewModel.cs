@@ -136,9 +136,8 @@ namespace ALP.ViewModel.Employee
 
                 if (_navigationService.Parameter != null)
                 {
-                    if (_navigationService.Parameter is EmployeeDto)
+                    if (_navigationService.Parameter is EmployeeDto param)
                     {
-                        var param = (EmployeeDto) _navigationService.Parameter;
                         Employee.Value = param.Copy();
                         RaisePropertyChanged(() => Employee);
                     }

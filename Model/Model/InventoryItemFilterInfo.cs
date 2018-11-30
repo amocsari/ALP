@@ -17,8 +17,5 @@ namespace Common.Model
         public DateTime? YearOfManufactureMax { get; set; }
         public DateTime? DateOfScrapMin { get; set; }
         public DateTime? DateOfScrapMax { get; set; }
-
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
     }
 }

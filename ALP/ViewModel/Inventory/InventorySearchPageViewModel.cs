@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ALP.Service;
 using ALP.Service.Interface;
 using Common.Model;
+using Common.Model.Dto;
 using Common.Model.Enum;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -15,34 +17,30 @@ namespace ALP.ViewModel.Inventory
 {
     public class InventorySearchPageViewModel : AlpViewModelBase
     {
-        private readonly IInventoryApiService _inventoryApiService;
-        private static List<int> PageSizeList { get; } = new List<int> { 10, 25, 50, 100 };
+        public List<ItemPropertyType> ProjectedTypes { get; set; }
 
-        public DataTable MyDataTable { get; set; }
-
-        public ICommand MouseLabelClickCommand { get; private set; }
-        public ICommand JumpToFirstPageCommand { get; private set; }
-        public ICommand PreviousPageCommand { get; private set; }
-        public ICommand JumpToLastPageCommand { get; private set; }
-        public ICommand NextPageCommand { get; private set; }
-        public ICommand SearchCommand { get; private set; }
-        public ICommand ImportCommand { get; private set; }
-        public ICommand ExportCommand { get; private set; }
-        public ICommand FilterCommand { get; private set; }
-        public ICommand DeleteFilterCommand { get; private set; }
-        public ICommand QuickCommandsCommand { get; private set; }
-
-        private List<ItemPropertyType> ProjectedTypes { get; set; }
-
-        private ObservableCollection<List<string>> itemDisplayList;
-        public ObservableCollection<List<string>> ItemDisplayList
+        private ObservableCollection<ItemDto> itemList;
+        public ObservableCollection<ItemDto> ItemList
         {
-            get { return itemDisplayList; }
+            get { return itemList; }
             set
             {
-                if (itemDisplayList != value)
+                if (itemList != value)
                 {
-                    Set(ref itemDisplayList, value);
+                    Set(ref itemList, value);
+                }
+            }
+        }
+
+        private ItemDto selectedItem;
+        public ItemDto SelectedItem
+        {
+            get { return selectedItem; }
+            set
+            {
+                if (selectedItem != value)
+                {
+                    Set(ref selectedItem, value);
                 }
             }
         }
@@ -50,30 +48,23 @@ namespace ALP.ViewModel.Inventory
         public InventoryItemFilterInfo ItemFilterInfo { get; set; }
         public string FilteredId { get; set; }
 
-        public int SelectedPageNumber { get; set; }
 
-        public int SelectedPageSize
-        {
-            get { return ItemFilterInfo.PageSize; }
-            set
-            {
-                if (ItemFilterInfo.PageSize != value && PageSizeList.Contains(value))
-                {
-                    ItemFilterInfo.PageSize = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public ICommand MouseLabelClickCommand { get; private set; }
+        public ICommand SearchCommand { get; private set; }
+        public ICommand ImportCommand { get; private set; }
+        public ICommand ExportCommand { get; private set; }
+        public ICommand FilterCommand { get; private set; }
+        public ICommand DeleteFilterCommand { get; private set; }
+        public ICommand QuickCommandsCommand { get; private set; }
+
+
+        private readonly IInventoryApiService _inventoryApiService;
 
         public InventorySearchPageViewModel(IInventoryApiService inventoryApiService)
         {
             _inventoryApiService = inventoryApiService;
 
             MouseLabelClickCommand = new RelayCommand<TextBlock>(OnMouseLabelClickCommand);
-            JumpToFirstPageCommand = new RelayCommand(OnJumpToFirstPageCommand);
-            PreviousPageCommand = new RelayCommand(OnPreviousPageCommand);
-            JumpToLastPageCommand = new RelayCommand(OnJumpToLastPageCommand);
-            NextPageCommand = new RelayCommand(OnNextPageCommand);
             SearchCommand = new RelayCommand(OnSearchCommand);
             ImportCommand = new RelayCommand(OnImportCommand);
             ExportCommand = new RelayCommand(OnExportCommand);
@@ -81,15 +72,15 @@ namespace ALP.ViewModel.Inventory
             DeleteFilterCommand = new RelayCommand(OnDeleteFilterCommand);
             QuickCommandsCommand = new RelayCommand(OnQuickCommandsCommand);
 
-            ItemFilterInfo = new InventoryItemFilterInfo();
+            ItemFilterInfo = new InventoryItemFilterInfo
+            {
+                Id = new List<string>()
+            };
             ProjectedTypes = new List<ItemPropertyType>
             {
                 ItemPropertyType.ItemName,
                 ItemPropertyType.InventoryNumber,
             };
-
-            SelectedPageNumber = 1;
-            SelectedPageSize = 10;
 
 
             Initialization = InitializeAsync();
@@ -107,7 +98,6 @@ namespace ALP.ViewModel.Inventory
 
         private void OnFilterCommand()
         {
-            throw new NotImplementedException();
         }
 
         private void OnExportCommand()
@@ -120,34 +110,28 @@ namespace ALP.ViewModel.Inventory
             throw new NotImplementedException();
         }
 
-        private void OnSearchCommand()
+        private async void OnSearchCommand()
         {
-            throw new NotImplementedException();
+            try
+            {
+                IsLoading = true;
+                if(!string.IsNullOrEmpty(FilteredId))
+                {
+                    ItemFilterInfo.Id.Add(FilteredId);
+                }
+                var items = await _inventoryApiService.FilterItems(ItemFilterInfo);
+                ItemList = new ObservableCollection<ItemDto>(items);
+                ItemFilterInfo.Id.Clear();
+            }
+            catch (Exception)
+            {
+                //TODO: logging
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
-
-        private void OnNextPageCommand()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnJumpToLastPageCommand()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnPreviousPageCommand()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnJumpToFirstPageCommand()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsNotFirstPage { get => SelectedPageNumber > 1; }
-        //TODO: logika
-        //public bool IsNotLastPage { get => }
 
         private void OnMouseLabelClickCommand(TextBlock obj)
         {
@@ -167,24 +151,6 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        protected override async Task InitializeAsync()
-        {
-            try
-            {
-                IsLoading = true;
-                
-                var itemList = await _inventoryApiService.FindFilteredItemsAsStringForDisplay(ItemFilterInfo);
-
-                //ItemDisplayList = new ObservableCollection<List<string>>(itemList);
-            }
-            catch (Exception)
-            {
-                //TODO: logging
-            }
-            finally
-            {
-                IsLoading = false;
-            }
-        }
+        protected override async Task InitializeAsync() { }
     }
 }

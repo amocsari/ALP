@@ -51,60 +51,26 @@ namespace DAL.Service
 
         }
 
-        public async Task<List<ItemDisplay>> FindItemsForDisplay(InventoryItemFilterInfo info)
+        public async Task<List<ItemDto>> FindItemsForDisplay(InventoryItemFilterInfo info)
         {
-            var items = new List<Item>
-            {
-                new Item
-                {
-                    AccreditationNumber = "123456",
-                    BruttoPrice = 12000,
-                    BuildingId = 1,
-                    Comment = "wasd",
-                    DateOfCreation = DateTime.Today,
-                    DateOfScrap = DateTime.Now,
-                    FloorId = 1,
-                    ItemId = 1,
-                    ItemNatureId = 1,
-                    ItemName = "This name",
-                    ItemStateId = 1,
-                    YellowNumber = 501,
-                    ItemTypeId = 1,
-                    Manufacturer = "HP",
-                    ModelType = "COMPAQ",
-                    OldInventoryNumber = "00-00112",
-                    InventoryNumber = "349G112233",
-                    Room = "106",
-                    ProductionYear = DateTime.Today,
-                    SerialNumber = "SN123456"
-                }
-            };
-            items[0].Building = _context.Building.FirstOrDefault(b => b.BuildingId == 1);
-            items[0].Floor = _context.Floor.FirstOrDefault(f => f.FloorId == 1);
-            items[0].ItemNature = _context.ItemNature.FirstOrDefault(i => i.ItemNatureId == 1);
-            items[0].ItemType = _context.ItemType.FirstOrDefault(i => i.ItemTypeId == 1);
-            items[0].ItemState = _context.ItemState.FirstOrDefault(i => i.ItemStateId == 1);
-
-            //return items.Select(i => i.EntityToDto().TransformToDisplay()).ToList();
-
             try
             {
                 //TODO: regex szerint szétszedni az azonosítókat
                 var includesIds = info.Id != null && info.Id.Count > 0;
-                var isManufacturerAndTypeSpecified = string.IsNullOrEmpty(info.ManufacturerAndType);
+                var isManufacturerAndTypeSpecified = !string.IsNullOrEmpty(info.ManufacturerAndType);
                 List<Item> entities;
                 if (!includesIds)
                 {
                     //TODO: TRANCTUATETIME
                     entities = await _context.Item.AsNoTracking()
-                                                    .Include(item => item.Department,
-                                                                item => item.Employee,
-                                                                item => item.Building,
-                                                                item => item.Section,
-                                                                item => item.Floor,
-                                                                item => item.ItemNature,
-                                                                item => item.ItemState,
-                                                                item => item.ItemType)
+                                                    .Include(item => item.Department)
+                                                    .Include(item => item.Employee)
+                                                    .Include(item => item.Building)
+                                                    .Include(item => item.Section)
+                                                    .Include(item => item.Floor)
+                                                    .Include(item => item.ItemNature)
+                                                    .Include(item => item.ItemState)
+                                                    .Include(item => item.ItemType)
                                                     .Where(item => (!isManufacturerAndTypeSpecified
                                                                     || item.Manufacturer.Contains(info.ManufacturerAndType)
                                                                     || item.ModelType.Contains(info.ManufacturerAndType))
@@ -121,14 +87,14 @@ namespace DAL.Service
                 else
                 {
                     entities = await _context.Item.AsNoTracking()
-                                                    .Include(item => item.Department,
-                                                        item => item.Employee,
-                                                        item => item.Building,
-                                                        item => item.Section,
-                                                        item => item.Floor,
-                                                        item => item.ItemNature,
-                                                        item => item.ItemState,
-                                                        item => item.ItemType)
+                                                    .Include(item => item.Department)
+                                                    .Include(item => item.Employee)
+                                                    .Include(item => item.Building)
+                                                    .Include(item => item.Section)
+                                                    .Include(item => item.Floor)
+                                                    .Include(item => item.ItemNature)
+                                                    .Include(item => item.ItemState)
+                                                    .Include(item => item.ItemType)
                                                     .Where(item => info.Id.Contains(item.InventoryNumber)
                                                                  || info.Id.Contains(item.OldInventoryNumber)
                                                                  || info.Id.Contains(item.SerialNumber)
@@ -143,8 +109,8 @@ namespace DAL.Service
                     throw new Exception();
                 }
 
-                var displays = entities.Select(entity => entity.EntityToDto()).Select(dto => dto.TransformToDisplay()).ToList();
-                return displays;
+                var items = entities.Select(entity => entity.EntityToDto()).ToList();
+                return items;
             }
             catch (Exception e)
             {

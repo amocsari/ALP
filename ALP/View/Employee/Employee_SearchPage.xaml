@@ -43,7 +43,7 @@
                 <!--<DatePicker Grid.Column="6" Grid.Row="1"/>-->
             </Grid>
 
-            <DataGrid ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmpolyee}" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmpolyee}" AlternatingRowBackground="Gray" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Value.Name}" Header="Név" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Binding="{Binding Value.Department.Name}" Header="Osztály" IsReadOnly="True" Width="*"/>

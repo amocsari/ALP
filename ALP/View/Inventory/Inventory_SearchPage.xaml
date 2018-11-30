@@ -4,12 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:view="clr-namespace:ALP.View"
+      xmlns:vc="clr-namespace:ALP.Converter"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
       DataContext="{Binding InventorySearchPageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
       Title="SearchPage">
+
+    <Page.Resources>
+        <vc:ALPInventoryVisibilityConverter x:Key="AlpInventoryVisibilityConverter"/>
+    </Page.Resources>
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
@@ -289,34 +294,29 @@
 
                 <StackPanel Orientation="Vertical">
 
-                    <!--TODO: bind-->
-                    <DataGrid ItemsSource="{Binding ItemDisplayList}" AlternatingRowBackground="Gray" HorizontalAlignment="Stretch"/>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-
-                        <!--TODO: ikont a helyére-->
-                        <Button Content="&lt;&lt;" Command="{Binding JumpToFirstPageCommand}" IsEnabled="{Binding IsNotFirstPage}" Margin="5"/>
-
-                        <!--TODO: ikont a helyére-->
-                        <Button Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding IsNotFirstPage}" Margin="5"/>
-
-                        <TextBox Text="{Binding SelectedPageNumber}" TextAlignment="Center"/>
-
-                        <!--TODO: ikont a helyére-->
-                        <Button Content="&gt;" Command="{Binding NextPageCommand}" IsEnabled="{Binding IsNotLastPage}" Margin="5"/>
-
-                        <!--TODO: ikont a helyére-->
-                        <Button Content="&gt;&gt;" Command="{Binding JumpToLastPageCommand}" IsEnabled="{Binding IsNotLastPage}" Margin="5"/>
-
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-
-                        <Label Content="Oldalankénti Elemszám"/>
-
-                        <ComboBox ItemsSource="{Binding SelectedPageSize, Mode=TwoWay}"/>
-
-                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding ItemList}" SelectedItem="{Binding SelectedItem}" AlternatingRowBackground="LightGray" HorizontalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ItemName}" Header="Név" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding InventoryNumber}" Header="Leltári szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding ElementName=TextBlockOldInventoryNumber, XPath=FontWeight, Converter={StaticResource AlpInventoryVisibilityConverter}}" Binding="{Binding OldInventoryNumber}" Header="Régi leltári szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding SerialNumber}" Header="Gyári szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding YellowNumber}" Header="Sárga szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding AccreditationNumber}" Header="Akkreditációs szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding ProductionYear.Year}" Header="Gyártási év" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding BruttoPrice}" Header="Bruttó ár" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Manufacturer}" Header="Gyártó" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding ModelType}" Header="Gyártmány" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding ItemNature.Name}" Header="Jelleg" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding ItemType.Name}" Header="Típus" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Department.Name}" Header="Osztály" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Section.Name}" Header="Részleg" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Building.Name}" Header="Épület" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Floor.Name}" Header="Emelet" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Room}" Header="Szoba" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding Employee.Name}" Header="Tulajdonos" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding ItemState.Name}" Header="Állapot" Width="*" IsReadOnly="True" />
+                        </DataGrid.Columns>
+                    </DataGrid>
 
                 </StackPanel>
 

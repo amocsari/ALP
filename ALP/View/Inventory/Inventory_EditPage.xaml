@@ -132,7 +132,7 @@
                 </Grid>
 
                 <Label Content="Komment:"/>
-                <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap"/>
+                <TextBox Text="{Binding Item.Comment}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5">
 

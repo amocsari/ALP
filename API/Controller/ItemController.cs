@@ -26,7 +26,7 @@ namespace API.Controller
         //}
 
         [HttpPost]
-        public Task<List<ItemDisplay>> FindItemsForDisplay(InventoryItemFilterInfo info)
+        public Task<List<ItemDto>> FilterItems(InventoryItemFilterInfo info)
         {
             return _itemService.FindItemsForDisplay(info);
         }
