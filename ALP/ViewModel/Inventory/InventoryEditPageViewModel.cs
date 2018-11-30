@@ -203,6 +203,8 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        public string EmployeeName { get; set; }
+
         private readonly IInventoryApiService _inventoryApiService;
         private readonly IEmployeeApiService _employeeApiService;
         private readonly IAlpNavigationService _navigationService;
@@ -319,9 +321,16 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        private void OnSaveCommand()
+        private async void OnSaveCommand()
         {
-            _inventoryApiService.AddNewInventoryItem(Item);
+            var employee = await _employeeApiService.GetEmployeeByName(EmployeeName);
+            if (employee != null)
+            {
+                //TODO: feldobni ablakot
+                Item.Employee = employee;
+                Item.EmployeeID = employee.Id;
+            }
+            await _inventoryApiService.AddNewInventoryItem(Item);
             _navigationService.NavigateTo(ViewModelLocator.InventoryItemSearchPage);
         }
 

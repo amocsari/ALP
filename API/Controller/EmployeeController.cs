@@ -35,5 +35,11 @@ namespace API.Controller
         {
             return _employeeService.FilterEmployees(info);
         }
+
+        [HttpPost]
+        public Task<EmployeeDto> GetEmployeeByName(string name)
+        {
+            return _employeeService.GetByName(name);
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace DAL.Service
         Task<List<EmployeeDto>> GetAllEmployees();
         Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info);
         Task AddNewEmployee(EmployeeDto dto);
+        Task<EmployeeDto> GetByName(string name);
     }
 }

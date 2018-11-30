@@ -36,6 +36,18 @@ namespace DAL.Service
             }
         }
 
+        public async Task<EmployeeDto> GetByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+
+            name = name.ToLower();
+            var entity = await _context.Employee.FirstAsync(employee => employee.EmployeeName.ToLower().Equals(name));
+            return entity.EntityToDto();
+        }
+
         public async Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info)
         {
             try
