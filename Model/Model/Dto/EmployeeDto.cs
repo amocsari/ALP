@@ -13,5 +13,20 @@ namespace Common.Model.Dto
 
         public virtual DepartmentDto Department { get; set; }
         public virtual SectionDto Section { get; set; }
+
+        public EmployeeDto Copy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Equals(EmployeeDto other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateByDto(EmployeeDto sourceDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

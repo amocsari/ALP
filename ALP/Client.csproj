@@ -237,6 +237,9 @@
       <DependentUpon>LookupLocationEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Lookup\LookupListItemViewModel.cs" />
+    <Compile Include="View\Lookup\Section\Lookup_SectionsPage.xaml.cs">
+      <DependentUpon>Lookup_SectionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\System\System_SettingsPage.xaml.cs">
       <DependentUpon>System_SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -433,6 +436,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lookup\Location\LookupLocationEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lookup\Section\Lookup_SectionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

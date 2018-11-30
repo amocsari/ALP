@@ -15,9 +15,9 @@ namespace DAL.Extensions
             return new Department
             {
                 Employee = dto.Employee?.DtoToEntity(),
-                DepartmentId = dto.ID,
+                DepartmentId = dto.Id,
                 Locked = dto.Locked,
-                EmployeeId = dto.EmployeeID,
+                EmployeeId = dto.EmployeeId,
                 DepartmentName = dto.Name
             };
         }
@@ -27,9 +27,9 @@ namespace DAL.Extensions
             return new DepartmentDto
             {
                 Employee = entity.Employee?.EntityToDto(),
-                ID = entity.DepartmentId,
+                Id = entity.DepartmentId,
                 Locked = entity.Locked,
-                EmployeeID = entity.EmployeeId,
+                EmployeeId = entity.EmployeeId,
                 Name = entity.DepartmentName
             };
         }

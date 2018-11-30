@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Enum\ItemPropertyType.cs" />
     <Compile Include="Extensions\Extension.Item.cs" />
-    <Compile Include="Model\Dto\DepartmentDto.cs" />
+    <Compile Include="Model\Dto\Lookup\DepartmentDto.cs" />
     <Compile Include="Model\Dto\EmployeeDto.cs" />
     <Compile Include="Model\Dto\ItemDto.cs" />
     <Compile Include="Model\Dto\Lookup\BuildingDto.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Model\Dto\Lookup\ItemTypeDto.cs" />
     <Compile Include="Model\Dto\Lookup\LocationDto.cs" />
     <Compile Include="Model\Dto\Lookup\LookupDtoBase.cs" />
-    <Compile Include="Model\Dto\SectionDto.cs" />
+    <Compile Include="Model\Dto\Lookup\SectionDto.cs" />
     <Compile Include="Model\InventoryItemFilterInfo.cs" />
     <Compile Include="Model\ItemDisplay.cs" />
   </ItemGroup>
