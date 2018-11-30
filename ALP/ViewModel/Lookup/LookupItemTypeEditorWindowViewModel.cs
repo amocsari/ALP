@@ -41,6 +41,7 @@ namespace ALP.ViewModel.Lookup
                 if (Parameter.ItemNature == null || !Parameter.ItemNature.Equals(value))
                 {
                     Parameter.ItemNature = value;
+                    Parameter.ItemNatureId = value.Id;
                 }
             }
         }

@@ -41,6 +41,7 @@ namespace ALP.ViewModel.Lookup
                 if (Parameter.Building == null || !Parameter.Building.Equals(value))
                 {
                     Parameter.Building = value;
+                    Parameter.BuildingId = value.Id;
                 }
             }
         }

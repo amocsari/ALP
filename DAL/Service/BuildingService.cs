@@ -80,6 +80,7 @@ namespace DAL.Service
             try
             {
                 var entity = building.DtoToEntity();
+                entity.Location = null;
                 await _context.Building.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 return entity.EntityToDto();
@@ -95,7 +96,7 @@ namespace DAL.Service
         {
             try
             {
-                var updatedEntity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == dto.Id);
+                var updatedEntity = await _context.Building.Include(building => building.Location).FirstOrDefaultAsync(building => building.BuildingId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
                 return updatedEntity.EntityToDto();

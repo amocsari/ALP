@@ -41,6 +41,7 @@ namespace ALP.ViewModel.Lookup
                 if (Parameter.Location == null || !Parameter.Location.Equals(value))
                 {
                     Parameter.Location = value;
+                    Parameter.LocationId = value.Id;
                 }
             }
         }

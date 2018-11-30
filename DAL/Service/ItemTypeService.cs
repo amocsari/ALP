@@ -80,6 +80,7 @@ namespace DAL.Service
             try
             {
                 var entity = itemType.DtoToEntity();
+                entity.ItemNature = null;
                 await _context.ItemType.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 return entity.EntityToDto();

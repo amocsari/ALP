@@ -80,6 +80,7 @@ namespace DAL.Service
             try
             {
                 var entity = floor.DtoToEntity();
+                entity.Building = null;
                 await _context.Floor.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 return entity.EntityToDto();
