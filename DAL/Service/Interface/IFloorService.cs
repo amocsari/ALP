@@ -5,7 +5,7 @@ using Common.Model.Dto;
 
 namespace DAL.Service
 {
-    public interface IFloorService : IBaseService<Floor>
+    public interface IFloorService
     {
         Task<List<FloorDto>> GetAllFloors();
         Task<List<FloorDto>> GetAvailableFloors();

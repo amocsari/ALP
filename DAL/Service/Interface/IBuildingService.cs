@@ -5,7 +5,7 @@ using Common.Model.Dto;
 
 namespace DAL.Service
 {
-    public interface IBuildingService : IBaseService<Building>
+    public interface IBuildingService
     {
         Task<List<BuildingDto>> GetAllBuildings();
         Task<List<BuildingDto>> GetAvailableBuildings();

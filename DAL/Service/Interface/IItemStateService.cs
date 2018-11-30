@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Service
 {
-    public interface IItemStateService : IBaseService<ItemState>
+    public interface IItemStateService
     {
         Task<List<ItemStateDto>> GetAllItemStates();
         Task<List<ItemStateDto>> GetAvailableItemStates();

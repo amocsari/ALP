@@ -10,8 +10,10 @@ using Common.Model.Dto;
 
 namespace DAL.Service
 {
-    public class LocationService : BaseService<Location>, ILocationService
+    public class LocationService : ILocationService
     {
+        private IAlpContext _context;
+
         public LocationService(IAlpContext context)
         {
             _context = context;
@@ -21,7 +23,9 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await InsertNew(location.DtoToEntity());
+                var entity = location.DtoToEntity();
+                await _context.Location.AddAsync(entity);
+                await _context.SaveChangesAsync();
                 return entity.EntityToDto();
             }
             catch (Exception)
@@ -35,7 +39,9 @@ namespace DAL.Service
         {
             try
             {
-                await Remove(location => location.LocationId == locationId);
+                var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
+                _context.Remove(entity);
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -47,9 +53,8 @@ namespace DAL.Service
         {
             try
             {
-                var entites = await GetAll();
+                var entites = await _context.Location.AsNoTracking().ToListAsync();
                 return entites.Select(e => e.EntityToDto()).ToList();
-
             }
             catch (Exception e)
             {
@@ -62,9 +67,8 @@ namespace DAL.Service
         {
             try
             {
-                var entites = await GetByExpression(location => !location.Locked);
+                var entites = await _context.Location.AsNoTracking().Where(location => !location.Locked).ToListAsync();
                 return entites.Select(e => e.EntityToDto()).ToList();
-
             }
             catch (Exception)
             {
@@ -77,8 +81,24 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await GetSingle(location => location.LocationId == locationId);
+                var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
                 return entity.EntityToDto();
+            }
+            catch (Exception)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
+        public async Task<LocationDto> UpdateLocation(LocationDto dto)
+        {
+            try
+            {
+                var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == dto.Id);
+                updatedEntity.UpdateEntityByDto(dto);
+                await _context.SaveChangesAsync();
+                return updatedEntity.EntityToDto();
             }
             catch (Exception)
             {
@@ -98,22 +118,6 @@ namespace DAL.Service
             catch (Exception)
             {
                 //TODO: logging
-            }
-        }
-
-        public async Task<LocationDto> UpdateLocation(LocationDto dto)
-        {
-            try
-            {
-                var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == dto.Id);
-                updatedEntity.UpdateEntityByDto(dto);
-                await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
-            }
-            catch (Exception)
-            {
-                //TODO: logging
-                return null;
             }
         }
     }

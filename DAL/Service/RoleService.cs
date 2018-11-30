@@ -3,8 +3,10 @@ using DAL.Context;
 
 namespace DAL.Service
 {
-    public class RoleService: BaseService<Role>, IRoleService
+    public class RoleService: IRoleService
     {
+        private readonly IAlpContext _context;
+
         public RoleService(IAlpContext context)
         {
             _context = context;

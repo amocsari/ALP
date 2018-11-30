@@ -5,7 +5,7 @@ using Common.Model.Dto;
 
 namespace DAL.Service
 {
-    public interface IItemTypeService : IBaseService<ItemType>
+    public interface IItemTypeService
     {
         Task<List<ItemTypeDto>> GetAllItemTypes();
         Task<List<ItemTypeDto>> GetAvailableItemTypes();

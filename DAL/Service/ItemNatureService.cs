@@ -10,8 +10,10 @@ using Common.Model.Dto;
 
 namespace DAL.Service
 {
-    public class ItemNatureService : BaseService<ItemNature>, IItemNatureService
+    public class ItemNatureService : IItemNatureService
     {
+        private IAlpContext _context;
+
         public ItemNatureService(IAlpContext context)
         {
             _context = context;
@@ -21,7 +23,9 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await InsertNew(itemNature.DtoToEntity());
+                var entity = itemNature.DtoToEntity();
+                await _context.ItemNature.AddAsync(entity);
+                await _context.SaveChangesAsync();
                 return entity.EntityToDto();
             }
             catch (Exception)
@@ -35,7 +39,9 @@ namespace DAL.Service
         {
             try
             {
-                await Remove(itemNature => itemNature.ItemNatureId == itemNatureId);
+                var entity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == itemNatureId);
+                _context.ItemNature.Remove(entity);
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -47,9 +53,8 @@ namespace DAL.Service
         {
             try
             {
-                var entites = await GetAll();
+                var entites = await _context.ItemNature.AsNoTracking().ToListAsync();
                 return entites.Select(e => e.EntityToDto()).ToList();
-
             }
             catch (Exception)
             {
@@ -62,7 +67,7 @@ namespace DAL.Service
         {
             try
             {
-                var entites = await GetByExpression(itemNature => !itemNature.Locked);
+                var entites = await _context.ItemNature.AsNoTracking().Where(itemNature => !itemNature.Locked).ToListAsync();
                 return entites.Select(e => e.EntityToDto()).ToList();
 
             }
@@ -77,8 +82,24 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await GetSingle(itemNature => itemNature.ItemNatureId == itemNatureId);
+                var entity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == itemNatureId);
                 return entity.EntityToDto();
+            }
+            catch (Exception)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
+        public async Task<ItemNatureDto> UpdateItemNature(ItemNatureDto dto)
+        {
+            try
+            {
+                var updatedEntity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == dto.Id);
+                updatedEntity.UpdateEntityByDto(dto);
+                await _context.SaveChangesAsync();
+                return updatedEntity.EntityToDto();
             }
             catch (Exception)
             {
@@ -98,22 +119,6 @@ namespace DAL.Service
             catch (Exception)
             {
                 //TODO: logging
-            }
-        }
-
-        public async Task<ItemNatureDto> UpdateItemNature(ItemNatureDto dto)
-        {
-            try
-            {
-                var updatedEntity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == dto.Id);
-                updatedEntity.UpdateEntityByDto(dto);
-                await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
-            }
-            catch (Exception)
-            {
-                //TODO: logging
-                return null;
             }
         }
     }

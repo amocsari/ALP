@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Service
 {
-    public interface ILocationService: IBaseService<Location>
+    public interface ILocationService
     {
         Task<List<LocationDto>> GetAllLocations();
         Task<List<LocationDto>> GetAvailableLocations();

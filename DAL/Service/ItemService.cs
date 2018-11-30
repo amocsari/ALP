@@ -14,8 +14,10 @@ using Model.Extensions;
 
 namespace DAL.Service
 {
-    public class ItemService : BaseService<Item>, IItemService
+    public class ItemService : IItemService
     {
+        private IAlpContext _context;
+
         public ItemService(IAlpContext context)
         {
             _context = context;
@@ -36,7 +38,8 @@ namespace DAL.Service
                 entity.Employee = null;
                 entity.Section = null;
 
-                await InsertNew(entity);
+                await _context.Item.AddAsync(entity);
+                await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace DAL.Service
             items[0].ItemType = _context.ItemType.FirstOrDefault(i => i.ItemTypeId == 1);
             items[0].ItemState = _context.ItemState.FirstOrDefault(i => i.ItemStateId == 1);
 
-            return items.Select(i => i.EntityToDto().TransformToDisplay()).ToList();
+            //return items.Select(i => i.EntityToDto().TransformToDisplay()).ToList();
 
             try
             {
@@ -93,7 +96,16 @@ namespace DAL.Service
                 if (!includesIds)
                 {
                     //TODO: TRANCTUATETIME
-                    entities = await GetByExpression(item => (!isManufacturerAndTypeSpecified
+                    entities = await _context.Item.AsNoTracking()
+                                                    .Include(item => item.Department,
+                                                                item => item.Employee,
+                                                                item => item.Building,
+                                                                item => item.Section,
+                                                                item => item.Floor,
+                                                                item => item.ItemNature,
+                                                                item => item.ItemState,
+                                                                item => item.ItemType)
+                                                    .Where(item => (!isManufacturerAndTypeSpecified
                                                                     || item.Manufacturer.Contains(info.ManufacturerAndType)
                                                                     || item.ModelType.Contains(info.ManufacturerAndType))
                                                                 && (!info.BruttoPriceMin.HasValue || (item.BruttoPrice.HasValue && item.BruttoPrice >= info.BruttoPriceMin))
@@ -103,31 +115,26 @@ namespace DAL.Service
                                                                 && (!info.YearOfManufactureMax.HasValue || (item.ProductionYear.HasValue && info.YearOfManufactureMax >= item.ProductionYear))
                                                                 && (!info.YearOfManufactureMin.HasValue || (item.ProductionYear.HasValue && info.YearOfManufactureMin <= item.ProductionYear))
                                                                 && (!info.DateOfScrapMax.HasValue || (item.DateOfScrap.HasValue && info.DateOfScrapMax >= item.DateOfScrap))
-                                                                && (!info.DateOfCreationMin.HasValue || item.DateOfScrap.HasValue && info.DateOfScrapMin >= item.DateOfScrap),
-                                                     item => item.Department,
-                                                     item => item.Employee,
-                                                     item => item.Building,
-                                                     item => item.Section,
-                                                     item => item.Floor,
-                                                     item => item.ItemNature,
-                                                     item => item.ItemState,
-                                                     item => item.ItemType);
+                                                                && (!info.DateOfCreationMin.HasValue || item.DateOfScrap.HasValue && info.DateOfScrapMin >= item.DateOfScrap))
+                                                    .ToListAsync();
                 }
                 else
                 {
-                    entities = await GetByExpression(item => info.Id.Contains(item.InventoryNumber)
+                    entities = await _context.Item.AsNoTracking()
+                                                    .Include(item => item.Department,
+                                                        item => item.Employee,
+                                                        item => item.Building,
+                                                        item => item.Section,
+                                                        item => item.Floor,
+                                                        item => item.ItemNature,
+                                                        item => item.ItemState,
+                                                        item => item.ItemType)
+                                                    .Where(item => info.Id.Contains(item.InventoryNumber)
                                                                  || info.Id.Contains(item.OldInventoryNumber)
                                                                  || info.Id.Contains(item.SerialNumber)
                                                                  || info.Id.Contains(item.YellowNumber.ToString())
-                                                                 || info.Id.Contains(item.AccreditationNumber),
-                                                     item => item.Department,
-                                                     item => item.Employee,
-                                                     item => item.Building,
-                                                     item => item.Section,
-                                                     item => item.Floor,
-                                                     item => item.ItemNature,
-                                                     item => item.ItemState,
-                                                     item => item.ItemType);
+                                                                 || info.Id.Contains(item.AccreditationNumber))
+                                                    .ToListAsync();
                 }
 
                 if (entities == null)

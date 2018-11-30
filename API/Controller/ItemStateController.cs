@@ -44,7 +44,7 @@ namespace API.Controller
         [HttpDelete]
         public void DeleteItemStateById(int itemStateId)
         {
-            _itemStateService.Remove(b => b.ItemStateId == itemStateId);
+            _itemStateService.DeleteItemStateById(itemStateId);
         }
 
         [HttpPost]

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Service
 {
-    public interface IItemNatureService : IBaseService<ItemNature>
+    public interface IItemNatureService
     {
         Task<List<ItemNatureDto>> GetAllItemNatures();
         Task<List<ItemNatureDto>> GetAvailableItemNatures();

@@ -2,7 +2,7 @@
 
 namespace DAL.Service
 {
-    public interface IRoleService: IBaseService<Role>
+    public interface IRoleService
     {
     }
 }

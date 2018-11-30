@@ -3,8 +3,10 @@ using DAL.Entity;
 
 namespace DAL.Service
 {
-    public class EmployeeService: BaseService<Employee>, IEmployeeService
+    public class EmployeeService: IEmployeeService
     {
+        private readonly IAlpContext _context;
+
         public EmployeeService(IAlpContext context)
         {
             _context = context;

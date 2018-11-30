@@ -2,7 +2,7 @@
 
 namespace DAL.Service
 {
-    public interface IOperationTypeService: IBaseService<OperationType>
+    public interface IOperationTypeService
     {
     }
 }

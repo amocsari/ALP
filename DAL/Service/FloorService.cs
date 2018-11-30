@@ -10,8 +10,10 @@ using System;
 
 namespace DAL.Service
 {
-    public class FloorService : BaseService<Floor>, IFloorService
+    public class FloorService : IFloorService
     {
+        private IAlpContext _context;
+
         public FloorService(IAlpContext context)
         {
             _context = context;
@@ -21,7 +23,9 @@ namespace DAL.Service
         {
             try
             {
-                await Remove(floor => floor.FloorId == floorId);
+                var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
+                _context.Floor.Remove(entity);
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -33,7 +37,7 @@ namespace DAL.Service
         {
             try
             {
-                var floors = await GetAll(floor => floor.Building);
+                var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).ToListAsync();
                 return floors.Select(floor => floor.EntityToDto()).ToList();
             }
             catch (Exception)
@@ -47,7 +51,7 @@ namespace DAL.Service
         {
             try
             {
-                var floors = await GetByExpression(floor => !floor.Locked, floor => floor.Building);
+                var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).Where(floor => !floor.Locked).ToListAsync();
                 return floors.Select(floor => floor.EntityToDto()).ToList();
             }
             catch (Exception)
@@ -61,7 +65,7 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await GetSingle(floor => floor.FloorId == floorId);
+                var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
                 return entity.EntityToDto();
             }
             catch (Exception)
@@ -75,8 +79,27 @@ namespace DAL.Service
         {
             try
             {
-                var entity = await InsertNew(floor.DtoToEntity());
+                var entity = floor.DtoToEntity();
+                await _context.Floor.AddAsync(entity);
+                await _context.SaveChangesAsync();
                 return entity.EntityToDto();
+            }
+            catch (Exception)
+            {
+                //TODO: logging
+                return null;
+            }
+        }
+
+        public async Task<FloorDto> UpdateFloor(FloorDto dto)
+        {
+            try
+            {
+
+                var updatedEntity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == dto.Id);
+                updatedEntity.UpdateEntityByDto(dto);
+                await _context.SaveChangesAsync();
+                return updatedEntity.EntityToDto();
             }
             catch (Exception)
             {
@@ -96,23 +119,6 @@ namespace DAL.Service
             catch (Exception)
             {
                 //TODO: logging
-            }
-        }
-
-        public async Task<FloorDto> UpdateFloor(FloorDto dto)
-        {
-            try
-            {
-
-                var updatedEntity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == dto.Id);
-                updatedEntity.UpdateEntityByDto(dto);
-                await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
-            }
-            catch (Exception)
-            {
-                //TODO: logging
-                return null;
             }
         }
     }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace DAL.Service
 {
-    public interface IItemService: IBaseService<Item>
+    public interface IItemService
     {
         Task<bool> AddNewItem(ItemDto dto);
         Task<List<ItemDisplay>> FindItemsForDisplay(InventoryItemFilterInfo info);

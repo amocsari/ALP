@@ -2,7 +2,7 @@
 
 namespace DAL.Service
 {
-    public interface IDepartmentService: IBaseService<Department>
+    public interface IDepartmentService
     {
     }
 }
