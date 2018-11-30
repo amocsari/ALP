@@ -1,8 +1,10 @@
 ﻿using System.Windows;
 using ALP.View.Lookup;
 using ALP.View.Lookup.Building;
+using ALP.View.Lookup.Department;
 using ALP.View.Lookup.Floor;
 using ALP.View.Lookup.ItemType;
+using ALP.View.Lookup.Section;
 using ALP.ViewModel;
 using Common.Model.Dto;
 
@@ -24,6 +26,10 @@ namespace ALP.Service
                 return new ItemStateEditorWindow();
             if(dtoBase is ItemTypeDto)
                 return new ItemTypeEditorWindow();
+            if (dtoBase is SectionDto)
+                return new SectionEditorWindow();
+            if (dtoBase is DepartmentDto)
+                return new DepartmentEditorWindow();
             return null;
         }
 

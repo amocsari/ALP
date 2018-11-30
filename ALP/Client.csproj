@@ -100,8 +100,10 @@
     <Compile Include="Service\DialogResult.cs" />
     <Compile Include="Service\AlpApiService.cs" />
     <Compile Include="Service\AlpDialogService.cs" />
+    <Compile Include="Service\EmployeeApiService.cs" />
     <Compile Include="Service\Interface\IAlpDialogService.cs" />
     <Compile Include="Service\Interface\IAlpApiService.cs" />
+    <Compile Include="Service\Interface\IEmployeeApiService.cs" />
     <Compile Include="Service\Interface\IInventoryApiService.cs" />
     <Compile Include="Service\Interface\ILookupApiService.cs" />
     <Compile Include="Service\Interface\IAlpResourceService.cs" />
@@ -123,21 +125,23 @@
     <Compile Include="ViewModel\Inventory\InventoryEditPageViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventorySearchPageViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\LookupDepartmentEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupFloorEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupItemTypeEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupListViewModel.cs" />
+    <Compile Include="ViewModel\Lookup\LookupSectionEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\System\ChangesViewModel.cs" />
     <Compile Include="ViewModel\System\LoginWindowViewModel.cs" />
     <Compile Include="ViewModel\System\SettingsViewModel.cs" />
     <Compile Include="ViewModel\System\WelcomeScreenViewModel.cs" />
     <Compile Include="Navigation\ViewModelLocator.cs" />
-    <Compile Include="View\Department\Department_EditPage.xaml.cs">
-      <DependentUpon>Department_EditPage.xaml</DependentUpon>
+    <Compile Include="View\Lookup\Department\Lookup_DepartmentEditorWindow.xaml.cs">
+      <DependentUpon>Lookup_DepartmentEditorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Department\Department_SearchPage.xaml.cs">
-      <DependentUpon>Department_SearchPage.xaml</DependentUpon>
+    <Compile Include="View\Lookup\Department\Lookup_DepartmentsPage.xaml.cs">
+      <DependentUpon>Lookup_DepartmentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inventory\Inventory_EditPage.xaml.cs">
       <DependentUpon>Inventory_EditPage.xaml</DependentUpon>
@@ -237,6 +241,9 @@
       <DependentUpon>LookupLocationEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Lookup\LookupListItemViewModel.cs" />
+    <Compile Include="View\Lookup\Section\Lookup_SectionEditorWindow.xaml.cs">
+      <DependentUpon>Lookup_SectionEditorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lookup\Section\Lookup_SectionsPage.xaml.cs">
       <DependentUpon>Lookup_SectionsPage.xaml</DependentUpon>
     </Compile>
@@ -303,11 +310,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\Department\Department_EditPage.xaml">
+    <Page Include="View\Lookup\Department\Lookup_DepartmentEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Department\Department_SearchPage.xaml">
+    <Page Include="View\Lookup\Department\Lookup_DepartmentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -439,6 +446,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Lookup\Section\Lookup_SectionEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Lookup\Section\Lookup_SectionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -482,5 +493,6 @@
     <Resource Include="Resources\locked.png" />
     <Resource Include="Resources\unlocked.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

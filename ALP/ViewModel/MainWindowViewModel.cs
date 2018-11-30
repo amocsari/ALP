@@ -96,7 +96,7 @@ namespace ALP.ViewModel
 
         private void OnDepartmentSearchCommand()
         {
-            //TODO
+            _navigationService.NavigateTo(ViewModelLocator.LookupDepartments);
         }
 
         private void OnEmployeeSearchCommand()
@@ -126,7 +126,7 @@ namespace ALP.ViewModel
 
         private void OnSectionCommand()
         {
-            //TODO
+            _navigationService.NavigateTo(ViewModelLocator.LookupSections);
         }
 
         private void OnFloorCommand()

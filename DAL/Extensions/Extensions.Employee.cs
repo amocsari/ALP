@@ -19,7 +19,7 @@ namespace DAL.Extensions
                 DepartmentId = dto.DepartmentID,
                 SectionId = dto.SectionID,
                 EmailAddress = dto.EmailAddress,
-                EmployeeId = dto.ID,
+                EmployeeId = dto.Id,
                 EmployeeName = dto.Name,
                 RetirementDate = dto.RetirementDate
             };
@@ -34,10 +34,26 @@ namespace DAL.Extensions
                 DepartmentID = entity.DepartmentId,
                 SectionID = entity.SectionId,
                 EmailAddress = entity.EmailAddress,
-                ID = entity.EmployeeId,
+                Id = entity.EmployeeId,
                 Name = entity.EmployeeName,
                 RetirementDate = entity.RetirementDate
             };
+        }
+
+        public static void UpdateEntityByDto(this Employee entity, EmployeeDto dto)
+        {
+            if (dto == null || entity == null)
+            {
+                return;
+            }
+
+            entity.EmployeeName = dto.Name;
+            entity.DepartmentId = dto.DepartmentID;
+            entity.Department.UpdateEntityByDto(dto.Department);
+            entity.SectionId = dto.SectionID;
+            entity.Section.UpdateEntityByDto(dto.Section);
+            entity.EmailAddress = dto.EmailAddress;
+            entity.RetirementDate = dto.RetirementDate;
         }
     }
 }

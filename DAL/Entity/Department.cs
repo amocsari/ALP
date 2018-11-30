@@ -14,7 +14,7 @@ namespace DAL.Entity
 
         [Required]
         [ForeignKey("Employee")]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         [Required]
         public bool Locked { get; set; }

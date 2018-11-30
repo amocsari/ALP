@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ALP.View.Department
+namespace ALP.View.Lookup.Department
 {
     /// <summary>
-    /// Interaction logic for EditPage.xaml
+    /// Interaction logic for SearchPage.xaml
     /// </summary>
-    public partial class DepartmentEditPage : Page
+    public partial class DepartmentsPage : Page
     {
-        public DepartmentEditPage()
+        public DepartmentsPage()
         {
             InitializeComponent();
         }

@@ -37,5 +37,20 @@ namespace DAL.Extensions
                 Name = entity.SectionName
             };
         }
+
+        public static void UpdateEntityByDto(this Section entity, SectionDto dto)
+        {
+            if (dto == null || entity == null)
+            {
+                return;
+            }
+
+            entity.SectionName = dto.Name;
+            entity.FloorId = dto.FloorId;
+            entity.Floor.UpdateEntityByDto(dto.Floor);
+            entity.DepartmentId = dto.DepartmentId;
+            entity.Department.UpdateEntityByDto(dto.Department);
+            entity.Locked = dto.Locked;
+        }
     }
 }

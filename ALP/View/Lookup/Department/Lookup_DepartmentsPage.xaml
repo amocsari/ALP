@@ -1,4 +1,4 @@
-﻿<Page x:Class="ALP.View.Lookup.Section.SectionsPage"
+﻿<Page x:Class="ALP.View.Lookup.Department.DepartmentsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,19 +6,18 @@
       xmlns:view="clr-namespace:ALP.View"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
-      DataContext="{Binding SectionListViewModel, Source={StaticResource Locator}}"
+      DataContext="{Binding DepartmentListViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Lookup_SectionPage">
+      Title="SearchPage">
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="Részleg" FontSize="32" HorizontalAlignment="Center"/>
+            <TextBlock Text="Osztályok" FontSize="32" HorizontalAlignment="Center"/>
             <DataGrid ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Osztály" Binding="{Binding Value.Department.Name}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Emelet" Binding="{Binding Value.Floor.Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Osztályvezető" Binding="{Binding Value.Employee.Name}" IsReadOnly="True" Width="*"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -35,7 +34,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DataGrid>
-            <Button Content="Új Részleg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
+            <Button Content="Új Osztály" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
         </StackPanel>
         <view:LoadingIndicator/>
     </Grid>

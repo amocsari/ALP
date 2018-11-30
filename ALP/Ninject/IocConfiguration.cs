@@ -40,6 +40,7 @@ namespace ALP.Ninject
             Bind<IAlpDialogService>().To<AlpDialogService>().InSingletonScope();
             Bind<IAlpResourceService>().To<AlpResourceService>().InSingletonScope();
             Bind<IInventoryApiService>().To<InventoryApiService>().InSingletonScope();
+            Bind<IEmployeeApiService>().To<EmployeeApiService>().InSingletonScope();
             
             Bind(typeof(ILookupApiService<>)).To(typeof(LookupApiService<>));
         }

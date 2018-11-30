@@ -8,7 +8,7 @@
         /// <summary>
         /// Id of the Department's Employee
         /// </summary>
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         /// <summary>
         /// Navigation property of the Department's Employee

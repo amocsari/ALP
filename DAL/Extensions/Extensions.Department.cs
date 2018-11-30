@@ -33,5 +33,18 @@ namespace DAL.Extensions
                 Name = entity.DepartmentName
             };
         }
+
+        public static void UpdateEntityByDto(this Department entity, DepartmentDto dto)
+        {
+            if (dto == null || entity == null)
+            {
+                return;
+            }
+
+            entity.DepartmentName = dto.Name;
+            entity.EmployeeId = dto.EmployeeId;
+            entity.Employee.UpdateEntityByDto(dto.Employee);
+            entity.Locked = dto.Locked;
+        }
     }
 }

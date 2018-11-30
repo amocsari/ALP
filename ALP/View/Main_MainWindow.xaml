@@ -26,6 +26,7 @@
                 <Separator/>
                 <MenuItem Header="Emelet" Command="{Binding FloorCommand}"/>
                 <MenuItem Header="Részleg" Command="{Binding SectionCommand}"/>
+                <MenuItem Header="Osztály" Command="{Binding DepartmentSearchCommand}"/>
                 <MenuItem Header="Épület" Command="{Binding BuildingCommand}"/>
                 <MenuItem Header="Telephely" Command="{Binding LocationCommand}"/>
             </MenuItem>
@@ -39,9 +40,6 @@
             </MenuItem>
             <MenuItem Header="Felhasználók">
                 <MenuItem Header="Keresés" Command="{Binding EmployeeSearchCommand}"/>
-            </MenuItem>
-            <MenuItem Header="Szervezeti Egység">
-                <MenuItem Header="Keresés" Command="{Binding DepartmentSearchCommand}"/>
             </MenuItem>
         </Menu>
         <Frame
