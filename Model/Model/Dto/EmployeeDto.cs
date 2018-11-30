@@ -16,7 +16,17 @@ namespace Common.Model.Dto
 
         public EmployeeDto Copy()
         {
-            throw new NotImplementedException();
+            return new EmployeeDto
+            {
+                Id = Id,
+                Name = Name,
+                DepartmentID =  DepartmentID,
+                Department = (DepartmentDto)Department.Copy(),
+                SectionID = SectionID,
+                Section = (SectionDto)Section.Copy(),
+                EmailAddress = EmailAddress,
+                RetirementDate = RetirementDate
+            };
         }
 
         public bool Equals(EmployeeDto other)

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Common.Model.Dto;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -21,6 +22,12 @@ namespace API.Controller
         public Task<List<EmployeeDto>> GetAllEmployees()
         {
             return _employeeService.GetAllEmployees();
+        }
+
+        [HttpPost]
+        public Task<List<EmployeeDto>> FilterEmployees([FromBody] EmployeeFilterInfo info)
+        {
+            return _employeeService.FilterEmployees(info);
         }
     }
 }

@@ -53,7 +53,9 @@ namespace ALP.Navigation
                 .RegisterPage(LookupSections, new Uri("../View/Lookup/Section/Lookup_SectionsPage.xaml", UriKind.Relative))
                 .RegisterPage(LookupDepartments, new Uri("../View/Lookup/Department/Lookup_DepartmentsPage.xaml", UriKind.Relative))
                 .RegisterPage(InventoryItemEditPage, new Uri("../View/Inventory/Inventory_EditPage.xaml", UriKind.Relative))
-                .RegisterPage(InventoryItemSearchPage, new Uri("../View/Inventory/Inventory_SearchPage.xaml", UriKind.Relative));
+                .RegisterPage(InventoryItemSearchPage, new Uri("../View/Inventory/Inventory_SearchPage.xaml", UriKind.Relative))
+                .RegisterPage(EmployeeSearchPage, new Uri("../View/Employee/Employee_SearchPage.xaml", UriKind.Relative))
+                .RegisterPage(EmployeeEditPage, new Uri("../View/Employee/Employee_EditPage.xaml", UriKind.Relative));
         }
 
         /// <summary>

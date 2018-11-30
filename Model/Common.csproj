@@ -61,6 +61,7 @@
     <Compile Include="Model\Dto\Lookup\LocationDto.cs" />
     <Compile Include="Model\Dto\Lookup\LookupDtoBase.cs" />
     <Compile Include="Model\Dto\Lookup\SectionDto.cs" />
+    <Compile Include="Model\EmployeeFilterInfo.cs" />
     <Compile Include="Model\InventoryItemFilterInfo.cs" />
     <Compile Include="Model\ItemDisplay.cs" />
   </ItemGroup>

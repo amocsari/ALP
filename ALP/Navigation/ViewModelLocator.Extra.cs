@@ -1,5 +1,6 @@
 ﻿using ALP.Ninject;
 using ALP.ViewModel;
+using ALP.ViewModel.Employee;
 using ALP.ViewModel.Inventory;
 using ALP.ViewModel.Lookup;
 using Common.Model.Dto;
@@ -22,6 +23,8 @@ namespace ALP.Navigation
         public static readonly string LookupDepartments = "Lookup_Departments";
         public static readonly string InventoryItemEditPage = "Inventory_ItemEdit";
         public static readonly string InventoryItemSearchPage = "Inventory_ItemSearch";
+        public static readonly string EmployeeSearchPage = "Employee_SearchPage";
+        public static readonly string EmployeeEditPage = "Employee_EditPage";
 
 
         //ViewModels bound to view DataContexts in XAML code
@@ -36,6 +39,9 @@ namespace ALP.Navigation
         public ItemEditPageViewModel InventoryEditPageViewModel { get => IocKernel.Get<ItemEditPageViewModel>(); }
 
         public InventorySearchPageViewModel InventorySearchPageViewModel { get => IocKernel.Get<InventorySearchPageViewModel>(); }
+
+        public EmployeeSearchPageViewModel EmployeeSearchPageViewModel { get => IocKernel.Get<EmployeeSearchPageViewModel>(); }
+        public EmployeeEditPageViewModel EmployeeEditPageViewModel { get => IocKernel.Get<EmployeeEditPageViewModel>(); }
 
         public LookupListViewModel<LocationDto> LocationListViewModel { get => IocKernel.Get<LookupListViewModel<LocationDto>>(); }
         public LookupEditorWindowViewModel<LocationDto> LocationEditorWindowViewModel { get => IocKernel.Get<LookupEditorWindowViewModel<LocationDto>>(); }

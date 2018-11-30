@@ -40,7 +40,7 @@ namespace DAL.Service
                 var departments = await _context.Department.AsNoTracking().Include(department => department.Employee).ToListAsync();
                 return departments.Select(department => department.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
                 return null;

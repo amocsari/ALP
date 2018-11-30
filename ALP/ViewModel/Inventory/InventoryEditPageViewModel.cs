@@ -76,6 +76,32 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        private ObservableCollection<DepartmentDto> departments;
+        public ObservableCollection<DepartmentDto> Departments
+        {
+            get { return departments; }
+            set
+            {
+                if (departments != value)
+                {
+                    Set(ref departments, value);
+                }
+            }
+        }
+
+        private ObservableCollection<SectionDto> sections;
+        public ObservableCollection<SectionDto> Sections
+        {
+            get { return sections; }
+            set
+            {
+                if (sections != value)
+                {
+                    Set(ref sections, value);
+                }
+            }
+        }
+
         public ItemDto Item { get; set; }
 
         public ItemNatureDto SelectedItemNature
@@ -148,13 +174,41 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        public DepartmentDto SelectedDepartment
+        {
+            get { return Item.Department; }
+            set
+            {
+                if (Item.Department != value)
+                {
+                    Item.Department = value;
+                    Item.DepartementID = value.Id;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public SectionDto SelectedSection
+        {
+            get { return Item.Section; }
+            set
+            {
+                if (Item.Section != value)
+                {
+                    Item.Section = value;
+                    Item.SectionID = value.Id;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private readonly IInventoryApiService _inventoryApiService;
+        private readonly IEmployeeApiService _employeeApiService;
         private readonly ILookupApiService<ItemNatureDto> _itemNatureApiService;
         private readonly ILookupApiService<ItemTypeDto> _itemTypeApiService;
         private readonly ILookupApiService<ItemStateDto> _itemStateApiService;
-        //TODO
-        //private readonly ILookupApiService<DepartmentDto> _departmentApiService;
-        //private readonly ILookupApiService<SectionDto> _sectionApiService;
+        private readonly ILookupApiService<DepartmentDto> _departmentApiService;
+        private readonly ILookupApiService<SectionDto> _sectionApiService;
         private readonly ILookupApiService<BuildingDto> _buildingApiService;
         private readonly ILookupApiService<FloorDto> _floorApiService;
 
@@ -162,18 +216,24 @@ namespace ALP.ViewModel.Inventory
         public ICommand CancelCommand { get; private set; }
 
         public ItemEditPageViewModel(IInventoryApiService inventoryApiService,
+                                          IEmployeeApiService employeeApiService,
                                           ILookupApiService<ItemNatureDto> itemNatureApiService,
                                           ILookupApiService<ItemTypeDto> itemTypeApiService,
                                           ILookupApiService<ItemStateDto> itemStateApiService,
                                           ILookupApiService<BuildingDto> buildingApiService,
-                                          ILookupApiService<FloorDto> floorApiService)
+                                          ILookupApiService<FloorDto> floorApiService,
+                                          ILookupApiService<DepartmentDto> departmentApiService,
+                                          ILookupApiService<SectionDto> sectionApiService)
         {
             _inventoryApiService = inventoryApiService;
+            _employeeApiService = employeeApiService;
             _itemNatureApiService = itemNatureApiService;
             _itemTypeApiService = itemTypeApiService;
             _itemStateApiService = itemStateApiService;
             _buildingApiService = buildingApiService;
             _floorApiService = floorApiService;
+            _departmentApiService = departmentApiService;
+            _sectionApiService = sectionApiService;
 
             SaveCommand = new RelayCommand(OnSaveCommand);
             CancelCommand = new RelayCommand(OnCancelCommand);
@@ -228,6 +288,22 @@ namespace ALP.ViewModel.Inventory
                     throw new Exception("Hiba az emeletek lekérése során!");
                 }
                 Floors = new ObservableCollection<FloorDto>(floorList);
+
+                var departmentList = await _departmentApiService.GetAvailable();
+                if (departmentList == null)
+                {
+                    //TODO: hibakezelés
+                    throw new Exception("Hiba az emeletek lekérése során!");
+                }
+                Departments = new ObservableCollection<DepartmentDto>(departmentList);
+
+                var sectionList = await _sectionApiService.GetAvailable();
+                if (sectionList == null)
+                {
+                    //TODO: hibakezelés
+                    throw new Exception("Hiba az emeletek lekérése során!");
+                }
+                Sections = new ObservableCollection<SectionDto>(sectionList);
             }
             catch (Exception)
             {

@@ -121,6 +121,9 @@
     <Compile Include="Extensions\Extensions.Navigation.cs" />
     <Compile Include="Service\AlpResourceService.cs" />
     <Compile Include="ViewModel\AlpViewModelBase.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeEditPageViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeListItemViewModel.cs" />
+    <Compile Include="ViewModel\Employee\EmployeeSearchPageViewModel.cs" />
     <Compile Include="ViewModel\IDialogViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryEditPageViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventorySearchPageViewModel.cs" />
@@ -137,6 +140,12 @@
     <Compile Include="ViewModel\System\SettingsViewModel.cs" />
     <Compile Include="ViewModel\System\WelcomeScreenViewModel.cs" />
     <Compile Include="Navigation\ViewModelLocator.cs" />
+    <Compile Include="View\Employee\Employee_EditPage.xaml.cs">
+      <DependentUpon>Employee_EditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Employee\Employee_SearchPage.xaml.cs">
+      <DependentUpon>Employee_SearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Lookup\Department\Lookup_DepartmentEditorWindow.xaml.cs">
       <DependentUpon>Lookup_DepartmentEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -310,6 +319,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\Employee\Employee_EditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Employee\Employee_SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Lookup\Department\Lookup_DepartmentEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ALP.Service.Interface;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace ALP.Service
 {
@@ -14,9 +15,14 @@ namespace ALP.Service
             _apiService = apiService;
         }
 
+        public async Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info)
+        {
+            return await _apiService.PostAsync<EmployeeFilterInfo, List<EmployeeDto>>("Employee/FilterEmployees", info);
+        }
+
         public async Task<List<EmployeeDto>> GetAll()
         {
-            return await _apiService.GetAsync<List<EmployeeDto>>("Employee/GetAllEmployee");
+            return await _apiService.GetAsync<List<EmployeeDto>>("Employee/GetAllEmployees");
         }
     }
 }

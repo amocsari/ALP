@@ -101,7 +101,7 @@ namespace ALP.ViewModel
 
         private void OnEmployeeSearchCommand()
         {
-            //TODO
+            _navigationService.NavigateTo(ViewModelLocator.EmployeeSearchPage);
         }
 
         private void OnImportCommand()

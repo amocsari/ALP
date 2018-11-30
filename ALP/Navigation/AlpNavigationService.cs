@@ -69,7 +69,6 @@ namespace ALP.Navigation
                     {
                         frame.Source = pageKeys[pageKey];
                     }
-
                     Parameter = parameter;
                     backStack.Push(pageKey);
                 }

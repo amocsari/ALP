@@ -11,8 +11,7 @@
       d:DesignHeight="600" d:DesignWidth="800"
       Title="SearchPage">
 
-    <!--TODO: KIVENNI A HÁTTERET-->
-    <Grid Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
         <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 

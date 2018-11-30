@@ -2,12 +2,12 @@
 (
 	[EmployeeId] INT NOT NULL IDENTITY(1,1),
     [EmployeeName] VARCHAR(250) NOT NULL,
-	[Department] INT NOT NULL,
-	[Section] INT,
+	[DepartmentId] INT NOT NULL,
+	[SectionId] INT,
 	[EmailAddress] VARCHAR(100),
 	--TODO: fancy-bb név
-	[RetireDate] DATE,
+	[RetirementDate] DATE,
 	CONSTRAINT [pkEmployee] PRIMARY KEY CLUSTERED ([EmployeeId] ASC),
-	CONSTRAINT [fkEmployeeDepartment] FOREIGN KEY ([Department]) REFERENCES [dbo].[Department] ([DepartmentId]),
-	CONSTRAINT [fkEmployeeSection] FOREIGN KEY ([Section]) REFERENCES [dbo].[Section] ([SectionId]),
+	CONSTRAINT [fkEmployeeDepartment] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department] ([DepartmentId]),
+	CONSTRAINT [fkEmployeeSection] FOREIGN KEY ([SectionId]) REFERENCES [dbo].[Section] ([SectionId]),
 )
