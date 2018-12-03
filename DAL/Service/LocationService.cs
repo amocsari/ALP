@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAL.Context;
-using DAL.Entity;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace DAL.Service
 {
@@ -19,106 +19,155 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task<LocationDto> AddNewLocation(LocationDto location)
+        public async Task<AlpApiResponse<LocationDto>> AddNewLocation(LocationDto dto)
         {
+            var response = new AlpApiResponse<LocationDto>();
+
             try
             {
-                var entity = location.DtoToEntity();
+                dto.Validate();
+
+                var entity = dto.DtoToEntity();
                 await _context.Location.AddAsync(entity);
                 await _context.SaveChangesAsync();
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task DeleteLocationById(int locationId)
+        public async Task<AlpApiResponse> DeleteLocationById(int locationId)
         {
+            var response = new AlpApiResponse();
             try
             {
                 var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
                 _context.Remove(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<LocationDto>> GetAllLocations()
+        public async Task<AlpApiResponse<List<LocationDto>>> GetAllLocations()
         {
+            var response = new AlpApiResponse<List<LocationDto>>();
             try
             {
                 var entites = await _context.Location.AsNoTracking().ToListAsync();
-                return entites.Select(e => e.EntityToDto()).ToList();
+                response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<LocationDto>> GetAvailableLocations()
+        public async Task<AlpApiResponse<List<LocationDto>>> GetAvailableLocations()
         {
+            var response = new AlpApiResponse<List<LocationDto>>();
             try
             {
                 var entites = await _context.Location.AsNoTracking().Where(location => !location.Locked).ToListAsync();
-                return entites.Select(e => e.EntityToDto()).ToList();
+                response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<LocationDto> GetLocationById(int locationId)
+        public async Task<AlpApiResponse<LocationDto>> GetLocationById(int locationId)
         {
+            var response = new AlpApiResponse<LocationDto>();
             try
             {
                 var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<LocationDto> UpdateLocation(LocationDto dto)
+        public async Task<AlpApiResponse> UpdateLocation(LocationDto dto)
         {
+            var response = new AlpApiResponse();
             try
             {
+                dto.Validate();
+
                 var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task ToggleLocationLockStateById(int locationId)
+        public async Task<AlpApiResponse> ToggleLocationLockStateById(int locationId)
         {
+            var response = new AlpApiResponse();
             try
             {
-                var location = await GetLocationById(locationId);
+                var getByIdResponse = await GetLocationById(locationId);
+                if (!getByIdResponse.Success)
+                {
+                    response.Success = getByIdResponse.Success;
+                    response.Message = getByIdResponse.Message;
+                    return response;
+                }
+
+                var location = getByIdResponse.Value;
+
                 location.Locked = !location.Locked;
-                await UpdateLocation(location);
+                var updateResponse = await UpdateLocation(location);
+                if (!updateResponse.Success)
+                {
+                    response.Success = updateResponse.Success;
+                    response.Message = updateResponse.Message;
+                    return response;
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
     }
 }

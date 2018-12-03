@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -18,45 +19,45 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<ItemStateDto>> GetAllItemState()
+        public Task<AlpApiResponse<List<ItemStateDto>>> GetAllItemState()
         {
             return _itemStateService.GetAllItemStates();
         }
 
         [HttpGet]
-        public Task<List<ItemStateDto>> GetAvailableItemState()
+        public Task<AlpApiResponse<List<ItemStateDto>>> GetAvailableItemState()
         {
             return _itemStateService.GetAvailableItemStates();
         }
 
         [HttpGet]
-        public Task<ItemStateDto> GetItemStateById(int itemStateId)
+        public Task<AlpApiResponse<ItemStateDto>> GetItemStateById(int itemStateId)
         {
             return _itemStateService.GetItemStateById(itemStateId);
         }
 
         [HttpPost]
-        public Task<ItemStateDto> AddNewItemState([FromBody] ItemStateDto itemState)
+        public Task<AlpApiResponse<ItemStateDto>> AddNewItemState([FromBody] ItemStateDto itemState)
         {
             return _itemStateService.AddNewItemState(itemState);
         }
 
         [HttpDelete]
-        public void DeleteItemStateById(int itemStateId)
+        public Task<AlpApiResponse> DeleteItemStateById(int itemStateId)
         {
-            _itemStateService.DeleteItemStateById(itemStateId);
+            return _itemStateService.DeleteItemStateById(itemStateId);
         }
 
         [HttpPost]
-        public void UpdateItemState([FromBody] ItemStateDto itemState)
+        public Task<AlpApiResponse> UpdateItemState([FromBody] ItemStateDto itemState)
         {
-            _itemStateService.UpdateItemState(itemState);
+            return _itemStateService.UpdateItemState(itemState);
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdItemState([FromBody] int itemStateId)
+        public Task<AlpApiResponse> ToggleLockStateByIdItemState([FromBody] int itemStateId)
         {
-            _itemStateService.ToggleItemStateLockStateById(itemStateId);
+            return _itemStateService.ToggleItemStateLockStateById(itemStateId);
         }
     }
 }

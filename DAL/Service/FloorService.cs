@@ -7,6 +7,7 @@ using System.Linq;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Model.Model;
 
 namespace DAL.Service
 {
@@ -19,108 +20,162 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task DeleteFloorById(int floorId)
+        public async Task<AlpApiResponse> DeleteFloorById(int floorId)
         {
+            var response = new AlpApiResponse();
+
             try
             {
                 var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
                 _context.Floor.Remove(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<FloorDto>> GetAllFloors()
+        public async Task<AlpApiResponse<List<FloorDto>>> GetAllFloors()
         {
+            var response = new AlpApiResponse<List<FloorDto>>();
+
             try
             {
                 var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).ToListAsync();
-                return floors.Select(floor => floor.EntityToDto()).ToList();
+                response.Value = floors.Select(floor => floor.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<FloorDto>> GetAvailableFloors()
+        public async Task<AlpApiResponse<List<FloorDto>>> GetAvailableFloors()
         {
+            var response = new AlpApiResponse<List<FloorDto>>();
+
             try
             {
                 var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).Where(floor => !floor.Locked).ToListAsync();
-                return floors.Select(floor => floor.EntityToDto()).ToList();
+                response.Value = floors.Select(floor => floor.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<FloorDto> GetFloorById(int floorId)
+        public async Task<AlpApiResponse<FloorDto>> GetFloorById(int floorId)
         {
+            var response = new AlpApiResponse<FloorDto>();
+
             try
             {
                 var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<FloorDto> InsertNewFloor(FloorDto floor)
+        public async Task<AlpApiResponse<FloorDto>> InsertNewFloor(FloorDto dto)
         {
+            var response = new AlpApiResponse<FloorDto>();
+
             try
             {
-                var entity = floor.DtoToEntity();
+                dto.Validate();
+
+                var entity = dto.DtoToEntity();
                 entity.Building = null;
                 await _context.Floor.AddAsync(entity);
                 await _context.SaveChangesAsync();
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<FloorDto> UpdateFloor(FloorDto dto)
+        public async Task<AlpApiResponse> UpdateFloor(FloorDto dto)
         {
+            var response = new AlpApiResponse();
+
             try
             {
+                dto.Validate();
 
                 var updatedEntity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task ToggleFloorLockStateById(int floorId)
+        public async Task<AlpApiResponse> ToggleFloorLockStateById(int floorId)
         {
+            var response = new AlpApiResponse();
+
             try
             {
-                var floor = await GetFloorById(floorId);
+                var getByIdResponse = await GetFloorById(floorId);
+                if (!getByIdResponse.Success)
+                {
+                    response.Success = getByIdResponse.Success;
+                    response.Message = getByIdResponse.Message;
+                    return response;
+                }
+
+                var floor = getByIdResponse.Value;
+                
                 floor.Locked = !floor.Locked;
-                await UpdateFloor(floor);
+                var updateReply = await UpdateFloor(floor);
+                if (!updateReply.Success)
+                {
+                    response.Success = updateReply.Success;
+                    response.Message = updateReply.Message;
+                    return response;
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
     }
 }

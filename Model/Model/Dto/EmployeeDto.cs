@@ -29,6 +29,19 @@ namespace Common.Model.Dto
             };
         }
 
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new Exception("A munkavállaló nevét kötelező kitölteni!");
+            }
+
+            if (Department == null)
+            {
+                throw new Exception("A munkavállaló osztályát kötelező kitölteni!");
+            }
+        }
+
         public bool Equals(EmployeeDto other)
         {
             throw new NotImplementedException();

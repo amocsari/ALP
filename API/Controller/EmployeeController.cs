@@ -19,25 +19,25 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public Task AddNewEmployee(EmployeeDto dto)
+        public Task<AlpApiResponse> AddNewEmployee(EmployeeDto dto)
         {
             return _employeeService.AddNewEmployee(dto);
         }
 
         [HttpGet]
-        public Task<List<EmployeeDto>> GetAllEmployees()
+        public Task<AlpApiResponse<List<EmployeeDto>>> GetAllEmployees()
         {
             return _employeeService.GetAllEmployees();
         }
 
         [HttpPost]
-        public Task<List<EmployeeDto>> FilterEmployees([FromBody] EmployeeFilterInfo info)
+        public Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees([FromBody] EmployeeFilterInfo info)
         {
             return _employeeService.FilterEmployees(info);
         }
 
         [HttpPost]
-        public Task<EmployeeDto> GetEmployeeByName(string name)
+        public Task<AlpApiResponse<List<EmployeeDto>>> GetEmployeeByName(string name)
         {
             return _employeeService.GetByName(name);
         }

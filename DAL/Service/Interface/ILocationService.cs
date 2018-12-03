@@ -2,17 +2,18 @@
 using Common.Model.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Model.Model;
 
 namespace DAL.Service
 {
     public interface ILocationService
     {
-        Task<List<LocationDto>> GetAllLocations();
-        Task<List<LocationDto>> GetAvailableLocations();
-        Task<LocationDto> AddNewLocation(LocationDto location);
-        Task<LocationDto> GetLocationById(int locationId);
-        Task<LocationDto> UpdateLocation(LocationDto location);
-        Task DeleteLocationById(int locationId);
-        Task ToggleLocationLockStateById(int locationId);
+        Task<AlpApiResponse<List<LocationDto>>> GetAllLocations();
+        Task<AlpApiResponse<List<LocationDto>>> GetAvailableLocations();
+        Task<AlpApiResponse<LocationDto>> AddNewLocation(LocationDto location);
+        Task<AlpApiResponse<LocationDto>> GetLocationById(int locationId);
+        Task<AlpApiResponse> UpdateLocation(LocationDto location);
+        Task<AlpApiResponse> DeleteLocationById(int locationId);
+        Task<AlpApiResponse> ToggleLocationLockStateById(int locationId);
     }
 }

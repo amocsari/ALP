@@ -71,5 +71,27 @@ namespace ALP.Service
                 Accepted = false,
             };
         }
+
+        public bool ShowConfirmDialog(string message, string title)
+        {
+            MessageBoxResult result =  MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            return result == MessageBoxResult.Yes;
+        }
+
+        public void ShowAlert(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.None);
+        }
+
+        public void ShowWarning(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        public void ShowError(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

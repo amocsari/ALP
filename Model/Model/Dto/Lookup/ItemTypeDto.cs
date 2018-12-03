@@ -1,4 +1,6 @@
-﻿namespace Common.Model.Dto
+﻿using System;
+
+namespace Common.Model.Dto
 {
     /// <summary>
     /// Used to store the date of a single itemType
@@ -56,6 +58,22 @@
             ItemNatureId = source.ItemNatureId;
             ItemNature.UpdateByDto(source.ItemNature);
             Locked = source.Locked;
+        }
+
+        /// <summary>
+        /// Checks if the ItemTypeDto contains only valid data
+        /// </summary>
+        public override void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new Exception("Az eszköztípus nevét kötelező megadni!");
+            }
+
+            if (ItemNature == null)
+            {
+                throw new Exception("Az eszköztípushoz tartozó eszközjelleg megadása kötelező!");
+            }
         }
     }
 }

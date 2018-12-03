@@ -1,4 +1,6 @@
-﻿namespace Common.Model.Dto
+﻿using System;
+
+namespace Common.Model.Dto
 {
     /// <summary>
     /// Used to store the date of a single floor
@@ -56,6 +58,22 @@
             BuildingId = source.BuildingId;
             Building.UpdateByDto(source.Building);
             Locked = source.Locked;
+        }
+
+        /// <summary>
+        /// Checks if the FloorDto contains only valid data
+        /// </summary>
+        public override void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new Exception("Az emelet nevét kötelező megadni!");
+            }
+
+            if (Building == null)
+            {
+                throw new Exception("Az épület megadása kötelező");
+            }
         }
     }
 }

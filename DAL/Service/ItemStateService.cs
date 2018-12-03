@@ -7,6 +7,7 @@ using DAL.Entity;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace DAL.Service
 {
@@ -19,106 +20,153 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task<ItemStateDto> AddNewItemState(ItemStateDto itemState)
+        public async Task<AlpApiResponse<ItemStateDto>> AddNewItemState(ItemStateDto dto)
         {
+            var response = new AlpApiResponse<ItemStateDto>();
             try
             {
-                var entity = itemState.DtoToEntity();
+                dto.Validate();
+
+                var entity = dto.DtoToEntity();
                 await _context.ItemState.AddAsync(entity);
                 await _context.SaveChangesAsync();
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task DeleteItemStateById(int itemStateId)
+        public async Task<AlpApiResponse> DeleteItemStateById(int itemStateId)
         {
+            var response = new AlpApiResponse();
             try
             {
                 var entity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == itemStateId);
                 _context.Remove(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<ItemStateDto>> GetAllItemStates()
+        public async Task<AlpApiResponse<List<ItemStateDto>>> GetAllItemStates()
         {
+            var response = new AlpApiResponse<List<ItemStateDto>>();
             try
             {
                 var entites = await _context.ItemState.AsNoTracking().ToListAsync();
-                return entites.Select(e => e.EntityToDto()).ToList();
+                response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<ItemStateDto>> GetAvailableItemStates()
+        public async Task<AlpApiResponse<List<ItemStateDto>>> GetAvailableItemStates()
         {
+            var response = new AlpApiResponse<List<ItemStateDto>>();
             try
             {
                 var entites = await _context.ItemState.AsNoTracking().Where(itemState => !itemState.Locked).ToListAsync();
-                return entites.Select(e => e.EntityToDto()).ToList();
+                response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<ItemStateDto> GetItemStateById(int itemStateId)
+        public async Task<AlpApiResponse<ItemStateDto>> GetItemStateById(int itemStateId)
         {
+            var response = new AlpApiResponse<ItemStateDto>();
             try
             {
                 var entity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == itemStateId);
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<ItemStateDto> UpdateItemState(ItemStateDto dto)
+        public async Task<AlpApiResponse> UpdateItemState(ItemStateDto dto)
         {
+            var response = new AlpApiResponse();
             try
             {
+                dto.Validate();
+                
                 var updatedEntity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task ToggleItemStateLockStateById(int itemStateId)
+        public async Task<AlpApiResponse> ToggleItemStateLockStateById(int itemStateId)
         {
+            var response = new AlpApiResponse();
             try
             {
-                var itemState = await GetItemStateById(itemStateId);
+                var getByIdResponse = await GetItemStateById(itemStateId);
+                if (!getByIdResponse.Success)
+                {
+                    response.Success = getByIdResponse.Success;
+                    response.Message = getByIdResponse.Message;
+                    return response;
+                }
+
+                var itemState = getByIdResponse.Value;
                 itemState.Locked = !itemState.Locked;
-                await UpdateItemState(itemState);
+                var updateResponse = await UpdateItemState(itemState);
+                if (!updateResponse.Success)
+                {
+                    response.Success = updateResponse.Success;
+                    response.Message = updateResponse.Message;
+                    return response;
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
     }
 }

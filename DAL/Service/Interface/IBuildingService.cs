@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DAL.Entity;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace DAL.Service
 {
     public interface IBuildingService
     {
-        Task<List<BuildingDto>> GetAllBuildings();
-        Task<List<BuildingDto>> GetAvailableBuildings();
-        Task<BuildingDto> GetBuildingById(int buildingId);
-        Task<BuildingDto> InsertNewBuilding(BuildingDto building);
-        Task DeleteBuildingById(int buildingId);
-        Task ToggleBuildingLockStateById(int buildingId);
-        Task<BuildingDto> UpdateBuilding(BuildingDto dto);
+        Task<AlpApiResponse<List<BuildingDto>>> GetAllBuildings();
+        Task<AlpApiResponse<List<BuildingDto>>> GetAvailableBuildings();
+        Task<AlpApiResponse<BuildingDto>> GetBuildingById(int buildingId);
+        Task<AlpApiResponse<BuildingDto>> InsertNewBuilding(BuildingDto building);
+        Task<AlpApiResponse> DeleteBuildingById(int buildingId);
+        Task<AlpApiResponse> ToggleBuildingLockStateById(int buildingId);
+        Task<AlpApiResponse> UpdateBuilding(BuildingDto dto);
     }
 }

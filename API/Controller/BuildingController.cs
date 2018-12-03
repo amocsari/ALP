@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -16,47 +17,47 @@ namespace API.Controller
         {
             _buildingService = BuildingService;
         }
-
+        
         [HttpGet]
-        public Task<List<BuildingDto>> GetAllBuilding()
+        public Task<AlpApiResponse<List<BuildingDto>>> GetAllBuilding()
         {
             return _buildingService.GetAllBuildings();
         }
 
         [HttpGet]
-        public Task<List<BuildingDto>> GetAvailableBuilding()
+        public Task<AlpApiResponse<List<BuildingDto>>> GetAvailableBuilding()
         {
             return _buildingService.GetAvailableBuildings();
         }
 
         [HttpGet]
-        public Task<BuildingDto> GetBuildingById(int buildingId)
+        public Task<AlpApiResponse<BuildingDto>> GetBuildingById(int buildingId)
         {
             return _buildingService.GetBuildingById(buildingId);
         }
 
         [HttpPost]
-        public Task<BuildingDto> AddNewBuilding([FromBody] BuildingDto building)
+        public Task<AlpApiResponse<BuildingDto>> AddNewBuilding([FromBody] BuildingDto building)
         {
             return _buildingService.InsertNewBuilding(building);
         }
 
         [HttpPost]
-        public void UpdateBuilding([FromBody] BuildingDto building)
+        public Task<AlpApiResponse> UpdateBuilding([FromBody] BuildingDto building)
         {
-            _buildingService.UpdateBuilding(building);
+            return _buildingService.UpdateBuilding(building);
         }
 
         [HttpDelete]
-        public void DeleteBuildingById(int buildingId)
+        public Task<AlpApiResponse> DeleteBuildingById(int buildingId)
         {
-            _buildingService.DeleteBuildingById(buildingId);
+            return _buildingService.DeleteBuildingById(buildingId);
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdBuilding([FromBody] int buildingId)
+        public Task<AlpApiResponse> ToggleLockStateByIdBuilding([FromBody] int buildingId)
         {
-            _buildingService.ToggleBuildingLockStateById(buildingId);
+            return _buildingService.ToggleBuildingLockStateById(buildingId);
         }
     }
 }

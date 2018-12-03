@@ -1,4 +1,6 @@
-﻿namespace Common.Model.Dto
+﻿using System;
+
+namespace Common.Model.Dto
 {
     /// <summary>
     /// Used to store the date of a single Section
@@ -72,6 +74,27 @@
             Department.UpdateByDto(source.Department);
             Floor.UpdateByDto(source.Floor);
             Locked = source.Locked;
+        }
+
+        /// <summary>
+        /// Checks if the SectionDto contains only valid data
+        /// </summary>
+        public override void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new Exception("A részleg nevét kötelező megadni!");
+            }
+
+            if (Floor == null)
+            {
+                throw new Exception("A részleg emeletét kötelező megadni!");
+            }
+
+            if (Department == null)
+            {
+                throw new Exception("A részleg osztályát kötelező megadni!");
+            }
         }
     }
 }

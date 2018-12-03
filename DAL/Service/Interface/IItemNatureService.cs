@@ -1,18 +1,18 @@
-﻿using DAL.Entity;
-using Common.Model.Dto;
+﻿using Common.Model.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Model.Model;
 
 namespace DAL.Service
 {
     public interface IItemNatureService
     {
-        Task<List<ItemNatureDto>> GetAllItemNatures();
-        Task<List<ItemNatureDto>> GetAvailableItemNatures();
-        Task<ItemNatureDto> AddNewItemNature(ItemNatureDto itemNature);
-        Task<ItemNatureDto> GetItemNatureById(int itemNatureId);
-        Task<ItemNatureDto> UpdateItemNature(ItemNatureDto itemNature);
-        Task DeleteItemNatureById(int itemNatureId);
-        Task ToggleItemNatureLockStateById(int itemNatureId);
+        Task<AlpApiResponse<List<ItemNatureDto>>> GetAllItemNatures();
+        Task<AlpApiResponse<List<ItemNatureDto>>> GetAvailableItemNatures();
+        Task<AlpApiResponse<ItemNatureDto>> AddNewItemNature(ItemNatureDto itemNature);
+        Task<AlpApiResponse<ItemNatureDto>> GetItemNatureById(int itemNatureId);
+        Task<AlpApiResponse> UpdateItemNature(ItemNatureDto itemNature);
+        Task<AlpApiResponse> DeleteItemNatureById(int itemNatureId);
+        Task<AlpApiResponse> ToggleItemNatureLockStateById(int itemNatureId);
     }
 }

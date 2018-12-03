@@ -20,36 +20,56 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task AddNewEmployee(EmployeeDto dto)
+        public async Task<AlpApiResponse> AddNewEmployee(EmployeeDto dto)
         {
+            var response = new AlpApiResponse();
             try
             {
+                dto.Validate();
+
                 var entity = dto.DtoToEntity();
                 entity.Department = null;
                 entity.Section = null;
                 await _context.Employee.AddAsync(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //todo: logolás
+                //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<EmployeeDto> GetByName(string name)
+        public async Task<AlpApiResponse<List<EmployeeDto>>> GetByName(string name)
         {
-            if (string.IsNullOrEmpty(name))
+            var response = new AlpApiResponse<List<EmployeeDto>>();
+            try
+            {
+                if (string.IsNullOrEmpty(name))
             {
                 return null;
             }
 
             name = name.ToLower();
-            var entity = await _context.Employee.FirstAsync(employee => employee.EmployeeName.ToLower().Equals(name));
-            return entity.EntityToDto();
+            var entities = await _context.Employee.Where(employee => employee.EmployeeName.ToLower().Equals(name)).ToListAsync();
+            response.Value = entities.Select(entity => entity.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
         }
 
-        public async Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info)
+        public async Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees(EmployeeFilterInfo info)
         {
+            var response = new AlpApiResponse<List<EmployeeDto>>();
             try
             {
                 var nameIsNull = string.IsNullOrEmpty(info.Name);
@@ -61,17 +81,21 @@ namespace DAL.Service
                                        && (!info.SectionId.HasValue || employee.SectionId == info.SectionId))
                     .ToListAsync();
 
-                return employees.Select(employee => employee.EntityToDto()).ToList();
+                response.Value = employees.Select(employee => employee.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: loggolás
-                return null;
+                //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<EmployeeDto>> GetAllEmployees()
+        public async Task<AlpApiResponse<List<EmployeeDto>>> GetAllEmployees()
         {
+            var response = new AlpApiResponse<List<EmployeeDto>>();
             try
             {
                 var employees = await _context.Employee.AsNoTracking()
@@ -79,13 +103,16 @@ namespace DAL.Service
                     .Include(employee => employee.Section)
                     .ToListAsync();
 
-                return employees.Select(employee => employee.EntityToDto()).ToList();
+                response.Value = employees.Select(employee => employee.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: loggolás
-                return null;
+                //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
     }
 }

@@ -68,9 +68,10 @@ namespace ALP.ViewModel.Lookup
             {
                 await ReloadList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                _dialogService.ShowError(e.Message);
             }
             finally
             {
@@ -99,9 +100,10 @@ namespace ALP.ViewModel.Lookup
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                _dialogService.ShowError(e.Message);
             }
             finally
             {
@@ -131,9 +133,10 @@ namespace ALP.ViewModel.Lookup
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                _dialogService.ShowError(e.Message);
             }
             finally
             {
@@ -155,9 +158,10 @@ namespace ALP.ViewModel.Lookup
                 SelectedItem.Value.Locked = !SelectedItem.Value.Locked;
                 await ReloadList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                _dialogService.ShowError(e.Message);
             }
             finally
             {

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using ALP.Navigation;
+using ALP.Service;
 using GalaSoft.MvvmLight.Command;
 
 namespace ALP.ViewModel
@@ -12,9 +13,10 @@ namespace ALP.ViewModel
     public class MainWindowViewModel: AlpViewModelBase
     {
         /// <summary>
-        /// injected service
+        /// injected services
         /// </summary>
         private readonly IAlpNavigationService _navigationService;
+        private readonly IAlpDialogService _dialogService;
 
         //Commands bound to the menu items
         public ICommand LoginCommand { get; private set; }
@@ -48,9 +50,10 @@ namespace ALP.ViewModel
         /// Sets the commands
         /// </summary>
         /// <param name="navigationService">injected navigationservice</param>
-        public MainWindowViewModel(IAlpNavigationService navigationService)
+        public MainWindowViewModel(IAlpNavigationService navigationService, IAlpDialogService dialogService)
         {
             _navigationService = navigationService;
+            _dialogService = dialogService;
 
             LoginCommand = new RelayCommand(OnLoginCommand);
             //LogoutCommand = new RelayCommand(OnLogoutCommand, IsLoggedIn);
@@ -91,7 +94,11 @@ namespace ALP.ViewModel
 
         private void OnExitCommand(Window window)
         {
-            window.Close();
+            var result = _dialogService.ShowConfirmDialog("Biztosan kilép az alkalmazásból?", "Kilépés");
+            if(result)
+            {
+                window.Close();
+            }
         }
 
         private void OnDepartmentSearchCommand()

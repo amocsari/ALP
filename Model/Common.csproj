@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Enum\ItemPropertyType.cs" />
     <Compile Include="Extensions\Extension.Item.cs" />
+    <Compile Include="Model\AlpApiResponse.cs" />
     <Compile Include="Model\Dto\Lookup\DepartmentDto.cs" />
     <Compile Include="Model\Dto\EmployeeDto.cs" />
     <Compile Include="Model\Dto\ItemDto.cs" />

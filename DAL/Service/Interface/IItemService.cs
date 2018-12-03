@@ -2,12 +2,13 @@
 using Common.Model.Dto;
 using Common.Model;
 using System.Collections.Generic;
+using Model.Model;
 
 namespace DAL.Service
 {
     public interface IItemService
     {
-        Task<bool> AddNewItem(ItemDto dto);
-        Task<List<ItemDto>> FindItemsForDisplay(InventoryItemFilterInfo info);
+        Task<AlpApiResponse> AddNewItem(ItemDto dto);
+        Task<AlpApiResponse<List<ItemDto>>> FindItemsForDisplay(InventoryItemFilterInfo info);
     }
 }

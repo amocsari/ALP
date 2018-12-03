@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -18,45 +19,45 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<FloorDto>> GetAllFloor()
+        public Task<AlpApiResponse<List<FloorDto>>> GetAllFloor()
         {
             return _floorService.GetAllFloors();
         }
 
         [HttpGet]
-        public Task<List<FloorDto>> GetAvailableFloor()
+        public Task<AlpApiResponse<List<FloorDto>>> GetAvailableFloor()
         {
             return _floorService.GetAvailableFloors();
         }
 
         [HttpGet]
-        public Task<FloorDto> GetFloorById(int floorId)
+        public Task<AlpApiResponse<FloorDto>> GetFloorById(int floorId)
         {
             return _floorService.GetFloorById(floorId);
         }
 
         [HttpPost]
-        public Task<FloorDto> AddNewFloor([FromBody] FloorDto floor)
+        public Task<AlpApiResponse<FloorDto>> AddNewFloor([FromBody] FloorDto floor)
         {
             return _floorService.InsertNewFloor(floor);
         }
 
         [HttpPost]
-        public void UpdateFloor([FromBody] FloorDto floor)
+        public Task<AlpApiResponse> UpdateFloor([FromBody] FloorDto floor)
         {
-            _floorService.UpdateFloor(floor);
+            return _floorService.UpdateFloor(floor);
         }
 
         [HttpDelete]
-        public void DeleteFloorById(int floorId)
+        public Task<AlpApiResponse> DeleteFloorById(int floorId)
         {
-            _floorService.DeleteFloorById(floorId);
+            return _floorService.DeleteFloorById(floorId);
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdFloor([FromBody] int floorId)
+        public Task<AlpApiResponse> ToggleLockStateByIdFloor([FromBody] int floorId)
         {
-            _floorService.ToggleFloorLockStateById(floorId);
+            return _floorService.ToggleFloorLockStateById(floorId);
         }
     }
 }

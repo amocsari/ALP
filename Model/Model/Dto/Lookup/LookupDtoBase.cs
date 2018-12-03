@@ -38,5 +38,10 @@ namespace Common.Model.Dto
         /// </summary>
         /// <param name="sourceDto">The other LookupData</param>
         public abstract void UpdateByDto(LookupDtoBase sourceDto);
+
+        /// <summary>
+        /// Checks if the dto contains only valid data
+        /// </summary>
+        public abstract void Validate();
     }
 }

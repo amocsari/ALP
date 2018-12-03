@@ -1,4 +1,6 @@
-﻿namespace Common.Model.Dto
+﻿using System;
+
+namespace Common.Model.Dto
 {
     /// <summary>
     /// Used to store the date of a single ItemNature
@@ -41,6 +43,17 @@
             Name = sourceDto.Name;
             Id = sourceDto.Id;
             Locked = sourceDto.Locked;
+        }
+
+        /// <summary>
+        /// Checks if the ItemNatureDto contains only valid data
+        /// </summary>
+        public override void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new Exception("Az eszközjelleg nevét kötelező megadni!");
+            }
         }
     }
 }

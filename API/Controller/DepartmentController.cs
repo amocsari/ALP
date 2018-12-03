@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -18,45 +19,45 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<DepartmentDto>> GetAllDepartment()
+        public Task<AlpApiResponse<List<DepartmentDto>>> GetAllDepartment()
         {
             return _departmentService.GetAllDepartments();
         }
 
         [HttpGet]
-        public Task<List<DepartmentDto>> GetAvailableDepartment()
+        public Task<AlpApiResponse<List<DepartmentDto>>> GetAvailableDepartment()
         {
             return _departmentService.GetAvailableDepartments();
         }
 
         [HttpGet]
-        public Task<DepartmentDto> GetDepartmentById(int departmentId)
+        public Task<AlpApiResponse<DepartmentDto>> GetDepartmentById(int departmentId)
         {
             return _departmentService.GetDepartmentById(departmentId);
         }
 
         [HttpPost]
-        public Task<DepartmentDto> AddNewDepartment([FromBody] DepartmentDto department)
+        public Task<AlpApiResponse<DepartmentDto>> AddNewDepartment([FromBody] DepartmentDto department)
         {
             return _departmentService.InsertNewDepartment(department);
         }
 
         [HttpPost]
-        public void UpdateDepartment([FromBody] DepartmentDto department)
+        public Task<AlpApiResponse> UpdateDepartment([FromBody] DepartmentDto department)
         {
-            _departmentService.UpdateDepartment(department);
+            return _departmentService.UpdateDepartment(department);
         }
 
         [HttpDelete]
-        public void DeleteDepartmentById(int departmentId)
+        public Task<AlpApiResponse> DeleteDepartmentById(int departmentId)
         {
-            _departmentService.DeleteDepartmentById(departmentId);
+            return _departmentService.DeleteDepartmentById(departmentId);
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdDepartment([FromBody] int departmentId)
+        public Task<AlpApiResponse> ToggleLockStateByIdDepartment([FromBody] int departmentId)
         {
-            _departmentService.ToggleDepartmentLockStateById(departmentId);
+            return _departmentService.ToggleDepartmentLockStateById(departmentId);
         }
     }
 }

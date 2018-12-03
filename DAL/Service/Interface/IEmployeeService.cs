@@ -7,9 +7,9 @@ namespace DAL.Service
 {
     public interface IEmployeeService
     {
-        Task<List<EmployeeDto>> GetAllEmployees();
-        Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info);
-        Task AddNewEmployee(EmployeeDto dto);
-        Task<EmployeeDto> GetByName(string name);
+        Task<AlpApiResponse<List<EmployeeDto>>> GetAllEmployees();
+        Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees(EmployeeFilterInfo info);
+        Task<AlpApiResponse> AddNewEmployee(EmployeeDto dto);
+        Task<AlpApiResponse<List<EmployeeDto>>> GetByName(string name);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DAL.Entity;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -19,45 +19,45 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<ItemTypeDto>> GetAllItemType()
+        public Task<AlpApiResponse<List<ItemTypeDto>>> GetAllItemType()
         {
             return _itemTypeService.GetAllItemTypes();
         }
 
         [HttpGet]
-        public Task<List<ItemTypeDto>> GetAvailableItemType()
+        public Task<AlpApiResponse<List<ItemTypeDto>>> GetAvailableItemType()
         {
             return _itemTypeService.GetAvailableItemTypes();
         }
 
         [HttpGet]
-        public Task<ItemTypeDto> GetItemTypeById(int itemTypeId)
+        public Task<AlpApiResponse<ItemTypeDto>> GetItemTypeById(int itemTypeId)
         {
             return _itemTypeService.GetItemTypeById(itemTypeId);
         }
 
         [HttpPost]
-        public Task<ItemTypeDto> AddNewItemType([FromBody] ItemTypeDto itemType)
+        public Task<AlpApiResponse<ItemTypeDto>> AddNewItemType([FromBody] ItemTypeDto itemType)
         {
             return _itemTypeService.InsertNewItemType(itemType);
         }
 
         [HttpPost]
-        public void UpdateItemType([FromBody] ItemTypeDto itemType)
+        public Task<AlpApiResponse> UpdateItemType([FromBody] ItemTypeDto itemType)
         {
-            _itemTypeService.UpdateItemType(itemType);
+            return _itemTypeService.UpdateItemType(itemType);
         }
 
         [HttpDelete]
-        public void DeleteItemTypeById(int itemTypeId)
+        public Task<AlpApiResponse> DeleteItemTypeById(int itemTypeId)
         {
-            _itemTypeService.DeleteItemTypeById(itemTypeId);
+            return _itemTypeService.DeleteItemTypeById(itemTypeId);
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdItemType([FromBody] int itemTypeId)
+        public Task<AlpApiResponse> ToggleLockStateByIdItemType([FromBody] int itemTypeId)
         {
-            _itemTypeService.ToggleItemTypeLockStateById(itemTypeId);
+            return _itemTypeService.ToggleItemTypeLockStateById(itemTypeId);
         }
     }
 }

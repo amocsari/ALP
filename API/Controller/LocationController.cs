@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -18,45 +19,45 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<LocationDto>> GetAllLocation()
+        public Task<AlpApiResponse<List<LocationDto>>> GetAllLocation()
         {
             return _locationService.GetAllLocations();
         }
 
         [HttpGet]
-        public Task<List<LocationDto>> GetAvailableLocation()
+        public Task<AlpApiResponse<List<LocationDto>>> GetAvailableLocation()
         {
             return _locationService.GetAvailableLocations();
         }
 
         [HttpGet]
-        public Task<LocationDto> GetLocationById(int locationId)
+        public Task<AlpApiResponse<LocationDto>> GetLocationById(int locationId)
         {
             return _locationService.GetLocationById(locationId);
         }
 
         [HttpPost]
-        public Task<LocationDto> AddNewLocation([FromBody] LocationDto location)
+        public Task<AlpApiResponse<LocationDto>> AddNewLocation([FromBody] LocationDto location)
         {
             return _locationService.AddNewLocation(location);
         }
 
         [HttpDelete]
-        public void DeleteLocationById(int locationId)
+        public Task<AlpApiResponse> DeleteLocationById(int locationId)
         {
-            _locationService.DeleteLocationById(locationId);
+           return _locationService.DeleteLocationById(locationId);
         }
 
         [HttpPost]
-        public void UpdateLocation([FromBody] LocationDto location)
+        public Task<AlpApiResponse> UpdateLocation([FromBody] LocationDto location)
         {
-            _locationService.UpdateLocation(location);
+            return _locationService.UpdateLocation(location);
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdLocation([FromBody] int locationId)
+        public Task<AlpApiResponse> ToggleLockStateByIdLocation([FromBody] int locationId)
         {
-            _locationService.ToggleLocationLockStateById(locationId);
+            return _locationService.ToggleLocationLockStateById(locationId);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Model;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -37,7 +38,13 @@ namespace ALP.Service
                     throw new Exception("Error during DELETE request!");
                 }
 
-                return await response.Content.ReadAsAsync<TResponse>();
+                var apiResponse = await response.Content.ReadAsAsync<AlpApiResponse<TResponse>>();
+                if (!apiResponse.Success)
+                {
+                    throw new Exception(apiResponse.Message);
+                }
+
+                return apiResponse.Value;
             }
         }
 
@@ -56,7 +63,19 @@ namespace ALP.Service
                 client.DefaultRequestHeaders.Clear();
 
                 var response = await client.DeleteAsync(path + "/" + id.ToString());
-                return response.IsSuccessStatusCode;
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Error during DELETE request!");
+                }
+
+                var apiResponse = await response.Content.ReadAsAsync<AlpApiResponse>();
+                if (!apiResponse.Success)
+                {
+                    throw new Exception(apiResponse.Message);
+                }
+
+                return apiResponse.Success;
             }
         }
 
@@ -80,7 +99,13 @@ namespace ALP.Service
                     throw new Exception("Error during GET request!");
                 }
 
-                return await response.Content.ReadAsAsync<TResponse>();
+                var apiResponse = await response.Content.ReadAsAsync<AlpApiResponse<TResponse>>();
+                if (!apiResponse.Success)
+                {
+                    throw new Exception(apiResponse.Message);
+                }
+
+                return apiResponse.Value;
             }
         }
 
@@ -106,8 +131,14 @@ namespace ALP.Service
                 {
                     throw new Exception("Error during POST request!");
                 }
+                
+                var apiResponse = await response.Content.ReadAsAsync<AlpApiResponse<TResponse>>();
+                if (!apiResponse.Success)
+                {
+                    throw new Exception(apiResponse.Message);
+                }
 
-                return await response.Content.ReadAsAsync<TResponse>();
+                return apiResponse.Value;
             }
         }
 
@@ -128,7 +159,18 @@ namespace ALP.Service
 
                 var response = await client.PostAsJsonAsync(path, parameter);
 
-                return response.IsSuccessStatusCode;
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Error during POST request!");
+                }
+
+                var apiResponse = await response.Content.ReadAsAsync<AlpApiResponse>();
+                if (!apiResponse.Success)
+                {
+                    throw new Exception(apiResponse.Message);
+                }
+
+                return apiResponse.Success;
             }
         }
     }

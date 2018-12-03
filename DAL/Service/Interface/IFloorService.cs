@@ -2,17 +2,18 @@
 using System.Threading.Tasks;
 using DAL.Entity;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace DAL.Service
 {
     public interface IFloorService
     {
-        Task<List<FloorDto>> GetAllFloors();
-        Task<List<FloorDto>> GetAvailableFloors();
-        Task<FloorDto> GetFloorById(int FloorId);
-        Task<FloorDto> InsertNewFloor(FloorDto Floor);
-        Task DeleteFloorById(int FloorId);
-        Task ToggleFloorLockStateById(int floorId);
-        Task<FloorDto> UpdateFloor(FloorDto dto);
+        Task<AlpApiResponse<List<FloorDto>>> GetAllFloors();
+        Task<AlpApiResponse<List<FloorDto>>> GetAvailableFloors();
+        Task<AlpApiResponse<FloorDto>> GetFloorById(int FloorId);
+        Task<AlpApiResponse<FloorDto>> InsertNewFloor(FloorDto Floor);
+        Task<AlpApiResponse> DeleteFloorById(int FloorId);
+        Task<AlpApiResponse> ToggleFloorLockStateById(int floorId);
+        Task<AlpApiResponse> UpdateFloor(FloorDto dto);
     }
 }

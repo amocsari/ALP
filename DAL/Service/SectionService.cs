@@ -7,6 +7,7 @@ using System.Linq;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Model.Model;
 
 namespace DAL.Service
 {
@@ -19,70 +20,88 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task DeleteSectionById(int sectionId)
+        public async Task<AlpApiResponse> DeleteSectionById(int sectionId)
         {
+            var response = new AlpApiResponse();
             try
             {
                 var entity = await _context.Section.FirstOrDefaultAsync(section => section.SectionId == sectionId);
                 _context.Section.Remove(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<SectionDto>> GetAllSections()
+        public async Task<AlpApiResponse<List<SectionDto>>> GetAllSections()
         {
+            var response = new AlpApiResponse<List<SectionDto>>();
             try
             {
                 var sections = await _context.Section.AsNoTracking()
                     .Include(section => section.Floor)
                     .Include(section => section.Department)
                     .ToListAsync();
-                return sections.Select(Section => Section.EntityToDto()).ToList();
+                response.Value = sections.Select(Section => Section.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<SectionDto>> GetAvailableSections()
+        public async Task<AlpApiResponse<List<SectionDto>>> GetAvailableSections()
         {
+            var response = new AlpApiResponse<List<SectionDto>>();
             try
             {
                 var sections = await _context.Section.AsNoTracking()
                     .Include(section => section.Floor)
                     .Include(section => section.Department)
                     .Where(section => !section.Locked).ToListAsync();
-                return sections.Select(section => section.EntityToDto()).ToList();
+                response.Value = sections.Select(section => section.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<SectionDto> GetSectionById(int sectionId)
+        public async Task<AlpApiResponse<SectionDto>> GetSectionById(int sectionId)
         {
+            var response = new AlpApiResponse<SectionDto>();
             try
             {
                 var entity = await _context.Section.FirstOrDefaultAsync(section => section.SectionId == sectionId);
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<SectionDto> InsertNewSection(SectionDto section)
+        public async Task<AlpApiResponse<SectionDto>> InsertNewSection(SectionDto section)
         {
+            var response = new AlpApiResponse<SectionDto>();
             try
             {
                 var entity = section.DtoToEntity();
@@ -90,17 +109,21 @@ namespace DAL.Service
                 entity.Department = null;
                 await _context.Section.AddAsync(entity);
                 await _context.SaveChangesAsync();
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
             catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<SectionDto> UpdateSection(SectionDto dto)
+        public async Task<AlpApiResponse> UpdateSection(SectionDto dto)
         {
+            var response = new AlpApiResponse();
             try
             {
                 var updatedEntity = await _context.Section
@@ -109,27 +132,49 @@ namespace DAL.Service
                     .FirstOrDefaultAsync(section => section.SectionId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task ToggleSectionLockStateById(int sectionId)
+        public async Task<AlpApiResponse> ToggleSectionLockStateById(int sectionId)
         {
+            var response = new AlpApiResponse();
             try
             {
-                var section = await GetSectionById(sectionId);
+                var getByIdReply = await GetSectionById(sectionId);
+                if (!getByIdReply.Success)
+                {
+                    response.Success = getByIdReply.Success;
+                    response.Message = getByIdReply.Message;
+                    return response;
+                }
+
+                var section = getByIdReply.Value;
+
                 section.Locked = !section.Locked;
-                await UpdateSection(section);
+                var updateReply = await UpdateSection(section);
+                if (!updateReply.Success)
+                {
+                    response.Success = updateReply.Success;
+                    response.Message = updateReply.Message;
+                    return response;
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
     }
 }

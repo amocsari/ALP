@@ -7,6 +7,7 @@ using System.Linq;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Model.Model;
 
 namespace DAL.Service
 {
@@ -19,107 +20,153 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task DeleteDepartmentById(int departmentId)
+        public async Task<AlpApiResponse> DeleteDepartmentById(int departmentId)
         {
+            var response = new AlpApiResponse();
             try
             {
                 var entity = await _context.Department.FirstOrDefaultAsync(department => department.DepartmentId == departmentId);
                 _context.Department.Remove(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Success = false;
+                response.Message = e.Message;
             }
+
+            return response;
         }
 
-        public async Task<List<DepartmentDto>> GetAllDepartments()
+        public async Task<AlpApiResponse<List<DepartmentDto>>> GetAllDepartments()
         {
+            var response = new AlpApiResponse<List<DepartmentDto>>();
             try
             {
                 var departments = await _context.Department.AsNoTracking().Include(department => department.Employee).ToListAsync();
-                return departments.Select(department => department.EntityToDto()).ToList();
+                response.Value = departments.Select(department => department.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Success = false;
+                response.Message = e.Message;
             }
+
+            return response;
         }
 
-        public async Task<List<DepartmentDto>> GetAvailableDepartments()
+        public async Task<AlpApiResponse<List<DepartmentDto>>> GetAvailableDepartments()
         {
+            var response = new AlpApiResponse<List<DepartmentDto>>();
             try
             {
                 var departments = await _context.Department.AsNoTracking().Include(department => department.Employee).Where(Department => !Department.Locked).ToListAsync();
-                return departments.Select(Department => Department.EntityToDto()).ToList();
+                response.Value = departments.Select(Department => Department.EntityToDto()).ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Success = false;
+                response.Message = e.Message;
             }
+
+            return response;
         }
 
-        public async Task<DepartmentDto> GetDepartmentById(int departmentId)
+        public async Task<AlpApiResponse<DepartmentDto>> GetDepartmentById(int departmentId)
         {
+            var response = new AlpApiResponse<DepartmentDto>();
             try
             {
                 var entity = await _context.Department.FirstOrDefaultAsync(department => department.DepartmentId == departmentId);
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Success = false;
+                response.Message = e.Message;
             }
+
+            return response;
         }
 
-        public async Task<DepartmentDto> InsertNewDepartment(DepartmentDto department)
+        public async Task<AlpApiResponse<DepartmentDto>> InsertNewDepartment(DepartmentDto department)
         {
+            var response = new AlpApiResponse<DepartmentDto>();
             try
             {
                 var entity = department.DtoToEntity();
                 entity.Employee = null;
                 await _context.Department.AddAsync(entity);
                 await _context.SaveChangesAsync();
-                return entity.EntityToDto();
+                response.Value = entity.EntityToDto();
             }
             catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Success = false;
+                response.Message = e.Message;
             }
+
+            return response;
         }
 
-        public async Task<DepartmentDto> UpdateDepartment(DepartmentDto dto)
+        public async Task<AlpApiResponse> UpdateDepartment(DepartmentDto dto)
         {
+            var response = new AlpApiResponse();
+
             try
             {
                 var updatedEntity = await _context.Department.Include(department => department.Employee).FirstOrDefaultAsync(Department => Department.DepartmentId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Success = false;
+                response.Message = e.Message;
             }
+
+            return response;
         }
 
-        public async Task ToggleDepartmentLockStateById(int departmentId)
+        public async Task<AlpApiResponse> ToggleDepartmentLockStateById(int departmentId)
         {
+            var response = new AlpApiResponse();
+
             try
             {
-                var department = await GetDepartmentById(departmentId);
+                var getByIdResponse = await GetDepartmentById(departmentId);
+                if (!getByIdResponse.Success)
+                {
+                    response.Success = getByIdResponse.Success;
+                    response.Message = getByIdResponse.Message;
+                    return response;
+                }
+
+                var department = getByIdResponse.Value;
                 department.Locked = !department.Locked;
-                await UpdateDepartment(department);
+                var updateResponse = await UpdateDepartment(department);
+
+                if (!updateResponse.Success)
+                {
+                    response.Success = updateResponse.Success;
+                    response.Message = updateResponse.Message;
+                    return response;
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Success = false;
+                response.Message = e.Message;
             }
+
+            return response;
         }
     }
 }

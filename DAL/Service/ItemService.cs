@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 using System;
 using DAL.Extensions;
 using Common.Model;
-using Model.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
-using Model.Extensions;
+using Model.Model;
 
 namespace DAL.Service
 {
@@ -23,10 +21,13 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task<bool> AddNewItem(ItemDto dto)
+        public async Task<AlpApiResponse> AddNewItem(ItemDto dto)
         {
+            var response = new AlpApiResponse();
             try
             {
+                dto.Validate();
+
                 var entity = dto.DtoToEntity();
 
                 entity.Building = null;
@@ -44,15 +45,16 @@ namespace DAL.Service
             catch (Exception e)
             {
                 //TODO: logging
-                return false;
+                response.Message = e.Message;
+                response.Success = false;
             }
 
-            return true;
-
+            return response;
         }
 
-        public async Task<List<ItemDto>> FindItemsForDisplay(InventoryItemFilterInfo info)
+        public async Task<AlpApiResponse<List<ItemDto>>> FindItemsForDisplay(InventoryItemFilterInfo info)
         {
+            var response = new AlpApiResponse<List<ItemDto>>();
             try
             {
                 //TODO: regex szerint szétszedni az azonosítókat
@@ -110,13 +112,16 @@ namespace DAL.Service
                 }
 
                 var items = entities.Select(entity => entity.EntityToDto()).ToList();
-                return items;
+                response.Value = items;
             }
             catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
     }
 }

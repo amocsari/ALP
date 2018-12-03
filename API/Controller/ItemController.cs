@@ -19,14 +19,8 @@ namespace API.Controller
             _itemService = itemService;
         }
 
-        //[HttpGet]
-        //public Task<List<ItemDto>> GetAllItems()
-        //{
-        //    return _itemService.GetAll();
-        //}
-
         [HttpPost]
-        public Task<List<ItemDto>> FilterItems(InventoryItemFilterInfo info)
+        public Task<AlpApiResponse<List<ItemDto>>> FilterItems(InventoryItemFilterInfo info)
         {
             return _itemService.FindItemsForDisplay(info);
         }
@@ -38,15 +32,9 @@ namespace API.Controller
         //}
 
         [HttpPost]
-        public Task<bool> AddNewItem([FromBody] ItemDto item)
+        public Task<AlpApiResponse> AddNewItem([FromBody] ItemDto item)
         {
             return _itemService.AddNewItem(item);
         }
-
-        //[HttpDelete]
-        //public void DeleteItemById(int itemId)
-        //{
-        //    _itemService.Remove(b => b.ItemID == itemId);
-        //}
     }
 }

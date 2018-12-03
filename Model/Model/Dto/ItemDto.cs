@@ -16,6 +16,7 @@ namespace Common.Model.Dto
         public int? ItemNatureID { get; set; }
         public int? ItemTypeID { get; set; }
         public DateTime? ProductionYear { get; set; }
+
         public int? DepartementID { get; set; }
         public int? SectionID { get; set; }
         public int? EmployeeID { get; set; }
@@ -36,5 +37,10 @@ namespace Common.Model.Dto
         public BuildingDto Building { get; set; }
         public FloorDto Floor { get; set; }
         public ItemStateDto ItemState { get; set; }
+
+        public void Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

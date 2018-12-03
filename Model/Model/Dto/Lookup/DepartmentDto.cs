@@ -1,4 +1,6 @@
-﻿namespace Common.Model.Dto
+﻿using System;
+
+namespace Common.Model.Dto
 {
     /// <summary>
     /// Used to store the date of a single Department
@@ -56,6 +58,17 @@
             EmployeeId = source.EmployeeId;
             Employee.UpdateByDto(source.Employee);
             Locked = source.Locked;
+        }
+
+        /// <summary>
+        /// Checks if the DepartmentDto contains only valid data
+        /// </summary>
+        public override void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new Exception("Az osztály nevét kötelező megadni!");
+            }
         }
     }
 }

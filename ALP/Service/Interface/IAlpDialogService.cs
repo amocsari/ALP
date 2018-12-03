@@ -10,5 +10,13 @@ namespace ALP.Service
 
         DialogResult<TReturnParameter> ShowDialog<TWindow, TViewModel, TParameter, TReturnParameter>(TParameter parameter) where TWindow : Window, new()
             where TViewModel : IDialogViewModel<TReturnParameter, TParameter>;
+
+        bool ShowConfirmDialog(string message, string title);
+
+        void ShowAlert(string message, string title = "Alert");
+
+        void ShowWarning(string message, string title = "Warning");
+
+        void ShowError(string message, string title = "Error");
     }
 }

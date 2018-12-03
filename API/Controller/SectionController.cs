@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Model.Model;
 
 namespace API.Controller
 {
@@ -18,45 +19,45 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public Task<List<SectionDto>> GetAllSection()
+        public Task<AlpApiResponse<List<SectionDto>>> GetAllSection()
         {
             return _sectionService.GetAllSections();
         }
 
         [HttpGet]
-        public Task<List<SectionDto>> GetAvailableSection()
+        public Task<AlpApiResponse<List<SectionDto>>> GetAvailableSection()
         {
             return _sectionService.GetAvailableSections();
         }
 
         [HttpGet]
-        public Task<SectionDto> GetSectionById(int sectionId)
+        public Task<AlpApiResponse<SectionDto>> GetSectionById(int sectionId)
         {
             return _sectionService.GetSectionById(sectionId);
         }
 
         [HttpPost]
-        public Task<SectionDto> AddNewSection([FromBody] SectionDto section)
+        public Task<AlpApiResponse<SectionDto>> AddNewSection([FromBody] SectionDto section)
         {
             return _sectionService.InsertNewSection(section);
         }
 
         [HttpPost]
-        public void UpdateSection([FromBody] SectionDto section)
+        public Task<AlpApiResponse> UpdateSection([FromBody] SectionDto section)
         {
-            _sectionService.UpdateSection(section);
+            return _sectionService.UpdateSection(section);
         }
 
         [HttpDelete]
-        public void DeleteSectionById(int sectionId)
+        public Task<AlpApiResponse> DeleteSectionById(int sectionId)
         {
-            _sectionService.DeleteSectionById(sectionId);
+            return _sectionService.DeleteSectionById(sectionId);
         }
 
         [HttpPost]
-        public void ToggleLockStateByIdSection([FromBody] int sectionId)
+        public Task<AlpApiResponse> ToggleLockStateByIdSection([FromBody] int sectionId)
         {
-            _sectionService.ToggleSectionLockStateById(sectionId);
+            return _sectionService.ToggleSectionLockStateById(sectionId);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using DAL.Entity;
-using DAL.Context;
+﻿using DAL.Context;
 using Common.Model.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +6,7 @@ using System.Linq;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Model.Model;
 
 namespace DAL.Service
 {
@@ -19,107 +19,157 @@ namespace DAL.Service
             _context = context;
         }
 
-        public async Task DeleteBuildingById(int buildingId)
+        public async Task<AlpApiResponse> DeleteBuildingById(int buildingId)
         {
+            var response = new AlpApiResponse();
             try
             {
                 var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
                 _context.Building.Remove(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<List<BuildingDto>> GetAllBuildings()
+        public async Task<AlpApiResponse<List<BuildingDto>>> GetAllBuildings()
         {
+            var response = new AlpApiResponse<List<BuildingDto>>();
             try
             {
                 var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).ToListAsync();
-                return buildings.Select(building => building.EntityToDto()).ToList();
-            }
-            catch (Exception)
-            {
-                //TODO: logging
-                return null;
-            }
-        }
-
-        public async Task<List<BuildingDto>> GetAvailableBuildings()
-        {
-            try
-            {
-                var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).Where(building => !building.Locked).ToListAsync();
-                return buildings.Select(building => building.EntityToDto()).ToList();
-            }
-            catch (Exception)
-            {
-                //TODO: logging
-                return null;
-            }
-        }
-
-        public async Task<BuildingDto> GetBuildingById(int buildingId)
-        {
-            try
-            {
-                var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
-                return entity.EntityToDto();
-            }
-            catch (Exception)
-            {
-                //TODO: logging
-                return null;
-            }
-        }
-
-        public async Task<BuildingDto> InsertNewBuilding(BuildingDto building)
-        {
-            try
-            {
-                var entity = building.DtoToEntity();
-                entity.Location = null;
-                await _context.Building.AddAsync(entity);
-                await _context.SaveChangesAsync();
-                return entity.EntityToDto();
+                response.Value = buildings.Select(building => building.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task<BuildingDto> UpdateBuilding(BuildingDto dto)
+        public async Task<AlpApiResponse<List<BuildingDto>>> GetAvailableBuildings()
         {
+            var response = new AlpApiResponse<List<BuildingDto>>();
             try
             {
+                var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).Where(building => !building.Locked).ToListAsync();
+                response.Value = buildings.Select(building => building.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse<BuildingDto>> GetBuildingById(int buildingId)
+        {
+            var response = new AlpApiResponse<BuildingDto>();
+            try
+            {
+                var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
+                response.Value = entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse<BuildingDto>> InsertNewBuilding(BuildingDto dto)
+        {
+            var response = new AlpApiResponse<BuildingDto>();
+
+            try
+            {
+                dto.Validate();
+
+                var entity = dto.DtoToEntity();
+                entity.Location = null;
+                await _context.Building.AddAsync(entity);
+                await _context.SaveChangesAsync();
+                response.Value = entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse> UpdateBuilding(BuildingDto dto)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                dto.Validate();
+
                 var updatedEntity = await _context.Building.Include(building => building.Location).FirstOrDefaultAsync(building => building.BuildingId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
-                return updatedEntity.EntityToDto();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
-                return null;
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
 
-        public async Task ToggleBuildingLockStateById(int buildingId)
+        public async Task<AlpApiResponse> ToggleBuildingLockStateById(int buildingId)
         {
+            var response = new AlpApiResponse();
             try
             {
-                var building = await GetBuildingById(buildingId);
+                var getByIdReply = await GetBuildingById(buildingId);
+                if (!getByIdReply.Success)
+                {
+                    response.Success = getByIdReply.Success;
+                    response.Message = getByIdReply.Message;
+                    return response;
+                }
+
+                var building = getByIdReply.Value;
+
                 building.Locked = !building.Locked;
-                await UpdateBuilding(building);
+
+                var updateReply = await UpdateBuilding(building);
+                if (!updateReply.Success)
+                {
+                    response.Success = updateReply.Success;
+                    response.Message = updateReply.Message;
+                    return response;
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //TODO: logging
+                response.Message = e.Message;
+                response.Success = false;
             }
+
+            return response;
         }
     }
 }
