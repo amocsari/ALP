@@ -93,12 +93,14 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<DepartmentDto>> InsertNewDepartment(DepartmentDto department)
+        public async Task<AlpApiResponse<DepartmentDto>> InsertNewDepartment(DepartmentDto dto)
         {
             var response = new AlpApiResponse<DepartmentDto>();
             try
             {
-                var entity = department.DtoToEntity();
+                dto.Validate();
+
+                var entity = dto.DtoToEntity();
                 entity.Employee = null;
                 await _context.Department.AddAsync(entity);
                 await _context.SaveChangesAsync();
@@ -120,6 +122,8 @@ namespace DAL.Service
 
             try
             {
+                dto.Validate();
+
                 var updatedEntity = await _context.Department.Include(department => department.Employee).FirstOrDefaultAsync(Department => Department.DepartmentId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();

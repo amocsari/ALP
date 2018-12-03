@@ -93,12 +93,14 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<ItemTypeDto>> InsertNewItemType(ItemTypeDto itemType)
+        public async Task<AlpApiResponse<ItemTypeDto>> InsertNewItemType(ItemTypeDto dto)
         {
             var response = new AlpApiResponse<ItemTypeDto>();
             try
             {
-                var entity = itemType.DtoToEntity();
+                dto.Validate();
+
+                var entity = dto.DtoToEntity();
                 entity.ItemNature = null;
                 await _context.ItemType.AddAsync(entity);
                 await _context.SaveChangesAsync();
@@ -119,6 +121,8 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                dto.Validate();
+
                 var updatedEntity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemTypeId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
