@@ -27,6 +27,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(AddNewEmployee),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -37,7 +43,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -50,6 +62,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<EmployeeDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetByName),
+                    name
+                }.ToString());
+
                 if (string.IsNullOrEmpty(name))
             {
                 return null;
@@ -61,7 +79,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -69,25 +93,37 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees(EmployeeFilterInfo info)
+        public async Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees(EmployeeFilterInfo filterInfo)
         {
             var response = new AlpApiResponse<List<EmployeeDto>>();
             try
             {
-                var nameIsNull = string.IsNullOrEmpty(info.Name);
+                _logger.LogDebug(new
+                {
+                    action = nameof(FilterEmployees),
+                    info = filterInfo.ToString()
+                }.ToString());
+
+                var nameIsNull = string.IsNullOrEmpty(filterInfo.Name);
                 var employees = await _context.Employee.AsNoTracking()
                     .Include(employee => employee.Department)
                     .Include(employee => employee.Section)
-                    .Where(employee => (nameIsNull || employee.EmployeeName.Contains(info.Name))
-                                       && (!info.DepartmentId.HasValue || employee.DepartmentId == info.DepartmentId)
-                                       && (!info.SectionId.HasValue || employee.SectionId == info.SectionId))
+                    .Where(employee => (nameIsNull || employee.EmployeeName.Contains(filterInfo.Name))
+                                       && (!filterInfo.DepartmentId.HasValue || employee.DepartmentId == filterInfo.DepartmentId)
+                                       && (!filterInfo.SectionId.HasValue || employee.SectionId == filterInfo.SectionId))
                     .ToListAsync();
 
                 response.Value = employees.Select(employee => employee.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -100,6 +136,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<EmployeeDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllEmployees)
+                }.ToString());
+
                 var employees = await _context.Employee.AsNoTracking()
                     .Include(employee => employee.Department)
                     .Include(employee => employee.Section)
@@ -109,7 +150,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }

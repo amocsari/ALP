@@ -3,7 +3,6 @@
 	[ItemId] INT NOT NULL IDENTITY(1,1),
     [ItemName] VARCHAR(250) NOT NULL,
 	[InventoryNumber] VARCHAR(10),
-	--TODO: 50 helyett a karakterkód hossza
 	[OldInventoryNumber] VARCHAR(50),
 	[SerialNumber] VARCHAR(50),
 	[YellowNumber] INT,

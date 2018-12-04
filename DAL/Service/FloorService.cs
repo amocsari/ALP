@@ -28,13 +28,25 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(DeleteFloorById),
+                    floorId
+                }.ToString());
+
                 var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
                 _context.Floor.Remove(entity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -48,12 +60,23 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllFloors)
+                }.ToString());
+
                 var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).ToListAsync();
                 response.Value = floors.Select(floor => floor.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -67,12 +90,23 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableFloors)
+                }.ToString());
+
                 var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).Where(floor => !floor.Locked).ToListAsync();
                 response.Value = floors.Select(floor => floor.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -86,12 +120,24 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetFloorById),
+                    floorId
+                }.ToString());
+
                 var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -105,6 +151,12 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(InsertNewFloor),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -115,7 +167,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -129,6 +187,12 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateFloor),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var updatedEntity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == dto.Id);
@@ -137,7 +201,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -151,6 +221,12 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ToggleFloorLockStateById),
+                    floorId
+                }.ToString());
+
                 var getByIdResponse = await GetFloorById(floorId);
                 if (!getByIdResponse.Success)
                 {
@@ -172,7 +248,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }

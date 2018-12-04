@@ -183,7 +183,7 @@ namespace ALP.ViewModel.Inventory
                 if (Item.Department != value)
                 {
                     Item.Department = value;
-                    Item.DepartementID = value.Id;
+                    Item.DepartmentID = value.Id;
                     RaisePropertyChanged();
                 }
             }

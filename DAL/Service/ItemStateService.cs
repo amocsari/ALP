@@ -27,6 +27,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<ItemStateDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(AddNewItemState),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -36,7 +42,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -49,13 +61,25 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(DeleteItemStateById),
+                    itemStateId
+                }.ToString());
+
                 var entity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == itemStateId);
                 _context.Remove(entity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -68,12 +92,23 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<ItemStateDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllItemStates)
+                }.ToString());
+
                 var entites = await _context.ItemState.AsNoTracking().ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -86,12 +121,23 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<ItemStateDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableItemStates)
+                }.ToString());
+
                 var entites = await _context.ItemState.AsNoTracking().Where(itemState => !itemState.Locked).ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -104,12 +150,24 @@ namespace DAL.Service
             var response = new AlpApiResponse<ItemStateDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetItemStateById),
+                    itemStateId
+                }.ToString());
+
                 var entity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == itemStateId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -122,6 +180,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateItemState),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
                 
                 var updatedEntity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == dto.Id);
@@ -130,7 +194,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -143,6 +213,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ToggleItemStateLockStateById),
+                    itemStateId
+                }.ToString());
+
                 var getByIdResponse = await GetItemStateById(itemStateId);
                 if (!getByIdResponse.Success)
                 {
@@ -163,7 +239,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }

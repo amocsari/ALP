@@ -27,6 +27,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<ItemNatureDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(AddNewItemNature),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -36,7 +42,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -49,13 +61,25 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(DeleteItemNatureById),
+                    itemNatureId
+                }.ToString());
+
                 var entity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == itemNatureId);
                 _context.ItemNature.Remove(entity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -68,12 +92,23 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<ItemNatureDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllItemNatures)
+                }.ToString());
+
                 var entites = await _context.ItemNature.AsNoTracking().ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -86,13 +121,24 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<ItemNatureDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableItemNatures)
+                }.ToString());
+
                 var entites = await _context.ItemNature.AsNoTracking().Where(itemNature => !itemNature.Locked).ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
 
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -105,12 +151,24 @@ namespace DAL.Service
             var response = new AlpApiResponse<ItemNatureDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetItemNatureById),
+                    itemNatureId
+                }.ToString());
+
                 var entity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == itemNatureId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -123,6 +181,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateItemNature),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var updatedEntity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == dto.Id);
@@ -131,7 +195,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -144,6 +214,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ToggleItemNatureLockStateById),
+                    itemNatureId
+                }.ToString());
+
                 var getByIdReply = await GetItemNatureById(itemNatureId);
                 if (!getByIdReply.Success)
                 {
@@ -165,7 +241,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }

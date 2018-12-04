@@ -5,7 +5,6 @@
 	[DepartmentId] INT NOT NULL,
 	[SectionId] INT,
 	[EmailAddress] VARCHAR(100),
-	--TODO: fancy-bb név
 	[RetirementDate] DATE,
 	CONSTRAINT [pkEmployee] PRIMARY KEY CLUSTERED ([EmployeeId] ASC),
 	CONSTRAINT [fkEmployeeDepartment] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department] ([DepartmentId]),

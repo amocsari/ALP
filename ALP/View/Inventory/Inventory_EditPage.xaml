@@ -82,11 +82,9 @@
                     <Label Content="Eszköz típusa" Grid.Column="2" Grid.Row="7"/>
                     <ComboBox ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding SelectedItemType}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="7"/>
 
-                    <!--TODO: binding-->
                     <Label Content="Osztály" Grid.Column="0" Grid.Row="8"/>
                     <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="8"/>
 
-                    <!--TODO: binding-->
                     <Label Content="Részleg" Grid.Column="2" Grid.Row="8"/>
                     <ComboBox ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="8"/>
 

@@ -43,7 +43,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -68,7 +74,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -91,7 +103,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -114,7 +132,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -138,7 +162,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -165,7 +195,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -205,7 +241,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }

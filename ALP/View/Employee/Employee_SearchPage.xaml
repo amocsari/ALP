@@ -11,7 +11,6 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Employee_SearchPage">
 
-    <!--TODO: KIVENNI A HÁTTERET-->
     <Grid>
         <StackPanel Orientation="Vertical">
             <Label Content="Dolgozók" HorizontalAlignment="Center" FontSize="32"/>

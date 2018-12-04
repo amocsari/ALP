@@ -29,6 +29,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(AddNewItem),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -47,7 +53,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -60,7 +72,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<ItemDto>>();
             try
             {
-                //TODO: regex szerint szétszedni az azonosítókat
+                _logger.LogDebug(new
+                {
+                    action = nameof(FindItemsForDisplay),
+                    info = info.ToString()
+                }.ToString());
+                
                 var includesIds = info.Id != null && info.Id.Count > 0;
                 var isManufacturerAndTypeSpecified = !string.IsNullOrEmpty(info.ManufacturerAndType);
                 List<Item> entities;
@@ -108,18 +125,18 @@ namespace DAL.Service
                                                     .ToListAsync();
                 }
 
-                if (entities == null)
-                {
-                    //TODO: logging
-                    throw new Exception();
-                }
-
                 var items = entities.Select(entity => entity.EntityToDto()).ToList();
                 response.Value = items;
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }

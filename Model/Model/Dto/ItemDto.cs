@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Common.Model.Dto
 {
@@ -17,7 +18,7 @@ namespace Common.Model.Dto
         public int? ItemTypeID { get; set; }
         public DateTime? ProductionYear { get; set; }
 
-        public int? DepartementID { get; set; }
+        public int? DepartmentID { get; set; }
         public int? SectionID { get; set; }
         public int? EmployeeID { get; set; }
         public int? BuildingID { get; set; }
@@ -40,7 +41,57 @@ namespace Common.Model.Dto
 
         public void Validate()
         {
-            throw new NotImplementedException();
+            if(string.IsNullOrEmpty(InventoryNumber) && string.IsNullOrEmpty(OldInventoryNumber) && string.IsNullOrEmpty(SerialNumber) && !YellowNumber.HasValue && string.IsNullOrEmpty(AccreditationNumber))
+            {
+                throw new Exception("Legalább egy azonosítót kötelezően meg kell adni!");
+            }
+
+            if (string.IsNullOrEmpty(ItemName))
+            {
+                throw new Exception("A leltárelem nevét kötelező megadni!");
+            }
+
+            if(ItemState == null)
+            {
+                throw new Exception("A leltárelem állapotát kötelező megadni!");
+            }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder($"{{ ItemId = {ItemID}");
+            sb.Append($", InventoryNumber = {InventoryNumber}");
+            sb.Append($", OldInventoryNumber = {OldInventoryNumber}");
+            sb.Append($", SerialNumber = {SerialNumber}");
+            sb.Append($", AccreditationNumber = {AccreditationNumber}");
+            sb.Append($", YellowNumber = {YellowNumber}");
+            sb.Append($", ItemName = {ItemName}");
+            sb.Append($", Manufacturer = {Manufacturer}");
+            sb.Append($", ModelType = {ModelType}");
+            sb.Append($", ItemNatureID = {ItemNatureID}");
+            sb.Append($", ItemNature = {ItemNature.ToString()}");
+            sb.Append($", ItemTypeID = {ItemTypeID}");
+            sb.Append($", ItemType = {ItemType.ToString()}");
+            sb.Append($", ProductionYear = {ProductionYear?.ToShortDateString()}");
+            sb.Append($", DepartmentID = {DepartmentID}");
+            sb.Append($", Department = {Department.ToString()}");
+            sb.Append($", SectionID = {SectionID}");
+            sb.Append($", Section = {Section.ToString()}");
+            sb.Append($", EmployeeID = {EmployeeID}");
+            sb.Append($", Employee = {Employee.ToString()}");
+            sb.Append($", BuildingID = {BuildingID}");
+            sb.Append($", Building = {Building.ToString()}");
+            sb.Append($", FloorID = {FloorID}");
+            sb.Append($", Floor = {Floor.ToString()}");
+            sb.Append($", Room = {Room}");
+            sb.Append($", ItemStateID = {ItemStateID}");
+            sb.Append($", ItemState = {ItemState.ToString()}");
+            sb.Append($", DateOfCreation = {DateOfCreation?.ToShortDateString()}");
+            sb.Append($", BruttoPrice = {BruttoPrice}");
+            sb.Append($", DateOfScrap = {DateOfScrap?.ToShortDateString()}");
+            sb.Append($", Comment = {Comment}");
+            sb.Append(" }");
+            return sb.ToString();
         }
     }
 }

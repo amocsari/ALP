@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Common.Model.Dto
 {
@@ -50,6 +51,19 @@ namespace Common.Model.Dto
         public void UpdateByDto(EmployeeDto sourceDto)
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{{ Id = {Id}");
+            sb.Append($", Name = {Name}");
+            sb.Append($", DepartmentId = {DepartmentID}");
+            sb.Append($", SectionId = {SectionID}");
+            sb.Append($", EmailAddress = {EmailAddress}");
+            sb.Append($", RetirementDate = {RetirementDate?.ToShortDateString()}");
+            sb.Append(" }");
+            return sb.ToString();
         }
     }
 }

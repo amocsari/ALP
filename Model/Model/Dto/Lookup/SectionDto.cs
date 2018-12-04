@@ -105,14 +105,14 @@ namespace Common.Model.Dto
         /// <returns>The string form of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder($"{{ Id = {Id}, ");
-            sb.Append($"Name = {Name}, ");
-            sb.Append($"FloorId = {FloorId}, ");
-            sb.Append($"Floor = {Floor.ToString()} ");
-            sb.Append($"DepartmentId = {DepartmentId}, ");
-            sb.Append($"Department = {Department.ToString()} ");
-            sb.Append($"Locked = {Locked} ");
-            sb.Append("}");
+            StringBuilder sb = new StringBuilder($"{{ Id = {Id}");
+            sb.Append($", Name = {Name}");
+            sb.Append($", FloorId = {FloorId}");
+            sb.Append($", Floor = {Floor.ToString()}");
+            sb.Append($", DepartmentId = {DepartmentId}");
+            sb.Append($", Department = {Department.ToString()}");
+            sb.Append($", Locked = {Locked}");
+            sb.Append(" }");
             return sb.ToString();
         }
     }

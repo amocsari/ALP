@@ -64,10 +64,10 @@ namespace Common.Model.Dto
         /// <returns>The string form of the object</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder($"{{ Id = {Id}, ");
-            sb.Append($"Name = {Name}, ");
-            sb.Append($"Locked = {Locked} ");
-            sb.Append("}");
+            StringBuilder sb = new StringBuilder($"{{ Id = {Id}");
+            sb.Append($", Name = {Name}");
+            sb.Append($", Locked = {Locked}");
+            sb.Append(" }");
             return sb.ToString();
         }
     }

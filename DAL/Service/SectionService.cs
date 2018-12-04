@@ -28,13 +28,25 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(DeleteSectionById),
+                    sectionId
+                }.ToString());
+
                 var entity = await _context.Section.FirstOrDefaultAsync(section => section.SectionId == sectionId);
                 _context.Section.Remove(entity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -47,6 +59,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<SectionDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllSections)
+                }.ToString());
+
                 var sections = await _context.Section.AsNoTracking()
                     .Include(section => section.Floor)
                     .Include(section => section.Department)
@@ -55,7 +72,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -68,6 +91,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<SectionDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableSections)
+                }.ToString());
+
                 var sections = await _context.Section.AsNoTracking()
                     .Include(section => section.Floor)
                     .Include(section => section.Department)
@@ -76,7 +104,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -89,12 +123,24 @@ namespace DAL.Service
             var response = new AlpApiResponse<SectionDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetSectionById),
+                    sectionId
+                }.ToString());
+
                 var entity = await _context.Section.FirstOrDefaultAsync(section => section.SectionId == sectionId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -107,6 +153,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<SectionDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(InsertNewSection),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -118,7 +170,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -131,6 +189,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateSection),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var updatedEntity = await _context.Section
@@ -142,7 +206,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
@@ -155,6 +225,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ToggleSectionLockStateById),
+                    sectionId
+                }.ToString());
+
                 var getByIdReply = await GetSectionById(sectionId);
                 if (!getByIdReply.Success)
                 {
@@ -176,7 +252,13 @@ namespace DAL.Service
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
                 response.Message = e.Message;
                 response.Success = false;
             }
