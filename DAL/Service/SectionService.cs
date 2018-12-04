@@ -8,16 +8,19 @@ using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class SectionService : ISectionService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<SectionService> _logger;
 
-        public SectionService(IAlpContext context)
+        public SectionService(IAlpContext context, ILogger<SectionService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse> DeleteSectionById(int sectionId)

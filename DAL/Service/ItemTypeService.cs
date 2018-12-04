@@ -1,5 +1,4 @@
-﻿using DAL.Entity;
-using DAL.Context;
+﻿using DAL.Context;
 using Common.Model.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,16 +7,19 @@ using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class ItemTypeService : IItemTypeService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<ItemTypeService> _logger;
 
-        public ItemTypeService(IAlpContext context)
+        public ItemTypeService(IAlpContext context, ILogger<ItemTypeService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse> DeleteItemTypeById(int itemTypeId)

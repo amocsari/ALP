@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Common.Model.Dto
 {
@@ -54,6 +55,20 @@ namespace Common.Model.Dto
             {
                 throw new Exception("Az eszközjelleg nevét kötelező megadni!");
             }
+        }
+
+        /// <summary>
+        /// Turns the data of the object into a string
+        /// Used for logging
+        /// </summary>
+        /// <returns>The string form of the object</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder($"{{ Id = {Id}, ");
+            sb.Append($"Name = {Name}, ");
+            sb.Append($"Locked = {Locked} ");
+            sb.Append("}");
+            return sb.ToString();
         }
     }
 }

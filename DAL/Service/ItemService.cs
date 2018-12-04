@@ -9,16 +9,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class ItemService : IItemService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<ItemService> _logger;
 
-        public ItemService(IAlpContext context)
+        public ItemService(IAlpContext context, ILogger<ItemService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse> AddNewItem(ItemDto dto)

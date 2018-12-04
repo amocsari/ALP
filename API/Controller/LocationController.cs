@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Common.Model.Dto;
+using Microsoft.Extensions.Logging;
 using Model.Model;
 
 namespace API.Controller
@@ -12,10 +13,12 @@ namespace API.Controller
     public class LocationController : ControllerBase
     {
         private readonly ILocationService _locationService;
+        private readonly ILogger<LocationController> _logger;
 
-        public LocationController(ILocationService LocationService)
+        public LocationController(ILocationService LocationService, ILogger<LocationController> logger)
         {
             _locationService = LocationService;
+            _logger = logger;
         }
 
         [HttpGet]

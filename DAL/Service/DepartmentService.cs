@@ -8,16 +8,19 @@ using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class DepartmentService : IDepartmentService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<DepartmentService> _logger;
 
-        public DepartmentService(IAlpContext context)
+        public DepartmentService(IAlpContext context, ILogger<DepartmentService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse> DeleteDepartmentById(int departmentId)
@@ -25,6 +28,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(DeleteDepartmentById),
+                    departmentId
+                }.ToString());
+
                 var entity = await _context.Department.FirstOrDefaultAsync(department => department.DepartmentId == departmentId);
                 _context.Department.Remove(entity);
                 await _context.SaveChangesAsync();
@@ -44,6 +53,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<DepartmentDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllDepartments)
+                }.ToString());
+
                 var departments = await _context.Department.AsNoTracking().Include(department => department.Employee).ToListAsync();
                 response.Value = departments.Select(department => department.EntityToDto()).ToList();
             }
@@ -62,6 +76,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<DepartmentDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableDepartments)
+                }.ToString());
+
                 var departments = await _context.Department.AsNoTracking().Include(department => department.Employee).Where(Department => !Department.Locked).ToListAsync();
                 response.Value = departments.Select(Department => Department.EntityToDto()).ToList();
             }
@@ -80,6 +99,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<DepartmentDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetDepartmentById),
+                    departmentId
+                }.ToString());
+
                 var entity = await _context.Department.FirstOrDefaultAsync(department => department.DepartmentId == departmentId);
                 response.Value = entity.EntityToDto();
             }
@@ -98,6 +123,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<DepartmentDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(InsertNewDepartment),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -122,6 +153,12 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateDepartment),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var updatedEntity = await _context.Department.Include(department => department.Employee).FirstOrDefaultAsync(Department => Department.DepartmentId == dto.Id);
@@ -144,6 +181,12 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ToggleDepartmentLockStateById),
+                    departmentId
+                }.ToString());
+
                 var getByIdResponse = await GetDepartmentById(departmentId);
                 if (!getByIdResponse.Success)
                 {

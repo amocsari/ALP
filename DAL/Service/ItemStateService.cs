@@ -7,16 +7,19 @@ using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Common.Model.Dto;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class ItemStateService : IItemStateService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<ItemStateService> _logger;
 
-        public ItemStateService(IAlpContext context)
+        public ItemStateService(IAlpContext context, ILogger<ItemStateService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse<ItemStateDto>> AddNewItemState(ItemStateDto dto)

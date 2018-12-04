@@ -1,20 +1,17 @@
 ﻿using DAL.Context;
-using DAL.Entity;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class AccountService: IAccountService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<AccountService> _logger;
 
-        public AccountService(IAlpContext context)
+        public AccountService(IAlpContext context, ILogger<AccountService> logger)
         {
             _context = context;
-        }
-        
-        public void AddAccount()
-        {
-            _context.SaveChanges();
+            _logger = logger;
         }
     }
 }

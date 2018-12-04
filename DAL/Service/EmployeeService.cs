@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Model.Dto;
 using DAL.Context;
-using DAL.Entity;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Model.Model;
 
 namespace DAL.Service
@@ -14,10 +14,12 @@ namespace DAL.Service
     public class EmployeeService : IEmployeeService
     {
         private readonly IAlpContext _context;
+        private readonly ILogger<EmployeeService> _logger;
 
-        public EmployeeService(IAlpContext context)
+        public EmployeeService(IAlpContext context, ILogger<EmployeeService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse> AddNewEmployee(EmployeeDto dto)

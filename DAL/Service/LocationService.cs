@@ -7,16 +7,19 @@ using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Common.Model.Dto;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class LocationService : ILocationService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<LocationService> _logger;
 
-        public LocationService(IAlpContext context)
+        public LocationService(IAlpContext context, ILogger<LocationService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse<LocationDto>> AddNewLocation(LocationDto dto)
@@ -25,6 +28,12 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(AddNewLocation),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -47,6 +56,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(DeleteLocationById),
+                    locationId
+                }.ToString());
+
                 var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
                 _context.Remove(entity);
                 await _context.SaveChangesAsync();
@@ -66,6 +81,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<LocationDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllLocations)
+                }.ToString());
+
                 var entites = await _context.Location.AsNoTracking().ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
@@ -84,6 +104,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<LocationDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableLocations)
+                }.ToString());
+
                 var entites = await _context.Location.AsNoTracking().Where(location => !location.Locked).ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
@@ -102,6 +127,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<LocationDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetLocationById),
+                    locationId
+                }.ToString());
+
                 var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
                 response.Value = entity.EntityToDto();
             }
@@ -120,6 +151,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateLocation),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == dto.Id);
@@ -141,6 +178,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ToggleLocationLockStateById),
+                    locationId
+                }.ToString());
+
                 var getByIdResponse = await GetLocationById(locationId);
                 if (!getByIdResponse.Success)
                 {

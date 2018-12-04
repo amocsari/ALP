@@ -7,16 +7,19 @@ using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Common.Model.Dto;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class ItemNatureService : IItemNatureService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<ItemNatureService> _logger;
 
-        public ItemNatureService(IAlpContext context)
+        public ItemNatureService(IAlpContext context, ILogger<ItemNatureService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse<ItemNatureDto>> AddNewItemNature(ItemNatureDto dto)

@@ -7,16 +7,19 @@ using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Model.Model;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Service
 {
     public class BuildingService : IBuildingService
     {
-        private IAlpContext _context;
+        private readonly IAlpContext _context;
+        private readonly ILogger<BuildingService> _logger;
 
-        public BuildingService(IAlpContext context)
+        public BuildingService(IAlpContext context, ILogger<BuildingService> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<AlpApiResponse> DeleteBuildingById(int buildingId)
@@ -24,6 +27,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(DeleteBuildingById),
+                    buildingId
+                }.ToString());
+
                 var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
                 _context.Building.Remove(entity);
                 await _context.SaveChangesAsync();
@@ -43,6 +52,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<BuildingDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllBuildings)
+                }.ToString());
+
                 var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).ToListAsync();
                 response.Value = buildings.Select(building => building.EntityToDto()).ToList();
             }
@@ -61,6 +75,11 @@ namespace DAL.Service
             var response = new AlpApiResponse<List<BuildingDto>>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableBuildings)
+                }.ToString());
+
                 var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).Where(building => !building.Locked).ToListAsync();
                 response.Value = buildings.Select(building => building.EntityToDto()).ToList();
             }
@@ -79,6 +98,12 @@ namespace DAL.Service
             var response = new AlpApiResponse<BuildingDto>();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetBuildingById),
+                    buildingId
+                }.ToString());
+
                 var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
                 response.Value = entity.EntityToDto();
             }
@@ -98,6 +123,12 @@ namespace DAL.Service
 
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(InsertNewBuilding),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
@@ -121,6 +152,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateBuilding),
+                    dto = dto.ToString()
+                }.ToString());
+
                 dto.Validate();
 
                 var updatedEntity = await _context.Building.Include(building => building.Location).FirstOrDefaultAsync(building => building.BuildingId == dto.Id);
@@ -142,6 +179,12 @@ namespace DAL.Service
             var response = new AlpApiResponse();
             try
             {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ToggleBuildingLockStateById),
+                    buildingId
+                }.ToString());
+
                 var getByIdReply = await GetBuildingById(buildingId);
                 if (!getByIdReply.Success)
                 {
