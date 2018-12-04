@@ -6,6 +6,7 @@ using System.Windows.Input;
 using ALP.Service;
 using GalaSoft.MvvmLight.CommandWpf;
 using Common.Model.Dto;
+using ALP.Service.Interface;
 
 namespace ALP.ViewModel.Lookup
 {
@@ -41,6 +42,7 @@ namespace ALP.ViewModel.Lookup
         //Dependency injected services
         private readonly ILookupApiService<T> _lookupApiService;
         private readonly IAlpDialogService _dialogService;
+        private readonly IAlpLoggingService<LookupListViewModel<T>> _loggingService;
 
         /// <summary>
         /// Constructor
@@ -48,10 +50,11 @@ namespace ALP.ViewModel.Lookup
         /// Sets commands
         /// Initializes data
         /// </summary>
-        public LookupListViewModel(ILookupApiService<T> lookupApiService, IAlpDialogService dialogService)
+        public LookupListViewModel(ILookupApiService<T> lookupApiService, IAlpDialogService dialogService, IAlpLoggingService<LookupListViewModel<T>> loggingService)
         {
             _lookupApiService = lookupApiService;
             _dialogService = dialogService;
+            _loggingService = loggingService;
 
             NewCommand = new RelayCommand(OnNewCommand);
             ListItemDoubleClickCommand = new RelayCommand(OnListItemDoubleClickCommand);
@@ -70,7 +73,7 @@ namespace ALP.ViewModel.Lookup
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogError($"Error during {typeof(T).ToString()} Lookup List initialization", e);
                 _dialogService.ShowError(e.Message);
             }
             finally
@@ -102,7 +105,7 @@ namespace ALP.ViewModel.Lookup
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogError($"Error during Insertion of new {typeof(T).ToString()}.", e);
                 _dialogService.ShowError(e.Message);
             }
             finally
@@ -135,7 +138,7 @@ namespace ALP.ViewModel.Lookup
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogError($"Error during Update of {typeof(T).ToString()}.", e);
                 _dialogService.ShowError(e.Message);
             }
             finally
@@ -160,7 +163,7 @@ namespace ALP.ViewModel.Lookup
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogError($"Error during Locking of {typeof(T).ToString()}.", e);
                 _dialogService.ShowError(e.Message);
             }
             finally

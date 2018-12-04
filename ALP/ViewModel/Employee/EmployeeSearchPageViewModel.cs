@@ -114,13 +114,17 @@ namespace ALP.ViewModel.Employee
         private readonly IAlpNavigationService _navigationService;
         private readonly ILookupApiService<DepartmentDto> _departmentApiService;
         private readonly ILookupApiService<SectionDto> _sectionApiService;
+        private readonly IAlpDialogService _dialogService;
+        private readonly IAlpLoggingService<EmployeeSearchPageViewModel> _loggingService;
 
-        public EmployeeSearchPageViewModel(IEmployeeApiService employeeApiService, IAlpNavigationService navigationService, ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService)
+        public EmployeeSearchPageViewModel(IEmployeeApiService employeeApiService, IAlpNavigationService navigationService, ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService, IAlpDialogService dialogService, IAlpLoggingService<EmployeeSearchPageViewModel> loggingService)
         {
             _employeeApiService = employeeApiService;
             _navigationService = navigationService;
             _departmentApiService = departmentApiService;
             _sectionApiService = sectionApiService;
+            _dialogService = dialogService;
+            _loggingService = loggingService;
 
             SearchCommand = new RelayCommand(OnSearchCommand);
             NewEmployeeCommand = new RelayCommand(OnNewEmployeeCommand);
@@ -161,9 +165,10 @@ namespace ALP.ViewModel.Employee
                     Employees = new ObservableCollection<EmployeeListItemViewModel>();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogError("Error during Employee search", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {
@@ -207,9 +212,10 @@ namespace ALP.ViewModel.Employee
                     Sections = new ObservableCollection<SectionDto>();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logolás
+                _loggingService.LogFatal("Error during Employee list initialization", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {

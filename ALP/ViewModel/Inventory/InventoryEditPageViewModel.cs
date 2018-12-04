@@ -208,6 +208,8 @@ namespace ALP.ViewModel.Inventory
         private readonly IInventoryApiService _inventoryApiService;
         private readonly IEmployeeApiService _employeeApiService;
         private readonly IAlpNavigationService _navigationService;
+        private readonly IAlpDialogService _dialogService;
+        private readonly IAlpLoggingService<ItemEditPageViewModel> _loggingService;
         private readonly ILookupApiService<ItemNatureDto> _itemNatureApiService;
         private readonly ILookupApiService<ItemTypeDto> _itemTypeApiService;
         private readonly ILookupApiService<ItemStateDto> _itemStateApiService;
@@ -222,6 +224,8 @@ namespace ALP.ViewModel.Inventory
         public ItemEditPageViewModel(IInventoryApiService inventoryApiService,
                                           IEmployeeApiService employeeApiService,
                                           IAlpNavigationService navigationService,
+                                          IAlpDialogService dialogService,
+                                          IAlpLoggingService<ItemEditPageViewModel> loggingService,
                                           ILookupApiService<ItemNatureDto> itemNatureApiService,
                                           ILookupApiService<ItemTypeDto> itemTypeApiService,
                                           ILookupApiService<ItemStateDto> itemStateApiService,
@@ -240,6 +244,8 @@ namespace ALP.ViewModel.Inventory
             _floorApiService = floorApiService;
             _departmentApiService = departmentApiService;
             _sectionApiService = sectionApiService;
+            _loggingService = loggingService;
+            _dialogService = dialogService;
 
             SaveCommand = new RelayCommand(OnSaveCommand);
             CancelCommand = new RelayCommand(OnCancelCommand);
@@ -258,7 +264,6 @@ namespace ALP.ViewModel.Inventory
                 var itemNatureList = await _itemNatureApiService.GetAvailable();
                 if (itemNatureList == null)
                 {
-                    //TODO: hibakezelés
                     throw new Exception("Hiba az eszköz jellegek lekérése során!");
                 }
                 ItemNatures = new ObservableCollection<ItemNatureDto>(itemNatureList);
@@ -266,7 +271,6 @@ namespace ALP.ViewModel.Inventory
                 var itemTypeList = await _itemTypeApiService.GetAvailable();
                 if (itemTypeList == null)
                 {
-                    //TODO: hibakezelés
                     throw new Exception("Hiba az eszköz típusok lekérése során!");
                 }
                 ItemTypes = new ObservableCollection<ItemTypeDto>(itemTypeList);
@@ -274,7 +278,6 @@ namespace ALP.ViewModel.Inventory
                 var itemStateList = await _itemStateApiService.GetAvailable();
                 if (itemStateList == null)
                 {
-                    //TODO: hibakezelés
                     throw new Exception("Hiba az eszköz állapotok lekérése során!");
                 }
                 ItemStates = new ObservableCollection<ItemStateDto>(itemStateList);
@@ -282,7 +285,6 @@ namespace ALP.ViewModel.Inventory
                 var buildingList = await _buildingApiService.GetAvailable();
                 if (buildingList == null)
                 {
-                    //TODO: hibakezelés
                     throw new Exception("Hiba az épületek lekérése során!");
                 }
                 Buildings = new ObservableCollection<BuildingDto>(buildingList);
@@ -290,7 +292,6 @@ namespace ALP.ViewModel.Inventory
                 var floorList = await _floorApiService.GetAvailable();
                 if (floorList == null)
                 {
-                    //TODO: hibakezelés
                     throw new Exception("Hiba az emeletek lekérése során!");
                 }
                 Floors = new ObservableCollection<FloorDto>(floorList);
@@ -298,7 +299,6 @@ namespace ALP.ViewModel.Inventory
                 var departmentList = await _departmentApiService.GetAvailable();
                 if (departmentList == null)
                 {
-                    //TODO: hibakezelés
                     throw new Exception("Hiba az emeletek lekérése során!");
                 }
                 Departments = new ObservableCollection<DepartmentDto>(departmentList);
@@ -306,14 +306,14 @@ namespace ALP.ViewModel.Inventory
                 var sectionList = await _sectionApiService.GetAvailable();
                 if (sectionList == null)
                 {
-                    //TODO: hibakezelés
                     throw new Exception("Hiba az emeletek lekérése során!");
                 }
                 Sections = new ObservableCollection<SectionDto>(sectionList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogError("Error during Initialization", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {
@@ -336,7 +336,7 @@ namespace ALP.ViewModel.Inventory
 
         private void OnCancelCommand()
         {
-            //TODO
+            _navigationService.GoBack();
         }
     }
 }

@@ -53,14 +53,20 @@ namespace ALP.ViewModel.Lookup
         /// </summary>
         private readonly IEmployeeApiService _employeeApiService;
 
+        private readonly IAlpLoggingService<LookupDepartmentEditorWindowViewModel> _loggingService;
+        private readonly IAlpDialogService _dialogService;
+
         /// <summary>
         /// Constructor
         /// Handles Dependency Injection and Initialization
         /// </summary>
         /// <param name="employeeApiService"></param>
-        public LookupDepartmentEditorWindowViewModel(IEmployeeApiService employeeApiService)
+        public LookupDepartmentEditorWindowViewModel(IEmployeeApiService employeeApiService, IAlpLoggingService<LookupDepartmentEditorWindowViewModel> loggingService, IAlpDialogService dialogService)
         {
             _employeeApiService = employeeApiService;
+            _loggingService = loggingService;
+            _dialogService = dialogService;
+
             Initialization = InitializeAsync();
         }
 
@@ -76,9 +82,10 @@ namespace ALP.ViewModel.Lookup
                 var EmployeeList = await _employeeApiService.GetAll();
                 Employees = new ObservableCollection<EmployeeDto>(EmployeeList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogFatal("Error during Initialization!", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {

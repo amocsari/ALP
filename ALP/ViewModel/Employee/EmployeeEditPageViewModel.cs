@@ -92,8 +92,10 @@ namespace ALP.ViewModel.Employee
         private readonly ILookupApiService<SectionDto> _sectionApiService;
         private readonly IAlpNavigationService _navigationService;
         private readonly IEmployeeApiService _employeeApiService;
+        private readonly IAlpLoggingService<EmployeeEditPageViewModel> _loggingService;
+        private readonly IAlpDialogService _dialogService;
 
-        public EmployeeEditPageViewModel(ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService, IAlpNavigationService navigationService, IEmployeeApiService employeeApiService)
+        public EmployeeEditPageViewModel(ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService, IAlpNavigationService navigationService, IEmployeeApiService employeeApiService, IAlpLoggingService<EmployeeEditPageViewModel> loggingService, IAlpDialogService dialogService)
         {
             Employee = new EmployeeListItemViewModel(new EmployeeDto());
 
@@ -101,6 +103,8 @@ namespace ALP.ViewModel.Employee
             _sectionApiService = sectionApiService;
             _navigationService = navigationService;
             _employeeApiService = employeeApiService;
+            _loggingService = loggingService;
+            _dialogService = dialogService;
 
             SaveCommand = new RelayCommand(OnSaveCommand);
             CancelCommand = new RelayCommand(OnCancelCommand);
@@ -114,12 +118,13 @@ namespace ALP.ViewModel.Employee
             try
             {
                 await _employeeApiService.AddNewEmployee(Employee.Value);
+                _navigationService.GoBack();
             }
             catch (Exception e)
             {
-                //todo logolás
+                _loggingService.LogInformation("Error during insertion of new Employee", e);
+                _dialogService.ShowWarning(e.Message);
             }
-            _navigationService.GoBack();
         }
 
         private void OnCancelCommand()
@@ -168,7 +173,8 @@ namespace ALP.ViewModel.Employee
             }
             catch (Exception e)
             {
-                //TODO: logolás
+                _loggingService.LogFatal("Error during initialization of Employee list!", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {

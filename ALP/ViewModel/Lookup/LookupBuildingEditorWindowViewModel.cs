@@ -1,4 +1,5 @@
 ﻿using ALP.Service;
+using ALP.Service.Interface;
 using Common.Model.Dto;
 using System;
 using System.Collections.ObjectModel;
@@ -52,14 +53,20 @@ namespace ALP.ViewModel.Lookup
         /// </summary>
         private readonly ILookupApiService<LocationDto> _locationApiService;
 
+        private readonly IAlpDialogService _dialogService;
+        private readonly IAlpLoggingService<LookupBuildingEditorWindowViewModel> _loggingService;
+
         /// <summary>
         /// Constructor
         /// Handles Dependency Injection and Initialization
         /// </summary>
         /// <param name="locationApiService"></param>
-        public LookupBuildingEditorWindowViewModel(ILookupApiService<LocationDto> locationApiService)
+        public LookupBuildingEditorWindowViewModel(ILookupApiService<LocationDto> locationApiService, IAlpDialogService dialogService, IAlpLoggingService<LookupBuildingEditorWindowViewModel> loggingService)
         {
             _locationApiService = locationApiService;
+            _dialogService = dialogService;
+            _loggingService = loggingService;
+
             Initialization = InitializeAsync();
         }
 
@@ -75,9 +82,10 @@ namespace ALP.ViewModel.Lookup
                 var locationList = await _locationApiService.GetAll();
                 Locations = new ObservableCollection<LocationDto>(locationList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogFatal("Error during Initalization!", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {

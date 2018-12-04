@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using ALP.Service;
+using ALP.Service.Interface;
 using Common.Model.Dto;
 
 namespace ALP.ViewModel.Lookup
@@ -89,16 +90,22 @@ namespace ALP.ViewModel.Lookup
         /// </summary>
         private readonly ILookupApiService<DepartmentDto> _departmentApiService;
 
+        private readonly IAlpDialogService _dialogService;
+        private readonly IAlpLoggingService<LookupSectionEditorWindowViewModel> _loggingService;
+
         /// <summary>
         /// Constructor
         /// Handles Dependency Injection and Initialization
         /// </summary>
         /// <param name="floorApiService"></param>
         /// <param name="departmentApiService"></param>
-        public LookupSectionEditorWindowViewModel(ILookupApiService<FloorDto> floorApiService, ILookupApiService<DepartmentDto> departmentApiService)
+        public LookupSectionEditorWindowViewModel(ILookupApiService<FloorDto> floorApiService, ILookupApiService<DepartmentDto> departmentApiService, IAlpDialogService dialogService, IAlpLoggingService<LookupSectionEditorWindowViewModel> loggingService)
         {
             _floorApiService = floorApiService;
             _departmentApiService = departmentApiService;
+            _dialogService = dialogService;
+            _loggingService = loggingService;
+
             Initialization = InitializeAsync();
         }
 
@@ -116,9 +123,10 @@ namespace ALP.ViewModel.Lookup
                 var departmentList = await _departmentApiService.GetAll();
                 Departments = new ObservableCollection<DepartmentDto>(departmentList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogFatal("Error during Initialization!", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {

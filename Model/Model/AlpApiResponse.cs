@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Model.Model
+﻿namespace Model.Model
 {
     public class AlpApiResponse<T>
     {

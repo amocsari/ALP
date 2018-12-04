@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ALP.Service.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -23,22 +24,39 @@ namespace ALP.Navigation
         /// <summary>
         /// The key of the current page
         /// </summary>
-        public string CurrentPageKey { get { return backStack.Last(); } }
+        public string CurrentPageKey { get { return backStack.First(); } }
 
         /// <summary>
         /// The Navigation Parameter
         /// </summary>
         public object Parameter { get; private set; }
 
+        private readonly IAlpLoggingService<AlpNavigationService> _loggingService;
+
+        public AlpNavigationService(IAlpLoggingService<AlpNavigationService> loggingService)
+        {
+            _loggingService = loggingService;
+        }
+
         /// <summary>
         /// Returns the mainFrame to the previous page
         /// </summary>
         public void GoBack()
         {
-            if (backStack.Count > 1)
+            _loggingService.LogDebug(new
             {
-                backStack.Pop();
+                action = nameof(GoBack)
+            });
+
+            backStack.Pop();
+
+            if (backStack.Count > 0)
+            {
                 NavigateTo(CurrentPageKey);
+            }
+            else
+            {
+                NavigateTo(ViewModelLocator.SystemWelcomeScreen);
             }
         }
 
@@ -60,6 +78,13 @@ namespace ALP.Navigation
         /// <param name="parameter">The sent navigation parameter</param>
         public void NavigateTo(string pageKey, object parameter)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(NavigateTo),
+                pageKey,
+                parameter = parameter?.ToString()
+            });
+
             lock (pageKeys)
             {
                 if (pageKeys.ContainsKey(pageKey))
@@ -81,7 +106,7 @@ namespace ALP.Navigation
         /// <param name="key">Key of the registered page</param>
         /// <param name="page">URI of the registered page</param>
         /// <returns></returns>
-        public AlpNavigationService RegisterPage(string key, Uri page)
+        public static void RegisterPage(string key, Uri page)
         {
             lock (pageKeys)
             {
@@ -94,8 +119,6 @@ namespace ALP.Navigation
                     pageKeys.Add(key, page);
                 }
             }
-
-            return this;
         }
 
         /// <summary>

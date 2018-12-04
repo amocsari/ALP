@@ -5,6 +5,7 @@ using ALP.ViewModel;
 using ALP.ViewModel.Inventory;
 using Ninject.Modules;
 using ALP.ViewModel.Lookup;
+using log4net;
 
 namespace ALP.Ninject
 {
@@ -41,8 +42,16 @@ namespace ALP.Ninject
             Bind<IAlpResourceService>().To<AlpResourceService>().InSingletonScope();
             Bind<IInventoryApiService>().To<InventoryApiService>().InSingletonScope();
             Bind<IEmployeeApiService>().To<EmployeeApiService>().InSingletonScope();
-            
-            Bind(typeof(ILookupApiService<>)).To(typeof(LookupApiService<>));
+        }
+
+        /// <summary>
+        /// Configures the generic service bindings
+        /// Loads the services into the kernel
+        /// </summary>
+        private void BindGenericServices()
+        {
+            Bind(typeof(ILookupApiService<>)).To(typeof(LookupApiService<>)).InSingletonScope();
+            Bind(typeof(IAlpLoggingService<>)).To(typeof(AlpLoggingService<>)).InSingletonScope();
         }
 
         /// <summary>
@@ -52,6 +61,7 @@ namespace ALP.Ninject
         {
             BindViewModels();
             BindServices();
+            BindGenericServices();
         }
     }
 }

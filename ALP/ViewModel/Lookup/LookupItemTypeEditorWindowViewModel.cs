@@ -1,4 +1,5 @@
 ﻿using ALP.Service;
+using ALP.Service.Interface;
 using Common.Model.Dto;
 using System;
 using System.Collections.ObjectModel;
@@ -52,14 +53,20 @@ namespace ALP.ViewModel.Lookup
         /// </summary>
         private readonly ILookupApiService<ItemNatureDto> _itemNatureApiService;
 
+        private readonly IAlpDialogService _dialogService;
+        private readonly IAlpLoggingService<LookupItemTypeEditorWindowViewModel> _loggingService;
+
         /// <summary>
         /// Constructor
         /// Handles Dependency Injection and Initialization
         /// </summary>
         /// <param name="locationApiService"></param>
-        public LookupItemTypeEditorWindowViewModel(ILookupApiService<ItemNatureDto> itemNatureApiService)
+        public LookupItemTypeEditorWindowViewModel(ILookupApiService<ItemNatureDto> itemNatureApiService, IAlpDialogService dialogService, IAlpLoggingService<LookupItemTypeEditorWindowViewModel> loggingService)
         {
             _itemNatureApiService = itemNatureApiService;
+            _dialogService = dialogService;
+            _loggingService = loggingService;
+
             Initialization = InitializeAsync();
         }
 
@@ -75,9 +82,10 @@ namespace ALP.ViewModel.Lookup
                 var itemNatureList = await _itemNatureApiService.GetAll();
                 ItemNatures = new ObservableCollection<ItemNatureDto>(itemNatureList);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogFatal("Error during Initialization!", e);
+                _dialogService.ShowError(e.Message);
             }
             finally
             {

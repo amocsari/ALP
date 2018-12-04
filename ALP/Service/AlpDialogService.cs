@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ALP.Service.Interface;
 using ALP.View.Lookup;
 using ALP.View.Lookup.Building;
 using ALP.View.Lookup.Department;
@@ -12,6 +13,13 @@ namespace ALP.Service
 {
     public class AlpDialogService : IAlpDialogService
     {
+        private readonly IAlpLoggingService<AlpDialogService> _loggingService;
+
+        public AlpDialogService(IAlpLoggingService<AlpDialogService> loggingService)
+        {
+            _loggingService = loggingService;
+        }
+
         private Window GetLookupWindowByDto(LookupDtoBase dtoBase)
         {
             if (dtoBase is LocationDto)
@@ -35,6 +43,12 @@ namespace ALP.Service
 
         public DialogResult<T> ShowDtoEditorWindow<T>(T dto) where T : LookupDtoBase, new()
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(ShowDtoEditorWindow),
+                dto = dto.ToString()
+            });
+
             var window = GetLookupWindowByDto(dto);
             ((LookupEditorWindowViewModel<T>)window.DataContext).Parameter = (T)dto.Copy();
             if (window.ShowDialog() == true)
@@ -55,6 +69,12 @@ namespace ALP.Service
         public DialogResult<TReturnParameter> ShowDialog<TWindow, TViewModel, TParameter, TReturnParameter>(TParameter parameter) where TWindow : Window, new()
                                                                                                                     where TViewModel : IDialogViewModel<TReturnParameter, TParameter>
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(ShowDialog),
+                parameter = parameter.ToString()
+            });
+
             var window = new TWindow();
             ((TViewModel)window.DataContext).Parameter = parameter;
             if (window.ShowDialog() == true)
@@ -74,6 +94,13 @@ namespace ALP.Service
 
         public bool ShowConfirmDialog(string message, string title)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(ShowConfirmDialog),
+                message,
+                title
+            });
+
             MessageBoxResult result =  MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             return result == MessageBoxResult.Yes;
@@ -81,16 +108,37 @@ namespace ALP.Service
 
         public void ShowAlert(string message, string title)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(ShowAlert),
+                message,
+                title
+            });
+
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.None);
         }
 
         public void ShowWarning(string message, string title)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(ShowWarning),
+                message,
+                title
+            });
+
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         public void ShowError(string message, string title)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(ShowError),
+                message,
+                title
+            });
+
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

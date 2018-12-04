@@ -59,10 +59,14 @@ namespace ALP.ViewModel.Inventory
 
 
         private readonly IInventoryApiService _inventoryApiService;
+        private readonly IAlpDialogService _dialogService;
+        private readonly IAlpLoggingService<InventorySearchPageViewModel> _loggingService;
 
-        public InventorySearchPageViewModel(IInventoryApiService inventoryApiService)
+        public InventorySearchPageViewModel(IInventoryApiService inventoryApiService, IAlpDialogService dialogService, IAlpLoggingService<InventorySearchPageViewModel> loggingService)
         {
             _inventoryApiService = inventoryApiService;
+            _dialogService = dialogService;
+            _loggingService = loggingService;
 
             MouseLabelClickCommand = new RelayCommand<TextBlock>(OnMouseLabelClickCommand);
             SearchCommand = new RelayCommand(OnSearchCommand);
@@ -123,9 +127,10 @@ namespace ALP.ViewModel.Inventory
                 ItemList = new ObservableCollection<ItemDto>(items);
                 ItemFilterInfo.Id.Clear();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //TODO: logging
+                _loggingService.LogInformation("Error during InventorySearch", e);
+                _dialogService.ShowAlert(e.Message);
             }
             finally
             {

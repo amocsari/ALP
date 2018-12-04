@@ -63,6 +63,9 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -104,11 +107,13 @@
     <Compile Include="Service\EmployeeApiService.cs" />
     <Compile Include="Service\Interface\IAlpDialogService.cs" />
     <Compile Include="Service\Interface\IAlpApiService.cs" />
+    <Compile Include="Service\Interface\IAlpLoggingService.cs" />
     <Compile Include="Service\Interface\IEmployeeApiService.cs" />
     <Compile Include="Service\Interface\IInventoryApiService.cs" />
     <Compile Include="Service\Interface\ILookupApiService.cs" />
     <Compile Include="Service\Interface\IAlpResourceService.cs" />
     <Compile Include="Service\InventoryApiService.cs" />
+    <Compile Include="Service\LoggingService.cs" />
     <Compile Include="Service\LookupApiService.cs" />
     <Compile Include="App.cs" />
     <Compile Include="App.xaml.cs">
@@ -119,7 +124,6 @@
     <Compile Include="Ninject\IocConfiguration.cs" />
     <Compile Include="Ninject\IocKernel.cs" />
     <Compile Include="Navigation\AlpNavigationService.cs" />
-    <Compile Include="Extensions\Extensions.Navigation.cs" />
     <Compile Include="Service\AlpResourceService.cs" />
     <Compile Include="ViewModel\AlpViewModelBase.cs" />
     <Compile Include="ViewModel\Employee\EmployeeEditPageViewModel.cs" />
@@ -298,7 +302,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Compile Include="Navigation\ViewModelLocator.Extra.cs" />
-    <None Include="packages.config" />
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

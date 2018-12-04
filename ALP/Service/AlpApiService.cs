@@ -1,4 +1,5 @@
-﻿using Model.Model;
+﻿using ALP.Service.Interface;
+using Model.Model;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,6 +17,13 @@ namespace ALP.Service
         /// </summary>
         private static readonly Uri baseAddress = new Uri("http://localhost:1707/api/");
 
+        private readonly IAlpLoggingService<AlpApiService> _loggingService;
+
+        public AlpApiService(IAlpLoggingService<AlpApiService> loggingService)
+        {
+            _loggingService = loggingService;
+        }
+
         /// <summary>
         /// Sends a DELETE request to the server
         /// Returns the parsed content of the response
@@ -26,6 +34,13 @@ namespace ALP.Service
         /// <returns>Content of the server's response</returns>
         public async Task<TResponse> DeleteAsync<TResponse>(string path, int id)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(DeleteAsync),
+                path,
+                id
+            });
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = baseAddress;
@@ -57,6 +72,13 @@ namespace ALP.Service
         /// <returns>The success of the deletion</returns>
         public async Task<bool> DeleteAsync(string path, int id)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(DeleteAsync),
+                path,
+                id
+            });
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = baseAddress;
@@ -87,6 +109,12 @@ namespace ALP.Service
         /// <returns>The content of the response, desired resource</returns>
         public async Task<TResponse> GetAsync<TResponse>(string path)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(GetAsync),
+                path
+            });
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = baseAddress;
@@ -120,6 +148,13 @@ namespace ALP.Service
         /// <returns>The parsed content of the response</returns>
         public async Task<TResponse> PostAsync<TParameter, TResponse>(string path, TParameter parameter)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(PostAsync),
+               path,
+               parameter = parameter.ToString()
+            });
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = baseAddress;
@@ -131,7 +166,7 @@ namespace ALP.Service
                 {
                     throw new Exception("Error during POST request!");
                 }
-                
+
                 var apiResponse = await response.Content.ReadAsAsync<AlpApiResponse<TResponse>>();
                 if (!apiResponse.Success)
                 {
@@ -152,6 +187,13 @@ namespace ALP.Service
         /// <returns>The success of the request</returns>
         public async Task<bool> PostAsync<TParameter>(string path, TParameter parameter)
         {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(PostAsync),
+                path,
+                parameter = parameter.ToString()
+            });
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = baseAddress;
