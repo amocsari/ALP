@@ -3,7 +3,7 @@ using Model.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DAL.Service
+namespace API.Service
 {
     public interface IEmployeeService
     {

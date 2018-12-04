@@ -4,7 +4,7 @@ using DAL.Entity;
 using Common.Model.Dto;
 using Model.Model;
 
-namespace DAL.Service
+namespace API.Service
 {
     public interface IFloorService
     {

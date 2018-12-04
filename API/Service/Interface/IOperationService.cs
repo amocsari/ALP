@@ -1,6 +1,6 @@
 ﻿using DAL.Entity;
 
-namespace DAL.Service
+namespace API.Service
 {
     public interface IOperationService
     {

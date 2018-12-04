@@ -1,163 +1,42 @@
-﻿using DAL.Context;
-using Common.Model.Dto;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
+using DAL.Context;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Common.Model.Dto;
 using Model.Model;
 using Microsoft.Extensions.Logging;
 
-namespace DAL.Service
+namespace API.Service
 {
-    public class BuildingService : IBuildingService
+    public class ItemStateService : IItemStateService
     {
         private readonly IAlpContext _context;
-        private readonly ILogger<BuildingService> _logger;
+        private readonly ILogger<ItemStateService> _logger;
 
-        public BuildingService(IAlpContext context, ILogger<BuildingService> logger)
+        public ItemStateService(IAlpContext context, ILogger<ItemStateService> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public async Task<AlpApiResponse> DeleteBuildingById(int buildingId)
+        public async Task<AlpApiResponse<ItemStateDto>> AddNewItemState(ItemStateDto dto)
         {
-            var response = new AlpApiResponse();
+            var response = new AlpApiResponse<ItemStateDto>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(DeleteBuildingById),
-                    buildingId
-                }.ToString());
-
-                var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
-                _context.Building.Remove(entity);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(new
-                {
-                    exception = e,
-                    message = e.Message,
-                    innerException = e,
-                    innerExceptionMessage = e.InnerException?.Message
-                }.ToString());
-                response.Message = e.Message;
-                response.Success = false;
-            }
-
-            return response;
-        }
-
-        public async Task<AlpApiResponse<List<BuildingDto>>> GetAllBuildings()
-        {
-            var response = new AlpApiResponse<List<BuildingDto>>();
-            try
-            {
-                _logger.LogDebug(new
-                {
-                    action = nameof(GetAllBuildings)
-                }.ToString());
-
-                var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).ToListAsync();
-                response.Value = buildings.Select(building => building.EntityToDto()).ToList();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(new
-                {
-                    exception = e,
-                    message = e.Message,
-                    innerException = e,
-                    innerExceptionMessage = e.InnerException?.Message
-                }.ToString());
-                response.Message = e.Message;
-                response.Success = false;
-            }
-
-            return response;
-        }
-
-        public async Task<AlpApiResponse<List<BuildingDto>>> GetAvailableBuildings()
-        {
-            var response = new AlpApiResponse<List<BuildingDto>>();
-            try
-            {
-                _logger.LogDebug(new
-                {
-                    action = nameof(GetAvailableBuildings)
-                }.ToString());
-
-                var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).Where(building => !building.Locked).ToListAsync();
-                response.Value = buildings.Select(building => building.EntityToDto()).ToList();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(new
-                {
-                    exception = e,
-                    message = e.Message,
-                    innerException = e,
-                    innerExceptionMessage = e.InnerException?.Message
-                }.ToString());
-                response.Message = e.Message;
-                response.Success = false;
-            }
-
-            return response;
-        }
-
-        public async Task<AlpApiResponse<BuildingDto>> GetBuildingById(int buildingId)
-        {
-            var response = new AlpApiResponse<BuildingDto>();
-            try
-            {
-                _logger.LogDebug(new
-                {
-                    action = nameof(GetBuildingById),
-                    buildingId
-                }.ToString());
-
-                var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
-                response.Value = entity.EntityToDto();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(new
-                {
-                    exception = e,
-                    message = e.Message,
-                    innerException = e,
-                    innerExceptionMessage = e.InnerException?.Message
-                }.ToString());
-                response.Message = e.Message;
-                response.Success = false;
-            }
-
-            return response;
-        }
-
-        public async Task<AlpApiResponse<BuildingDto>> InsertNewBuilding(BuildingDto dto)
-        {
-            var response = new AlpApiResponse<BuildingDto>();
-
-            try
-            {
-                _logger.LogDebug(new
-                {
-                    action = nameof(InsertNewBuilding),
+                    action = nameof(AddNewItemState),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
-                entity.Location = null;
-                await _context.Building.AddAsync(entity);
+                await _context.ItemState.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 response.Value = entity.EntityToDto();
             }
@@ -177,20 +56,139 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> UpdateBuilding(BuildingDto dto)
+        public async Task<AlpApiResponse> DeleteItemStateById(int itemStateId)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(UpdateBuilding),
+                    action = nameof(DeleteItemStateById),
+                    itemStateId
+                }.ToString());
+
+                var entity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == itemStateId);
+                _context.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse<List<ItemStateDto>>> GetAllItemStates()
+        {
+            var response = new AlpApiResponse<List<ItemStateDto>>();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllItemStates)
+                }.ToString());
+
+                var entites = await _context.ItemState.AsNoTracking().ToListAsync();
+                response.Value = entites.Select(e => e.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse<List<ItemStateDto>>> GetAvailableItemStates()
+        {
+            var response = new AlpApiResponse<List<ItemStateDto>>();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAvailableItemStates)
+                }.ToString());
+
+                var entites = await _context.ItemState.AsNoTracking().Where(itemState => !itemState.Locked).ToListAsync();
+                response.Value = entites.Select(e => e.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse<ItemStateDto>> GetItemStateById(int itemStateId)
+        {
+            var response = new AlpApiResponse<ItemStateDto>();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetItemStateById),
+                    itemStateId
+                }.ToString());
+
+                var entity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == itemStateId);
+                response.Value = entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse> UpdateItemState(ItemStateDto dto)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(UpdateItemState),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
-
-                var updatedEntity = await _context.Building.Include(building => building.Location).FirstOrDefaultAsync(building => building.BuildingId == dto.Id);
+                
+                var updatedEntity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
             }
@@ -210,34 +208,32 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> ToggleBuildingLockStateById(int buildingId)
+        public async Task<AlpApiResponse> ToggleItemStateLockStateById(int itemStateId)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(ToggleBuildingLockStateById),
-                    buildingId
+                    action = nameof(ToggleItemStateLockStateById),
+                    itemStateId
                 }.ToString());
 
-                var getByIdReply = await GetBuildingById(buildingId);
-                if (!getByIdReply.Success)
+                var getByIdResponse = await GetItemStateById(itemStateId);
+                if (!getByIdResponse.Success)
                 {
-                    response.Success = getByIdReply.Success;
-                    response.Message = getByIdReply.Message;
+                    response.Success = getByIdResponse.Success;
+                    response.Message = getByIdResponse.Message;
                     return response;
                 }
 
-                var building = getByIdReply.Value;
-
-                building.Locked = !building.Locked;
-
-                var updateReply = await UpdateBuilding(building);
-                if (!updateReply.Success)
+                var itemState = getByIdResponse.Value;
+                itemState.Locked = !itemState.Locked;
+                var updateResponse = await UpdateItemState(itemState);
+                if (!updateResponse.Success)
                 {
-                    response.Success = updateReply.Success;
-                    response.Message = updateReply.Message;
+                    response.Success = updateResponse.Success;
+                    response.Message = updateResponse.Message;
                     return response;
                 }
             }

@@ -10,7 +10,7 @@ using System;
 using Model.Model;
 using Microsoft.Extensions.Logging;
 
-namespace DAL.Service
+namespace API.Service
 {
     public class SectionService : ISectionService
     {

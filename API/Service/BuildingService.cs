@@ -9,32 +9,32 @@ using System;
 using Model.Model;
 using Microsoft.Extensions.Logging;
 
-namespace DAL.Service
+namespace API.Service
 {
-    public class ItemTypeService : IItemTypeService
+    public class BuildingService : IBuildingService
     {
         private readonly IAlpContext _context;
-        private readonly ILogger<ItemTypeService> _logger;
+        private readonly ILogger<BuildingService> _logger;
 
-        public ItemTypeService(IAlpContext context, ILogger<ItemTypeService> logger)
+        public BuildingService(IAlpContext context, ILogger<BuildingService> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public async Task<AlpApiResponse> DeleteItemTypeById(int itemTypeId)
+        public async Task<AlpApiResponse> DeleteBuildingById(int buildingId)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(DeleteItemTypeById),
-                    itemTypeId
+                    action = nameof(DeleteBuildingById),
+                    buildingId
                 }.ToString());
 
-                var entity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemNatureId == itemTypeId);
-                _context.ItemType.Remove(entity);
+                var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
+                _context.Building.Remove(entity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -53,18 +53,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<List<ItemTypeDto>>> GetAllItemTypes()
+        public async Task<AlpApiResponse<List<BuildingDto>>> GetAllBuildings()
         {
-            var response = new AlpApiResponse<List<ItemTypeDto>>();
+            var response = new AlpApiResponse<List<BuildingDto>>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetAllItemTypes)
+                    action = nameof(GetAllBuildings)
                 }.ToString());
 
-                var itemTypes = await _context.ItemType.AsNoTracking().Include(itemType => itemType.ItemNature).ToListAsync();
-                response.Value = itemTypes.Select(itemType => itemType.EntityToDto()).ToList();
+                var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).ToListAsync();
+                response.Value = buildings.Select(building => building.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
@@ -82,18 +82,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<List<ItemTypeDto>>> GetAvailableItemTypes()
+        public async Task<AlpApiResponse<List<BuildingDto>>> GetAvailableBuildings()
         {
-            var response = new AlpApiResponse<List<ItemTypeDto>>();
+            var response = new AlpApiResponse<List<BuildingDto>>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetAvailableItemTypes)
+                    action = nameof(GetAvailableBuildings)
                 }.ToString());
 
-                var itemTypes = await _context.ItemType.AsNoTracking().Include(itemType => itemType.ItemNature).Where(itemType => !itemType.Locked).ToListAsync();
-                response.Value = itemTypes.Select(itemType => itemType.EntityToDto()).ToList();
+                var buildings = await _context.Building.AsNoTracking().Include(building => building.Location).Where(building => !building.Locked).ToListAsync();
+                response.Value = buildings.Select(building => building.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
@@ -111,18 +111,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<ItemTypeDto>> GetItemTypeById(int itemTypeId)
+        public async Task<AlpApiResponse<BuildingDto>> GetBuildingById(int buildingId)
         {
-            var response = new AlpApiResponse<ItemTypeDto>();
+            var response = new AlpApiResponse<BuildingDto>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetItemTypeById),
-                    itemTypeId
+                    action = nameof(GetBuildingById),
+                    buildingId
                 }.ToString());
 
-                var entity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemTypeId == itemTypeId);
+                var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
@@ -141,22 +141,23 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<ItemTypeDto>> InsertNewItemType(ItemTypeDto dto)
+        public async Task<AlpApiResponse<BuildingDto>> InsertNewBuilding(BuildingDto dto)
         {
-            var response = new AlpApiResponse<ItemTypeDto>();
+            var response = new AlpApiResponse<BuildingDto>();
+
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(InsertNewItemType),
+                    action = nameof(InsertNewBuilding),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
-                entity.ItemNature = null;
-                await _context.ItemType.AddAsync(entity);
+                entity.Location = null;
+                await _context.Building.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 response.Value = entity.EntityToDto();
             }
@@ -176,20 +177,20 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> UpdateItemType(ItemTypeDto dto)
+        public async Task<AlpApiResponse> UpdateBuilding(BuildingDto dto)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(UpdateItemType),
+                    action = nameof(UpdateBuilding),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
 
-                var updatedEntity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemTypeId == dto.Id);
+                var updatedEntity = await _context.Building.Include(building => building.Location).FirstOrDefaultAsync(building => building.BuildingId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
             }
@@ -209,18 +210,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> ToggleItemTypeLockStateById(int itemTypeId)
+        public async Task<AlpApiResponse> ToggleBuildingLockStateById(int buildingId)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(ToggleItemTypeLockStateById),
-                    itemTypeId
+                    action = nameof(ToggleBuildingLockStateById),
+                    buildingId
                 }.ToString());
 
-                var getByIdReply = await GetItemTypeById(itemTypeId);
+                var getByIdReply = await GetBuildingById(buildingId);
                 if (!getByIdReply.Success)
                 {
                     response.Success = getByIdReply.Success;
@@ -228,10 +229,11 @@ namespace DAL.Service
                     return response;
                 }
 
-                var itemType = getByIdReply.Value;
+                var building = getByIdReply.Value;
 
-                itemType.Locked = !itemType.Locked;
-                var updateReply = await UpdateItemType(itemType);
+                building.Locked = !building.Locked;
+
+                var updateReply = await UpdateBuilding(building);
                 if (!updateReply.Success)
                 {
                     response.Success = updateReply.Success;

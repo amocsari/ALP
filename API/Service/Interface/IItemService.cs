@@ -4,7 +4,7 @@ using Common.Model;
 using System.Collections.Generic;
 using Model.Model;
 
-namespace DAL.Service
+namespace API.Service
 {
     public interface IItemService
     {

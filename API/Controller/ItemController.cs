@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Service;
 using Common.Model;
 using Common.Model.Dto;
-using DAL.Service;
 using Microsoft.AspNetCore.Mvc;
 using Model.Model;
 

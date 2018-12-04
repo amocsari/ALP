@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Model.Model;
 
-namespace DAL.Service
+namespace API.Service
 {
     public class EmployeeService : IEmployeeService
     {

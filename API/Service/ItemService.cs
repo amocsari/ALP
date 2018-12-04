@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Model.Model;
 using Microsoft.Extensions.Logging;
 
-namespace DAL.Service
+namespace API.Service
 {
     public class ItemService : IItemService
     {

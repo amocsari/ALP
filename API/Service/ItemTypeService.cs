@@ -9,33 +9,32 @@ using System;
 using Model.Model;
 using Microsoft.Extensions.Logging;
 
-namespace DAL.Service
+namespace API.Service
 {
-    public class FloorService : IFloorService
+    public class ItemTypeService : IItemTypeService
     {
         private readonly IAlpContext _context;
-        private readonly ILogger<FloorService> _logger;
+        private readonly ILogger<ItemTypeService> _logger;
 
-        public FloorService(IAlpContext context, ILogger<FloorService> logger)
+        public ItemTypeService(IAlpContext context, ILogger<ItemTypeService> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public async Task<AlpApiResponse> DeleteFloorById(int floorId)
+        public async Task<AlpApiResponse> DeleteItemTypeById(int itemTypeId)
         {
             var response = new AlpApiResponse();
-
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(DeleteFloorById),
-                    floorId
+                    action = nameof(DeleteItemTypeById),
+                    itemTypeId
                 }.ToString());
 
-                var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
-                _context.Floor.Remove(entity);
+                var entity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemNatureId == itemTypeId);
+                _context.ItemType.Remove(entity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -54,19 +53,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<List<FloorDto>>> GetAllFloors()
+        public async Task<AlpApiResponse<List<ItemTypeDto>>> GetAllItemTypes()
         {
-            var response = new AlpApiResponse<List<FloorDto>>();
-
+            var response = new AlpApiResponse<List<ItemTypeDto>>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetAllFloors)
+                    action = nameof(GetAllItemTypes)
                 }.ToString());
 
-                var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).ToListAsync();
-                response.Value = floors.Select(floor => floor.EntityToDto()).ToList();
+                var itemTypes = await _context.ItemType.AsNoTracking().Include(itemType => itemType.ItemNature).ToListAsync();
+                response.Value = itemTypes.Select(itemType => itemType.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
@@ -84,19 +82,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<List<FloorDto>>> GetAvailableFloors()
+        public async Task<AlpApiResponse<List<ItemTypeDto>>> GetAvailableItemTypes()
         {
-            var response = new AlpApiResponse<List<FloorDto>>();
-
+            var response = new AlpApiResponse<List<ItemTypeDto>>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetAvailableFloors)
+                    action = nameof(GetAvailableItemTypes)
                 }.ToString());
 
-                var floors = await _context.Floor.AsNoTracking().Include(floor => floor.Building).Where(floor => !floor.Locked).ToListAsync();
-                response.Value = floors.Select(floor => floor.EntityToDto()).ToList();
+                var itemTypes = await _context.ItemType.AsNoTracking().Include(itemType => itemType.ItemNature).Where(itemType => !itemType.Locked).ToListAsync();
+                response.Value = itemTypes.Select(itemType => itemType.EntityToDto()).ToList();
             }
             catch (Exception e)
             {
@@ -114,19 +111,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<FloorDto>> GetFloorById(int floorId)
+        public async Task<AlpApiResponse<ItemTypeDto>> GetItemTypeById(int itemTypeId)
         {
-            var response = new AlpApiResponse<FloorDto>();
-
+            var response = new AlpApiResponse<ItemTypeDto>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetFloorById),
-                    floorId
+                    action = nameof(GetItemTypeById),
+                    itemTypeId
                 }.ToString());
 
-                var entity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == floorId);
+                var entity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemTypeId == itemTypeId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
@@ -145,23 +141,22 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<FloorDto>> InsertNewFloor(FloorDto dto)
+        public async Task<AlpApiResponse<ItemTypeDto>> InsertNewItemType(ItemTypeDto dto)
         {
-            var response = new AlpApiResponse<FloorDto>();
-
+            var response = new AlpApiResponse<ItemTypeDto>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(InsertNewFloor),
+                    action = nameof(InsertNewItemType),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
-                entity.Building = null;
-                await _context.Floor.AddAsync(entity);
+                entity.ItemNature = null;
+                await _context.ItemType.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 response.Value = entity.EntityToDto();
             }
@@ -181,21 +176,20 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> UpdateFloor(FloorDto dto)
+        public async Task<AlpApiResponse> UpdateItemType(ItemTypeDto dto)
         {
             var response = new AlpApiResponse();
-
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(UpdateFloor),
+                    action = nameof(UpdateItemType),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
 
-                var updatedEntity = await _context.Floor.FirstOrDefaultAsync(floor => floor.FloorId == dto.Id);
+                var updatedEntity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemTypeId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
             }
@@ -215,30 +209,29 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> ToggleFloorLockStateById(int floorId)
+        public async Task<AlpApiResponse> ToggleItemTypeLockStateById(int itemTypeId)
         {
             var response = new AlpApiResponse();
-
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(ToggleFloorLockStateById),
-                    floorId
+                    action = nameof(ToggleItemTypeLockStateById),
+                    itemTypeId
                 }.ToString());
 
-                var getByIdResponse = await GetFloorById(floorId);
-                if (!getByIdResponse.Success)
+                var getByIdReply = await GetItemTypeById(itemTypeId);
+                if (!getByIdReply.Success)
                 {
-                    response.Success = getByIdResponse.Success;
-                    response.Message = getByIdResponse.Message;
+                    response.Success = getByIdReply.Success;
+                    response.Message = getByIdReply.Message;
                     return response;
                 }
 
-                var floor = getByIdResponse.Value;
-                
-                floor.Locked = !floor.Locked;
-                var updateReply = await UpdateFloor(floor);
+                var itemType = getByIdReply.Value;
+
+                itemType.Locked = !itemType.Locked;
+                var updateReply = await UpdateItemType(itemType);
                 if (!updateReply.Success)
                 {
                     response.Success = updateReply.Success;

@@ -9,35 +9,34 @@ using Common.Model.Dto;
 using Model.Model;
 using Microsoft.Extensions.Logging;
 
-namespace DAL.Service
+namespace API.Service
 {
-    public class LocationService : ILocationService
+    public class ItemNatureService : IItemNatureService
     {
         private readonly IAlpContext _context;
-        private readonly ILogger<LocationService> _logger;
+        private readonly ILogger<ItemNatureService> _logger;
 
-        public LocationService(IAlpContext context, ILogger<LocationService> logger)
+        public ItemNatureService(IAlpContext context, ILogger<ItemNatureService> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public async Task<AlpApiResponse<LocationDto>> AddNewLocation(LocationDto dto)
+        public async Task<AlpApiResponse<ItemNatureDto>> AddNewItemNature(ItemNatureDto dto)
         {
-            var response = new AlpApiResponse<LocationDto>();
-
+            var response = new AlpApiResponse<ItemNatureDto>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(AddNewLocation),
+                    action = nameof(AddNewItemNature),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
 
                 var entity = dto.DtoToEntity();
-                await _context.Location.AddAsync(entity);
+                await _context.ItemNature.AddAsync(entity);
                 await _context.SaveChangesAsync();
                 response.Value = entity.EntityToDto();
             }
@@ -57,19 +56,19 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> DeleteLocationById(int locationId)
+        public async Task<AlpApiResponse> DeleteItemNatureById(int itemNatureId)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(DeleteLocationById),
-                    locationId
+                    action = nameof(DeleteItemNatureById),
+                    itemNatureId
                 }.ToString());
 
-                var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
-                _context.Remove(entity);
+                var entity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == itemNatureId);
+                _context.ItemNature.Remove(entity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -88,17 +87,17 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<List<LocationDto>>> GetAllLocations()
+        public async Task<AlpApiResponse<List<ItemNatureDto>>> GetAllItemNatures()
         {
-            var response = new AlpApiResponse<List<LocationDto>>();
+            var response = new AlpApiResponse<List<ItemNatureDto>>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetAllLocations)
+                    action = nameof(GetAllItemNatures)
                 }.ToString());
 
-                var entites = await _context.Location.AsNoTracking().ToListAsync();
+                var entites = await _context.ItemNature.AsNoTracking().ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
             catch (Exception e)
@@ -117,18 +116,19 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<List<LocationDto>>> GetAvailableLocations()
+        public async Task<AlpApiResponse<List<ItemNatureDto>>> GetAvailableItemNatures()
         {
-            var response = new AlpApiResponse<List<LocationDto>>();
+            var response = new AlpApiResponse<List<ItemNatureDto>>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetAvailableLocations)
+                    action = nameof(GetAvailableItemNatures)
                 }.ToString());
 
-                var entites = await _context.Location.AsNoTracking().Where(location => !location.Locked).ToListAsync();
+                var entites = await _context.ItemNature.AsNoTracking().Where(itemNature => !itemNature.Locked).ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
+
             }
             catch (Exception e)
             {
@@ -146,18 +146,18 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse<LocationDto>> GetLocationById(int locationId)
+        public async Task<AlpApiResponse<ItemNatureDto>> GetItemNatureById(int itemNatureId)
         {
-            var response = new AlpApiResponse<LocationDto>();
+            var response = new AlpApiResponse<ItemNatureDto>();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(GetLocationById),
-                    locationId
+                    action = nameof(GetItemNatureById),
+                    itemNatureId
                 }.ToString());
 
-                var entity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == locationId);
+                var entity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == itemNatureId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
@@ -176,20 +176,20 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> UpdateLocation(LocationDto dto)
+        public async Task<AlpApiResponse> UpdateItemNature(ItemNatureDto dto)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(UpdateLocation),
+                    action = nameof(UpdateItemNature),
                     dto = dto.ToString()
                 }.ToString());
 
                 dto.Validate();
 
-                var updatedEntity = await _context.Location.FirstOrDefaultAsync(location => location.LocationId == dto.Id);
+                var updatedEntity = await _context.ItemNature.FirstOrDefaultAsync(itemNature => itemNature.ItemNatureId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();
             }
@@ -209,33 +209,33 @@ namespace DAL.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> ToggleLocationLockStateById(int locationId)
+        public async Task<AlpApiResponse> ToggleItemNatureLockStateById(int itemNatureId)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(ToggleLocationLockStateById),
-                    locationId
+                    action = nameof(ToggleItemNatureLockStateById),
+                    itemNatureId
                 }.ToString());
 
-                var getByIdResponse = await GetLocationById(locationId);
-                if (!getByIdResponse.Success)
+                var getByIdReply = await GetItemNatureById(itemNatureId);
+                if (!getByIdReply.Success)
                 {
-                    response.Success = getByIdResponse.Success;
-                    response.Message = getByIdResponse.Message;
+                    response.Success = getByIdReply.Success;
+                    response.Message = getByIdReply.Message;
                     return response;
                 }
 
-                var location = getByIdResponse.Value;
+                var itemNature = getByIdReply.Value;
 
-                location.Locked = !location.Locked;
-                var updateResponse = await UpdateLocation(location);
-                if (!updateResponse.Success)
+                itemNature.Locked = !itemNature.Locked;
+                var updateRespone = await UpdateItemNature(itemNature);
+                if (!updateRespone.Success)
                 {
-                    response.Success = updateResponse.Success;
-                    response.Message = updateResponse.Message;
+                    response.Success = updateRespone.Success;
+                    response.Message = updateRespone.Message;
                     return response;
                 }
             }

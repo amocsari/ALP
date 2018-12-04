@@ -1,7 +1,7 @@
 ﻿using DAL.Context;
 using Microsoft.Extensions.Logging;
 
-namespace DAL.Service
+namespace API.Service
 {
     public class RoleService: IRoleService
     {
