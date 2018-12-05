@@ -39,9 +39,12 @@ namespace Common.Model.Dto
         public FloorDto Floor { get; set; }
         public ItemStateDto ItemState { get; set; }
 
+
+        public string ManufacTurerModelType { get { return Manufacturer + " " + ModelType; } }
+
         public void Validate()
         {
-            if(string.IsNullOrEmpty(InventoryNumber) && string.IsNullOrEmpty(OldInventoryNumber) && string.IsNullOrEmpty(SerialNumber) && !YellowNumber.HasValue && string.IsNullOrEmpty(AccreditationNumber))
+            if (string.IsNullOrEmpty(InventoryNumber) && string.IsNullOrEmpty(OldInventoryNumber) && string.IsNullOrEmpty(SerialNumber) && !YellowNumber.HasValue && string.IsNullOrEmpty(AccreditationNumber))
             {
                 throw new Exception("Legalább egy azonosítót kötelezően meg kell adni!");
             }
@@ -51,7 +54,7 @@ namespace Common.Model.Dto
                 throw new Exception("A leltárelem nevét kötelező megadni!");
             }
 
-            if(ItemState == null)
+            if (ItemState == null)
             {
                 throw new Exception("A leltárelem állapotát kötelező megadni!");
             }

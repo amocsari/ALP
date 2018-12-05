@@ -122,7 +122,7 @@ namespace API.Service
                     buildingId
                 }.ToString());
 
-                var entity = await _context.Building.FirstOrDefaultAsync(building => building.BuildingId == buildingId);
+                var entity = await _context.Building.Include(building => building.Location).FirstOrDefaultAsync(building => building.BuildingId == buildingId);
                 response.Value = entity.EntityToDto();
             }
             catch (Exception e)
@@ -150,7 +150,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(InsertNewBuilding),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -185,7 +185,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(UpdateBuilding),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();

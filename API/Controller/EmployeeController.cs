@@ -30,6 +30,12 @@ namespace API.Controller
             return _employeeService.GetAllEmployees();
         }
 
+        [HttpGet]
+        public Task<AlpApiResponse<List<EmployeeDto>>> GetAvailableEmployees()
+        {
+            return _employeeService.GetAvailableEmployees();
+        }
+
         [HttpPost]
         public Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees([FromBody] EmployeeFilterInfo info)
         {

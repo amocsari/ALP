@@ -1,25 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
+﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 
 namespace DAL.Extensions
 {
     public static partial class Extensions
     {
-        public static IQueryable<T> Include<T>(this IQueryable<T> query,
-            params Expression<Func<T, object>>[] navigationProperties) where T : class
+        public static string ListToString<T>(this List<T> list)
         {
-            foreach (Expression<Func<T, object>> navigationProperty in navigationProperties)
+            StringBuilder sb = new StringBuilder("{");
+            sb.Append($" {list.First()?.ToString()}");
+            for (int i = 1; i < list.Count; i++)
             {
-                query.Include<T,object>(navigationProperty);
+                sb.Append($", {list[i].ToString()}");
             }
 
-            return query;
+            sb.Append(" }");
+            return sb.ToString();
         }
 
 

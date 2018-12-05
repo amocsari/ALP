@@ -14,7 +14,8 @@ namespace ALP.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (FontWeight) value == FontWeights.Bold ? Visibility.Visible : Visibility.Collapsed;
+            var visibility = (FontWeight) value == FontWeights.Bold ? Visibility.Visible : Visibility.Collapsed;
+            return visibility;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

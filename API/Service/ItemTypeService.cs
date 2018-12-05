@@ -149,7 +149,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(InsertNewItemType),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -184,7 +184,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(UpdateItemType),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();

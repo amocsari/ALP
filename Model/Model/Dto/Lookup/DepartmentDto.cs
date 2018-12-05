@@ -82,7 +82,7 @@ namespace Common.Model.Dto
             StringBuilder sb = new StringBuilder($"{{ Id = {Id}");
             sb.Append($", Name = {Name}");
             sb.Append($", EmployeeId = {EmployeeId}");
-            sb.Append($", Employee = {Employee.ToString()}");
+            sb.Append($", Employee = {Employee?.ToString()}");
             sb.Append($", Locked = {Locked}");
             sb.Append(" }");
             return sb.ToString();

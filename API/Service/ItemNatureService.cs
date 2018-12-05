@@ -30,7 +30,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(AddNewItemNature),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -184,7 +184,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(UpdateItemNature),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();

@@ -24,6 +24,44 @@ namespace API.Service
             _logger = logger;
         }
 
+        public async Task<AlpApiResponse<ItemDto>> GetItemById(int itemId)
+        {
+            var response = new AlpApiResponse<ItemDto>();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetItemById),
+                    itemId
+                }.ToString());
+
+                var entity = await _context.Item.FirstAsync(item => item.ItemId == itemId);
+
+                if (entity == null)
+                {
+                    response.Success = false;
+                    response.Message = "Ez a leltárelem nincs benne az adatbázisban!";
+                    return response;
+                }
+
+                response.Value = entity.EntityToDto();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
         public async Task<AlpApiResponse> AddNewItem(ItemDto dto)
         {
             var response = new AlpApiResponse();
@@ -32,7 +70,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(AddNewItem),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -75,9 +113,9 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(FindItemsForDisplay),
-                    info = info.ToString()
+                    info = info?.ToString()
                 }.ToString());
-                
+
                 var includesIds = info.Id != null && info.Id.Count > 0;
                 var isManufacturerAndTypeSpecified = !string.IsNullOrEmpty(info.ManufacturerAndType);
                 List<Item> entities;

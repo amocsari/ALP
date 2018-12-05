@@ -30,7 +30,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(AddNewEmployee),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -101,7 +101,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(FilterEmployees),
-                    info = filterInfo.ToString()
+                    info = filterInfo?.ToString()
                 }.ToString());
 
                 var nameIsNull = string.IsNullOrEmpty(filterInfo.Name);
@@ -144,6 +144,40 @@ namespace API.Service
                 var employees = await _context.Employee.AsNoTracking()
                     .Include(employee => employee.Department)
                     .Include(employee => employee.Section)
+                    .ToListAsync();
+
+                response.Value = employees.Select(employee => employee.EntityToDto()).ToList();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse<List<EmployeeDto>>> GetAvailableEmployees()
+        {
+            var response = new AlpApiResponse<List<EmployeeDto>>();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetAllEmployees)
+                }.ToString());
+
+                var employees = await _context.Employee.AsNoTracking()
+                    .Include(employee => employee.Department)
+                    .Include(employee => employee.Section)
+                    .Where(employee => employee.RetirementDate == null)
                     .ToListAsync();
 
                 response.Value = employees.Select(employee => employee.EntityToDto()).ToList();

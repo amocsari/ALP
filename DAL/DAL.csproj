@@ -139,9 +139,9 @@
     <Compile Include="Entity\ItemType.cs" />
     <Compile Include="Entity\Location.cs" />
     <Compile Include="Entity\Operation.cs" />
-    <Compile Include="Entity\OperationType.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Section.cs" />
+    <Compile Include="Extensions\Extensions.Operation.cs" />
     <Compile Include="Extensions\Extensions.Section.cs" />
     <Compile Include="Extensions\Extensions.Employee.cs" />
     <Compile Include="Extensions\Extensions.Department.cs" />

@@ -59,5 +59,15 @@ namespace ALP.Service
 
             return await _apiService.GetAsync<List<EmployeeDto>>("Employee/GetAllEmployees");
         }
+
+        public async Task<List<EmployeeDto>> GetAvailable()
+        {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(GetAvailable)
+            });
+
+            return await _apiService.GetAsync<List<EmployeeDto>>("Employee/GetAvailableEmployees");
+        }
     }
 }

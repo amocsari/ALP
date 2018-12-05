@@ -3,10 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ALP.View.Inventory"
+        DataContext="{Binding InventoryOperationWindowViewModel, Source={StaticResource Locator}}"
+        xmlns:local="clr-namespace:ALP.View"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         mc:Ignorable="d"
-        Title="OperationWindow" Height="450" Width="800">
-    <Grid>
-        
+        ResizeMode="NoResize"
+        Name="Window"
+        Title="OperationWindow" Height="250" Width="500">
+
+    <Window.Resources>
+        <DataTemplate x:Key="AutoCompleteEmployeeDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Name}"/>
+                <Label Content="{Binding EmailAddress}" FontStyle="Italic" Foreground="DarkGray"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Label Content="Elemszám:" FontSize="18" VerticalAlignment="Center"/>
+                <Label Content="{Binding NumItems}" FontSize="18" VerticalAlignment="Center"/>
+            </StackPanel>
+            <Label DockPanel.Dock="Top" FontSize="42" HorizontalAlignment="Center" Content="Gyorsműveletek"/>
+            <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TabItem Header="Selejtezés">
+                    <Button Content="Selejtezés" Command="{Binding ScrapCommand}" CommandParameter="{Binding ElementName=Window}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </TabItem>
+                <TabItem Header="Átadás más osztályra">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="Új osztály:" />
+                            <ComboBox Width="200" ItemsSource="{Binding DepartmentList}" SelectedItem="{Binding SelectedDepartment}" DisplayMemberPath="Name" IsTextSearchEnabled="True"/>
+                        </StackPanel>
+                        <Button Content="Átadás" Command="{Binding ChangeDepartmentCommand}" CommandParameter="{Binding ElementName=Window}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Átadás más alkalmazottra">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="Új alkalmazott:"/>
+                            <toolkit:AutoCompleteBox ItemsSource="{Binding EmployeeList}" ValueMemberPath="Name" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" IsTextCompletionEnabled="True" FilterMode="Contains"/>
+                        </StackPanel>
+                        <Button Content="Átadás" Command="{Binding ChangeOwnerCommand}" CommandParameter="{Binding ElementName=Window}"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Átadás osztályvezetőre">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        </StackPanel>
+                        <Button Content="Átadás" Command="{Binding ChangeOwnerToDepartmentChiefCommand}" CommandParameter="{Binding ElementName=Window}"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <local:LoadingIndicator/>
     </Grid>
 </Window>

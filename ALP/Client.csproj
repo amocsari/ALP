@@ -63,6 +63,18 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="JB.Common, Version=0.8.114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JB.Common.0.8.114\lib\net46\JB.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="JB.Common.Collections, Version=0.8.114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JB.Common.Collections.0.8.114\lib\net46\JB.Common.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="JB.Common.Collections.Reactive, Version=0.8.114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JB.Common.Collections.Reactive.0.8.114\lib\net46\JB.Common.Collections.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="JB.Common.Reactive, Version=0.8.114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JB.Common.Reactive.0.8.114\lib\net46\JB.Common.Reactive.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -77,6 +89,27 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive, Version=4.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.4.1.0\lib\net46\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -94,6 +127,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -112,6 +148,7 @@
     <Compile Include="Service\Interface\IInventoryApiService.cs" />
     <Compile Include="Service\Interface\ILookupApiService.cs" />
     <Compile Include="Service\Interface\IAlpResourceService.cs" />
+    <Compile Include="Service\Interface\IOperationService.cs" />
     <Compile Include="Service\InventoryApiService.cs" />
     <Compile Include="Service\LoggingService.cs" />
     <Compile Include="Service\LookupApiService.cs" />
@@ -125,12 +162,15 @@
     <Compile Include="Ninject\IocKernel.cs" />
     <Compile Include="Navigation\AlpNavigationService.cs" />
     <Compile Include="Service\AlpResourceService.cs" />
+    <Compile Include="Service\OperationService.cs" />
     <Compile Include="ViewModel\AlpViewModelBase.cs" />
     <Compile Include="ViewModel\Employee\EmployeeEditPageViewModel.cs" />
     <Compile Include="ViewModel\Employee\EmployeeListItemViewModel.cs" />
     <Compile Include="ViewModel\Employee\EmployeeSearchPageViewModel.cs" />
     <Compile Include="ViewModel\IDialogViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryEditPageViewModel.cs" />
+    <Compile Include="ViewModel\Inventory\InventoryItemSearchListItemViewModel.cs" />
+    <Compile Include="ViewModel\Inventory\InventoryOperationWindowViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventorySearchPageViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupDepartmentEditorWindowViewModel.cs" />
@@ -166,30 +206,6 @@
     <Compile Include="View\Inventory\Inventory_FilterWindow.xaml.cs">
       <DependentUpon>Inventory_FilterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_BuildingFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_BuildingFilterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_DepartmentFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_DepartmentFilterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_FloorFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_FloorFilterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_OwnerFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_OwnerFilterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_RoomFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_RoomFilterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_SectionFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_SectionFilterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_StateFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_StateFilterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Filter\Inventory_Filter_TypeFilterPage.xaml.cs">
-      <DependentUpon>Inventory_Filter_TypeFilterPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Inventory\Inventory_ImportWindow.xaml.cs">
       <DependentUpon>Inventory_ImportWindow.xaml</DependentUpon>
     </Compile>
@@ -198,18 +214,6 @@
     </Compile>
     <Compile Include="View\Inventory\Inventory_OperationWindow.xaml.cs">
       <DependentUpon>Inventory_OperationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Operation\Inventory_Operation_ScrapOperationPage.xaml.cs">
-      <DependentUpon>Inventory_Operation_ScrapOperationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentChiefOperationPage.xaml.cs">
-      <DependentUpon>Inventory_Operation_TransferToDepartmentChiefOperationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentOperationPage.xaml.cs">
-      <DependentUpon>Inventory_Operation_TransferToDepartmentOperationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Operation\Inventory_Operation_TransferToOwnerOperationPage.xaml.cs">
-      <DependentUpon>Inventory_Operation_TransferToOwnerOperationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inventory\Inventory_SearchPage.xaml.cs">
       <DependentUpon>Inventory_SearchPage.xaml</DependentUpon>
@@ -357,38 +361,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_BuildingFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_DepartmentFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_FloorFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_OwnerFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_RoomFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_SectionFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_StateFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Filter\Inventory_Filter_TypeFilterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Inventory\Inventory_ImportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -398,22 +370,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Inventory\Inventory_OperationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Operation\Inventory_Operation_ScrapOperationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentChiefOperationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Operation\Inventory_Operation_TransferToDepartmentOperationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Operation\Inventory_Operation_TransferToOwnerOperationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

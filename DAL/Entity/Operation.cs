@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Entity
@@ -9,9 +10,7 @@ namespace DAL.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OperationId { get; set; }
 
-        [Required]
-        [ForeignKey("OperationType")]
-        public int OperationTypeId { get; set; }
+        public int OperationType { get; set; }
 
         [Required]
         [ForeignKey("Item")]
@@ -22,8 +21,9 @@ namespace DAL.Entity
         [Required]
         public bool Priority { get; set; }
 
+        //public DateTime? DateOfCompletion { get; set; }
 
-        public virtual OperationType OperationType { get; set; }
+
         public virtual Item Item { get; set; }
     }
 }

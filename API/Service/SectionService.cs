@@ -156,7 +156,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(InsertNewSection),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -192,7 +192,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(UpdateSection),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();

@@ -48,7 +48,6 @@ namespace DAL.Extensions
 
             entity.BuildingName = dto.Name;
             entity.LocationId = dto.LocationId;
-            entity.Location.UpdateEntityByDto(dto.Location);
             entity.Locked = dto.Locked;
         }
     }

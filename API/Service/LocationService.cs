@@ -31,7 +31,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(AddNewLocation),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -184,7 +184,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(UpdateLocation),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();

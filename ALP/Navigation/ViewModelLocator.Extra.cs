@@ -37,6 +37,7 @@ namespace ALP.Navigation
         public ChangesViewModel ChangesViewModel { get => IocKernel.Get<ChangesViewModel>(); }
 
         public ItemEditPageViewModel InventoryEditPageViewModel { get => IocKernel.Get<ItemEditPageViewModel>(); }
+        public InventoryOperationWindowViewModel InventoryOperationWindowViewModel { get => IocKernel.Get<InventoryOperationWindowViewModel>(); }
 
         public InventorySearchPageViewModel InventorySearchPageViewModel { get => IocKernel.Get<InventorySearchPageViewModel>(); }
 

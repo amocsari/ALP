@@ -150,7 +150,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(InsertNewDepartment),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
@@ -186,7 +186,7 @@ namespace API.Service
                 _logger.LogDebug(new
                 {
                     action = nameof(UpdateDepartment),
-                    dto = dto.ToString()
+                    dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();

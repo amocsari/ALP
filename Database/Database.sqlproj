@@ -70,7 +70,6 @@
     <Build Include="Tables\ItemType.sql" />
     <Build Include="Tables\Location.sql" />
     <Build Include="Tables\Operation.sql" />
-    <Build Include="Tables\OperationType.sql" />
     <Build Include="Tables\Role.sql" />
     <Build Include="Tables\Section.sql" />
     <Build Include="Tables\Account.sql" />

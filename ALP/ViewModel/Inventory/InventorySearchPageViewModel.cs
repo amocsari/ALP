@@ -1,26 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ALP.Service;
 using ALP.Service.Interface;
+using ALP.View.Inventory;
 using Common.Model;
 using Common.Model.Dto;
 using Common.Model.Enum;
 using GalaSoft.MvvmLight.CommandWpf;
+using JB.Collections.Reactive;
 
 namespace ALP.ViewModel.Inventory
 {
     public class InventorySearchPageViewModel : AlpViewModelBase
     {
+        private ObservableDictionary<string, Visibility> visibilities;
+        public ObservableDictionary<string, Visibility> Visibilities
+        {
+            get => visibilities;
+            set
+            {
+                if (Visibilities != value)
+                {
+                    Set(ref visibilities, value);
+                }
+            }
+        }
+
         public List<ItemPropertyType> ProjectedTypes { get; set; }
 
-        private ObservableCollection<ItemDto> itemList;
-        public ObservableCollection<ItemDto> ItemList
+        private System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel> itemList;
+        public System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel> ItemList
         {
             get { return itemList; }
             set
@@ -32,8 +47,8 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        private ItemDto selectedItem;
-        public ItemDto SelectedItem
+        private InventoryItemSearchListItemViewModel selectedItem;
+        public InventoryItemSearchListItemViewModel SelectedItem
         {
             get { return selectedItem; }
             set
@@ -85,6 +100,28 @@ namespace ALP.ViewModel.Inventory
                 ItemPropertyType.ItemName,
                 ItemPropertyType.InventoryNumber,
             };
+            visibilities = new ObservableDictionary<string, Visibility>
+            {
+                { "TextBlockOldInventoryNumber", Visibility.Collapsed },
+                { "TextBlockSerialNumber", Visibility.Collapsed },
+                { "TextBlockAccreditationNumber", Visibility.Collapsed },
+                { "TextBlockYellowNumber", Visibility.Collapsed },
+                { "TextBlockManufacturerType", Visibility.Collapsed },
+                { "TextBlockItemNature", Visibility.Collapsed },
+                { "TextBlockItemType", Visibility.Collapsed },
+                { "TextBlockProductionYear", Visibility.Collapsed },
+                { "TextBlockDepartment", Visibility.Collapsed },
+                { "TextBlockSection", Visibility.Collapsed },
+                { "TextBlockEmployee", Visibility.Collapsed },
+                { "TextBlockBuilding", Visibility.Collapsed },
+                { "TextBlockFloor", Visibility.Collapsed },
+                { "TextBlockRoom", Visibility.Collapsed },
+                { "TextBlockItemState", Visibility.Collapsed },
+                { "TextBlockDateOfCreation", Visibility.Collapsed },
+                { "TextBlockBruttoPrice", Visibility.Collapsed },
+                { "TextBlockComment", Visibility.Collapsed },
+                { "TextBlockDateOfScrap", Visibility.Collapsed }
+            };
 
 
             Initialization = InitializeAsync();
@@ -92,7 +129,8 @@ namespace ALP.ViewModel.Inventory
 
         private void OnQuickCommandsCommand()
         {
-            throw new NotImplementedException();
+            var selectedIds = itemList.Where(item => item.IsSelected).Select(item => item.Value.ItemID).ToList();
+            _dialogService.ShowDialog<OperationWindow, InventoryOperationWindowViewModel, List<int>, bool>(selectedIds);
         }
 
         private void OnDeleteFilterCommand()
@@ -124,7 +162,8 @@ namespace ALP.ViewModel.Inventory
                     ItemFilterInfo.Id.Add(FilteredId);
                 }
                 var items = await _inventoryApiService.FilterItems(ItemFilterInfo);
-                ItemList = new ObservableCollection<ItemDto>(items);
+                var itemViewModels = items.Select(item => new InventoryItemSearchListItemViewModel {Value = item}).ToList();
+                ItemList = new System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel>(itemViewModels);
                 ItemFilterInfo.Id.Clear();
             }
             catch (Exception e)
@@ -140,6 +179,14 @@ namespace ALP.ViewModel.Inventory
 
         private void OnMouseLabelClickCommand(TextBlock obj)
         {
+            if (Visibilities[obj.Name] == Visibility.Collapsed)
+                Visibilities[obj.Name] = Visibility.Visible;
+            else
+            {
+                Visibilities[obj.Name] = Visibility.Collapsed;
+            }
+            
+
             var tag = (string)obj.Tag;
             var propertyType = (ItemPropertyType)int.Parse(tag);
             if (!ProjectedTypes.Contains(propertyType))
@@ -147,15 +194,29 @@ namespace ALP.ViewModel.Inventory
                 obj.FontWeight = FontWeights.Bold;
                 obj.TextDecorations.Add(TextDecorations.Underline);
                 ProjectedTypes.Add(propertyType);
+                RaisePropertyChanged(() => obj.FontWeight);
             }
             else
             {
                 ProjectedTypes.Remove(propertyType);
                 obj.FontWeight = FontWeights.Normal;
                 obj.TextDecorations.Clear();
+                RaisePropertyChanged(() => obj.FontWeight);
             }
+
         }
 
-        protected override async Task InitializeAsync() { }
+        protected override async Task InitializeAsync()
+        {
+            try
+            {
+                itemList = new System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel>();
+            }
+            catch (Exception e)
+            {
+                _loggingService.LogFatal("Error during initalization!", e);
+                _dialogService.ShowError(e.Message);
+            }
+        }
     }
 }
