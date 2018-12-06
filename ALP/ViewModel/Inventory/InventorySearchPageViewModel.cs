@@ -11,9 +11,7 @@ using ALP.Service.Interface;
 using ALP.View.Inventory;
 using Common.Model;
 using Common.Model.Dto;
-using Common.Model.Enum;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Views;
 using JB.Collections.Reactive;
 
 namespace ALP.ViewModel.Inventory
@@ -77,13 +75,15 @@ namespace ALP.ViewModel.Inventory
         private readonly IAlpDialogService _dialogService;
         private readonly IAlpLoggingService<InventorySearchPageViewModel> _loggingService;
         private readonly IAlpNavigationService _navigationService;
+        private readonly IExportService _exportService;
 
-        public InventorySearchPageViewModel(IInventoryApiService inventoryApiService, IAlpDialogService dialogService, IAlpLoggingService<InventorySearchPageViewModel> loggingService, IAlpNavigationService navigationService)
+        public InventorySearchPageViewModel(IInventoryApiService inventoryApiService, IAlpDialogService dialogService, IAlpLoggingService<InventorySearchPageViewModel> loggingService, IAlpNavigationService navigationService, IExportService exportService)
         {
             _inventoryApiService = inventoryApiService;
             _dialogService = dialogService;
             _loggingService = loggingService;
             _navigationService = navigationService;
+            _exportService = exportService;
 
             MouseLabelClickCommand = new RelayCommand<TextBlock>(OnMouseLabelClickCommand);
             SearchCommand = new RelayCommand(OnSearchCommand);
@@ -146,7 +146,22 @@ namespace ALP.ViewModel.Inventory
 
         private void OnExportCommand()
         {
-            //TODO
+            try
+            {
+                IsLoading = true;
+
+                var itemList = ItemList.Select(item => item.Value).ToList();
+                _exportService.ExportToExcel(itemList, ProjectedTypes);
+            }
+            catch (Exception e)
+            {
+                _loggingService.LogInformation("Error during InventorySearch", e);
+                _dialogService.ShowAlert(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private async void OnSearchCommand()

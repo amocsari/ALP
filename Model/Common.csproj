@@ -48,10 +48,8 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enum\ItemPropertyType.cs" />
     <Compile Include="Enum\OperationType.cs" />
     <Compile Include="Enum\RoleType.cs" />
-    <Compile Include="Extensions\Extension.Item.cs" />
     <Compile Include="Model\AlpApiResponse.cs" />
     <Compile Include="Model\Dto\Lookup\DepartmentDto.cs" />
     <Compile Include="Model\Dto\EmployeeDto.cs" />
@@ -68,7 +66,6 @@
     <Compile Include="Model\EmployeeFilterInfo.cs" />
     <Compile Include="Model\ImportedItem.cs" />
     <Compile Include="Model\InventoryItemFilterInfo.cs" />
-    <Compile Include="Model\ItemDisplay.cs" />
     <Compile Include="Model\LoginData.cs" />
     <Compile Include="Model\User.cs" />
   </ItemGroup>

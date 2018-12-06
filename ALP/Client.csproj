@@ -141,13 +141,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Extensions\ALPInventoryVisibilityConverter.cs" />
     <Compile Include="Service\AccountApiService.cs" />
     <Compile Include="Service\DialogResult.cs" />
     <Compile Include="Service\AlpApiService.cs" />
     <Compile Include="Service\AlpDialogService.cs" />
     <Compile Include="Service\EmployeeApiService.cs" />
+    <Compile Include="Service\ExportService.cs" />
     <Compile Include="Service\ImportService.cs" />
+    <Compile Include="Service\Interface\IExportService.cs" />
     <Compile Include="Service\Interface\IAccountApiService.cs" />
     <Compile Include="Service\Interface\IAlpDialogService.cs" />
     <Compile Include="Service\Interface\IAlpApiService.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="ViewModel\Inventory\InventoryItemSearchListItemViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryOperationWindowViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventorySearchPageViewModel.cs" />
+    <Compile Include="ViewModel\Inventory\ItemPropertyType.cs" />
     <Compile Include="ViewModel\Lookup\LookupBuildingEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupDepartmentEditorWindowViewModel.cs" />
     <Compile Include="ViewModel\Lookup\LookupEditorWindowViewModel.cs" />
@@ -315,6 +317,7 @@
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Extensions\Extensions.Enum.cs" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

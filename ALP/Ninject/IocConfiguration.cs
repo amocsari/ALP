@@ -45,6 +45,7 @@ namespace ALP.Ninject
             Bind<IOperationService>().To<OperationService>().InSingletonScope();
             Bind<IImportService>().To<ImportService>().InSingletonScope();
             Bind<IAccountApiService>().To<AccountApiService>().InSingletonScope();
+            Bind<IExportService>().To<ExportService>().InSingletonScope();
         }
 
         /// <summary>
