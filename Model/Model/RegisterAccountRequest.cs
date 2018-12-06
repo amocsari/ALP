@@ -1,13 +1,16 @@
-﻿using Model.Enum;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Model.Model.Dto
+namespace Model.Model
 {
-    public class NewAccountDto
+    public class RegisterAccountRequest
     {
         public int EmployeeId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public RoleType RoleType { get; set; }
 
         public bool Validate()
         {
@@ -15,7 +18,6 @@ namespace Model.Model.Dto
             {
                 return false;
             }
-
             return true;
         }
     }

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using ALP.Navigation;
 using ALP.Service;
 using ALP.Service.Interface;
+using ALP.View.Employee;
 using Common.Model.Dto;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -122,7 +123,17 @@ namespace ALP.ViewModel.Employee
 
         private void OnCreateAccountCommand()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dialogService.ShowDialog<NewEmployeeRegisterWindow, NewEmployeeRegisterWindowViewModel, int, object>(Employee.Value.Id);
+                _dialogService.ShowAlert($"{Employee.Value.Name} dolgozó felhasználója sikeresen létrehozva!");
+                _navigationService.GoBack();
+            }
+            catch (Exception e)
+            {
+                _loggingService.LogInformation("Error during creation of new account!", e);
+                _dialogService.ShowWarning(e.Message);
+            }
         }
 
         private async void OnRetireCommand()

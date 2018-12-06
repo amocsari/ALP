@@ -255,6 +255,7 @@
     <Compile Include="ViewModel\Employee\EmployeeEditPageViewModel.cs" />
     <Compile Include="ViewModel\Employee\EmployeeListItemViewModel.cs" />
     <Compile Include="ViewModel\Employee\EmployeeSearchPageViewModel.cs" />
+    <Compile Include="ViewModel\Employee\NewEmployeeRegisterWindowViewModel.cs" />
     <Compile Include="ViewModel\IDialogViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryEditPageViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryFilterWindowViewModel.cs" />
@@ -281,6 +282,9 @@
     </Compile>
     <Compile Include="View\Employee\Employee_SearchPage.xaml.cs">
       <DependentUpon>Employee_SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Employee\Employee_NewEmployeeRegisterWindow.xaml.cs">
+      <DependentUpon>Employee_NewEmployeeRegisterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Lookup\Department\Lookup_DepartmentEditorWindow.xaml.cs">
       <DependentUpon>Lookup_DepartmentEditorWindow.xaml</DependentUpon>
@@ -426,6 +430,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Employee\Employee_SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Employee\Employee_NewEmployeeRegisterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

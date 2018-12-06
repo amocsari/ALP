@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Model.Enum;
 using Model.Model;
-using Model.Model.Dto;
 
 namespace API.Service
 {
@@ -141,74 +140,6 @@ namespace API.Service
             return response;
         }
 
-        public async Task<AlpApiResponse> CreateAccount(NewAccountDto newAccount)
-        {
-            var response = new AlpApiResponse();
-            try
-            {
-                _logger.LogDebug(new
-                {
-                    action = nameof(CreateAccount),
-                    newAccount.EmployeeId,
-                    newAccount.Username,
-                    newAccount.RoleType
-                }.ToString());
-
-                if (!newAccount.Validate())
-                {
-                    response.Success = false;
-                    response.Message = "Hiba az új felhasználó adatainak validálása során!";
-                    return response;
-                }
-
-                var entity = await _context.Employee.FirstOrDefaultAsync(employee => employee.EmployeeId == newAccount.EmployeeId);
-                if(entity == null)
-                {
-                    response.Success = false;
-                    response.Message = "Nem található a választott felhasználó!";
-                    return response;
-                }
-
-                var entityWithUserName = await _context.Account.Include(acc => acc.Employee).FirstOrDefaultAsync(acc => acc.UserName == newAccount.Username);
-                if(entityWithUserName != null)
-                {
-                    response.Success = false;
-                    response.Message = $"Ilyen felhasználónevű felhasználó már szerepel a rendszerben: {entityWithUserName.Employee?.EmployeeName}";
-                    return response;
-                }
-
-                var account = new Account
-                {
-                    EmployeeId = entity.EmployeeId,
-                    UserName = newAccount.Username,
-                    Password = newAccount.Password,
-                    RoleId = (int)newAccount.RoleType
-                };
-
-                await _context.Account.AddAsync(account);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(new
-                {
-                    exception = e,
-                    message = e.Message,
-                    innerException = e,
-                    innerExceptionMessage = e.InnerException?.Message
-                }.ToString());
-                response.Message = e.Message;
-                response.Success = false;
-            }
-
-            return response;
-        }
-
-        public Task<AlpApiResponse> CreateAccount(int employeeId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<AlpApiResponse<SessionData>> Login(LoginData loginData)
         {
             var response = new AlpApiResponse<SessionData>();
@@ -314,6 +245,82 @@ namespace API.Service
                 }
 
                 user.Token = string.Empty;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse> RegisterAccount(RegisterAccountRequest registerAccountRequest)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(RegisterAccount),
+                    registerAccountRequest.EmployeeId,
+                    registerAccountRequest.Username
+                }.ToString());
+
+                if (!registerAccountRequest.Validate())
+                {
+                    response.Success = false;
+                    response.Message = "Hiba az új felhasználó adatainak validálása során!";
+                    return response;
+                }
+
+                var entity = await _context.Employee.FirstOrDefaultAsync(employee => employee.EmployeeId == registerAccountRequest.EmployeeId);
+                if (entity == null)
+                {
+                    response.Success = false;
+                    response.Message = "Nem található a választott felhasználó!";
+                    return response;
+                }
+
+                if (!entity.DepartmentId.HasValue)
+                {
+                    response.Success = false;
+                    response.Message = "Csak akkor adható hozzáférés a munkavállónak a leltár rendszerhez, ha hozzá van rendelve egy osztályhoz!";
+                    return response;
+                }
+
+                var accu = await _context.Account.FirstOrDefaultAsync(ac => ac.EmployeeId == registerAccountRequest.EmployeeId);
+                if(accu != null)
+                {
+                    response.Success = false;
+                    response.Message = "Ehhez a munkavállalóhoz már tartozik felhasználó!";
+                }
+
+                var entityWithUserName = await _context.Account.Include(acc => acc.Employee).FirstOrDefaultAsync(acc => acc.UserName == registerAccountRequest.Username);
+                if (entityWithUserName != null)
+                {
+                    response.Success = false;
+                    response.Message = $"Ilyen felhasználónevű felhasználó már szerepel a rendszerben: {entityWithUserName.Employee?.EmployeeName}";
+                    return response;
+                }
+
+                var account = new Account
+                {
+                    EmployeeId = entity.EmployeeId,
+                    UserName = registerAccountRequest.Username,
+                    Password = registerAccountRequest.Password,
+                    RoleId = (int)RoleType.DepartmentInventoryOperator
+                };
+
+                await _context.Account.AddAsync(account);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)

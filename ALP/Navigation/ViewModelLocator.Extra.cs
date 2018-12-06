@@ -38,6 +38,7 @@ namespace ALP.Navigation
 
         public LoginWindowViewModel LoginWindowViewModel { get => IocKernel.Get<LoginWindowViewModel>(); }
         public PasswordChangeWindowViewModel PasswordChangeWindowViewModel { get => IocKernel.Get<PasswordChangeWindowViewModel>(); }
+        public NewEmployeeRegisterWindowViewModel NewEmployeeRegisterWindowViewModel { get => IocKernel.Get<NewEmployeeRegisterWindowViewModel>(); }
 
         public ItemEditPageViewModel InventoryEditPageViewModel { get => IocKernel.Get<ItemEditPageViewModel>(); }
         public InventoryOperationWindowViewModel InventoryOperationWindowViewModel { get => IocKernel.Get<InventoryOperationWindowViewModel>(); }

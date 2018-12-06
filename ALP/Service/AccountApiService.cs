@@ -1,7 +1,5 @@
 ﻿using ALP.Service.Interface;
 using Model.Model;
-using Model.Model.Dto;
-using System;
 using System.Threading.Tasks;
 
 namespace ALP.Service
@@ -52,6 +50,16 @@ namespace ALP.Service
             });
 
             var user = await _apiService.PostAsync<string>("Account/Logout", encryptedSessionToken);
+        }
+
+        public async Task RegisterAccount(RegisterAccountRequest registerAccountRequest)
+        {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(registerAccountRequest)
+            });
+
+            await _apiService.PostAsync("Account/RegisterAccount", registerAccountRequest);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Model.Model.Dto
+﻿namespace Model.Model
 {
     public class ChangePasswordRequest
     {

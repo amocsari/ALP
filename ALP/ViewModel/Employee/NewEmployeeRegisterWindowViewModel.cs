@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ALP.ViewModel
+namespace ALP.ViewModel.Employee
 {
-    public class PasswordChangeWindowViewModel : AlpViewModelBase, IDialogViewModel<object, object>
+    public class NewEmployeeRegisterWindowViewModel : AlpViewModelBase, IDialogViewModel<object, int>
     {
-        public object Parameter { get; set; }
+        public int Parameter { get; set; }
         public object ReturnParameter { get; set; }
 
 
@@ -20,12 +20,13 @@ namespace ALP.ViewModel
 
         public ICommand CancelCommand { get; private set; }
 
-        public PasswordChangeWindowViewModel(IAccountApiService accountApiService, IAlpDialogService dialogService)
+        public NewEmployeeRegisterWindowViewModel(IAccountApiService accountApiService, IAlpDialogService dialogService)
         {
             _accountApiService = accountApiService;
             _dialogService = dialogService;
 
             CancelCommand = new RelayCommand<Window>(OnCancelCommand);
+
         }
 
         private void OnCancelCommand(Window window)
@@ -33,21 +34,26 @@ namespace ALP.ViewModel
             window.Close();
         }
 
-        public async Task ChangePassword(string oldPassword, string newPassword, string newPasswordRe)
+        public async Task RegisterUser(string userName, string newPassword, string newPasswordRe)
         {
             try
             {
                 IsLoading = true;
                 if (newPassword != newPasswordRe)
                 {
-                    throw new Exception("A két új jelszó értéke nem egyezik meg!");
+                    throw new Exception("A két jelszó értéke nem egyezik meg!");
                 }
-                ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest
+
+                var registerAccountRequest = new RegisterAccountRequest
                 {
-                    OldPassword = oldPassword,
-                    NewPassword = newPassword
+                    EmployeeId = Parameter,
+                    Password = newPassword,
+                    Username = userName
                 };
-                await _accountApiService.ChangePassword(changePasswordRequest);
+
+                await _accountApiService.RegisterAccount(registerAccountRequest);
+
+                                
             }
             catch (Exception e)
             {
@@ -61,7 +67,7 @@ namespace ALP.ViewModel
 
         protected override Task InitializeAsync()
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

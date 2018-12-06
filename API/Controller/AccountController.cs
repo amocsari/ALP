@@ -1,7 +1,8 @@
 ﻿using API.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Enum;
 using Model.Model;
-using Model.Model.Dto;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DAL.Controller
@@ -34,6 +35,17 @@ namespace DAL.Controller
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
             return _accountService.ChangePassword(changePasswordRequest, sessionToken);
+        }
+
+        [HttpPost]
+        public Task<AlpApiResponse> RegisterAccount([FromBody]RegisterAccountRequest registerAccountRequest)
+        {
+            var sessionToken = HttpContext.Request.Headers["sessiontoken"];
+            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            {
+                return Task.FromResult(new AlpApiResponse { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
+            }
+            return _accountService.RegisterAccount(registerAccountRequest);
         }
     }
 }

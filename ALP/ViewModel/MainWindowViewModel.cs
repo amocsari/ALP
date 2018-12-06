@@ -260,6 +260,7 @@ namespace ALP.ViewModel
                 IsLoading = true;
                 await _accountApiService.Logout(SessionData.Token);
                 SessionData = null;
+                _navigationService.NavigateTo(ViewModelLocator.SystemWelcomeScreen);
                 _dialogService.ShowAlert("Sikeres kijelentkezés", "Kijelentkezés");
             }
             catch (Exception e)

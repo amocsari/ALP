@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Model.Model;
-using Model.Model.Dto;
 
 namespace ALP.Service.Interface
 {
@@ -13,5 +8,6 @@ namespace ALP.Service.Interface
         Task<SessionData> Login(string username, string password);
         Task Logout(string encryptedSessionToken);
         Task ChangePassword(ChangePasswordRequest changePasswordRequest);
+        Task RegisterAccount(RegisterAccountRequest registerAccountRequest);
     }
 }
