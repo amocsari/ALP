@@ -6,6 +6,6 @@ namespace API.Service
 {
     public interface IAccountService
     {
-        Task<AlpApiResponse<User>> Login(string username, string password);
+        Task<AlpApiResponse<string>> Login(string username, string password);
     }
 }

@@ -209,7 +209,7 @@ namespace ALP.ViewModel
 
         private void OnLoginCommand()
         {
-            var result = _dialogService.ShowDialog<LoginWindow,LoginWindowViewModel,object,User>(null);
+            var result = _dialogService.ShowDialog<LoginWindow,LoginWindowViewModel,object,SessionData>(null);
             var a = result.Value;
         }
     }

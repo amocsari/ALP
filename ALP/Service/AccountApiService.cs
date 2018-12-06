@@ -16,7 +16,7 @@ namespace ALP.Service
             _loggingService = loggingService;
         }
 
-        public async Task<User> Login(string username, string password)
+        public async Task<SessionData> Login(string username, string password)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace ALP.Service
                     Password = password,
                     Username = username
                 };
-                var user = await _apiService.PostAsync<LoginData, User>("Account/Login", loginData);
+                var user = await _apiService.PostAsync<LoginData, SessionData>("Account/Login", loginData);
                 return user;
             }
             catch (Exception e)

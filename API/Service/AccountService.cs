@@ -1,13 +1,11 @@
 ﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Model.Model;
+using Newtonsoft.Json;
+using System.Web.Security;
 
 namespace API.Service
 {
@@ -22,9 +20,9 @@ namespace API.Service
             _logger = logger;
         }
 
-        public async Task<AlpApiResponse<User>> Login(string username, string password)
+        public async Task<AlpApiResponse<string>> Login(string username, string password)
         {
-            var response = new AlpApiResponse<User>();
+            var response = new AlpApiResponse<string>();
             try
             {
                 _logger.LogDebug(new
@@ -41,20 +39,15 @@ namespace API.Service
                     response.Message = "Hibás felhasználónév vagy jelszó!";
                 }
 
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes("afasdfasd");
-                var tokenDescriptor = new SecurityTokenDescriptor
+                var session = new SessionTokenData
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim(ClaimTypes.Name, user.AccountId.ToString()),
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(7),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                    SessionStart = DateTime.UtcNow,
+                    UserName = user.UserName,
+                    RoleId = user.RoleId,
+                    AccountId = user.AccountId
                 };
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                user.Token = tokenHandler.WriteToken(token);
+
             }
             catch (Exception e)
             {
@@ -70,6 +63,12 @@ namespace API.Service
             }
 
             return response;
+        }
+
+        private string EncriptSessionTokenData(SessionTokenData tokenData)
+        {
+            string unEncriptedToken = JsonConvert.SerializeObject(tokenData);
+            EncryptString
         }
     }
 }

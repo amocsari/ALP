@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ALP.ViewModel
 {
-    public class LoginWindowViewModel : ViewModelBase, IDialogViewModel<User, object>
+    public class LoginWindowViewModel : ViewModelBase, IDialogViewModel<SessionData, object>
     {
-        public User ReturnParameter { get; set; }
+        public SessionData ReturnParameter { get; set; }
         public object Parameter { get; set; }
 
         private readonly IAccountApiService _accountApiService;

@@ -67,7 +67,7 @@
     <Compile Include="Model\ImportedItem.cs" />
     <Compile Include="Model\InventoryItemFilterInfo.cs" />
     <Compile Include="Model\LoginData.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\SessionData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

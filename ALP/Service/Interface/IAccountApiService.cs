@@ -9,6 +9,6 @@ namespace ALP.Service.Interface
 {
     public interface IAccountApiService
     {
-        Task<User> Login(string username, string password);
+        Task<SessionData> Login(string username, string password);
     }
 }

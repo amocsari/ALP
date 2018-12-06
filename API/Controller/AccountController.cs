@@ -17,7 +17,7 @@ namespace DAL.Controller
         }
 
         [HttpPost]
-        public Task<AlpApiResponse<User>> Login([FromBody] LoginData loginData)
+        public Task<AlpApiResponse<SessionData>> Login([FromBody] LoginData loginData)
         {
             return _accountService.Login(loginData.Username, loginData.Password);
         }
