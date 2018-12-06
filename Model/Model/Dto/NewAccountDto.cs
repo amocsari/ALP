@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Model.Enum;
 
-namespace Model.Model
+namespace Model.Model.Dto
 {
-    public class LoginData
+    public class NewAccountDto
     {
+        public int EmployeeId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public RoleType RoleType { get; set; }
 
         public bool Validate()
         {

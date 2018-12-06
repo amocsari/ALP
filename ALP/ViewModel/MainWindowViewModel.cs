@@ -7,6 +7,7 @@ using ALP.Service;
 using ALP.Service.Interface;
 using ALP.View;
 using GalaSoft.MvvmLight.Command;
+using Model.Enum;
 using Model.Model;
 
 namespace ALP.ViewModel
@@ -23,10 +24,11 @@ namespace ALP.ViewModel
         private readonly IAlpDialogService _dialogService;
         private readonly IImportService _importService;
         private readonly IInventoryApiService _inventoryApiService;
+        private readonly IAccountApiService _accountApiService;
 
         //Commands bound to the menu items
         public ICommand LoginCommand { get; private set; }
-        //public ICommand LogoutCommand { get; private set; }
+        public ICommand LogoutCommand { get; private set; }
         public ICommand PasswordChangeCommand { get; private set; }
         public ICommand ChangesCommand { get; private set; }
         public ICommand SystemSettingsCommand { get; private set; }
@@ -45,10 +47,26 @@ namespace ALP.ViewModel
         public ICommand DepartmentSearchCommand { get; private set; }
         public ICommand LocationCommand { get; private set; }
 
-        //TODO: moack, ha kész az authentikáció, akkor cserélni
-        private bool IsLoggedIn { get => true; }
-        //TODO: mock ha a szerepkörök implementálva vannak, akkor cserélni
-        private bool IsAdmin { get => true; }
+        public static string SessionToken { get; set; }
+        private SessionData sessionData;
+        public SessionData SessionData
+        {
+            get { return sessionData; }
+            set
+            {
+                if (sessionData != value)
+                {
+                    Set(ref sessionData, value);
+                    RaisePropertyChanged(() => IsLoggedIn);
+                    RaisePropertyChanged(() => IsLoggedOut);
+                    RaisePropertyChanged(() => IsAdmin);
+                    SessionToken = SessionData?.Token;
+                }
+            }
+        }
+        public bool IsLoggedIn { get => !string.IsNullOrEmpty(SessionData?.Token); }
+        public bool IsLoggedOut { get => !IsLoggedIn; }
+        public bool IsAdmin { get => SessionData?.RoleId == (int)RoleType.Admin; }
 
         /// <summary>
         /// Constructor
@@ -56,15 +74,16 @@ namespace ALP.ViewModel
         /// Sets the commands
         /// </summary>
         /// <param name="navigationService">injected navigationservice</param>
-        public MainWindowViewModel(IAlpNavigationService navigationService, IAlpDialogService dialogService, IImportService importService, IInventoryApiService inventoryApiService)
+        public MainWindowViewModel(IAlpNavigationService navigationService, IAlpDialogService dialogService, IImportService importService, IInventoryApiService inventoryApiService, IAccountApiService accountApiService)
         {
             _navigationService = navigationService;
             _dialogService = dialogService;
             _importService = importService;
             _inventoryApiService = inventoryApiService;
+            _accountApiService = accountApiService;
 
             LoginCommand = new RelayCommand(OnLoginCommand);
-            //LogoutCommand = new RelayCommand(OnLogoutCommand, IsLoggedIn);
+            LogoutCommand = new RelayCommand(OnLogoutCommand);
             PasswordChangeCommand = new RelayCommand(OnPasswordChangeCommand, IsLoggedIn);
             ChangesCommand = new RelayCommand(OnChangesCommand);
             SystemSettingsCommand = new RelayCommand(OnSystemSettingsCommand, IsLoggedIn && IsAdmin);
@@ -100,12 +119,28 @@ namespace ALP.ViewModel
             _navigationService.NavigateTo(ViewModelLocator.LookupLocations);
         }
 
-        private void OnExitCommand(Window window)
+        private async void OnExitCommand(Window window)
         {
             var result = _dialogService.ShowConfirmDialog("Biztosan kilép az alkalmazásból?", "Kilépés");
             if (result)
             {
-                window.Close();
+                try
+                {
+                    IsLoading = true;
+                    if (SessionData?.Token != null)
+                    {
+                        await _accountApiService.Logout(SessionData.Token);
+                    }
+                    window.Close();
+                }
+                catch (Exception e)
+                {
+                    _dialogService.ShowError(e.Message);
+                }
+                finally
+                {
+                    IsLoading = false;
+                }
             }
         }
 
@@ -139,7 +174,7 @@ namespace ALP.ViewModel
             }
             catch (Exception e)
             {
-                //TODO: logging
+                _dialogService.ShowError(e.Message);
             }
             finally
             {
@@ -199,18 +234,63 @@ namespace ALP.ViewModel
 
         private void OnPasswordChangeCommand()
         {
-            //TODO
+            try
+            {
+                IsLoading = true;
+                var result = _dialogService.ShowDialog<PasswordChangeWindow, PasswordChangeWindowViewModel, object, object>(null);
+                if (result != null && result.Accepted)
+                {
+                    _dialogService.ShowAlert("Sikeres jelszómegváltoztatás", "Jelszómegváltoztatás");
+                }
+            }
+            catch (Exception e)
+            {
+                _dialogService.ShowError(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
-        //private void OnLogoutCommand()
-        //{
-        //    //TODO
-        //}
+        private async void OnLogoutCommand()
+        {
+            try
+            {
+                IsLoading = true;
+                await _accountApiService.Logout(SessionData.Token);
+                SessionData = null;
+                _dialogService.ShowAlert("Sikeres kijelentkezés", "Kijelentkezés");
+            }
+            catch (Exception e)
+            {
+                _dialogService.ShowError(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
 
         private void OnLoginCommand()
         {
-            var result = _dialogService.ShowDialog<LoginWindow,LoginWindowViewModel,object,SessionData>(null);
-            var a = result.Value;
+            try
+            {
+                IsLoading = true;
+                var result = _dialogService.ShowDialog<LoginWindow, LoginWindowViewModel, object, SessionData>(null);
+                if (result != null && result.Accepted)
+                {
+                    SessionData = result.Value;
+                }
+            }
+            catch (Exception e)
+            {
+                _dialogService.ShowError(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

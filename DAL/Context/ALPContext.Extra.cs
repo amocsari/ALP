@@ -17,7 +17,6 @@ namespace DAL.Context
         public DbSet<ItemType> ItemType { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Operation> Operation { get; set; }
-        public DbSet<Role> Role { get; set; }
         public DbSet<Section> Section { get; set; }
 
         DbSet<T> IAlpContext.Set<T>()

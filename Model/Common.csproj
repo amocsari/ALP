@@ -51,6 +51,7 @@
     <Compile Include="Enum\OperationType.cs" />
     <Compile Include="Enum\RoleType.cs" />
     <Compile Include="Model\AlpApiResponse.cs" />
+    <Compile Include="Model\Dto\ChangePasswordRequest.cs" />
     <Compile Include="Model\Dto\Lookup\DepartmentDto.cs" />
     <Compile Include="Model\Dto\EmployeeDto.cs" />
     <Compile Include="Model\Dto\ItemDto.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Model\Dto\Lookup\LocationDto.cs" />
     <Compile Include="Model\Dto\Lookup\LookupDtoBase.cs" />
     <Compile Include="Model\Dto\Lookup\SectionDto.cs" />
+    <Compile Include="Model\Dto\NewAccountDto.cs" />
     <Compile Include="Model\Dto\OperationDto.cs" />
     <Compile Include="Model\EmployeeFilterInfo.cs" />
     <Compile Include="Model\ImportedItem.cs" />

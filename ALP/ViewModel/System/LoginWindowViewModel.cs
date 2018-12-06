@@ -5,21 +5,25 @@ using System.Windows;
 using ALP.Service.Interface;
 using Model.Model;
 using System.Threading.Tasks;
+using ALP.Service;
+using System;
 
 namespace ALP.ViewModel
 {
-    public class LoginWindowViewModel : ViewModelBase, IDialogViewModel<SessionData, object>
+    public class LoginWindowViewModel : AlpViewModelBase, IDialogViewModel<SessionData, object>
     {
         public SessionData ReturnParameter { get; set; }
         public object Parameter { get; set; }
 
         private readonly IAccountApiService _accountApiService;
+        private readonly IAlpDialogService _dialogService;
         
         public ICommand CancelCommand { get; private set; }
 
-        public LoginWindowViewModel(IAccountApiService accountApiService)
+        public LoginWindowViewModel(IAccountApiService accountApiService, IAlpDialogService dialogService)
         {
             _accountApiService = accountApiService;
+            _dialogService = dialogService;
             
             CancelCommand = new RelayCommand<Window>(OnCancelCommand);
         }
@@ -31,8 +35,23 @@ namespace ALP.ViewModel
 
         public async Task Login(string username, string password)
         {
-            ReturnParameter = await _accountApiService.Login(username, password);
+            try
+            {
+                IsLoading = true;
+                ReturnParameter = await _accountApiService.Login(username, password);
+            }catch(Exception e)
+            {
+                _dialogService.ShowWarning(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
+        protected override Task InitializeAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

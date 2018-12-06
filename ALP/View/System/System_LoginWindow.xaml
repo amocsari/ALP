@@ -3,34 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:ALP.View"
         DataContext="{Binding LoginWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Name="Window"
         Title="Login" Height="200" Width="400">
+    <Grid>
+        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TextBlock Text="Bejelentkezés" DockPanel.Dock="Top" FontSize="32" HorizontalAlignment="Center" />
 
-    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <TextBlock Text="Bejelentkezés" DockPanel.Dock="Top" FontSize="32" HorizontalAlignment="Center" />
+            <Grid DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Felhasználónév:" Grid.Column="0" Grid.Row="0"/>
+                <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="0"/>
+                <Label Content="Jelszó:" Grid.Column="0" Grid.Row="1"/>
+                <PasswordBox Name="PasswordBox" PasswordChar="*" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
 
-        <Grid DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label Content="Felhasználónév:" Grid.Column="0" Grid.Row="0"/>
-            <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="0"/>
-            <Label Content="Jelszó:" Grid.Column="0" Grid.Row="1"/>
-            <PasswordBox Name="PasswordBox" PasswordChar="*" Grid.Column="1" Grid.Row="1"/>
-        </Grid>
-
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Content="Bejelentkezés" CommandParameter="{Binding ElementName=Window}" VerticalAlignment="Center" Click="Button_Click"/>
-            <Button Content="Mégse" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" VerticalAlignment="Center"/>
-        </StackPanel>
-    </DockPanel>
-
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Content="Bejelentkezés" VerticalAlignment="Center" Click="Button_Click"/>
+                <Button Content="Mégse" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </DockPanel>
+        <view:LoadingIndicator/>
+    </Grid>
 </Window>

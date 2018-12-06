@@ -1,4 +1,5 @@
 ﻿using API.Service;
+using API.Service.Interface;
 using DAL.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,7 @@ namespace DAL
             services.AddSingleton<IOperationService, OperationService>();
             services.AddSingleton<IRoleService, RoleService>();
             services.AddSingleton<ISectionService, SectionService>();
+            services.AddSingleton<IEncryptionService, EncryptionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

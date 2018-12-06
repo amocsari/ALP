@@ -17,6 +17,10 @@ namespace ALP.View
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var dataContext = (LoginWindowViewModel) DataContext;
+            if(string.IsNullOrEmpty(UsernameBox.Text) || string.IsNullOrEmpty(PasswordBox.Password))
+            {
+                return;
+            }
             await dataContext.Login(UsernameBox.Text, PasswordBox.Password);
             DialogResult = true;
             Close();

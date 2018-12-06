@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ALP.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,22 @@ namespace ALP.View
     /// <summary>
     /// Interaction logic for PasswordChange.xaml
     /// </summary>
-    public partial class PasswordChangePage : Window
+    public partial class PasswordChangeWindow : Window
     {
-        public PasswordChangePage()
+        public PasswordChangeWindow()
         {
             InitializeComponent();
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(OldPasswordBox.Password) || string.IsNullOrEmpty(NewPasswordBox.Password) || string.IsNullOrEmpty(NewPasswordBoxRe.Password))
+            {
+                return;
+            }
+            var dataContext = (PasswordChangeWindowViewModel)DataContext;
+            await dataContext.ChangePassword(OldPasswordBox.Password, NewPasswordBox.Password, NewPasswordBoxRe.Password);
+            DialogResult = true;
         }
     }
 }

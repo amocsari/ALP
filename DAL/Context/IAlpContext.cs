@@ -31,7 +31,6 @@ namespace DAL.Context
         DbSet<ItemType> ItemType { get; set; }
         DbSet<Location> Location { get; set; }
         DbSet<Operation> Operation { get; set; }
-        DbSet<Role> Role { get; set; }
         DbSet<Section> Section { get; set; }
     }
 }

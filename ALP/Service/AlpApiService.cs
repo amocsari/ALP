@@ -1,4 +1,5 @@
 ﻿using ALP.Service.Interface;
+using ALP.ViewModel;
 using Model.Model;
 using System;
 using System.Net.Http;
@@ -45,6 +46,7 @@ namespace ALP.Service
             {
                 client.BaseAddress = baseAddress;
                 client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("sessiontoken", MainWindowViewModel.SessionToken);
 
                 var response = await client.DeleteAsync(path + "/" + id.ToString());
 
@@ -83,6 +85,7 @@ namespace ALP.Service
             {
                 client.BaseAddress = baseAddress;
                 client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("sessiontoken", MainWindowViewModel.SessionToken);
 
                 var response = await client.DeleteAsync(path + "/" + id.ToString());
 
@@ -119,6 +122,7 @@ namespace ALP.Service
             {
                 client.BaseAddress = baseAddress;
                 client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("sessiontoken", MainWindowViewModel.SessionToken);
 
                 var response = await client.GetAsync(path);
 
@@ -159,6 +163,7 @@ namespace ALP.Service
             {
                 client.BaseAddress = baseAddress;
                 client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("sessiontoken", MainWindowViewModel.SessionToken);
 
                 var response = await client.PostAsJsonAsync(path, parameter);
 
@@ -198,6 +203,7 @@ namespace ALP.Service
             {
                 client.BaseAddress = baseAddress;
                 client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("sessiontoken", MainWindowViewModel.SessionToken);
 
                 var response = await client.PostAsJsonAsync(path, parameter);
 
