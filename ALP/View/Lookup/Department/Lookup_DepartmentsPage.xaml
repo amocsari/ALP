@@ -12,9 +12,9 @@
       Title="SearchPage">
 
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Osztályok" FontSize="32" HorizontalAlignment="Center"/>
-            <DataGrid ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="Osztályok" FontSize="32" HorizontalAlignment="Center"/>
+            <DataGrid FontSize="16" ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False" Margin="30" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Osztályvezető" Binding="{Binding Value.Employee.Name}" IsReadOnly="True" Width="*"/>
@@ -34,8 +34,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DataGrid>
-            <Button Content="Új Osztály" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
-        </StackPanel>
+        </DockPanel>
+        <Button Content="Új Osztály" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Command="{Binding NewCommand}"/>
         <view:LoadingIndicator/>
     </Grid>
 </Page>

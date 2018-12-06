@@ -19,7 +19,7 @@
         </DataTemplate>
     </Page.Resources>
     
-    <ScrollViewer>
+    <ScrollViewer Margin="15" VerticalScrollBarVisibility="Auto">
         <Grid>
 
             <StackPanel HorizontalAlignment="Stretch" Margin="10">
@@ -51,50 +51,50 @@
 
                     </Grid.RowDefinitions>
 
-                    <Label Content="Nyilvántartásba vétel dátuma" Grid.Column="0" Grid.Row="0"/>
-                    <DatePicker SelectedDate="{Binding Item.DateOfCreation, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
+                    <Label Content="Nyilvántartásba vétel dátuma" Grid.Column="0" Grid.Row="0" Margin="2,5"/>
+                    <DatePicker SelectedDate="{Binding Item.DateOfCreation, Mode=TwoWay}" Foreground="Gray" Grid.Column="1" Grid.Row="0" Margin="2,5"/>
 
-                    <Label Content="Eszköz megnevezése" Grid.Column="0" Grid.Row="1"/>
-                    <TextBox Text="{Binding Item.ItemName}" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1"/>
+                    <Label Content="Eszköz megnevezése" Grid.Column="0" Grid.Row="1" Margin="2,5"/>
+                    <TextBox Text="{Binding Item.ItemName}" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" Margin="2,5"/>
 
-                    <Label Content="Leltári szám" Grid.Column="0" Grid.Row="2"/>
-                    <TextBox Text="{Binding Item.InventoryNumber}" Grid.Column="1" Grid.Row="2"/>
+                    <Label Content="Leltári szám" Grid.Column="0" Grid.Row="2" Margin="2,5"/>
+                    <TextBox Text="{Binding Item.InventoryNumber}" Grid.Column="1" Grid.Row="2" Margin="2,5"/>
 
-                    <Label Content="Régi leltári szám" Grid.Column="2" Grid.Row="2"/>
-                    <TextBox Text="{Binding Item.OldInventoryNumber}" Grid.Column="3" Grid.Row="2"/>
+                    <Label Content="Régi leltári szám" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="2,5"/>
+                    <TextBox Text="{Binding Item.OldInventoryNumber}" Grid.Column="3" Grid.Row="2" Margin="2,5"/>
 
-                    <Label Content="Gyári szám" Grid.Column="0" Grid.Row="3"/>
-                    <TextBox Text="{Binding Item.SerialNumber}" Grid.Column="1" Grid.Row="3"/>
+                    <Label Content="Gyári szám" Grid.Column="0" Grid.Row="3" Margin="2,5"/>
+                    <TextBox Text="{Binding Item.SerialNumber}" Grid.Column="1" Grid.Row="3" Margin="2,5"/>
 
-                    <Label Content="Sárga szám" Grid.Column="2" Grid.Row="3"/>
-                    <TextBox Text="{Binding Item.YellowNumber}" Grid.Column="3" Grid.Row="3"/>
+                    <Label Content="Sárga szám" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" Margin="2,5" />
+                    <TextBox Text="{Binding Item.YellowNumber}" Grid.Column="3" Grid.Row="3" Margin="2,5" />
 
-                    <Label Content="Akkreditációs szám" Grid.Column="2" Grid.Row="4"/>
-                    <TextBox Text="{Binding Item.AccreditationNumber}" Grid.Column="3" Grid.Row="4"/>
+                    <Label Content="Akkreditációs szám" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="4" Margin="2,5" />
+                    <TextBox Text="{Binding Item.AccreditationNumber}" Grid.Column="3" Grid.Row="4" Margin="2,5" />
 
-                    <Label Content="Gyártási év" Grid.Column="0" Grid.Row="5"/>
-                    <DatePicker SelectedDate="{Binding Item.ProductionYear, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"/>
+                    <Label Content="Gyártási év" Grid.Column="0" Grid.Row="5" Margin="2,5" />
+                    <DatePicker SelectedDate="{Binding Item.ProductionYear, Mode=TwoWay}"  Foreground="Gray" Grid.Column="1" Grid.Row="5" Margin="2,5" />
 
-                    <Label Content="Bruttó ár" Grid.Column="2" Grid.Row="5"/>
-                    <TextBox Text="{Binding Item.BruttoPrice}" Grid.Column="3" Grid.Row="5"/>
+                    <Label Content="Bruttó ár" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="5" Margin="2,5" />
+                    <TextBox Text="{Binding Item.BruttoPrice}" Grid.Column="3" Grid.Row="5" Margin="2,5" />
 
-                    <Label Content="Gyártmány" Grid.Column="0" Grid.Row="6"/>
-                    <TextBox Text="{Binding Item.Manufacturer}" Grid.Column="1" Grid.Row="6"/>
+                    <Label Content="Gyártmány" Grid.Column="0" Grid.Row="6" Margin="2,5" />
+                    <TextBox Text="{Binding Item.Manufacturer}" Grid.Column="1" Grid.Row="6" Margin="2,5" />
 
-                    <Label Content="Típus" Grid.Column="2" Grid.Row="6"/>
-                    <TextBox Text="{Binding Item.ModelType}" Grid.Column="3" Grid.Row="6"/>
+                    <Label Content="Típus" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="6" Margin="2,5" />
+                    <TextBox Text="{Binding Item.ModelType}" Grid.Column="3" Grid.Row="6" Margin="2,5" />
 
-                    <Label Content="Eszköz jellege" Grid.Column="0" Grid.Row="7"/>
-                    <ComboBox ItemsSource="{Binding ItemNatures}" SelectedItem="{Binding SelectedItemNature}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="7"/>
+                    <Label Content="Eszköz jellege" Grid.Column="0" Grid.Row="7" Margin="2,5" />
+                    <ComboBox ItemsSource="{Binding ItemNatures}" SelectedItem="{Binding SelectedItemNature}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="7" Margin="2,5" />
 
-                    <Label Content="Eszköz típusa" Grid.Column="2" Grid.Row="7"/>
-                    <ComboBox ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding SelectedItemType}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="7"/>
+                    <Label Content="Eszköz típusa" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="7" Margin="2,5" />
+                    <ComboBox ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding SelectedItemType}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="7" Margin="2,5" />
 
-                    <Label Content="Osztály" Grid.Column="0" Grid.Row="8"/>
-                    <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="8"/>
+                    <Label Content="Osztály" Grid.Column="0" Grid.Row="8" Margin="2,5" />
+                    <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="8" Margin="2,5" />
 
-                    <Label Content="Részleg" Grid.Column="2" Grid.Row="8"/>
-                    <ComboBox ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="8"/>
+                    <Label Content="Részleg" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="8" Margin="2,5" />
+                    <ComboBox ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="8" Margin="2,5" />
 
                 </Grid>
 
@@ -119,25 +119,25 @@
 
                     </Grid.RowDefinitions>
 
-                    <Label Content="Épület" Grid.Column="0" Grid.Row="0"/>
-                    <ComboBox ItemsSource="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="0"/>
+                    <Label Content="Épület" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Margin="2,5" />
+                    <ComboBox ItemsSource="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="0" Margin="2,5" />
 
-                    <Label Content="Emelet" Grid.Column="2" Grid.Row="0"/>
-                    <ComboBox ItemsSource="{Binding Floors}" SelectedItem="{Binding SelectedFloor}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="0"/>
+                    <Label Content="Emelet" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Margin="2,5" />
+                    <ComboBox ItemsSource="{Binding Floors}" SelectedItem="{Binding SelectedFloor}" DisplayMemberPath="Name" Grid.Column="3" Grid.Row="0" Margin="2,5" />
 
-                    <Label Content="Szombaszám" Grid.Column="4" Grid.Row="0"/>
-                    <TextBox Text="{Binding Item.Room}" Grid.Column="5" Grid.Row="0"/>
+                    <Label Content="Szombaszám" HorizontalAlignment="Right" Grid.Column="4" Grid.Row="0" Margin="2,5" />
+                    <TextBox Text="{Binding Item.Room}" Grid.Column="5" Grid.Row="0" Margin="2,5" />
 
-                    <Label Content="Tulajdonos" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center"/>
-                    <toolkit:AutoCompleteBox ItemsSource="{Binding EmployeeList}" ValueMemberPath="Name" SelectedItem="{Binding EmployeeName, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" IsTextCompletionEnabled="True" FilterMode="Contains" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch"/>                    
+                    <Label Content="Tulajdonos" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="2,5" />
+                    <toolkit:AutoCompleteBox ItemsSource="{Binding EmployeeList}" ValueMemberPath="Name" SelectedItem="{Binding EmployeeName, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" IsTextCompletionEnabled="True" FilterMode="Contains" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" Margin="2,5" />
 
-                    <Label Content="Állapot" Grid.Column="0" Grid.Row="2"/>
-                    <ComboBox ItemsSource="{Binding ItemStates}" SelectedItem="{Binding SelectedItemState}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="2"/>
+                    <Label Content="Állapot" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="2,5" />
+                    <ComboBox ItemsSource="{Binding ItemStates}" SelectedItem="{Binding SelectedItemState}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="2" Margin="2,5" />
 
                 </Grid>
 
-                <Label Content="Komment:"/>
-                <TextBox Text="{Binding Item.Comment}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap"/>
+                <Label Content="Megjegyzés:"/>
+                <TextBox Text="{Binding Item.Comment}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="110"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5">
 

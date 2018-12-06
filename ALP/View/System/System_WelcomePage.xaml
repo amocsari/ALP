@@ -8,19 +8,26 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WelcomePage">
 
+    <Page.Background>
+        <ImageBrush ImageSource="/Resources/background.jpg"/>
+    </Page.Background>
+    
     <StackPanel
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
 
         <TextBlock
+            Text="ÁDI Leltár Program"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="48">ÁDI Leltár Program</TextBlock>
+            FontSize="56"
+            Foreground="White"/>
         <TextBlock
+            Text="{Binding ApplicationVersion}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="24"
-            Text="{Binding ApplicationVersion}"/>
+            FontSize="32"
+            Foreground="White"/>
 
     </StackPanel>
 </Page>

@@ -46,11 +46,9 @@
                     <MenuItem Header="Keresés" Command="{Binding EmployeeSearchCommand}"/>
                 </MenuItem>
             </Menu>
-            <Frame
-            Name="mainFrame"
-            NavigationUIVisibility="Hidden"
-            Source="System/System_WelcomePage.xaml"/>
+            <Frame Name="mainFrame" NavigationUIVisibility="Hidden" Source="System/System_WelcomePage.xaml"/>
         </DockPanel>
+        <!--<Image HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Source="/Resources/bottompanel.jpg"/>-->
         <view:LoadingIndicator/>
     </Grid>
 </Window>

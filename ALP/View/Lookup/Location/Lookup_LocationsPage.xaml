@@ -11,28 +11,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Lookup_Locations">
 
-    <!--<Page.Resources>
-        <DataTemplate x:Key="LocationTemplate">
-            <Grid HorizontalAlignment="Stretch" Margin="2">
-                <Grid.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Value}"/>
-                </Grid.InputBindings>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="0.5*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Name="LocationTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <Button Command="{Binding LockCommand}" CommandParameter="{Binding Value}" Grid.Column="1" MaxHeight="20" MinHeight="20">
-                    <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
-                </Button>
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>-->
-
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Telephelyek" FontSize="32" HorizontalAlignment="Center"/>
-            <DataGrid ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="Telephelyek" FontSize="32" HorizontalAlignment="Center"/>
+            <DataGrid FontSize="16" ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False" Margin="30" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                     <DataGridTemplateColumn>
@@ -51,8 +33,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DataGrid>
-            <Button Content="Új Telephely" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
-        </StackPanel>
+        </DockPanel>
+        <Button Content="Új Telephely" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Command="{Binding NewCommand}"/>
         <view:LoadingIndicator/>
     </Grid>
 </Page>

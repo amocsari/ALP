@@ -22,15 +22,15 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Content="Felhasználónév:" Grid.Column="0" Grid.Row="0"/>
-                <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="0"/>
-                <Label Content="Jelszó:" Grid.Column="0" Grid.Row="1"/>
-                <PasswordBox Name="PasswordBox" PasswordChar="*" Grid.Column="1" Grid.Row="1"/>
+                <Label Content="Felhasználónév:" Grid.Column="0" Grid.Row="0" Margin="5"/>
+                <TextBox Name="UsernameBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0" MinWidth="150" Margin="5"/>
+                <Label Content="Jelszó:" Grid.Column="0" Grid.Row="1" Margin="5"/>
+                <PasswordBox Name="PasswordBox" PasswordChar="*" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1" MinWidth="150" Margin="5"/>
             </Grid>
 
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Content="Bejelentkezés" VerticalAlignment="Center" Click="Button_Click"/>
-                <Button Content="Mégse" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" VerticalAlignment="Center"/>
+                <Button Content="Bejelentkezés" VerticalAlignment="Center" Click="Button_Click" Margin="2,5"/>
+                <Button Content="Mégse" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" VerticalAlignment="Center" Margin="2,5"/>
             </StackPanel>
         </DockPanel>
         <view:LoadingIndicator/>

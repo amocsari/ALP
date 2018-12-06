@@ -11,30 +11,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Lookup_BuildingPage">
 
-    <!--<Page.Resources>
-        <DataTemplate x:Key="BuildingTemplate">
-            <Grid HorizontalAlignment="Stretch" Margin="2">
-                <Grid.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Value}"/>
-                </Grid.InputBindings>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.33*"/>
-                    <ColumnDefinition Width="0.33*"/>
-                    <ColumnDefinition Width="0.33*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Name="BuildingNameTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center"/>
-                <TextBlock Name="BuildingLocationNameTextBlock" Text="{Binding Value.Location.Name}" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                <Button Command="{Binding LockCommand}" CommandParameter="{Binding Value}" Grid.Column="2" MaxHeight="20" MinHeight="20">
-                    <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
-                </Button>
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>-->
-
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Épületek" FontSize="32" HorizontalAlignment="Center"/>
-            <DataGrid ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="Épületek" FontSize="32" HorizontalAlignment="Center"/>
+            <DataGrid FontSize="16" ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False" Margin="30" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Telephely" Binding="{Binding Value.Location.Name}" IsReadOnly="True" Width="*"/>
@@ -54,8 +34,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </DataGrid>
-            <Button Content="Új Épület" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
-        </StackPanel>
+        </DockPanel>
+        <Button Content="Új Épület" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Command="{Binding NewCommand}"/>
         <view:LoadingIndicator/>
     </Grid>
 </Page>
