@@ -40,8 +40,8 @@ namespace ALP.Navigation
 
         public ItemEditPageViewModel InventoryEditPageViewModel { get => IocKernel.Get<ItemEditPageViewModel>(); }
         public InventoryOperationWindowViewModel InventoryOperationWindowViewModel { get => IocKernel.Get<InventoryOperationWindowViewModel>(); }
-
         public InventorySearchPageViewModel InventorySearchPageViewModel { get => IocKernel.Get<InventorySearchPageViewModel>(); }
+        public InventoryFilterWindowViewModel InventoryFilterWindowViewModel { get => IocKernel.Get<InventoryFilterWindowViewModel>(); }
 
         public EmployeeSearchPageViewModel EmployeeSearchPageViewModel { get => IocKernel.Get<EmployeeSearchPageViewModel>(); }
         public EmployeeEditPageViewModel EmployeeEditPageViewModel { get => IocKernel.Get<EmployeeEditPageViewModel>(); }

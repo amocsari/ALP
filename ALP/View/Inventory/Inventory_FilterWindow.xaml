@@ -3,10 +3,249 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ALP.View.Inventory"
+        xmlns:view="clr-namespace:ALP.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        DataContext="{Binding InventoryFilterWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Name="Window"
         Title="FilterWindow" Height="450" Width="800">
-    <Grid>
-        
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Label DockPanel.Dock="Top" FontSize="42" HorizontalAlignment="Center" Content="Szűrő"/>
+            <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,40">
+                <TabItem Header="Épület">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedBuildings}" SelectedItem="{Binding SelectedNotSelectedBuilding, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedBuildingDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedBuildings}" SelectedItem="{Binding SelectedSelectedBuilding, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedBuildingDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Emelet">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedFloors}" SelectedItem="{Binding SelectedNotSelectedFloor, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedFloorDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedFloors}" SelectedItem="{Binding SelectedSelectedFloor, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedFloorDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Osztály">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedDepartments}" SelectedItem="{Binding SelectedNotSelectedDepartment, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedDepartmentDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedDepartments}" SelectedItem="{Binding SelectedSelectedDepartment, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedDepartmentDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Eszköz jelleg">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedItemNatures}" SelectedItem="{Binding SelectedNotSelectedItemNature, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedItemNatureDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedItemNatures}" SelectedItem="{Binding SelectedSelectedItemNature, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedItemNatureDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Eszköz állapot">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedItemStates}" SelectedItem="{Binding SelectedNotSelectedItemState, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedItemStateDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedItemStates}" SelectedItem="{Binding SelectedSelectedItemState, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedItemStateDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Eszköztípus">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedItemTypes}" SelectedItem="{Binding SelectedNotSelectedItemType, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedItemTypeDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedItemTypes}" SelectedItem="{Binding SelectedSelectedItemType, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedItemTypeDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Telephely">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedLocations}" SelectedItem="{Binding SelectedNotSelectedLocation, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedLocationDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedLocations}" SelectedItem="{Binding SelectedSelectedLocation, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedLocationDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="Részleg">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Left" Width="400">
+                            <DataGrid ItemsSource="{Binding NotSelectedSections}" SelectedItem="{Binding SelectedNotSelectedSection, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding NotSelectedSectionDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                        <Grid DockPanel.Dock="Right" Width="400">
+                            <DataGrid ItemsSource="{Binding SelectedSections}" SelectedItem="{Binding SelectedSelectedSection, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Name}"/>
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding SelectedSectionDoubleClickCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button Content="Mégse" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=Window}" Margin="5"/>
+            <Button Content="Alkalmaz" Command="{Binding ApplyCommand}" CommandParameter="{Binding ElementName=Window}" Margin="5"/>
+        </StackPanel>
+        <view:LoadingIndicator/>
     </Grid>
 </Window>

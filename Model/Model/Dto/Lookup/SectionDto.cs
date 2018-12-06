@@ -72,8 +72,8 @@ namespace Common.Model.Dto
             Name = source.Name;
             DepartmentId = source.DepartmentId;
             FloorId = source.FloorId;
-            Department.UpdateByDto(source.Department);
-            Floor.UpdateByDto(source.Floor);
+            Department?.UpdateByDto(source.Department);
+            Floor?.UpdateByDto(source.Floor);
             Locked = source.Locked;
         }
 
@@ -108,9 +108,9 @@ namespace Common.Model.Dto
             StringBuilder sb = new StringBuilder($"{{ Id = {Id}");
             sb.Append($", Name = {Name}");
             sb.Append($", FloorId = {FloorId}");
-            sb.Append($", Floor = {Floor.ToString()}");
+            sb.Append($", Floor = {Floor?.ToString()}");
             sb.Append($", DepartmentId = {DepartmentId}");
-            sb.Append($", Department = {Department.ToString()}");
+            sb.Append($", Department = {Department?.ToString()}");
             sb.Append($", Locked = {Locked}");
             sb.Append(" }");
             return sb.ToString();

@@ -59,8 +59,117 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        public InventoryItemFilterInfo ItemFilterInfo { get; set; }
         public string FilteredId { get; set; }
+
+        public InventoryItemFilterInfo ItemFilterInfo { get; set; }
+        public string FilteredManufacturerAndType
+        {
+            get { return ItemFilterInfo.ManufacturerAndType; }
+            set
+            {
+                if (ItemFilterInfo.ManufacturerAndType != value)
+                {
+                    ItemFilterInfo.ManufacturerAndType = value;
+                    RaisePropertyChanged(() => FilteredManufacturerAndType);
+                }
+            }
+        }
+        public int? FilteredBruttoPriceMax
+        {
+            get { return ItemFilterInfo.BruttoPriceMax; }
+            set
+            {
+                if (ItemFilterInfo.BruttoPriceMax != value)
+                {
+                    ItemFilterInfo.BruttoPriceMax = value;
+                    RaisePropertyChanged(() => FilteredBruttoPriceMax);
+                }
+            }
+        }
+        public int? FilteredBruttoPriceMin
+        {
+            get { return ItemFilterInfo.BruttoPriceMin; }
+            set
+            {
+                if (ItemFilterInfo.BruttoPriceMin != value)
+                {
+                    ItemFilterInfo.BruttoPriceMin = value;
+                    RaisePropertyChanged(() => FilteredBruttoPriceMin);
+                }
+            }
+        }
+        public DateTime? FilteredDateOfCreationMax
+        {
+            get { return ItemFilterInfo.DateOfCreationMax; }
+            set
+            {
+                if (ItemFilterInfo.DateOfCreationMax != value)
+                {
+                    ItemFilterInfo.DateOfCreationMax = value;
+                    RaisePropertyChanged(() => FilteredDateOfCreationMax);
+                }
+            }
+        }
+        public DateTime? FilteredDateOfCreationMin
+        {
+            get { return ItemFilterInfo.DateOfCreationMin; }
+            set
+            {
+                if (ItemFilterInfo.DateOfCreationMin != value)
+                {
+                    ItemFilterInfo.DateOfCreationMin = value;
+                    RaisePropertyChanged(() => FilteredDateOfCreationMin);
+                }
+            }
+        }
+        public DateTime? FilteredDateOfScrapMax
+        {
+            get { return ItemFilterInfo.DateOfScrapMax; }
+            set
+            {
+                if (ItemFilterInfo.DateOfScrapMax != value)
+                {
+                    ItemFilterInfo.DateOfScrapMax = value;
+                    RaisePropertyChanged(() => FilteredDateOfScrapMax);
+                }
+            }
+        }
+        public DateTime? FilteredDateOfScrapMin
+        {
+            get { return ItemFilterInfo.DateOfScrapMin; }
+            set
+            {
+                if (ItemFilterInfo.DateOfScrapMin != value)
+                {
+                    ItemFilterInfo.DateOfScrapMin = value;
+                    RaisePropertyChanged(() => FilteredDateOfScrapMin);
+                }
+            }
+        }
+        public DateTime? FilteredYearOfManufactureMax
+        {
+            get { return ItemFilterInfo.YearOfManufactureMax; }
+            set
+            {
+                if (ItemFilterInfo.YearOfManufactureMax != value)
+                {
+                    ItemFilterInfo.YearOfManufactureMax = value;
+                    RaisePropertyChanged(() => FilteredYearOfManufactureMax);
+                }
+            }
+        }
+        public DateTime? FilteredYearOfManufactureMin
+        {
+            get { return ItemFilterInfo.YearOfManufactureMin; }
+            set
+            {
+                if (ItemFilterInfo.YearOfManufactureMin != value)
+                {
+                    ItemFilterInfo.YearOfManufactureMin = value;
+                    RaisePropertyChanged(() => FilteredYearOfManufactureMin);
+                }
+            }
+        }
 
 
         public ICommand MouseLabelClickCommand { get; private set; }
@@ -136,12 +245,52 @@ namespace ALP.ViewModel.Inventory
 
         private void OnDeleteFilterCommand()
         {
-            //TODO
+            ItemFilterInfo.Buildings.Clear();
+            ItemFilterInfo.Floors.Clear();
+            ItemFilterInfo.Locations.Clear();
+            ItemFilterInfo.Departments.Clear();
+            ItemFilterInfo.Sections.Clear();
+            ItemFilterInfo.ItemStates.Clear();
+            ItemFilterInfo.ItemTypes.Clear();
+            ItemFilterInfo.ItemNatures.Clear();
+
+            FilteredId = string.Empty;
+
+            ItemFilterInfo.Id.Clear();
+            FilteredBruttoPriceMax = null;
+            FilteredBruttoPriceMin = null;
+            FilteredDateOfCreationMax = null;
+            FilteredDateOfCreationMin = null;
+            FilteredDateOfScrapMax = null;
+            FilteredDateOfScrapMin = null;
+            FilteredManufacturerAndType = string.Empty;
+            FilteredYearOfManufactureMax = null;
+            FilteredYearOfManufactureMin = null;
+
+            RaisePropertyChanged(() => FilteredId);
         }
 
         private void OnFilterCommand()
         {
-            //TODO
+            try
+            {
+                IsLoading = true;
+
+                var result = _dialogService.ShowDialog<FilterWindow, InventoryFilterWindowViewModel, InventoryItemFilterInfo,InventoryItemFilterInfo>(ItemFilterInfo);
+                if (result.Accepted)
+                {
+                    ItemFilterInfo = result.Value;
+                }
+            }
+            catch (Exception e)
+            {
+                _loggingService.LogInformation("Error during FilterSet", e);
+                _dialogService.ShowAlert(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private void OnExportCommand()

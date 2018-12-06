@@ -179,6 +179,7 @@
     <Compile Include="ViewModel\Employee\EmployeeSearchPageViewModel.cs" />
     <Compile Include="ViewModel\IDialogViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryEditPageViewModel.cs" />
+    <Compile Include="ViewModel\Inventory\InventoryFilterWindowViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryItemSearchListItemViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryOperationWindowViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventorySearchPageViewModel.cs" />
@@ -210,9 +211,6 @@
     </Compile>
     <Compile Include="View\Inventory\Inventory_EditPage.xaml.cs">
       <DependentUpon>Inventory_EditPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Inventory\Inventory_ExportWindow.xaml.cs">
-      <DependentUpon>Inventory_ExportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Inventory\Inventory_FilterWindow.xaml.cs">
       <DependentUpon>Inventory_FilterWindow.xaml</DependentUpon>
@@ -359,10 +357,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Inventory\Inventory_EditPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Inventory\Inventory_ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

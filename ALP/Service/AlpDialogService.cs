@@ -46,7 +46,7 @@ namespace ALP.Service
             _loggingService.LogDebug(new
             {
                 action = nameof(ShowDtoEditorWindow),
-                dto = dto.ToString()
+                dto = dto?.ToString()
             });
 
             var window = GetLookupWindowByDto(dto);

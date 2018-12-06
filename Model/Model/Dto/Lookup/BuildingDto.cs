@@ -57,7 +57,7 @@ namespace Common.Model.Dto
             Id = source.Id;
             Name = source.Name;
             LocationId = source.LocationId;
-            Location.UpdateByDto(source.Location);
+            Location?.UpdateByDto(source.Location);
             Locked = source.Locked;
         }
 

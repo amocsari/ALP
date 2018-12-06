@@ -21,10 +21,10 @@ namespace Common.Model.Dto
             {
                 Id = Id,
                 Name = Name,
-                DepartmentID =  DepartmentID,
-                Department = (DepartmentDto)Department.Copy(),
+                DepartmentID = DepartmentID,
+                Department = (DepartmentDto)Department?.Copy(),
                 SectionID = SectionID,
-                Section = (SectionDto)Section.Copy(),
+                Section = (SectionDto)Section?.Copy(),
                 EmailAddress = EmailAddress,
                 RetirementDate = RetirementDate
             };
@@ -45,12 +45,22 @@ namespace Common.Model.Dto
 
         public bool Equals(EmployeeDto other)
         {
-            throw new NotImplementedException();
+            return Id == other.Id
+                   && Name == other.Name
+                   && DepartmentID == other.DepartmentID
+                   && SectionID == other.SectionID
+                   && EmailAddress == other.EmailAddress
+                   && RetirementDate == other.RetirementDate;
         }
 
         public void UpdateByDto(EmployeeDto sourceDto)
         {
-            throw new NotImplementedException();
+            Id = sourceDto.Id;
+            Name = sourceDto.Name;
+            DepartmentID = sourceDto.DepartmentID;
+            SectionID = sourceDto.SectionID;
+            EmailAddress = sourceDto.EmailAddress;
+            RetirementDate = sourceDto.RetirementDate;
         }
 
         public override string ToString()

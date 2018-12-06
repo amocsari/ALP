@@ -57,7 +57,7 @@ namespace Common.Model.Dto
             Id = source.Id;
             Name = source.Name;
             BuildingId = source.BuildingId;
-            Building.UpdateByDto(source.Building);
+            Building?.UpdateByDto(source.Building);
             Locked = source.Locked;
         }
 
@@ -87,7 +87,7 @@ namespace Common.Model.Dto
             StringBuilder sb = new StringBuilder($"{{ Id = {Id}");
             sb.Append($", Name = {Name}");
             sb.Append($", BuildingId = {BuildingId}");
-            sb.Append($", Building = {Building.ToString()}");
+            sb.Append($", Building = {Building?.ToString()}");
             sb.Append($", Locked = {Locked}");
             sb.Append(" }");
             return sb.ToString();

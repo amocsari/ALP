@@ -57,7 +57,7 @@ namespace Common.Model.Dto
             Id = source.Id;
             Name = source.Name;
             ItemNatureId = source.ItemNatureId;
-            ItemNature.UpdateByDto(source.ItemNature);
+            ItemNature?.UpdateByDto(source.ItemNature);
             Locked = source.Locked;
         }
 
@@ -87,7 +87,7 @@ namespace Common.Model.Dto
             StringBuilder sb = new StringBuilder($"{{ Id = {Id}");
             sb.Append($", Name = {Name}");
             sb.Append($", ItemNatureId = {ItemNatureId}");
-            sb.Append($", Building = {ItemNature.ToString()}");
+            sb.Append($", Building = {ItemNature?.ToString()}");
             sb.Append($", Locked = {Locked}");
             sb.Append(" }");
             return sb.ToString();
