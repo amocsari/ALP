@@ -253,9 +253,11 @@ namespace API.Service
                             {
                                 EmployeeName = importedItem.OwnerName
                             };
-                            var insertedEmployee = (await _context.Employee.AddAsync(newEmployee)).Entity;
-                            employeeList.Add(insertedEmployee);
-                            newItem.EmployeeId = insertedEmployee.EmployeeId;
+                            var insertedRow = await _context.Employee.AddAsync(newEmployee);
+                            employeeList.Add(insertedRow.Entity);
+                            newItem.EmployeeId = insertedRow.Entity.EmployeeId;
+                            insertedRow.State = EntityState.Detached;                            
+                            
                         }
                     }
 
@@ -267,7 +269,7 @@ namespace API.Service
                         dtoList.Add(dto);
                     }
                 }
-
+                employeeList.Clear();
                 await _context.SaveChangesAsync();
                 response.Value = dtoList;
             }

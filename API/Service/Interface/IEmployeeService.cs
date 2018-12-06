@@ -9,7 +9,7 @@ namespace API.Service
     {
         Task<AlpApiResponse<List<EmployeeDto>>> GetAllEmployees();
         Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees(EmployeeFilterInfo info);
-        Task<AlpApiResponse> AddNewEmployee(EmployeeDto dto);
+        Task<AlpApiResponse> AddOrEditEmployee(EmployeeDto dto);
         Task<AlpApiResponse<List<EmployeeDto>>> GetByName(string name);
         Task<AlpApiResponse<List<EmployeeDto>>> GetAvailableEmployees();
     }

@@ -117,7 +117,7 @@ namespace ALP.ViewModel.Employee
         {
             try
             {
-                await _employeeApiService.AddNewEmployee(Employee.Value);
+                await _employeeApiService.AddOrEditEmployee(Employee.Value);
                 _navigationService.GoBack();
             }
             catch (Exception e)

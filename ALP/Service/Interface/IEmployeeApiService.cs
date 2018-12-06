@@ -9,7 +9,7 @@ namespace ALP.Service.Interface
     {
         Task<List<EmployeeDto>> GetAll();
         Task<List<EmployeeDto>> FilterEmployees(EmployeeFilterInfo info);
-        Task AddNewEmployee(EmployeeDto dto);
+        Task AddOrEditEmployee(EmployeeDto dto);
         Task<EmployeeDto> GetEmployeeByName(string employeeName);
         Task<List<EmployeeDto>> GetAvailable();
     }

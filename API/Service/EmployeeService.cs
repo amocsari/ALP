@@ -22,24 +22,33 @@ namespace API.Service
             _logger = logger;
         }
 
-        public async Task<AlpApiResponse> AddNewEmployee(EmployeeDto dto)
+        public async Task<AlpApiResponse> AddOrEditEmployee(EmployeeDto dto)
         {
             var response = new AlpApiResponse();
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(AddNewEmployee),
+                    action = nameof(AddOrEditEmployee),
                     dto = dto?.ToString()
                 }.ToString());
 
                 dto.Validate();
 
-                var entity = dto.DtoToEntity();
-                entity.Department = null;
-                entity.Section = null;
-                await _context.Employee.AddAsync(entity);
-                await _context.SaveChangesAsync();
+                var oldEntity = await _context.Employee.FirstOrDefaultAsync(employee => employee.EmployeeId == dto.Id);
+                if (oldEntity != null)
+                {
+                    oldEntity.UpdateEntityByDto(dto);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    var entity = dto.DtoToEntity();
+                    entity.Department = null;
+                    entity.Section = null;
+                    await _context.Employee.AddAsync(entity);
+                    await _context.SaveChangesAsync();
+                }
             }
             catch (Exception e)
             {
@@ -69,13 +78,13 @@ namespace API.Service
                 }.ToString());
 
                 if (string.IsNullOrEmpty(name))
-            {
-                return null;
-            }
+                {
+                    return null;
+                }
 
-            name = name.ToLower();
-            var entities = await _context.Employee.Where(employee => employee.EmployeeName.ToLower().Equals(name)).ToListAsync();
-            response.Value = entities.Select(entity => entity.EntityToDto()).ToList();
+                name = name.ToLower();
+                var entities = await _context.Employee.Where(employee => employee.EmployeeName.ToLower().Equals(name)).ToListAsync();
+                response.Value = entities.Select(entity => entity.EntityToDto()).ToList();
             }
             catch (Exception e)
             {

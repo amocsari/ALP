@@ -19,9 +19,9 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public Task<AlpApiResponse> AddNewEmployee(EmployeeDto dto)
+        public Task<AlpApiResponse> AddOrEditEmployee(EmployeeDto dto)
         {
-            return _employeeService.AddNewEmployee(dto);
+            return _employeeService.AddOrEditEmployee(dto);
         }
 
         [HttpGet]

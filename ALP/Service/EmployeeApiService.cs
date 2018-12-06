@@ -17,15 +17,15 @@ namespace ALP.Service
             _loggingService = loggingService;
         }
 
-        public async Task AddNewEmployee(EmployeeDto dto)
+        public async Task AddOrEditEmployee(EmployeeDto dto)
         {
             _loggingService.LogDebug(new
             {
-                action = nameof(AddNewEmployee),
+                action = nameof(AddOrEditEmployee),
                 dto = dto.ToString()
             });
 
-            await _apiService.PostAsync("Employee/AddNewEmployee",dto);
+            await _apiService.PostAsync("Employee/AddOrEditEmployee",dto);
         }
 
         public async Task<EmployeeDto> GetEmployeeByName(string employeeName)
