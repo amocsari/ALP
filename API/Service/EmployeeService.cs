@@ -206,5 +206,52 @@ namespace API.Service
 
             return response;
         }
+
+        public async Task<AlpApiResponse> RetireEmployee(int employeeId)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(RetireEmployee),
+                    employeeId
+                }.ToString());
+
+                var entity = await _context.Employee.FirstOrDefaultAsync(employee => employee.EmployeeId == employeeId);
+
+                if(entity == null)
+                {
+                    response.Success = false;
+                    response.Message = "Nem található a munkavállaló az adatbázisban";
+                    return response;
+                }
+
+                if(entity.RetirementDate != null)
+                {
+                    response.Success = false;
+                    response.Message = "Ennek a munkavállalónak már megszűnt a munkaviszonya";
+                    return response;
+                }
+
+                entity.RetirementDate = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
     }
 }

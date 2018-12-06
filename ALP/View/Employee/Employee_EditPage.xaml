@@ -42,12 +42,12 @@
             </Grid>
         </DockPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Content="Leltárhoz hozzáférés adása" FontSize="14" Margin="5"/>
-            <Button Content="Munkaviszony megszüntetése" FontSize="14" Margin="5"/>
+            <Button Content="Leltárhoz hozzáférés adása" Command="{Binding CreateAccountCommand}" FontSize="14" Margin="5"/>
+            <Button Content="Munkaviszony megszüntetése" Command="{Binding RetireCommand}" FontSize="14" Margin="5"/>
             <Button Content="Felhasználó nevén lévő eszközök listázása" Command="{Binding ListItemsCommand}" FontSize="14" Margin="5"/>
             <Button Content="Mégse" Command="{Binding CancelCommand}" FontSize="14" Margin="5"/>
             <Button Content="Mentés" Command="{Binding SaveCommand}" FontSize="14" Margin="5"/>
         </StackPanel>
-
+        <view:LoadingIndicator/>
     </Grid>
 </Page>

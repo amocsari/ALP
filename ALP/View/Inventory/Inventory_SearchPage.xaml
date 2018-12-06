@@ -15,7 +15,7 @@
 
         <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-            <StackPanel DockPanel.Dock="Left" Width="Auto" VerticalAlignment="Center">
+            <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center" MinWidth="200">
 
                 <TextBlock Text="Megnevezés" Name="LabelItemName" Tag="6" HorizontalAlignment="Center"
                            FontWeight="Bold" Foreground="Gray" TextDecorations="Underline"/>
@@ -200,7 +200,7 @@
 
                 <Label Content="ÁDI Leltár" DockPanel.Dock="Top"  HorizontalAlignment="Center" FontSize="32"/>
 
-                <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch">
+                <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="30,0,30,0">
 
                     <Grid.ColumnDefinitions>
 
@@ -223,92 +223,92 @@
 
                     </Grid.RowDefinitions>
 
-                    <TextBox Text="{Binding FilteredId}" ToolTip="Azonosító" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0"/>
+                    <TextBox Text="{Binding FilteredId}" ToolTip="Azonosító" VerticalContentAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Margin="2,5"/>
 
-                    <Label Content="Nyilvántartásba vétel" Grid.Column="4" Grid.Row="0"/>
+                    <Label Content="Nyilvántartásba vétel" Grid.Column="4" Grid.Row="0" Margin="2,5"/>
 
-                    <DatePicker SelectedDate="{Binding FilteredDateOfCreationMin}" DisplayDateEnd="{Binding FilteredDateOfCreationMax}" Grid.Column="5" Grid.Row="0"/>
+                    <DatePicker SelectedDate="{Binding FilteredDateOfCreationMin}" DisplayDateEnd="{Binding FilteredDateOfCreationMax}" VerticalContentAlignment="Center" Foreground="Gray" Grid.Column="5" Grid.Row="0" Margin="2,5"/>
 
-                    <Label Content="-" Grid.Column="6" Grid.Row="0"/>
+                    <Label Content="-" Grid.Column="6" Grid.Row="0" Margin="2,5"/>
 
-                    <DatePicker SelectedDate="{Binding FilteredDateOfCreationMax}" DisplayDateStart="{Binding FilteredDateOfCreationMin}" Grid.Column="7" Grid.Row="0"/>
+                    <DatePicker SelectedDate="{Binding FilteredDateOfCreationMax}" DisplayDateStart="{Binding FilteredDateOfCreationMin}" VerticalContentAlignment="Center" Foreground="Gray" Grid.Column="7" Grid.Row="0" Margin="2,5"/>
 
-                    <Label Content="Gyártó + Típus" Grid.Column="0" Grid.Row="1"/>
+                    <Label Content="Gyártó + Típus" Grid.Column="0" Grid.Row="1" Margin="2,5"/>
 
-                    <TextBox Text="{Binding FilteredManufacturerAndType}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1"/>
+                    <TextBox Text="{Binding FilteredManufacturerAndType}" VerticalContentAlignment="Center" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Margin="2,5"/>
 
-                    <Label Content="Gyártási év" Grid.Column="4" Grid.Row="1"/>
+                    <Label Content="Gyártási év" Grid.Column="4" Grid.Row="1" Margin="2,5"/>
 
-                    <DatePicker SelectedDate="{Binding FilteredYearOfManufactureMin}" DisplayDateEnd="{Binding FilteredYearOfManufactureMax}" Grid.Column="5" Grid.Row="1"/>
+                    <DatePicker SelectedDate="{Binding FilteredYearOfManufactureMin}" DisplayDateEnd="{Binding FilteredYearOfManufactureMax}" VerticalContentAlignment="Center" Foreground="Gray" Grid.Column="5" Grid.Row="1" Margin="2,5"/>
 
-                    <Label Content="-" Grid.Column="6" Grid.Row="1"/>
+                    <Label Content="-" Grid.Column="6" Grid.Row="1" Margin="2,5"/>
 
-                    <DatePicker SelectedDate="{Binding FilteredYearOfManufactureMax}" DisplayDateStart="{Binding FilteredYearOfManufactureMin}" Grid.Column="7" Grid.Row="1"/>
+                    <DatePicker SelectedDate="{Binding FilteredYearOfManufactureMax}" DisplayDateStart="{Binding FilteredYearOfManufactureMin}" VerticalContentAlignment="Center" Foreground="Gray" Grid.Column="7" Grid.Row="1" Margin="2,5"/>
 
-                    <Label Content="Bruttó Ár" Grid.Column="0" Grid.Row="2"/>
+                    <Label Content="Bruttó Ár" Grid.Column="0" Grid.Row="2" Margin="2,5"/>
 
-                    <TextBox Text="{Binding FilteredBruttoPriceMin}" Grid.Column="1" Grid.Row="2"/>
+                    <TextBox Text="{Binding FilteredBruttoPriceMin}" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2" Margin="2,5"/>
 
-                    <Label Content="-" Grid.Column="2" Grid.Row="2"/>
+                    <Label Content="-" Grid.Column="2" Grid.Row="2" Margin="2,5"/>
 
-                    <TextBox Text="{Binding FilteredBruttoPriceMax}" Grid.Column="3" Grid.Row="2"/>
+                    <TextBox Text="{Binding FilteredBruttoPriceMax}" VerticalContentAlignment="Center" Grid.Column="3" Grid.Row="2" Margin="2,5"/>
 
-                    <Label Content="Selejtezés Dátuma" Grid.Column="4" Grid.Row="2"/>
+                    <Label Content="Selejtezés Dátuma" Grid.Column="4" Grid.Row="2" Margin="2,5"/>
 
-                    <DatePicker SelectedDate="{Binding FilteredDateOfScrapMin}" DisplayDateEnd="{Binding FilteredDateOfScrapMax}" Grid.Column="5" Grid.Row="2"/>
+                    <DatePicker SelectedDate="{Binding FilteredDateOfScrapMin}" DisplayDateEnd="{Binding FilteredDateOfScrapMax}" VerticalContentAlignment="Center" Foreground="Gray" Grid.Column="5" Grid.Row="2" Margin="2,5"/>
 
-                    <Label Content="-" Grid.Column="6" Grid.Row="2"/>
+                    <Label Content="-" Grid.Column="6" Grid.Row="2" Margin="2,5"/>
 
-                    <DatePicker SelectedDate="{Binding FilteredDateOfScrapMax}" DisplayDateStart="{Binding FilteredDateOfScrapMin}" Grid.Column="7" Grid.Row="2"/>
+                    <DatePicker SelectedDate="{Binding FilteredDateOfScrapMax}" DisplayDateStart="{Binding FilteredDateOfScrapMin}" VerticalContentAlignment="Center" Foreground="Gray" Grid.Column="7" Grid.Row="2" Margin="2,5"/>
 
                 </Grid>
 
-                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="30,0,0,5">
 
                     <!--TODO: ikont a helyére-->
-                    <Button Content="Szűrő" ToolTip="Szűrő" Command="{Binding FilterCommand}" VerticalAlignment="Bottom" Margin="5"/>
+                    <Button Content="Szűrő" ToolTip="Szűrő" FontSize="14" Command="{Binding FilterCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
                     <!--TODO: ikont a helyére-->
-                    <Button Content="Szűrő törlése" ToolTip="Szűrő törlése" Command="{Binding DeleteFilterCommand}"  VerticalAlignment="Bottom" Margin="5"/>
+                    <Button Content="Szűrő törlése" ToolTip="Szűrő törlése" FontSize="14" Command="{Binding DeleteFilterCommand}"  VerticalAlignment="Bottom" Margin="5"/>
 
                     <!--TODO: ikont a helyére-->
-                    <Button Content="Export" ToolTip="Export" Command="{Binding ExportCommand}" VerticalAlignment="Bottom" Margin="5"/>
+                    <Button Content="Export" ToolTip="Export" FontSize="14" Command="{Binding ExportCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
 
                     <!--TODO: ikont a helyére-->
-                    <Button Content="Műveletek" ToolTip="Műveletek" VerticalAlignment="Bottom" Command="{Binding QuickCommandsCommand}" Margin="5"/>
+                    <Button Content="Műveletek" ToolTip="Műveletek" FontSize="14" VerticalAlignment="Bottom" Command="{Binding QuickCommandsCommand}" Margin="5"/>
 
                     <!--TODO: ikont a helyére-->
-                    <Button Content="Keresés" ToolTip="Keresés" Command="{Binding SearchCommand}" VerticalAlignment="Bottom" Margin="5"/>
+                    <Button Content="Keresés" ToolTip="Keresés" FontSize="14" Command="{Binding SearchCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
                 </StackPanel>
 
                 <Grid>
 
-                    <FrameworkElement x:Name="DummyOldInventoryNumber" Visibility="{Binding Visibilities[TextBlockOldInventoryNumber]}"/>
-                    <DataGrid ItemsSource="{Binding ItemList}" SelectedItem="{Binding SelectedItem}" AlternatingRowBackground="LightGray" HorizontalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <FrameworkElement x:Name="DummyFrameWorkElement" Visibility="{Binding Visibilities[TextBlockOldInventoryNumber]}"/>
+                    <DataGrid ItemsSource="{Binding ItemList}" SelectedItem="{Binding SelectedItem}" AlternatingRowBackground="LightGray" HorizontalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="30">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Value.ItemName}" Header="Név" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Binding="{Binding Value.InventoryNumber}" Header="Leltári szám" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockOldInventoryNumber], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.OldInventoryNumber}" Header="Régi leltári szám" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockSerialNumber], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.SerialNumber}" Header="Gyári szám" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockYellowNumber], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.YellowNumber}" Header="Sárga szám" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockAccreditationNumber], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.AccreditationNumber}" Header="Akkreditációs szám" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockProductionYear], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.ProductionYear?.Year}" Header="Gyártási év" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockBruttoPrice], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.BruttoPrice}" Header="Bruttó ár" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockManufacturerType], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.ManufacTurerModelType}" Header="Gyártmány + Típus" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockItemNature], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.ItemNature.Name}" Header="Jelleg" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockItemType], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.ItemType.Name}" Header="Típus" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDepartment], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Department.Name}" Header="Osztály" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockSection], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Section.Name}" Header="Részleg" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockBuilding], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Building.Name}" Header="Épület" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockFloor], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Floor.Name}" Header="Emelet" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockRoom], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Room}" Header="Szoba" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockEmployee], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Employee.Name}" Header="Tulajdonos" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockItemState], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.ItemState.Name}" Header="Állapot" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockComment], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Comment}" Header="Megjegyzés" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfCreation], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.DateOfCreation?.Date}" Header="Nyilvántartásba vétel dátuma" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfScrap], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.DateOfScrap?.Date}" Header="Selejtezés dátuma" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockOldInventoryNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.OldInventoryNumber}" Header="Régi leltári szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockSerialNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.SerialNumber}" Header="Gyári szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockYellowNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.YellowNumber}" Header="Sárga szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockAccreditationNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.AccreditationNumber}" Header="Akkreditációs szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockProductionYear], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.ProductionYear?.Year}" Header="Gyártási év" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockBruttoPrice], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.BruttoPrice}" Header="Bruttó ár" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockManufacturerType], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.ManufacTurerModelType}" Header="Gyártmány + Típus" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockItemNature], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.ItemNature.Name}" Header="Jelleg" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockItemType], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.ItemType.Name}" Header="Típus" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDepartment], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Department.Name}" Header="Osztály" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockSection], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Section.Name}" Header="Részleg" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockBuilding], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Building.Name}" Header="Épület" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockFloor], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Floor.Name}" Header="Emelet" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockRoom], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Room}" Header="Szoba" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockEmployee], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Employee.Name}" Header="Tulajdonos" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockItemState], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.ItemState.Name}" Header="Állapot" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockComment], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Comment}" Header="Megjegyzés" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfCreation], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.DateOfCreation?.Date}" Header="Nyilvántartásba vétel dátuma" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfScrap], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.DateOfScrap?.Date}" Header="Selejtezés dátuma" Width="*" IsReadOnly="True" />
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

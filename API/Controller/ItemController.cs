@@ -54,5 +54,16 @@ namespace API.Controller
             }
             return _itemService.ImportItems(importedItems);
         }
+
+        [HttpPost]
+        public Task<AlpApiResponse<List<ItemDto>>> GetItemsByEmployeeId([FromBody] int employeeId)
+        {
+            var sessionToken = HttpContext.Request.Headers["sessiontoken"];
+            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            {
+                return Task.FromResult(new AlpApiResponse<List<ItemDto>> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
+            }
+            return _itemService.GetItemsByEmployeeId(employeeId);
+        }
     }
 }

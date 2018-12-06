@@ -11,5 +11,6 @@ namespace ALP.Service.Interface
         Task<List<ItemDto>> FilterItems(InventoryItemFilterInfo info);
         Task<ItemDto> GetItemById(int itemId);
         Task<List<ItemDto>> ImportItems(List<ImportedItem> importedItems);
+        Task<List<ItemDto>> GetItemsByEmployeeId(int employeeId);
     }
 }

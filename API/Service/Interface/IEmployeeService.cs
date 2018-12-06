@@ -12,5 +12,6 @@ namespace API.Service
         Task<AlpApiResponse> AddOrEditEmployee(EmployeeDto dto);
         Task<AlpApiResponse<List<EmployeeDto>>> GetByName(string name);
         Task<AlpApiResponse<List<EmployeeDto>>> GetAvailableEmployees();
+        Task<AlpApiResponse> RetireEmployee(int employeeId);
     }
 }

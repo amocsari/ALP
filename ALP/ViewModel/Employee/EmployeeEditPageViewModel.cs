@@ -23,7 +23,7 @@ namespace ALP.ViewModel.Employee
             get { return employee; }
             set
             {
-                if(employee != value)
+                if (employee != value)
                 {
                     Set(ref employee, value);
                 }
@@ -87,6 +87,8 @@ namespace ALP.ViewModel.Employee
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
         public ICommand ListItemsCommand { get; private set; }
+        public ICommand CreateAccountCommand { get; private set; }
+        public ICommand RetireCommand { get; private set; }
 
         private readonly ILookupApiService<DepartmentDto> _departmentApiService;
         private readonly ILookupApiService<SectionDto> _sectionApiService;
@@ -94,8 +96,10 @@ namespace ALP.ViewModel.Employee
         private readonly IEmployeeApiService _employeeApiService;
         private readonly IAlpLoggingService<EmployeeEditPageViewModel> _loggingService;
         private readonly IAlpDialogService _dialogService;
+        private readonly IInventoryApiService _inventoryApiService;
 
-        public EmployeeEditPageViewModel(ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService, IAlpNavigationService navigationService, IEmployeeApiService employeeApiService, IAlpLoggingService<EmployeeEditPageViewModel> loggingService, IAlpDialogService dialogService)
+
+        public EmployeeEditPageViewModel(ILookupApiService<DepartmentDto> departmentApiService, ILookupApiService<SectionDto> sectionApiService, IAlpNavigationService navigationService, IEmployeeApiService employeeApiService, IAlpLoggingService<EmployeeEditPageViewModel> loggingService, IAlpDialogService dialogService, IInventoryApiService inventoryApiService)
         {
             Employee = new EmployeeListItemViewModel(new EmployeeDto());
 
@@ -105,12 +109,44 @@ namespace ALP.ViewModel.Employee
             _employeeApiService = employeeApiService;
             _loggingService = loggingService;
             _dialogService = dialogService;
+            _inventoryApiService = inventoryApiService;
 
             SaveCommand = new RelayCommand(OnSaveCommand);
             CancelCommand = new RelayCommand(OnCancelCommand);
             ListItemsCommand = new RelayCommand(OnListItemsCommand);
+            RetireCommand = new RelayCommand(OnRetireCommand);
+            CreateAccountCommand = new RelayCommand(OnCreateAccountCommand);
 
             Initialization = InitializeAsync();
+        }
+
+        private void OnCreateAccountCommand()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async void OnRetireCommand()
+        {
+            try
+            {
+                IsLoading = true;
+                var result = _dialogService.ShowConfirmDialog($"Biztosan felveszi {Employee.Value.Name} dolgozó munkaviszonyának megszűnését?", "Munkaviszony megszűnése");
+                if (result)
+                {
+                    await _employeeApiService.RetireEmployeeById(Employee.Value.Id);
+                    _dialogService.ShowAlert($"{Employee.Value.Name} munkaviszony megszűnése sikeresen felvéve!");
+                    _navigationService.GoBack();
+                }
+            }
+            catch (Exception e)
+            {
+                _loggingService.LogInformation("Error during retiring of new Employee", e);
+                _dialogService.ShowWarning(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private async void OnSaveCommand()
@@ -132,9 +168,23 @@ namespace ALP.ViewModel.Employee
             _navigationService.GoBack();
         }
 
-        private void OnListItemsCommand()
+        private async void OnListItemsCommand()
         {
-            throw new NotImplementedException();
+            try
+            {
+                IsLoading = true;
+                var itemList = await _inventoryApiService.GetItemsByEmployeeId(Employee.Value.Id);
+                _navigationService.NavigateTo(ViewModelLocator.InventoryItemSearchPage, itemList);
+            }
+            catch (Exception e)
+            {
+                _loggingService.LogInformation("Error during query of employee's items!", e);
+                _dialogService.ShowWarning(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         protected async override Task InitializeAsync()

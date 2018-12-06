@@ -66,7 +66,7 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public Task<AlpApiResponse<List<EmployeeDto>>> GetEmployeeByName(string name)
+        public Task<AlpApiResponse<List<EmployeeDto>>> GetEmployeeByName([FromBody]string name)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
             if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
@@ -74,6 +74,17 @@ namespace API.Controller
                 return Task.FromResult(new AlpApiResponse<List<EmployeeDto>> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
             return _employeeService.GetByName(name);
+        }
+
+        [HttpPost]
+        public Task<AlpApiResponse> RetireEmployee([FromBody]int employeeId)
+        {
+            var sessionToken = HttpContext.Request.Headers["sessiontoken"];
+            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            {
+                return Task.FromResult(new AlpApiResponse { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
+            }
+            return _employeeService.RetireEmployee(employeeId);
         }
     }
 }

@@ -256,8 +256,8 @@ namespace API.Service
                             var insertedRow = await _context.Employee.AddAsync(newEmployee);
                             employeeList.Add(insertedRow.Entity);
                             newItem.EmployeeId = insertedRow.Entity.EmployeeId;
-                            insertedRow.State = EntityState.Detached;                            
-                            
+                            insertedRow.State = EntityState.Detached;
+
                         }
                     }
 
@@ -271,6 +271,48 @@ namespace API.Service
                 }
                 employeeList.Clear();
                 await _context.SaveChangesAsync();
+                response.Value = dtoList;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse<List<ItemDto>>> GetItemsByEmployeeId(int employeeId)
+        {
+            var response = new AlpApiResponse<List<ItemDto>>();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(GetItemsByEmployeeId),
+                    employeeId
+                }.ToString());
+
+                var items = await _context.Item.AsNoTracking()
+                        .Include(item => item.Department)
+                        .Include(item => item.Employee)
+                        .Include(item => item.Building)
+                        .Include(item => item.Section)
+                        .Include(item => item.Floor)
+                        .Include(item => item.ItemNature)
+                        .Include(item => item.ItemState)
+                        .Include(item => item.ItemType)
+                        .Where(item => item.EmployeeId == employeeId).ToListAsync();
+
+                var dtoList = items.Select(item => item.EntityToDto()).ToList();
+
                 response.Value = dtoList;
             }
             catch (Exception e)

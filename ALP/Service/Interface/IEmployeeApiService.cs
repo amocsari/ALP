@@ -12,5 +12,6 @@ namespace ALP.Service.Interface
         Task AddOrEditEmployee(EmployeeDto dto);
         Task<EmployeeDto> GetEmployeeByName(string employeeName);
         Task<List<EmployeeDto>> GetAvailable();
+        Task RetireEmployeeById(int id);
     }
 }

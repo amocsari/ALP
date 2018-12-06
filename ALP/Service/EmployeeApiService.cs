@@ -69,5 +69,16 @@ namespace ALP.Service
 
             return await _apiService.GetAsync<List<EmployeeDto>>("Employee/GetAvailableEmployees");
         }
+
+        public async Task RetireEmployeeById(int id)
+        {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(RetireEmployeeById),
+                id
+            });
+
+            await _apiService.PostAsync("Employee/RetireEmployee", id);
+        }
     }
 }

@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Name="Window"
-        Title="OperationWindow" Height="250" Width="500">
+        Title="OperationWindow" Height="300" Width="500">
 
     <Window.Resources>
         <DataTemplate x:Key="AutoCompleteEmployeeDataTemplate">
@@ -29,31 +29,29 @@
             <Label DockPanel.Dock="Top" FontSize="42" HorizontalAlignment="Center" Content="Gyorsműveletek"/>
             <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TabItem Header="Selejtezés">
-                    <Button Content="Selejtezés" Command="{Binding ScrapCommand}" CommandParameter="{Binding ElementName=Window}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Button Content="Selejtezés" Command="{Binding ScrapCommand}" CommandParameter="{Binding ElementName=Window}" FontSize="28" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </TabItem>
                 <TabItem Header="Átadás más osztályra">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                             <Label Content="Új osztály:" />
-                            <ComboBox Width="200" ItemsSource="{Binding DepartmentList}" SelectedItem="{Binding SelectedDepartment}" DisplayMemberPath="Name" IsTextSearchEnabled="True"/>
+                            <ComboBox Width="200" ItemsSource="{Binding DepartmentList}" SelectedItem="{Binding SelectedDepartment}" MinWidth="150" DisplayMemberPath="Name" IsTextSearchEnabled="True"  Margin="2,5"/>
                         </StackPanel>
-                        <Button Content="Átadás" Command="{Binding ChangeDepartmentCommand}" CommandParameter="{Binding ElementName=Window}" HorizontalAlignment="Center"/>
+                        <Button Content="Átadás" Command="{Binding ChangeDepartmentCommand}" CommandParameter="{Binding ElementName=Window}" FontSize="14" HorizontalAlignment="Stretch"  Margin="2,5"/>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Átadás más alkalmazottra">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                             <Label Content="Új alkalmazott:"/>
-                            <toolkit:AutoCompleteBox ItemsSource="{Binding EmployeeList}" ValueMemberPath="Name" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" IsTextCompletionEnabled="True" FilterMode="Contains"/>
+                            <toolkit:AutoCompleteBox ItemsSource="{Binding EmployeeList}" ValueMemberPath="Name" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" MinWidth="150" IsTextCompletionEnabled="True" FilterMode="Contains"  Margin="2,5"/>
                         </StackPanel>
-                        <Button Content="Átadás" Command="{Binding ChangeOwnerCommand}" CommandParameter="{Binding ElementName=Window}"/>
+                        <Button Content="Átadás" Command="{Binding ChangeOwnerCommand}" CommandParameter="{Binding ElementName=Window}" FontSize="14"  Margin="2,5"/>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Átadás osztályvezetőre">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                        </StackPanel>
-                        <Button Content="Átadás" Command="{Binding ChangeOwnerToDepartmentChiefCommand}" CommandParameter="{Binding ElementName=Window}"/>
+                        <Button Content="Átadás" Command="{Binding ChangeOwnerToDepartmentChiefCommand}" CommandParameter="{Binding ElementName=Window}" FontSize="28" Padding="5" Margin="2,5"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>
