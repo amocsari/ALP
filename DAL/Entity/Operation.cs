@@ -21,7 +21,10 @@ namespace DAL.Entity
         [Required]
         public bool Priority { get; set; }
 
-        //public DateTime? DateOfCompletion { get; set; }
+        [Required]
+        public DateTime DateOfCreation { get; set; }
+
+        public DateTime? DateOfCompletion { get; set; }
 
 
         public virtual Item Item { get; set; }

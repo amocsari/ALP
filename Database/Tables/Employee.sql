@@ -2,7 +2,7 @@
 (
 	[EmployeeId] INT NOT NULL IDENTITY(1,1),
     [EmployeeName] VARCHAR(250) NOT NULL,
-	[DepartmentId] INT NOT NULL,
+	[DepartmentId] INT,
 	[SectionId] INT,
 	[EmailAddress] VARCHAR(100),
 	[RetirementDate] DATE,

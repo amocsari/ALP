@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ALP.Navigation;
 using ALP.Service;
 using ALP.Service.Interface;
 using ALP.View.Inventory;
@@ -13,6 +13,7 @@ using Common.Model;
 using Common.Model.Dto;
 using Common.Model.Enum;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Views;
 using JB.Collections.Reactive;
 
 namespace ALP.ViewModel.Inventory
@@ -66,7 +67,6 @@ namespace ALP.ViewModel.Inventory
 
         public ICommand MouseLabelClickCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
-        public ICommand ImportCommand { get; private set; }
         public ICommand ExportCommand { get; private set; }
         public ICommand FilterCommand { get; private set; }
         public ICommand DeleteFilterCommand { get; private set; }
@@ -76,16 +76,17 @@ namespace ALP.ViewModel.Inventory
         private readonly IInventoryApiService _inventoryApiService;
         private readonly IAlpDialogService _dialogService;
         private readonly IAlpLoggingService<InventorySearchPageViewModel> _loggingService;
+        private readonly IAlpNavigationService _navigationService;
 
-        public InventorySearchPageViewModel(IInventoryApiService inventoryApiService, IAlpDialogService dialogService, IAlpLoggingService<InventorySearchPageViewModel> loggingService)
+        public InventorySearchPageViewModel(IInventoryApiService inventoryApiService, IAlpDialogService dialogService, IAlpLoggingService<InventorySearchPageViewModel> loggingService, IAlpNavigationService navigationService)
         {
             _inventoryApiService = inventoryApiService;
             _dialogService = dialogService;
             _loggingService = loggingService;
+            _navigationService = navigationService;
 
             MouseLabelClickCommand = new RelayCommand<TextBlock>(OnMouseLabelClickCommand);
             SearchCommand = new RelayCommand(OnSearchCommand);
-            ImportCommand = new RelayCommand(OnImportCommand);
             ExportCommand = new RelayCommand(OnExportCommand);
             FilterCommand = new RelayCommand(OnFilterCommand);
             DeleteFilterCommand = new RelayCommand(OnDeleteFilterCommand);
@@ -135,21 +136,17 @@ namespace ALP.ViewModel.Inventory
 
         private void OnDeleteFilterCommand()
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private void OnFilterCommand()
         {
+            //TODO
         }
 
         private void OnExportCommand()
         {
-            throw new NotImplementedException();
-        }
-
-        private void OnImportCommand()
-        {
-            throw new NotImplementedException();
+            //TODO
         }
 
         private async void OnSearchCommand()
@@ -157,12 +154,12 @@ namespace ALP.ViewModel.Inventory
             try
             {
                 IsLoading = true;
-                if(!string.IsNullOrEmpty(FilteredId))
+                if (!string.IsNullOrEmpty(FilteredId))
                 {
                     ItemFilterInfo.Id.Add(FilteredId);
                 }
                 var items = await _inventoryApiService.FilterItems(ItemFilterInfo);
-                var itemViewModels = items.Select(item => new InventoryItemSearchListItemViewModel {Value = item}).ToList();
+                var itemViewModels = items.Select(item => new InventoryItemSearchListItemViewModel { Value = item }).ToList();
                 ItemList = new System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel>(itemViewModels);
                 ItemFilterInfo.Id.Clear();
             }
@@ -185,7 +182,7 @@ namespace ALP.ViewModel.Inventory
             {
                 Visibilities[obj.Name] = Visibility.Collapsed;
             }
-            
+
 
             var tag = (string)obj.Tag;
             var propertyType = (ItemPropertyType)int.Parse(tag);
@@ -211,6 +208,13 @@ namespace ALP.ViewModel.Inventory
             try
             {
                 itemList = new System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel>();
+
+                if (_navigationService.Parameter != null && _navigationService.Parameter is List<ItemDto>)
+                {
+                    var items = (List<ItemDto>)_navigationService.Parameter;
+                    var itemvmlist = items.Select(item => new InventoryItemSearchListItemViewModel { Value = item });
+                    ItemList = new System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel>(itemvmlist);
+                }
             }
             catch (Exception e)
             {

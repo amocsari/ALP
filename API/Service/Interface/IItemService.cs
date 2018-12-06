@@ -11,5 +11,6 @@ namespace API.Service
         Task<AlpApiResponse<ItemDto>> GetItemById(int itemId);
         Task<AlpApiResponse> AddNewItem(ItemDto dto);
         Task<AlpApiResponse<List<ItemDto>>> FindItemsForDisplay(InventoryItemFilterInfo info);
+        Task<AlpApiResponse<List<ItemDto>>> ImportItems(List<ImportedItem> importedItems);
     }
 }

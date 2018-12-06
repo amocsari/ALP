@@ -1,5 +1,7 @@
 ﻿using API.Service;
 using Microsoft.AspNetCore.Mvc;
+using Model.Model;
+using System.Threading.Tasks;
 
 namespace DAL.Controller
 {
@@ -12,6 +14,12 @@ namespace DAL.Controller
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
+        }
+
+        [HttpPost]
+        public Task<AlpApiResponse<User>> Login([FromBody] LoginData loginData)
+        {
+            return _accountService.Login(loginData.Username, loginData.Password);
         }
     }
 }

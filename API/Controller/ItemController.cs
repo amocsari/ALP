@@ -36,5 +36,11 @@ namespace API.Controller
         {
             return _itemService.AddNewItem(item);
         }
+
+        [HttpPost]
+        public Task<AlpApiResponse<List<ItemDto>>> ImportItems([FromBody] List<ImportedItem> importedItems)
+        {
+            return _itemService.ImportItems(importedItems);
+        }
     }
 }

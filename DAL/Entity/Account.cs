@@ -24,6 +24,8 @@ namespace DAL.Entity
         [ForeignKey("Role")]
         public int RoleId { get; set; }
 
+        public string Token { get; set; }
+
 
         public virtual Employee Employee { get; set; }
         public virtual Role Role { get; set; }

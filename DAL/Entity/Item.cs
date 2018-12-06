@@ -24,19 +24,16 @@ namespace DAL.Entity
 
         [Index(IsUnique = true)]
         public int? YellowNumber { get; set; }
-
-        [Required]
+        
         public string ItemName { get; set; }
 
         public string Manufacturer { get; set; }
 
         public string ModelType { get; set; }
-
-        [Required]
+        
         [ForeignKey(nameof(ItemNature))]
         public int? ItemNatureId { get; set; }
-
-        [Required]
+        
         [ForeignKey(nameof(ItemType))]
         public int? ItemTypeId { get; set; }
 
@@ -60,8 +57,9 @@ namespace DAL.Entity
 
         public string Room { get; set; }
 
+        [Required]
         [ForeignKey(nameof(ItemState))]
-        public int? ItemStateId { get; set; }
+        public int ItemStateId { get; set; }
 
         public DateTime? DateOfCreation { get; set; }
 

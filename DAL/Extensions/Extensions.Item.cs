@@ -1,4 +1,5 @@
-﻿using Common.Model.Dto;
+﻿using Common.Model;
+using Common.Model.Dto;
 using DAL.Entity;
 
 namespace DAL.Extensions

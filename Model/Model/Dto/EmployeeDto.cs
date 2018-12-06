@@ -7,7 +7,7 @@ namespace Common.Model.Dto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int DepartmentID { get; set; }
+        public int? DepartmentID { get; set; }
         public int? SectionID { get; set; }
         public string EmailAddress { get; set; }
         public DateTime? RetirementDate { get; set; }

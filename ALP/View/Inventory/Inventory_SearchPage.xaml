@@ -276,8 +276,6 @@
                     <!--TODO: ikont a helyére-->
                     <Button Content="Export" ToolTip="Export" Command="{Binding ExportCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
-                    <!--TODO: ikont a helyére-->
-                    <Button Content="Csoportos Beolvasás" ToolTip="Csoportos Beolvasás" Command="{Binding ImportCommand}" VerticalAlignment="Bottom" Margin="5"/>
 
                     <!--TODO: ikont a helyére-->
                     <Button Content="Műveletek" ToolTip="Műveletek" VerticalAlignment="Bottom" Command="{Binding QuickCommandsCommand}" Margin="5"/>
@@ -287,10 +285,10 @@
 
                 </StackPanel>
 
-                <StackPanel Orientation="Vertical">
+                <Grid>
 
                     <FrameworkElement x:Name="DummyOldInventoryNumber" Visibility="{Binding Visibilities[TextBlockOldInventoryNumber]}"/>
-                    <DataGrid ItemsSource="{Binding ItemList}" SelectedItem="{Binding SelectedItem}" AlternatingRowBackground="LightGray" HorizontalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False">
+                    <DataGrid ItemsSource="{Binding ItemList}" SelectedItem="{Binding SelectedItem}" AlternatingRowBackground="LightGray" HorizontalAlignment="Stretch" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Value.ItemName}" Header="Név" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Binding="{Binding Value.InventoryNumber}" Header="Leltári szám" Width="*" IsReadOnly="True" />
@@ -313,11 +311,17 @@
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockComment], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.Comment}" Header="Megjegyzés" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfCreation], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.DateOfCreation?.Date}" Header="Nyilvántartásba vétel dátuma" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfScrap], Source={x:Reference DummyOldInventoryNumber}}" Binding="{Binding Value.DateOfScrap?.Date}" Header="Selejtezés dátuma" Width="*" IsReadOnly="True" />
-                            <DataGridCheckBoxColumn Binding="{Binding IsSelected}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                </StackPanel>
+                </Grid>
 
             </DockPanel>
 

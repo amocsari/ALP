@@ -1,22 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ALP.Navigation;
 using ALP.Service;
+using ALP.Service.Interface;
+using ALP.View;
 using GalaSoft.MvvmLight.Command;
+using Model.Model;
 
 namespace ALP.ViewModel
 {
     /// <summary>
     /// Used to react to the events of the MainWindow
     /// </summary>
-    public class MainWindowViewModel: AlpViewModelBase
+    public class MainWindowViewModel : AlpViewModelBase
     {
         /// <summary>
         /// injected services
         /// </summary>
         private readonly IAlpNavigationService _navigationService;
         private readonly IAlpDialogService _dialogService;
+        private readonly IImportService _importService;
+        private readonly IInventoryApiService _inventoryApiService;
 
         //Commands bound to the menu items
         public ICommand LoginCommand { get; private set; }
@@ -50,10 +56,12 @@ namespace ALP.ViewModel
         /// Sets the commands
         /// </summary>
         /// <param name="navigationService">injected navigationservice</param>
-        public MainWindowViewModel(IAlpNavigationService navigationService, IAlpDialogService dialogService)
+        public MainWindowViewModel(IAlpNavigationService navigationService, IAlpDialogService dialogService, IImportService importService, IInventoryApiService inventoryApiService)
         {
             _navigationService = navigationService;
             _dialogService = dialogService;
+            _importService = importService;
+            _inventoryApiService = inventoryApiService;
 
             LoginCommand = new RelayCommand(OnLoginCommand);
             //LogoutCommand = new RelayCommand(OnLogoutCommand, IsLoggedIn);
@@ -79,7 +87,7 @@ namespace ALP.ViewModel
         /// <summary>
         /// Initializes data
         /// </summary>
-        protected override async Task InitializeAsync(){}
+        protected override async Task InitializeAsync() { }
 
         //Command functions
         private void OnNewItemCommand()
@@ -95,7 +103,7 @@ namespace ALP.ViewModel
         private void OnExitCommand(Window window)
         {
             var result = _dialogService.ShowConfirmDialog("Biztosan kilép az alkalmazásból?", "Kilépés");
-            if(result)
+            if (result)
             {
                 window.Close();
             }
@@ -111,9 +119,32 @@ namespace ALP.ViewModel
             _navigationService.NavigateTo(ViewModelLocator.EmployeeSearchPage);
         }
 
-        private void OnImportCommand()
+        private async void OnImportCommand()
         {
-            //TODO
+            try
+            {
+                IsLoading = true;
+                var importedRows = _importService.ImportFromXls();
+                if (importedRows != null)
+                {
+                    var confirmResult =
+                        _dialogService.ShowConfirmDialog(
+                            $"{importedRows.Count} rekord importálása lehetséges!\nImportálja?", "Importálás");
+                    if (confirmResult)
+                    {
+                        var result = await _inventoryApiService.ImportItems(importedRows);
+                        _navigationService.NavigateTo(ViewModelLocator.InventoryItemSearchPage, result);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //TODO: logging
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private void OnRequestsCommand()
@@ -178,7 +209,8 @@ namespace ALP.ViewModel
 
         private void OnLoginCommand()
         {
-            //TODO
+            var result = _dialogService.ShowDialog<LoginWindow,LoginWindowViewModel,object,User>(null);
+            var a = result.Value;
         }
     }
 }

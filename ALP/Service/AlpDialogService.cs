@@ -72,7 +72,7 @@ namespace ALP.Service
             _loggingService.LogDebug(new
             {
                 action = nameof(ShowDialog),
-                parameter = parameter.ToString()
+                parameter = parameter?.ToString()
             });
 
             var window = new TWindow();

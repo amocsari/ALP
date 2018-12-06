@@ -10,5 +10,6 @@ namespace ALP.Service.Interface
         Task<bool> AddNewInventoryItem(ItemDto dto);
         Task<List<ItemDto>> FilterItems(InventoryItemFilterInfo info);
         Task<ItemDto> GetItemById(int itemId);
+        Task<List<ItemDto>> ImportItems(List<ImportedItem> importedItems);
     }
 }

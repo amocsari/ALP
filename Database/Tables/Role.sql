@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Role]
-(
-	[RoleId] INT NOT NULL IDENTITY(1,1),
-    [RoleName] VARCHAR(250) NOT NULL,
-	[Locked] BIT NOT NULL DEFAULT 0,
-	CONSTRAINT [pkRole] PRIMARY KEY CLUSTERED ([RoleId] ASC)
-)

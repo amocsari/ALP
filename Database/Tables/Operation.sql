@@ -5,6 +5,8 @@
 	[ItemId] INT NOT NULL,
 	[PayLoadId] INT,
 	[Priority] BIT NOT NULL DEFAULT 0,
+	[DateOfCreation] DATE NOT NULL,
+	[DateOfCompletion] DATE,
 	CONSTRAINT [pkOperation] PRIMARY KEY CLUSTERED ([OperationId] ASC),
 	CONSTRAINT [fkOperationItem] FOREIGN KEY ([ItemId]) REFERENCES [dbo].[Item] ([ItemId]),
 )

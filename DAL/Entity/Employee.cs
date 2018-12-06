@@ -12,10 +12,9 @@ namespace DAL.Entity
 
         [Required]
         public string EmployeeName { get; set; }
-
-        [Required]
+        
         [ForeignKey("Department")]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         [ForeignKey("Section")]
         public int? SectionId { get; set; }

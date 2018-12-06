@@ -49,5 +49,16 @@ namespace ALP.Service
 
             return await _apiService.PostAsync<int, ItemDto>("Item/FindItemById", itemId);
         }
+
+        public async Task<List<ItemDto>> ImportItems(List<ImportedItem> importedItems)
+        {
+            _loggingService.LogDebug(new
+            {
+                action = nameof(GetItemById),
+                importedItems
+            });
+
+            return await _apiService.PostAsync<List<ImportedItem>, List<ItemDto>>("Item/ImportItems", importedItems);
+        }
     }
 }

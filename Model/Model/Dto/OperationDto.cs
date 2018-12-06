@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Model.Enum;
 
 namespace Common.Model.Dto
@@ -10,6 +11,8 @@ namespace Common.Model.Dto
         public int ItemId { get; set; }
         public int? PayLoadId { get; set; }
         public bool Priority { get; set; }
+        public DateTime DateOfCreation { get; set; }
+        public DateTime? DateOfCompletion { get; set; }
 
         public virtual ItemDto Item { get; set; }
 
@@ -18,9 +21,11 @@ namespace Common.Model.Dto
             StringBuilder sb = new StringBuilder($"{{ Id = {OperationId}");
             sb.Append($", OperationType = {OperationType}");
             sb.Append($", ItemId = {ItemId}");
-            sb.Append($", Item = {Item.ToString()}");
+            sb.Append($", Item = {Item?.ToString()}");
             sb.Append($", PayLoadId = {PayLoadId}");
             sb.Append($", Priority = {Priority}");
+            sb.Append($", DateOfCreation = {DateOfCreation.ToString()}");
+            sb.Append($", DateOfCompletion = {DateOfCompletion?.ToString()}");
             sb.Append(" }");
             return sb.ToString();
         }

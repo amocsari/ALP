@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using ALP.ViewModel;
 
 namespace ALP.View
 {
@@ -10,6 +12,14 @@ namespace ALP.View
         public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var dataContext = (LoginWindowViewModel) DataContext;
+            await dataContext.Login(UsernameBox.Text, PasswordBox.Password);
+            DialogResult = true;
+            Close();
         }
     }
 }

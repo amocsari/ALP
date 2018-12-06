@@ -97,7 +97,7 @@ namespace API.Service
                     action = nameof(GetAllItemStates)
                 }.ToString());
 
-                var entites = await _context.ItemState.AsNoTracking().ToListAsync();
+                var entites = await _context.ItemState.AsNoTracking().Where(itemState => itemState.ItemStateId != 1 && itemState.ItemStateId != 2).ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
             catch (Exception e)
@@ -187,7 +187,14 @@ namespace API.Service
                 }.ToString());
 
                 dto.Validate();
-                
+
+                if (dto.Id == 1 || dto.Id == 2)
+                {
+                    response.Success = false;
+                    response.Message = "Ennek a státusznak az adatai nem változtathatóak!";
+                    return response;
+                }
+
                 var updatedEntity = await _context.ItemState.FirstOrDefaultAsync(itemState => itemState.ItemStateId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);
                 await _context.SaveChangesAsync();

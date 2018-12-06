@@ -58,6 +58,7 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Script" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Building.sql" />
@@ -70,9 +71,9 @@
     <Build Include="Tables\ItemType.sql" />
     <Build Include="Tables\Location.sql" />
     <Build Include="Tables\Operation.sql" />
-    <Build Include="Tables\Role.sql" />
     <Build Include="Tables\Section.sql" />
     <Build Include="Tables\Account.sql" />
+    <None Include="Script\INIT_DATABASE.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />

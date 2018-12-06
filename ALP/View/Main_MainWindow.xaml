@@ -3,48 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:ALP.View"
         Name="ThisWindow"
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Title="ALP" Height="Auto" Width="Auto">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Rendszer">
-                <MenuItem Header="Bejelentkezés" Command="{Binding LoginCommand}"/>
-                <!--<MenuItem Header="Kijelentkezés" Command="{Binding LogoutCommand}"/>-->
-                <MenuItem Header="Jelszó változtatás" Command="{Binding PasswordChangeCommand}"/>
-                <!--<Separator/>
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Rendszer">
+                    <MenuItem Header="Bejelentkezés" Command="{Binding LoginCommand}"/>
+                    <!--<MenuItem Header="Kijelentkezés" Command="{Binding LogoutCommand}"/>-->
+                    <MenuItem Header="Jelszó változtatás" Command="{Binding PasswordChangeCommand}"/>
+                    <!--<Separator/>
                 <MenuItem Header="Változások" Command="{Binding ChangesCommand}"/>
                 <MenuItem Header="Rendszerbeállítások" Command="{Binding SystemSettingsCommand}"/>-->
-                <Separator/>
-                <MenuItem Header="Kilépés" Command="{Binding ExitCommand}" CommandParameter="{Binding ElementName=ThisWindow}"/>
-            </MenuItem>
-            <MenuItem Header="Alapadatok">
-                <MenuItem Header="Eszköz jelleg" Command="{Binding ItemNatureCommand}"/>
-                <MenuItem Header="Eszköztípus" Command="{Binding ItemTypeCommand}"/>
-                <MenuItem Header="Eszköz állapot" Command="{Binding ItemStateCommand}"/>
-                <Separator/>
-                <MenuItem Header="Emelet" Command="{Binding FloorCommand}"/>
-                <MenuItem Header="Részleg" Command="{Binding SectionCommand}"/>
-                <MenuItem Header="Osztály" Command="{Binding DepartmentSearchCommand}"/>
-                <MenuItem Header="Épület" Command="{Binding BuildingCommand}"/>
-                <MenuItem Header="Telephely" Command="{Binding LocationCommand}"/>
-            </MenuItem>
-            <MenuItem Header="Leltár Adatok">
-                <MenuItem Header="Új elem" Command="{Binding NewItemCommand}"/>
-                <Separator/>
-                <MenuItem Header="Keresés" Command="{Binding ItemSearchCommand}"/>
-                <Separator/>
-                <MenuItem Header="Leltárművelet kérvények" Command="{Binding RequestsCommand}"/>
-                <MenuItem Header="Importálás" Command="{Binding ImportCommand}"/>
-            </MenuItem>
-            <MenuItem Header="Felhasználók">
-                <MenuItem Header="Keresés" Command="{Binding EmployeeSearchCommand}"/>
-            </MenuItem>
-        </Menu>
-        <Frame
+                    <Separator/>
+                    <MenuItem Header="Kilépés" Command="{Binding ExitCommand}" CommandParameter="{Binding ElementName=ThisWindow}"/>
+                </MenuItem>
+                <MenuItem Header="Alapadatok">
+                    <MenuItem Header="Eszköz jelleg" Command="{Binding ItemNatureCommand}"/>
+                    <MenuItem Header="Eszköztípus" Command="{Binding ItemTypeCommand}"/>
+                    <MenuItem Header="Eszköz állapot" Command="{Binding ItemStateCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Emelet" Command="{Binding FloorCommand}"/>
+                    <MenuItem Header="Részleg" Command="{Binding SectionCommand}"/>
+                    <MenuItem Header="Osztály" Command="{Binding DepartmentSearchCommand}"/>
+                    <MenuItem Header="Épület" Command="{Binding BuildingCommand}"/>
+                    <MenuItem Header="Telephely" Command="{Binding LocationCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Leltár Adatok">
+                    <MenuItem Header="Új elem" Command="{Binding NewItemCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Keresés" Command="{Binding ItemSearchCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Leltárművelet kérvények" Command="{Binding RequestsCommand}"/>
+                    <MenuItem Header="Importálás" Command="{Binding ImportCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Felhasználók">
+                    <MenuItem Header="Keresés" Command="{Binding EmployeeSearchCommand}"/>
+                </MenuItem>
+            </Menu>
+            <Frame
             Name="mainFrame"
             NavigationUIVisibility="Hidden"
             Source="System/System_WelcomePage.xaml"/>
-    </DockPanel>
+        </DockPanel>
+        <view:LoadingIndicator/>
+    </Grid>
 </Window>

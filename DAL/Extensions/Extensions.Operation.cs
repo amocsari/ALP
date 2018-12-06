@@ -20,7 +20,9 @@ namespace DAL.Extensions
                 ItemId = entity.ItemId,
                 OperationId = entity.OperationId,
                 Priority = entity.Priority,
-                PayLoadId = entity.PayLoadId
+                PayLoadId = entity.PayLoadId,
+                DateOfCreation = entity.DateOfCreation,
+                DateOfCompletion = entity.DateOfCompletion
             };
         }
 
@@ -38,7 +40,9 @@ namespace DAL.Extensions
                 ItemId = dto.ItemId,
                 OperationId = dto.OperationId,
                 Priority = dto.Priority,
-                PayLoadId = dto.PayLoadId
+                PayLoadId = dto.PayLoadId,
+                DateOfCreation = dto.DateOfCreation,
+                DateOfCompletion = dto.DateOfCompletion
             };
         }
     }
