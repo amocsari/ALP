@@ -57,7 +57,6 @@ namespace Common.Model.Dto
             Id = source.Id;
             Name = source.Name;
             ItemNatureId = source.ItemNatureId;
-            ItemNature?.UpdateByDto(source.ItemNature);
             Locked = source.Locked;
         }
 
@@ -69,11 +68,6 @@ namespace Common.Model.Dto
             if (string.IsNullOrEmpty(Name))
             {
                 throw new Exception("Az eszköztípus nevét kötelező megadni!");
-            }
-
-            if (ItemNature == null)
-            {
-                throw new Exception("Az eszköztípushoz tartozó eszközjelleg megadása kötelező!");
             }
         }
 

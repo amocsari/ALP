@@ -57,7 +57,6 @@ namespace Common.Model.Dto
             Id = source.Id;
             Name = source.Name;
             EmployeeId = source.EmployeeId;
-            Employee.UpdateByDto(source.Employee);
             Locked = source.Locked;
         }
 

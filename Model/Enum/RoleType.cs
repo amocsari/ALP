@@ -3,6 +3,6 @@
     public enum RoleType
     {
         Admin = 1,
-        DepartmentInventoryOperatior = 2
+        DepartmentInventoryOperator = 2
     }
 }

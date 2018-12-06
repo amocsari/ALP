@@ -48,7 +48,6 @@ namespace DAL.Extensions
 
             entity.ItemTypeName = dto.Name;
             entity.ItemNatureId = dto.ItemNatureId;
-            entity.ItemNature.UpdateEntityByDto(dto.ItemNature);
             entity.Locked = dto.Locked;
         }
     }

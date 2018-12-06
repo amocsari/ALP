@@ -48,7 +48,6 @@ namespace DAL.Extensions
 
             entity.FloorName = dto.Name;
             entity.BuildingId = dto.BuildingId;
-            entity.Building.UpdateEntityByDto(dto.Building);
             entity.Locked = dto.Locked;
         }
     }

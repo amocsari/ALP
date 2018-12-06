@@ -35,7 +35,6 @@ namespace DAL
             services.AddSingleton<IItemTypeService, ItemTypeService>();
             services.AddSingleton<ILocationService, LocationService>();
             services.AddSingleton<IOperationService, OperationService>();
-            services.AddSingleton<IRoleService, RoleService>();
             services.AddSingleton<ISectionService, SectionService>();
             services.AddSingleton<IEncryptionService, EncryptionService>();
         }

@@ -13,6 +13,6 @@ namespace API.Service
         Task<AlpApiResponse> Logout(string encryptedSessionToken);
         Task<AlpApiResponse> CreateAccount(int employeeId);
         Task<AlpApiResponse> ChangePassword(ChangePasswordRequest changePasswordRequest, string sessionToken);
-        Task<bool> AuthorizeAsync(string encryptedSessionToken, List<RoleType> roles);
+        bool AuthorizeAsync(string encryptedSessionToken, List<RoleType> roles);
     }
 }

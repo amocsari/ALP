@@ -32,7 +32,6 @@ namespace DAL.Controller
         [HttpPost]
         public Task<AlpApiResponse> ChangePassword([FromBody]ChangePasswordRequest changePasswordRequest)
         {
-            var a = HttpContext.Request.Headers;
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
             return _accountService.ChangePassword(changePasswordRequest, sessionToken);
         }

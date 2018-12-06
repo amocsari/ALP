@@ -49,9 +49,7 @@ namespace DAL.Extensions
 
             entity.EmployeeName = dto.Name;
             entity.DepartmentId = dto.DepartmentID;
-            entity.Department.UpdateEntityByDto(dto.Department);
             entity.SectionId = dto.SectionID;
-            entity.Section.UpdateEntityByDto(dto.Section);
             entity.EmailAddress = dto.EmailAddress;
             entity.RetirementDate = dto.RetirementDate;
         }

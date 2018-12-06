@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Service.Interface;
 using DAL.Context;
@@ -25,7 +26,7 @@ namespace API.Service
             _logger = logger;
         }
 
-        public async Task<bool> AuthorizeAsync(string encryptedSessionToken, List<RoleType> roles)
+        public bool AuthorizeAsync(string encryptedSessionToken, List<RoleType> roles)
         {
             try
             {
@@ -47,7 +48,7 @@ namespace API.Service
                     return false;
                 }
 
-                var account = await _context.Account.FirstOrDefaultAsync(acc => acc.AccountId == sessionData.AccountId);
+                var account = _context.Account.FirstOrDefault(acc => acc.AccountId == sessionData.AccountId);
                 if(account == null)
                 {
                     return false;

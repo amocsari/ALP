@@ -123,7 +123,7 @@ namespace ALP.ViewModel.Inventory
         {
             get { return Item.ItemType; }
             set
-                {
+            {
                 if (Item.ItemType != value)
                 {
                     Item.ItemType = value;
@@ -203,6 +203,18 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        private ObservableCollection<EmployeeDto> employees;
+        public ObservableCollection<EmployeeDto> Employees
+        {
+            get { return employees; }
+            set
+            {
+                if (employees != value)
+                {
+                    Set(ref employees, value);
+                }
+            }
+        }
         public string EmployeeName { get; set; }
 
         private readonly IInventoryApiService _inventoryApiService;
@@ -309,6 +321,13 @@ namespace ALP.ViewModel.Inventory
                     throw new Exception("Hiba az emeletek lekérése során!");
                 }
                 Sections = new ObservableCollection<SectionDto>(sectionList);
+
+                var employeeList = await _employeeApiService.GetAvailable();
+                if(employeeList == null)
+                {
+                    throw new Exception("Hiba az alkalmazottak lekérése során!");
+                }
+                Employees = new ObservableCollection<EmployeeDto>(employeeList);
             }
             catch (Exception e)
             {

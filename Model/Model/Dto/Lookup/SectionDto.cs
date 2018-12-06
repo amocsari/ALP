@@ -72,8 +72,6 @@ namespace Common.Model.Dto
             Name = source.Name;
             DepartmentId = source.DepartmentId;
             FloorId = source.FloorId;
-            Department?.UpdateByDto(source.Department);
-            Floor?.UpdateByDto(source.Floor);
             Locked = source.Locked;
         }
 

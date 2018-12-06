@@ -154,6 +154,12 @@ namespace API.Service
 
                 dto.Validate();
 
+                var itemNature = await _context.ItemNature.FirstOrDefaultAsync(itemN => itemN.ItemNatureId == dto.ItemNatureId);
+                if (itemNature == null)
+                {
+                    throw new Exception("A típushoz tartozó eszközjelleget kötelező megadni!");
+                }
+
                 var entity = dto.DtoToEntity();
                 entity.ItemNature = null;
                 await _context.ItemType.AddAsync(entity);
@@ -188,6 +194,12 @@ namespace API.Service
                 }.ToString());
 
                 dto.Validate();
+
+                var itemNature = await _context.ItemNature.FirstOrDefaultAsync(itemN => itemN.ItemNatureId == dto.ItemNatureId);
+                if(itemNature == null)
+                {
+                    throw new Exception("A típushoz tartozó eszközjelleget kötelező megadni!");
+                }
 
                 var updatedEntity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemTypeId == dto.Id);
                 updatedEntity.UpdateEntityByDto(dto);

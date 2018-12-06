@@ -38,7 +38,6 @@ namespace DAL.Extensions
 
             entity.DepartmentName = dto.Name;
             entity.EmployeeId = dto.EmployeeId;
-            entity.Employee.UpdateEntityByDto(dto.Employee);
             entity.Locked = dto.Locked;
         }
     }

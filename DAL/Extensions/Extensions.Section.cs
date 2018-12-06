@@ -47,9 +47,7 @@ namespace DAL.Extensions
 
             entity.SectionName = dto.Name;
             entity.FloorId = dto.FloorId;
-            entity.Floor.UpdateEntityByDto(dto.Floor);
             entity.DepartmentId = dto.DepartmentId;
-            entity.Department.UpdateEntityByDto(dto.Department);
             entity.Locked = dto.Locked;
         }
     }

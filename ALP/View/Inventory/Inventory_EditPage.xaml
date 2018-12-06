@@ -6,9 +6,19 @@
       xmlns:view="clr-namespace:ALP.View"
       DataContext="{Binding InventoryEditPageViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
+      xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditPage">
-
+    
+    <Page.Resources>
+        <DataTemplate x:Key="AutoCompleteEmployeeDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Name}"/>
+                <Label Content="{Binding EmailAddress}" FontStyle="Italic" Foreground="DarkGray"/>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    
     <ScrollViewer>
         <Grid>
 
@@ -62,11 +72,9 @@
                     <Label Content="Akkreditációs szám" Grid.Column="2" Grid.Row="4"/>
                     <TextBox Text="{Binding Item.AccreditationNumber}" Grid.Column="3" Grid.Row="4"/>
 
-                    <!--TODO: átgondolni-->
                     <Label Content="Gyártási év" Grid.Column="0" Grid.Row="5"/>
                     <DatePicker SelectedDate="{Binding Item.ProductionYear, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"/>
 
-                    <!--TODO: lehet, hogy kivenni-->
                     <Label Content="Bruttó ár" Grid.Column="2" Grid.Row="5"/>
                     <TextBox Text="{Binding Item.BruttoPrice}" Grid.Column="3" Grid.Row="5"/>
 
@@ -121,7 +129,7 @@
                     <TextBox Text="{Binding Item.Room}" Grid.Column="5" Grid.Row="0"/>
 
                     <Label Content="Tulajdonos" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center"/>
-                    <TextBox Text="{Binding EmployeeName}" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch"/>
+                    <toolkit:AutoCompleteBox ItemsSource="{Binding EmployeeList}" ValueMemberPath="Name" SelectedItem="{Binding EmployeeName, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" IsTextCompletionEnabled="True" FilterMode="Contains" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch"/>                    
 
                     <Label Content="Állapot" Grid.Column="0" Grid.Row="2"/>
                     <ComboBox ItemsSource="{Binding ItemStates}" SelectedItem="{Binding SelectedItemState}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="2"/>

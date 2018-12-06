@@ -11,48 +11,30 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Lookup_ItemNatures">
 
-    <Page.Resources>
-        <DataTemplate x:Key="ItemNatureTemplate">
-            <Grid HorizontalAlignment="Stretch" Margin="2">
-                <Grid.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ListItemDoubleClickCommand}" CommandParameter="{Binding Value}"/>
-                </Grid.InputBindings>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="0.5*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Name="ItemNatureTextBlock"  Text="{Binding Value.Name}" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <Button Command="{Binding LockCommand}" CommandParameter="{Binding Value}" Grid.Column="1" MaxHeight="20" MinHeight="20">
-                    <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
-                </Button>
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>
-
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Jelleg" FontSize="32" HorizontalAlignment="Center"/>
-            <DataGrid ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Command="{Binding LockCommand}" Grid.Column="1" MaxHeight="20" MinHeight="20">
-                                    <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <cmd:EventToCommand Command="{Binding ListItemDoubleClickCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </DataGrid>
-            <Button Content="Új Jelleg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Command="{Binding NewCommand}"/>
-        </StackPanel>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Text="Jelleg" FontSize="32" HorizontalAlignment="Center"/>            
+                <DataGrid ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False" Margin="0,0,0,25">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding LockCommand}" Grid.Column="1" MaxHeight="20" MinHeight="20">
+                                        <Image Source="{Binding LockedStateImageSource}" Stretch="Uniform"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <cmd:EventToCommand Command="{Binding ListItemDoubleClickCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
+        </DockPanel>
+        <Button Content="Új Jelleg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Command="{Binding NewCommand}"/>
         <view:LoadingIndicator/>
     </Grid>
 </Page>
