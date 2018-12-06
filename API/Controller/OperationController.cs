@@ -22,14 +22,25 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public Task<AlpApiResponse> QueueOperations([FromBody] List<OperationDto> operationList)
+        public Task<AlpApiResponse<List<ItemDto>>> QueueOperations([FromBody] List<OperationDto> operationList)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
             if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
             {
+                return Task.FromResult(new AlpApiResponse<List<ItemDto>> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
+            }
+            return _operationService.QueueOperations(operationList, sessionToken);
+        }
+
+        [HttpPost]
+        public Task<AlpApiResponse> DoOperation([FromBody] int operationId)
+        {
+            var sessionToken = HttpContext.Request.Headers["sessiontoken"];
+            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            {
                 return Task.FromResult(new AlpApiResponse { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
-            return _operationService.QueueOperations(operationList);
+            return _operationService.DoOperation(operationId);
         }
     }
 }

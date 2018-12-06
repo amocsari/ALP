@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ALP.Service.Interface;
 using Common.Model.Dto;
 using Model.Enum;
-using Model.Model;
 
 namespace ALP.Service
 {
@@ -20,7 +18,7 @@ namespace ALP.Service
             _loggingService = loggingService;
         }
 
-        public async Task ChangeDepartment(List<int> itemIds, int departmentId, bool priority)
+        public async Task<List<ItemDto>> ChangeDepartment(List<int> itemIds, int departmentId, bool priority)
         {
             _loggingService.LogDebug(new
             {
@@ -38,10 +36,10 @@ namespace ALP.Service
                 Priority = priority
             }).ToList();
 
-            await _apiService.PostAsync("Operation/QueueOperations", operations);
+            return await _apiService.PostAsync<List<OperationDto>, List<ItemDto>>("Operation/QueueOperations", operations);
         }
 
-        public async Task ChangeOwner(List<int> itemIds, int ownerId, bool priority)
+        public async Task<List<ItemDto>> ChangeOwner(List<int> itemIds, int ownerId, bool priority)
         {
             _loggingService.LogDebug(new
             {
@@ -59,10 +57,10 @@ namespace ALP.Service
                 Priority = priority
             }).ToList();
 
-            await _apiService.PostAsync("Operation/QueueOperations", operations);
+            return await _apiService.PostAsync<List<OperationDto>, List<ItemDto>>("Operation/QueueOperations", operations);
         }
 
-        public async Task ChangeOwnerToDepartmentChief(List<int> itemIds, bool priority)
+        public async Task<List<ItemDto>> ChangeOwnerToDepartmentChief(List<int> itemIds, bool priority)
         {
             _loggingService.LogDebug(new
             {
@@ -78,10 +76,10 @@ namespace ALP.Service
                 Priority = priority
             }).ToList();
 
-            await _apiService.PostAsync("Operation/QueueOperations", operations);
+            return await _apiService.PostAsync<List<OperationDto>, List<ItemDto>>("Operation/QueueOperations", operations);
         }
 
-        public async Task Scrap(List<int> itemIds, bool priority)
+        public async Task<List<ItemDto>> Scrap(List<int> itemIds, bool priority)
         {
             _loggingService.LogDebug(new
             {
@@ -97,7 +95,7 @@ namespace ALP.Service
                 Priority = priority
             }).ToList();
 
-            await _apiService.PostAsync("Operation/QueueOperations", operations);
+            return await _apiService.PostAsync<List<OperationDto>, List<ItemDto>>("Operation/QueueOperations", operations);
         }
     }
 }

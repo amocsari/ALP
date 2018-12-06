@@ -240,7 +240,24 @@ namespace ALP.ViewModel.Inventory
         private void OnQuickCommandsCommand()
         {
             var selectedIds = itemList.Where(item => item.IsSelected).Select(item => item.Value.ItemID).ToList();
-            _dialogService.ShowDialog<OperationWindow, InventoryOperationWindowViewModel, List<int>, bool>(selectedIds);
+            var result = _dialogService.ShowDialog<OperationWindow, InventoryOperationWindowViewModel, List<int>, List<ItemDto>>(selectedIds);
+            if (result.Accepted)
+            {
+                var value = result.Value;
+                if(value != null && value.Count > 0)
+                {
+                    var confirmResult = _dialogService.ShowConfirmDialog($"{value.Count} elemen nem lehetett elvégezni a műveletet. Megtekinti őket?", "Művelet eredmény");
+                    if (confirmResult)
+                    {
+                        var vms = value.Select(v => new InventoryItemSearchListItemViewModel { Value = v }).ToList();
+                        ItemList = new System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel>(vms);
+                    }
+                }
+            }
+            else
+            {
+                OnSearchCommand();
+            }
         }
 
         private void OnDeleteFilterCommand()

@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace ALP.ViewModel.Inventory
 {
-    public class InventoryOperationWindowViewModel : AlpViewModelBase, IDialogViewModel<bool, List<int>>
+    public class InventoryOperationWindowViewModel : AlpViewModelBase, IDialogViewModel<List<ItemDto>, List<int>>
     {
         public List<int> parameter;
         public List<int> Parameter
@@ -26,7 +26,7 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-        public bool ReturnParameter { get; set; }
+        public List<ItemDto> ReturnParameter { get; set; }
 
         private ObservableCollection<EmployeeDto> employeeList;
         public ObservableCollection<EmployeeDto> EmployeeList
@@ -89,12 +89,13 @@ namespace ALP.ViewModel.Inventory
             Initialization = InitializeAsync();
         }
 
-        private void OnChangeOwnerToDepartmentChiefCommand(Window window)
+        private async void OnChangeOwnerToDepartmentChiefCommand(Window window)
         {
             try
             {
                 IsLoading = true;
-                _operationApiService.ChangeOwnerToDepartmentChief(Parameter, Priority);
+                ReturnParameter = await _operationApiService.ChangeOwnerToDepartmentChief(Parameter, Priority);
+                window.DialogResult = true;
                 window.Close();
             }
             catch (Exception e)
@@ -105,12 +106,12 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        private void OnChangeOwnerCommand(Window window)
+        private async void OnChangeOwnerCommand(Window window)
         {
             try
             {
                 IsLoading = true;
-                _operationApiService.ChangeOwner(Parameter, SelectedEmployee.Id, Priority);
+                ReturnParameter = await _operationApiService.ChangeOwner(Parameter, SelectedEmployee.Id, Priority);
                 window.Close();
             }
             catch (Exception e)
@@ -121,12 +122,12 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        private void OnChangeDepartmentCommand(Window window)
+        private async void OnChangeDepartmentCommand(Window window)
         {
             try
             {
                 IsLoading = true;
-                _operationApiService.ChangeDepartment(Parameter, SelectedDepartment.Id, Priority);
+                ReturnParameter = await _operationApiService.ChangeDepartment(Parameter, SelectedDepartment.Id, Priority);
                 window.Close();
             }
             catch (Exception e)
@@ -137,12 +138,12 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
-        private void OnScrapCommand(Window window)
+        private async void OnScrapCommand(Window window)
         {
             try
             {
                 IsLoading = true;
-                _operationApiService.Scrap(Parameter, Priority);
+                ReturnParameter = await _operationApiService.Scrap(Parameter, Priority);
                 window.Close();
             }
             catch (Exception e)

@@ -13,5 +13,9 @@ namespace API.Service
         Task<AlpApiResponse<List<ItemDto>>> FindItemsForDisplay(InventoryItemFilterInfo info);
         Task<AlpApiResponse<List<ItemDto>>> ImportItems(List<ImportedItem> importedItems);
         Task<AlpApiResponse<List<ItemDto>>> GetItemsByEmployeeId(int employeeId);
+        Task<AlpApiResponse> ChangeOwnerToDepartmentChief(int itemId);
+        Task<AlpApiResponse> ChangeDepartment(int itemId, int? payLoadId);
+        Task<AlpApiResponse> ChangeOwner(int itemId, int? payLoadId);
+        Task<AlpApiResponse> Scrap(int itemId);
     }
 }

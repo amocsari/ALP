@@ -35,25 +35,13 @@ namespace API.Service
                     encryptedSessionToken
                 }.ToString());
 
-                if (string.IsNullOrEmpty(encryptedSessionToken))
+                var roleType = GetRoleTypeFromToken(encryptedSessionToken);
+                if (!roleType.HasValue)
                 {
                     return false;
                 }
 
-
-                var sessionData = _encryptionService.Decrypt<SessionTokenData>(encryptedSessionToken);
-                if (sessionData == null)
-                {
-                    return false;
-                }
-
-                var account = _context.Account.FirstOrDefault(acc => acc.AccountId == sessionData.AccountId);
-                if(account == null)
-                {
-                    return false;
-                }
-
-                return roles.Contains((RoleType)account.RoleId);
+                return roles.Contains(roleType.Value);
             }catch(Exception e)
             {
                 _logger.LogError(new
@@ -138,6 +126,30 @@ namespace API.Service
             }
 
             return response;
+        }
+
+        public RoleType? GetRoleTypeFromToken(string encryptedSessionToken)
+        {
+
+            if (string.IsNullOrEmpty(encryptedSessionToken))
+            {
+                return null;
+            }
+
+
+            var sessionData = _encryptionService.Decrypt<SessionTokenData>(encryptedSessionToken);
+            if (sessionData == null)
+            {
+                return null;
+            }
+
+            var account = _context.Account.FirstOrDefault(acc => acc.AccountId == sessionData.AccountId);
+            if (account == null)
+            {
+                return null;
+            }
+
+            return (RoleType)account.RoleId;
         }
 
         public async Task<AlpApiResponse<SessionData>> Login(LoginData loginData)

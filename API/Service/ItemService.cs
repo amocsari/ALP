@@ -119,12 +119,37 @@ namespace API.Service
                     info = info?.ToString()
                 }.ToString());
 
+                if (info == null)
+                {
+                    response.Success = false;
+                    response.Message = "Hibás szűrőparaméter!";
+                    return response;
+                }
+
                 var includesIds = info.Id != null && info.Id.Count > 0;
                 var isManufacturerAndTypeSpecified = !string.IsNullOrEmpty(info.ManufacturerAndType);
+
+                var areBuildingsSpecified = info.Buildings != null && info.Buildings.Count > 0;
+                var areDepartmentsSpecified = info.Departments != null && info.Departments.Count > 0;
+                var areFloorsSpecified = info.Floors != null && info.Floors.Count > 0;
+                var areItemNaturesSpecified = info.ItemNatures != null && info.ItemNatures.Count > 0;
+                var areItemStatesSpecified = info.ItemStates != null && info.ItemStates.Count > 0;
+                var areItemTypesSpecified = info.ItemTypes != null && info.ItemTypes.Count > 0;
+                var areLocationsSpecified = info.Locations != null && info.Locations.Count > 0;
+                var areSectionsSpecified = info.Sections != null && info.Sections.Count > 0;
+
+                var buildingIds = info.Buildings.Select(b => b.Id).ToList();
+                var departmentIds = info.Departments.Select(b => b.Id).ToList();
+                var floorIds = info.Floors.Select(b => b.Id).ToList();
+                var itemNatureIds = info.ItemNatures.Select(b => b.Id).ToList();
+                var itemStateIds = info.ItemStates.Select(b => b.Id).ToList();
+                var itemTypeIds = info.ItemTypes.Select(b => b.Id).ToList();
+                var locationIds = info.Locations.Select(b => b.Id).ToList();
+                var sectionIds = info.Sections.Select(b => b.Id).ToList();
+
                 List<Item> entities;
                 if (!includesIds)
                 {
-                    //TODO: TRANCTUATETIME
                     entities = await _context.Item.AsNoTracking()
                         .Include(item => item.Department)
                         .Include(item => item.Employee)
@@ -156,7 +181,14 @@ namespace API.Service
                                        && (!info.DateOfScrapMax.HasValue ||
                                            (item.DateOfScrap.HasValue && info.DateOfScrapMax >= item.DateOfScrap))
                                        && (!info.DateOfCreationMin.HasValue || item.DateOfScrap.HasValue &&
-                                           info.DateOfScrapMin >= item.DateOfScrap))
+                                           info.DateOfScrapMin >= item.DateOfScrap)
+                                       && (!areBuildingsSpecified || (item.BuildingId.HasValue && buildingIds.Contains(item.BuildingId.Value)))
+                                       && (!areDepartmentsSpecified || (item.DepartmentId.HasValue && departmentIds.Contains(item.DepartmentId.Value)))
+                                       && (!areItemNaturesSpecified || (item.ItemNatureId.HasValue && itemNatureIds.Contains(item.ItemNatureId.Value)))
+                                       && (!areItemTypesSpecified || (item.ItemTypeId.HasValue && itemTypeIds.Contains(item.ItemTypeId.Value)))
+                                       && (!areItemStatesSpecified || itemStateIds.Contains(item.ItemStateId))
+                                       && (!areSectionsSpecified || (item.SectionId.HasValue && sectionIds.Contains(item.SectionId.Value)))
+                                       && (!areFloorsSpecified || (item.FloorId.HasValue && floorIds.Contains(item.FloorId.Value))))
                         .ToListAsync();
                 }
                 else
@@ -314,6 +346,190 @@ namespace API.Service
                 var dtoList = items.Select(item => item.EntityToDto()).ToList();
 
                 response.Value = dtoList;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse> ChangeOwnerToDepartmentChief(int itemId)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ChangeOwnerToDepartmentChief),
+                    itemId
+                }.ToString());
+
+                var item = await _context.Item.Include(it => it.Department).FirstOrDefaultAsync(it => it.ItemId == itemId);
+                if (item == null)
+                {
+                    response.Success = false;
+                    response.Message = "A tárgy nem található az adatbázisban!";
+                    return response;
+                }
+
+                if (item.Department == null)
+                {
+                    response.Success = false;
+                    response.Message = "A tárgy nincs osztályhoz rendelve, így nem lehet az osztályvezetőjére terhelni!";
+                    return response;
+                }
+
+                if (!item.Department.EmployeeId.HasValue)
+                {
+                    response.Success = false;
+                    response.Message = "A választott osztálynak nincs tárolva az osztályvezetője!";
+                    return response;
+                }
+
+                item.EmployeeId = item.Department.EmployeeId;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse> ChangeDepartment(int itemId, int? payLoadId)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ChangeOwnerToDepartmentChief),
+                    itemId
+                }.ToString());
+
+                var item = await _context.Item.Include(it => it.Department).FirstOrDefaultAsync(it => it.ItemId == itemId);
+                if (item == null)
+                {
+                    response.Success = false;
+                    response.Message = "A tárgy nem található az adatbázisban!";
+                    return response;
+                }
+
+                var department = await _context.Department.FirstOrDefaultAsync(dep => dep.DepartmentId == payLoadId);
+                if (department == null)
+                {
+                    response.Success = false;
+                    response.Message = "Az osztály nem található az adatbázisban!";
+                    return response;
+                }
+
+                item.DepartmentId = department.DepartmentId;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse> ChangeOwner(int itemId, int? payLoadId)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ChangeOwnerToDepartmentChief),
+                    itemId
+                }.ToString());
+
+                var item = await _context.Item.Include(it => it.Department).FirstOrDefaultAsync(it => it.ItemId == itemId);
+                if (item == null)
+                {
+                    response.Success = false;
+                    response.Message = "A tárgy nem található az adatbázisban!";
+                    return response;
+                }
+
+                var employee = await _context.Employee.FirstOrDefaultAsync(emp => emp.EmployeeId == payLoadId);
+                if (employee == null)
+                {
+                    response.Success = false;
+                    response.Message = "Az munkavállaló nem található az adatbázisban!";
+                    return response;
+                }
+
+                item.EmployeeId = employee.EmployeeId;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(new
+                {
+                    exception = e,
+                    message = e.Message,
+                    innerException = e,
+                    innerExceptionMessage = e.InnerException?.Message
+                }.ToString());
+                response.Message = e.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<AlpApiResponse> Scrap(int itemId)
+        {
+            var response = new AlpApiResponse();
+            try
+            {
+                _logger.LogDebug(new
+                {
+                    action = nameof(ChangeOwnerToDepartmentChief),
+                    itemId
+                }.ToString());
+
+                var item = await _context.Item.Include(it => it.Department).FirstOrDefaultAsync(it => it.ItemId == itemId);
+                if (item == null)
+                {
+                    response.Success = false;
+                    response.Message = "A tárgy nem található az adatbázisban!";
+                    return response;
+                }
+
+                item.DateOfScrap = DateTime.Now;
+                item.ItemStateId = 1;
+
+                await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
