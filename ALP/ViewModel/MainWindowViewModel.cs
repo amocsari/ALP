@@ -51,6 +51,7 @@ namespace ALP.ViewModel
         /// Data containing the current session
         /// </summary>
         public static string SessionToken { get; set; }
+        public static int? RoleId { get; set; }
         private SessionData sessionData;
         public SessionData SessionData
         {
@@ -64,6 +65,7 @@ namespace ALP.ViewModel
                     RaisePropertyChanged(() => IsLoggedOut);
                     RaisePropertyChanged(() => IsAdmin);
                     SessionToken = SessionData?.Token;
+                    RoleId = SessionData?.RoleId;
                 }
             }
         }

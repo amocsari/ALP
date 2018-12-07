@@ -49,10 +49,7 @@ namespace API.Service
                 }.ToString());
 
                 var roleType = _accountService.GetRoleTypeFromToken(sessionToken);
-                if(roleType == RoleType.Admin)
-                {
-                    response.Value = new List<ItemDto>();
-                }
+                response.Value = new List<ItemDto>();
 
                 foreach (var dto in operationList)
                 {
@@ -61,16 +58,13 @@ namespace API.Service
                     await _context.Operation.AddAsync(entity);
                     await _context.SaveChangesAsync();
 
-                    if(roleType == RoleType.Admin)
+                    var result = await DoOperation(entity.OperationId);
+                    if (!result.Success)
                     {
-                        var result = await DoOperation(entity.OperationId);
-                        if (!result.Success)
+                        var item = await _context.Item.FirstOrDefaultAsync(i => i.ItemId == dto.ItemId);
+                        if (item != null)
                         {
-                            var item = await _context.Item.FirstOrDefaultAsync(i => i.ItemId == dto.ItemId);
-                            if(item != null)
-                            {
-                                response.Value.Add(item.EntityToDto());
-                            }
+                            response.Value.Add(item.EntityToDto());
                         }
                     }
                 }

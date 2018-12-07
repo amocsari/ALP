@@ -39,7 +39,6 @@
                     <Separator/>
                     <MenuItem Header="Keresés" Command="{Binding ItemSearchCommand}"/>
                     <Separator/>
-                    <MenuItem Header="Leltárművelet kérvények" Command="{Binding RequestsCommand}" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <MenuItem Header="Importálás" Command="{Binding ImportCommand}" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </MenuItem>
                 <MenuItem Header="Felhasználók" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">
