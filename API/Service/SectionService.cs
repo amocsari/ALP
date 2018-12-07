@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Service
 {
+    /// <summary>
+    /// handles section related database operations
+    /// </summary>
     public class SectionService : ISectionService
     {
         private readonly IAlpContext _context;
@@ -23,6 +26,11 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// deletes a section by id
+        /// </summary>
+        /// <param name="sectionId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DeleteSectionById(int sectionId)
         {
             var response = new AlpApiResponse();
@@ -54,6 +62,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// returns all sections in the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<SectionDto>>> GetAllSections()
         {
             var response = new AlpApiResponse<List<SectionDto>>();
@@ -86,6 +98,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all none locked sections
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<SectionDto>>> GetAvailableSections()
         {
             var response = new AlpApiResponse<List<SectionDto>>();
@@ -118,6 +134,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets a sectioin by its id
+        /// </summary>
+        /// <param name="sectionId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<SectionDto>> GetSectionById(int sectionId)
         {
             var response = new AlpApiResponse<SectionDto>();
@@ -148,6 +169,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// adds a new section to the database
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<SectionDto>> InsertNewSection(SectionDto dto)
         {
             var response = new AlpApiResponse<SectionDto>();
@@ -184,6 +210,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// updates a section by dto
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> UpdateSection(SectionDto dto)
         {
             var response = new AlpApiResponse();
@@ -220,6 +251,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// changes the lockstate of a section
+        /// </summary>
+        /// <param name="sectionId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ToggleSectionLockStateById(int sectionId)
         {
             var response = new AlpApiResponse();

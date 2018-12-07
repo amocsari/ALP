@@ -25,7 +25,7 @@ namespace API.Controller
         public Task<AlpApiResponse<List<ItemStateDto>>> GetAllItemState()
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
             {
                 return Task.FromResult(new AlpApiResponse<List<ItemStateDto>> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -36,7 +36,7 @@ namespace API.Controller
         public Task<AlpApiResponse<List<ItemStateDto>>> GetAvailableItemState()
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
             {
                 return Task.FromResult(new AlpApiResponse<List<ItemStateDto>> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -58,7 +58,7 @@ namespace API.Controller
         public Task<AlpApiResponse<ItemStateDto>> AddNewItemState([FromBody] ItemStateDto itemState)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin }))
             {
                 return Task.FromResult(new AlpApiResponse<ItemStateDto> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -80,7 +80,7 @@ namespace API.Controller
         public Task<AlpApiResponse> UpdateItemState([FromBody] ItemStateDto itemState)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin }))
             {
                 return Task.FromResult(new AlpApiResponse { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -91,7 +91,7 @@ namespace API.Controller
         public Task<AlpApiResponse> ToggleLockStateByIdItemState([FromBody] int itemStateId)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin }))
             {
                 return Task.FromResult(new AlpApiResponse { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }

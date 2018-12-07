@@ -1,9 +1,5 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ALP.Navigation;
@@ -15,10 +11,15 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace ALP.ViewModel.Employee
 {
+    /// <summary>
+    /// Handles the data os a single Employee
+    /// </summary>
     public class EmployeeEditPageViewModel : AlpViewModelBase
     {
+        /// <summary>
+        /// the employee
+        /// </summary>
         private EmployeeListItemViewModel employee;
-
         public EmployeeListItemViewModel Employee
         {
             get { return employee; }
@@ -31,6 +32,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// departments to chose from in the combobox
+        /// </summary>
         private ObservableCollection<DepartmentDto> departments;
         public ObservableCollection<DepartmentDto> Departments
         {
@@ -44,6 +48,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// sections to chose from in the combobox
+        /// </summary>
         private ObservableCollection<SectionDto> sections;
         public ObservableCollection<SectionDto> Sections
         {
@@ -57,6 +64,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// The selected department in the combobox
+        /// </summary>
         public DepartmentDto SelectedDepartment
         {
             get { return Employee.Value.Department; }
@@ -71,6 +81,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// The selected section in the combobox
+        /// </summary>
         public SectionDto SelectedSection
         {
             get { return Employee.Value.Section; }
@@ -85,12 +98,18 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// Commands
+        /// </summary>
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
         public ICommand ListItemsCommand { get; private set; }
         public ICommand CreateAccountCommand { get; private set; }
         public ICommand RetireCommand { get; private set; }
 
+        /// <summary>
+        /// Injected services
+        /// </summary>
         private readonly ILookupApiService<DepartmentDto> _departmentApiService;
         private readonly ILookupApiService<SectionDto> _sectionApiService;
         private readonly IAlpNavigationService _navigationService;
@@ -121,6 +140,9 @@ namespace ALP.ViewModel.Employee
             Initialization = InitializeAsync();
         }
 
+        /// <summary>
+        /// Creates an account for the selected employee
+        /// </summary>
         private void OnCreateAccountCommand()
         {
             try
@@ -136,6 +158,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// Tells the server to set the retirement date
+        /// </summary>
         private async void OnRetireCommand()
         {
             try
@@ -160,6 +185,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// Updates or adds a new user
+        /// </summary>
         private async void OnSaveCommand()
         {
             try
@@ -174,11 +202,17 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// Returns without saving
+        /// </summary>
         private void OnCancelCommand()
         {
             _navigationService.GoBack();
         }
 
+        /// <summary>
+        /// Gets the items that the employee has from the server
+        /// </summary>
         private async void OnListItemsCommand()
         {
             try

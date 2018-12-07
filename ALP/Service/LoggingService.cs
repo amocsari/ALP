@@ -4,6 +4,10 @@ using System;
 
 namespace ALP.Service
 {
+    /// <summary>
+    /// Handles logging tasks
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class AlpLoggingService<T>: IAlpLoggingService<T>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(T));

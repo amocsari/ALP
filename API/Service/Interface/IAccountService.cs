@@ -10,7 +10,7 @@ namespace API.Service
         Task<AlpApiResponse<SessionData>> Login(LoginData loginData);
         Task<AlpApiResponse> Logout(string encryptedSessionToken);
         Task<AlpApiResponse> ChangePassword(ChangePasswordRequest changePasswordRequest, string sessionToken);
-        bool AuthorizeAsync(string encryptedSessionToken, List<RoleType> roles);
+        bool Authorize(string encryptedSessionToken, List<RoleType> roles);
         RoleType? GetRoleTypeFromToken(string encryptedSessionToken);
         Task<AlpApiResponse> RegisterAccount(RegisterAccountRequest registerAccountRequest);
     }

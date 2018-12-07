@@ -22,6 +22,13 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// checks if the employee is in the table
+        /// if yes, updates it
+        /// if no adds it 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> AddOrEditEmployee(EmployeeDto dto)
         {
             var response = new AlpApiResponse();
@@ -66,6 +73,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets an employee by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<EmployeeDto>>> GetByName(string name)
         {
             var response = new AlpApiResponse<List<EmployeeDto>>();
@@ -102,6 +114,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// returns the filtered employees depending onthe filterinfo
+        /// </summary>
+        /// <param name="filterInfo"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<EmployeeDto>>> FilterEmployees(EmployeeFilterInfo filterInfo)
         {
             var response = new AlpApiResponse<List<EmployeeDto>>();
@@ -140,6 +157,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// returns all employees in the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<EmployeeDto>>> GetAllEmployees()
         {
             var response = new AlpApiResponse<List<EmployeeDto>>();
@@ -173,6 +194,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all non retured employees
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<EmployeeDto>>> GetAvailableEmployees()
         {
             var response = new AlpApiResponse<List<EmployeeDto>>();
@@ -207,6 +232,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// sets the retirement date of an employee to today
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> RetireEmployee(int employeeId)
         {
             var response = new AlpApiResponse();

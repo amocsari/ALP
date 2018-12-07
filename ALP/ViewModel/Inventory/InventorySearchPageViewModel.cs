@@ -16,8 +16,15 @@ using JB.Collections.Reactive;
 
 namespace ALP.ViewModel.Inventory
 {
+    /// <summary>
+    /// Handles the inventory search window
+    /// </summary>
     public class InventorySearchPageViewModel : AlpViewModelBase
     {
+        /// <summary>
+        /// Observable dictionary to update the UI
+        /// stores the visibilities of the datagrid columns
+        /// </summary>
         private ObservableDictionary<string, Visibility> visibilities;
         public ObservableDictionary<string, Visibility> Visibilities
         {
@@ -31,8 +38,14 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// A list of visible properties
+        /// </summary>
         public List<ItemPropertyType> ProjectedTypes { get; set; }
 
+        /// <summary>
+        /// List of visible rows
+        /// </summary>
         private System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel> itemList;
         public System.Collections.ObjectModel.ObservableCollection<InventoryItemSearchListItemViewModel> ItemList
         {
@@ -46,6 +59,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Reference to the selected item
+        /// </summary>
         private InventoryItemSearchListItemViewModel selectedItem;
         public InventoryItemSearchListItemViewModel SelectedItem
         {
@@ -59,8 +75,15 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Filtered it
+        /// Can be any of the items five ids
+        /// </summary>
         public string FilteredId { get; set; }
 
+        /// <summary>
+        /// The main containers for the filter data
+        /// </summary>
         public InventoryItemFilterInfo ItemFilterInfo { get; set; }
         public string FilteredManufacturerAndType
         {
@@ -172,6 +195,9 @@ namespace ALP.ViewModel.Inventory
         }
 
 
+        /// <summary>
+        /// Commands
+        /// </summary>
         public ICommand MouseLabelClickCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
         public ICommand ExportCommand { get; private set; }
@@ -180,6 +206,9 @@ namespace ALP.ViewModel.Inventory
         public ICommand QuickCommandsCommand { get; private set; }
 
 
+        /// <summary>
+        /// Injected services
+        /// </summary>
         private readonly IInventoryApiService _inventoryApiService;
         private readonly IAlpDialogService _dialogService;
         private readonly IAlpLoggingService<InventorySearchPageViewModel> _loggingService;
@@ -237,6 +266,9 @@ namespace ALP.ViewModel.Inventory
             Initialization = InitializeAsync();
         }
 
+        /// <summary>
+        /// Shows the Quick commands that can be done on the items
+        /// </summary>
         private void OnQuickCommandsCommand()
         {
             var selectedIds = itemList.Where(item => item.IsSelected).Select(item => item.Value.ItemID).ToList();
@@ -260,6 +292,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Removes all filterData
+        /// </summary>
         private void OnDeleteFilterCommand()
         {
             ItemFilterInfo.Buildings.Clear();
@@ -287,6 +322,9 @@ namespace ALP.ViewModel.Inventory
             RaisePropertyChanged(() => FilteredId);
         }
 
+        /// <summary>
+        /// Opens the filter editor
+        /// </summary>
         private void OnFilterCommand()
         {
             try
@@ -310,6 +348,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Exports the currently visible items
+        /// </summary>
         private void OnExportCommand()
         {
             try
@@ -330,6 +371,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Gets the items corresponding to the filterdata from the server
+        /// </summary>
         private async void OnSearchCommand()
         {
             try
@@ -355,6 +399,12 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Changes the style of the clicked label
+        /// Changes the visibility of the bound Datagrid Column
+        /// Adds the property to the propertytypes list
+        /// </summary>
+        /// <param name="obj"></param>
         private void OnMouseLabelClickCommand(TextBlock obj)
         {
             if (Visibilities[obj.Name] == Visibility.Collapsed)
@@ -384,6 +434,10 @@ namespace ALP.ViewModel.Inventory
 
         }
 
+        /// <summary>
+        /// Data initialization
+        /// </summary>
+        /// <returns></returns>
         protected override async Task InitializeAsync()
         {
             try

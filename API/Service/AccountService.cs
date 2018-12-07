@@ -12,6 +12,10 @@ using Model.Model;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Handles Account based database methods
+    /// Handles Authentication
+    /// </summary>
     public class AccountService : IAccountService
     {
         private readonly IAlpContext _context;
@@ -25,13 +29,20 @@ namespace API.Service
             _logger = logger;
         }
 
-        public bool AuthorizeAsync(string encryptedSessionToken, List<RoleType> roles)
+        /// <summary>
+        /// Checks by an sessionToken, who the user is
+        /// then decides if the user has a certain role requires
+        /// </summary>
+        /// <param name="encryptedSessionToken"></param>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        public bool Authorize(string encryptedSessionToken, List<RoleType> roles)
         {
             try
             {
                 _logger.LogDebug(new
                 {
-                    action = nameof(AuthorizeAsync),
+                    action = nameof(Authorize),
                     encryptedSessionToken
                 }.ToString());
 
@@ -55,6 +66,12 @@ namespace API.Service
             }
         }
 
+        /// <summary>
+        /// Changes the password of an account
+        /// </summary>
+        /// <param name="changePasswordRequest"></param>
+        /// <param name="sessionToken"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ChangePassword(ChangePasswordRequest changePasswordRequest, string sessionToken)
         {
             var response = new AlpApiResponse();
@@ -128,6 +145,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// /decrypts the token into a role
+        /// </summary>
+        /// <param name="encryptedSessionToken"></param>
+        /// <returns></returns>
         public RoleType? GetRoleTypeFromToken(string encryptedSessionToken)
         {
 
@@ -152,6 +174,11 @@ namespace API.Service
             return (RoleType)account.RoleId;
         }
 
+        /// <summary>
+        /// logs the user in, creating a sessiontoken it can use to access the server
+        /// </summary>
+        /// <param name="loginData"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<SessionData>> Login(LoginData loginData)
         {
             var response = new AlpApiResponse<SessionData>();
@@ -223,6 +250,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// Logs the account out, destroying its sessiontoken
+        /// </summary>
+        /// <param name="encryptedSessionToken"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> Logout(string encryptedSessionToken)
         {
             var response = new AlpApiResponse();
@@ -275,6 +307,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// Registeres a new account for an employee
+        /// </summary>
+        /// <param name="registerAccountRequest"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> RegisterAccount(RegisterAccountRequest registerAccountRequest)
         {
             var response = new AlpApiResponse();

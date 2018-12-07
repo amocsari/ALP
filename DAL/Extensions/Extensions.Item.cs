@@ -4,6 +4,9 @@ using DAL.Entity;
 
 namespace DAL.Extensions
 {
+    /// <summary>
+    /// Exension methods for the Item entity and dto
+    /// </summary>
     public static partial class Extensions
     {
         public static Item DtoToEntity(this ItemDto dto)

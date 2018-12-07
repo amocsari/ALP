@@ -13,8 +13,14 @@ using Model.Model;
 
 namespace ALP.ViewModel.Employee
 {
+    /// <summary>
+    /// ViewModel of EmployeeList
+    /// </summary>
     public class EmployeeSearchPageViewModel : AlpViewModelBase
     {
+        /// <summary>
+        /// List of employees
+        /// </summary>
         private ObservableCollection<EmployeeListItemViewModel> employees;
         public ObservableCollection<EmployeeListItemViewModel> Employees
         {
@@ -28,6 +34,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// List of departments in the combobox
+        /// </summary>
         private ObservableCollection<DepartmentDto> departments;
         public ObservableCollection<DepartmentDto> Departments
         {
@@ -41,6 +50,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// List of sections in the combobox
+        /// </summary>
         private ObservableCollection<SectionDto> sections;
         public ObservableCollection<SectionDto> Sections
         {
@@ -54,6 +66,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// Filter parameter thats bound to the textbox
+        /// </summary>
         private string nameFilter;
         public string NameFilter
         {
@@ -67,6 +82,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// The filter parameter bound to the sleected item of the combobox
+        /// </summary>
         private DepartmentDto selectedDepartment;
         public DepartmentDto SelectedDepartment
         {
@@ -80,6 +98,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// The filter parameter bound to the sleected item of the combobox
+        /// </summary>
         private SectionDto selectedSection;
         public SectionDto SelectedSection
         {
@@ -93,6 +114,9 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// The filter parameter bound to the sleected item of the datagrid
+        /// </summary>
         private EmployeeListItemViewModel selectedEmployee;
         public EmployeeListItemViewModel SelectedEmpolyee
         {
@@ -106,10 +130,16 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// Commands
+        /// </summary>
         public ICommand SearchCommand { get; private set; }
         public ICommand NewEmployeeCommand { get; private set; }
         public ICommand ListItemDoubleClickCommand { get; private set; }
 
+        /// <summary>
+        /// Used services
+        /// </summary>
         private readonly IEmployeeApiService _employeeApiService;
         private readonly IAlpNavigationService _navigationService;
         private readonly ILookupApiService<DepartmentDto> _departmentApiService;
@@ -133,16 +163,26 @@ namespace ALP.ViewModel.Employee
             Initialization = InitializeAsync();
         }
 
+        /// <summary>
+        /// Command handler of listitemdoubleclick
+        /// Moves to editpage
+        /// </summary>
         private void OnListItemDoubleClickCommand()
         {
             _navigationService.NavigateTo(ViewModelLocator.EmployeeEditPage, SelectedEmpolyee.Value);
         }
 
+        /// <summary>
+        /// CommandHandler of new button press
+        /// </summary>
         private void OnNewEmployeeCommand()
         {
             _navigationService.NavigateTo(ViewModelLocator.EmployeeEditPage);
         }
 
+        /// <summary>
+        /// Command handler of search command
+        /// </summary>
         private async void OnSearchCommand()
         {
             try
@@ -176,6 +216,10 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+        /// <summary>
+        /// Initializer
+        /// </summary>
+        /// <returns></returns>
         protected override async Task InitializeAsync()
         {
             try

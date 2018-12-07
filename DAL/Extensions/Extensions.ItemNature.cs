@@ -3,6 +3,9 @@ using Common.Model.Dto;
 
 namespace DAL.Extensions
 {
+    /// <summary>
+    /// Exension methods for the ItemNature entity and dto
+    /// </summary>
     public static partial class Extensions
     {
         public static ItemNatureDto EntityToDto(this ItemNature entity)

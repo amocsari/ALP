@@ -12,6 +12,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Handles department related database operations
+    /// </summary>
     public class DepartmentService : IDepartmentService
     {
         private readonly IAlpContext _context;
@@ -22,7 +25,11 @@ namespace API.Service
             _context = context;
             _logger = logger;
         }
-
+        /// <summary>
+        ///deletes a department by id 
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DeleteDepartmentById(int departmentId)
         {
             var response = new AlpApiResponse();
@@ -54,6 +61,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// returns all departments in the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<DepartmentDto>>> GetAllDepartments()
         {
             var response = new AlpApiResponse<List<DepartmentDto>>();
@@ -83,6 +94,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all non locked departments from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<DepartmentDto>>> GetAvailableDepartments()
         {
             var response = new AlpApiResponse<List<DepartmentDto>>();
@@ -112,6 +127,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// getss a department by id
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<DepartmentDto>> GetDepartmentById(int departmentId)
         {
             var response = new AlpApiResponse<DepartmentDto>();
@@ -142,6 +162,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// adds a new department to the database
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<DepartmentDto>> InsertNewDepartment(DepartmentDto dto)
         {
             var response = new AlpApiResponse<DepartmentDto>();
@@ -177,6 +202,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// updates a department by dto 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> UpdateDepartment(DepartmentDto dto)
         {
             var response = new AlpApiResponse();
@@ -211,6 +241,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// changes the lockedstate of a department
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ToggleDepartmentLockStateById(int departmentId)
         {
             var response = new AlpApiResponse();

@@ -14,6 +14,9 @@ using Employee = DAL.Entity.Employee;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Handles item related database methods
+    /// </summary>
     public class ItemService : IItemService
     {
         private readonly IAlpContext _context;
@@ -25,6 +28,11 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// gets an item by id
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<ItemDto>> GetItemById(int itemId)
         {
             var response = new AlpApiResponse<ItemDto>();
@@ -63,6 +71,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// adds a new item
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> AddNewItem(ItemDto dto)
         {
             var response = new AlpApiResponse();
@@ -108,6 +121,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// filters items
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemDto>>> FindItemsForDisplay(InventoryItemFilterInfo info)
         {
             var response = new AlpApiResponse<List<ItemDto>>();
@@ -229,6 +247,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// adds excel imported items
+        /// </summary>
+        /// <param name="importedItems"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemDto>>> ImportItems(List<ImportedItem> importedItems)
         {
             var response = new AlpApiResponse<List<ItemDto>>();
@@ -321,6 +344,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all the items an employee has
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemDto>>> GetItemsByEmployeeId(int employeeId)
         {
             var response = new AlpApiResponse<List<ItemDto>>();
@@ -363,6 +391,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// change items owner to departmentchief
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ChangeOwnerToDepartmentChief(int itemId)
         {
             var response = new AlpApiResponse();
@@ -415,6 +448,12 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// change itms departement to payloadid
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <param name="payLoadId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ChangeDepartment(int itemId, int? payLoadId)
         {
             var response = new AlpApiResponse();
@@ -461,6 +500,12 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// change items owner to payloadid
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <param name="payLoadId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ChangeOwner(int itemId, int? payLoadId)
         {
             var response = new AlpApiResponse();
@@ -507,6 +552,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// set items dateofscrap to now
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> Scrap(int itemId)
         {
             var response = new AlpApiResponse();

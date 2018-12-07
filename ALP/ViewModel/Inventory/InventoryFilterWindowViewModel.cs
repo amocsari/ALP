@@ -12,8 +12,14 @@ using GalaSoft.MvvmLight.CommandWpf;
 
 namespace ALP.ViewModel.Inventory
 {
+    /// <summary>
+    /// Handles the background work of the filter window
+    /// </summary>
     public class InventoryFilterWindowViewModel : AlpViewModelBase, IDialogViewModel<InventoryItemFilterInfo, InventoryItemFilterInfo>
     {
+        /// <summary>
+        /// Filter object that the window received
+        /// </summary>
         private InventoryItemFilterInfo parameter;
         public InventoryItemFilterInfo Parameter
         {
@@ -28,8 +34,15 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Filter object that the window gives back
+        /// </summary>
         public InventoryItemFilterInfo ReturnParameter { get; set; }
 
+        /// <summary>
+        /// Lists that contain the selected and the not yet selected items
+        /// + References to the currently selected members of the list
+        /// </summary>
         private ObservableCollection<BuildingDto> notSelectedBuildings;
         public ObservableCollection<BuildingDto> NotSelectedBuildings
         {
@@ -246,6 +259,9 @@ namespace ALP.ViewModel.Inventory
         public SectionDto SelectedSelectedSection { get; set; }
         public SectionDto SelectedNotSelectedSection { get; set; }
 
+        /// <summary>
+        /// Injected services
+        /// </summary>
         private readonly ILookupApiService<BuildingDto> _buildingApiService;
         private readonly ILookupApiService<DepartmentDto> _departmentApiService;
         private readonly ILookupApiService<FloorDto> _floorApiService;
@@ -257,6 +273,9 @@ namespace ALP.ViewModel.Inventory
         private readonly IAlpLoggingService<InventoryFilterWindowViewModel> _loggingService;
         private readonly IAlpDialogService _dialogService;
 
+        /// <summary>
+        /// Command
+        /// </summary>
         public ICommand ApplyCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
         public ICommand SelectedBuildingDoubleClickCommand { get; private set; }
@@ -316,6 +335,9 @@ namespace ALP.ViewModel.Inventory
             //Initialization = InitializeAsync();
         }
 
+        /// <summary>
+        /// Command handlers that move an item from a list to another
+        /// </summary>
         private void OnSelectedBuildingDoubleClickCommand()
         {
             var building = SelectedSelectedBuilding;
@@ -524,12 +546,20 @@ namespace ALP.ViewModel.Inventory
             RaisePropertyChanged(() => NotSelectedSections);
         }
 
+        /// <summary>
+        /// Closes without returning the updated filter
+        /// </summary>
+        /// <param name="window"></param>
         private void OnCancelCommand(Window window)
         {
             window.DialogResult = false;
             window.Close();
         }
 
+        /// <summary>
+        /// sets the returnparameter before closing
+        /// </summary>
+        /// <param name="window"></param>
         private void OnApplyCommand(Window window)
         {
             ReturnParameter = Parameter;
@@ -545,6 +575,10 @@ namespace ALP.ViewModel.Inventory
             window.Close();
         }
 
+        /// <summary>
+        /// Initialization
+        /// </summary>
+        /// <returns></returns>
         protected override async Task InitializeAsync()
         {
             try

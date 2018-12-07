@@ -3,10 +3,15 @@ using GalaSoft.MvvmLight;
 
 namespace ALP.ViewModel.Inventory
 {
+    /// <summary>
+    /// viewmodel of one item
+    /// </summary>
     public class InventoryItemSearchListItemViewModel: ViewModelBase
     {
+        /// <summary>
+        /// stored item
+        /// </summary>
         private ItemDto value;
-
         public ItemDto Value
         {
             get { return value; }
@@ -19,6 +24,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// bound to the checkbox
+        /// </summary>
         private bool isSelected;
         public bool IsSelected
         {

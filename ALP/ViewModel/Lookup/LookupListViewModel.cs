@@ -172,6 +172,10 @@ namespace ALP.ViewModel.Lookup
             }
         }
 
+        /// <summary>
+        /// Reloads the lookupList
+        /// </summary>
+        /// <returns></returns>
         private async Task ReloadList()
         {
             IsLoading = true;

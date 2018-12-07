@@ -12,6 +12,9 @@ namespace ALP.ViewModel.Inventory
 {
     public class ItemEditPageViewModel : AlpViewModelBase
     {
+        /// <summary>
+        /// Selectable itemNatures
+        /// </summary>
         private ObservableCollection<ItemNatureDto> itemNatures;
         public ObservableCollection<ItemNatureDto> ItemNatures
         {
@@ -25,6 +28,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Selectable itemTypes
+        /// </summary>
         private ObservableCollection<ItemTypeDto> itemTypes;
         public ObservableCollection<ItemTypeDto> ItemTypes
         {
@@ -38,6 +44,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Selectable itemStates
+        /// </summary>
         private ObservableCollection<ItemStateDto> itemStates;
         public ObservableCollection<ItemStateDto> ItemStates
         {
@@ -51,6 +60,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Selectable buildings
+        /// </summary>
         private ObservableCollection<BuildingDto> buildings;
         public ObservableCollection<BuildingDto> Buildings
         {
@@ -64,6 +76,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Selectable floors
+        /// </summary>
         private ObservableCollection<FloorDto> floors;
         public ObservableCollection<FloorDto> Floors
         {
@@ -77,6 +92,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Selectable floors
+        /// </summary>
         private ObservableCollection<DepartmentDto> departments;
         public ObservableCollection<DepartmentDto> Departments
         {
@@ -90,6 +108,9 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Selectable sections
+        /// </summary>
         private ObservableCollection<SectionDto> sections;
         public ObservableCollection<SectionDto> Sections
         {
@@ -103,8 +124,14 @@ namespace ALP.ViewModel.Inventory
             }
         }
 
+        /// <summary>
+        /// Edited item
+        /// </summary>
         public ItemDto Item { get; set; }
 
+        /// <summary>
+        /// Selected listelements
+        /// </summary>
         public ItemNatureDto SelectedItemNature
         {
             get { return Item.ItemNature; }
@@ -118,7 +145,6 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-
         public ItemTypeDto SelectedItemType
         {
             get { return Item.ItemType; }
@@ -132,7 +158,6 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-
         public ItemStateDto SelectedItemState
         {
             get { return Item.ItemState; }
@@ -146,7 +171,6 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-
         public BuildingDto SelectedBuilding
         {
             get { return Item.Building; }
@@ -160,7 +184,6 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-
         public FloorDto SelectedFloor
         {
             get { return Item.Floor; }
@@ -174,7 +197,6 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-
         public DepartmentDto SelectedDepartment
         {
             get { return Item.Department; }
@@ -188,7 +210,6 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-
         public SectionDto SelectedSection
         {
             get { return Item.Section; }
@@ -215,7 +236,7 @@ namespace ALP.ViewModel.Inventory
                 }
             }
         }
-        public string EmployeeName { get; set; }
+        public EmployeeDto SelectedEmployee { get; set; }
 
         private readonly IInventoryApiService _inventoryApiService;
         private readonly IEmployeeApiService _employeeApiService;
@@ -342,15 +363,22 @@ namespace ALP.ViewModel.Inventory
 
         private async void OnSaveCommand()
         {
-            var employee = await _employeeApiService.GetEmployeeByName(EmployeeName);
-            if (employee != null)
+            try
             {
-                //TODO: feldobni ablakot
-                Item.Employee = employee;
-                Item.EmployeeID = employee.Id;
+                IsLoading = true;
+                Item.EmployeeID = SelectedEmployee?.Id;
+                await _inventoryApiService.AddNewInventoryItem(Item);
+                _navigationService.NavigateTo(ViewModelLocator.InventoryItemSearchPage);
             }
-            await _inventoryApiService.AddNewInventoryItem(Item);
-            _navigationService.NavigateTo(ViewModelLocator.InventoryItemSearchPage);
+            catch (Exception e)
+            {
+                _loggingService.LogError("Error during save of new item", e);
+                _dialogService.ShowAlert(e.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private void OnCancelCommand()

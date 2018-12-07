@@ -23,8 +23,6 @@ namespace ALP.Ninject
         {
             Bind<MainWindowViewModel>().ToSelf().InTransientScope();
             Bind<WelcomeScreenViewModel>().ToSelf().InTransientScope();
-            Bind<SettingsViewModel>().ToSelf().InTransientScope();
-            Bind<ChangesViewModel>().ToSelf().InTransientScope();
             Bind<ItemEditPageViewModel>().ToSelf().InTransientScope();
 
             Bind(typeof(LookupListViewModel<>)).ToSelf().InTransientScope();
@@ -39,7 +37,6 @@ namespace ALP.Ninject
             Bind<IAlpNavigationService>().To<AlpNavigationService>().InSingletonScope();
             Bind<IAlpApiService>().To<AlpApiService>().InSingletonScope();
             Bind<IAlpDialogService>().To<AlpDialogService>().InSingletonScope();
-            Bind<IAlpResourceService>().To<AlpResourceService>().InSingletonScope();
             Bind<IInventoryApiService>().To<InventoryApiService>().InSingletonScope();
             Bind<IEmployeeApiService>().To<EmployeeApiService>().InSingletonScope();
             Bind<IOperationService>().To<OperationService>().InSingletonScope();

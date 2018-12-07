@@ -4,6 +4,9 @@ using Model.Enum;
 
 namespace DAL.Extensions
 {
+    /// <summary>
+    /// Exension methods for the Operation entity and dto
+    /// </summary>
     public partial class Extensions
     {
         public static OperationDto EntityToDto(this Operation entity)

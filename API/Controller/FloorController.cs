@@ -25,7 +25,7 @@ namespace API.Controller
         public Task<AlpApiResponse<List<FloorDto>>> GetAllFloor()
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
             {
                 return Task.FromResult(new AlpApiResponse<List<FloorDto>> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -36,7 +36,7 @@ namespace API.Controller
         public Task<AlpApiResponse<List<FloorDto>>> GetAvailableFloor()
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin, RoleType.DepartmentInventoryOperator }))
             {
                 return Task.FromResult(new AlpApiResponse<List<FloorDto>> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -58,7 +58,7 @@ namespace API.Controller
         public Task<AlpApiResponse<FloorDto>> AddNewFloor([FromBody] FloorDto floor)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin }))
             {
                 return Task.FromResult(new AlpApiResponse<FloorDto> { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -69,7 +69,7 @@ namespace API.Controller
         public Task<AlpApiResponse> UpdateFloor([FromBody] FloorDto floor)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin }))
             {
                 return Task.FromResult(new AlpApiResponse { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }
@@ -91,7 +91,7 @@ namespace API.Controller
         public Task<AlpApiResponse> ToggleLockStateByIdFloor([FromBody] int floorId)
         {
             var sessionToken = HttpContext.Request.Headers["sessiontoken"];
-            if (!_accountService.AuthorizeAsync(sessionToken, new List<RoleType> { RoleType.Admin }))
+            if (!_accountService.Authorize(sessionToken, new List<RoleType> { RoleType.Admin }))
             {
                 return Task.FromResult(new AlpApiResponse { Success = false, Message = "Nincs jogosultsága ehhez a művelethez!" });
             }

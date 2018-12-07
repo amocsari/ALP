@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Handley encryption operation
+    /// </summary>
     public class EncryptionService: IEncryptionService
     {
         private readonly IDataProtector _protector;
@@ -16,6 +19,12 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// encrypts generic data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public string Encrypt<T>(T data)
         {
             _logger.LogDebug(new
@@ -28,6 +37,12 @@ namespace API.Service
             return protectedDataString;
         }
 
+        /// <summary>
+        /// decrypts generic data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="protectedDataString"></param>
+        /// <returns></returns>
         public T Decrypt<T>(string protectedDataString)
         {
             _logger.LogDebug(new

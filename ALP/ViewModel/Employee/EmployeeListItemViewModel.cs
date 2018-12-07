@@ -7,8 +7,14 @@ using Common.Model.Dto;
 
 namespace ALP.ViewModel.Employee
 {
+    /// <summary>
+    /// ViewModel of a single employee
+    /// </summary>
     public class EmployeeListItemViewModel : AlpViewModelBase
     {
+        /// <summary>
+        /// Data of the employee
+        /// </summary>
         private EmployeeDto value;
         public EmployeeDto Value
         {

@@ -8,6 +8,9 @@ using DAL.Entity;
 
 namespace DAL.Extensions
 {
+    /// <summary>
+    /// Exension methods for the Employee entity and dto
+    /// </summary>
     public static partial class Extensions
     {
         public static Employee DtoToEntity(this EmployeeDto dto)

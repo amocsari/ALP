@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Handles floor related database operations
+    /// </summary>
     public class FloorService : IFloorService
     {
         private readonly IAlpContext _context;
@@ -22,6 +25,11 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// feletes floor by id
+        /// </summary>
+        /// <param name="floorId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DeleteFloorById(int floorId)
         {
             var response = new AlpApiResponse();
@@ -54,6 +62,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all floors from database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<FloorDto>>> GetAllFloors()
         {
             var response = new AlpApiResponse<List<FloorDto>>();
@@ -84,6 +96,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets nonlocked floors
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<FloorDto>>> GetAvailableFloors()
         {
             var response = new AlpApiResponse<List<FloorDto>>();
@@ -114,6 +130,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets a floor by id
+        /// </summary>
+        /// <param name="floorId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<FloorDto>> GetFloorById(int floorId)
         {
             var response = new AlpApiResponse<FloorDto>();
@@ -145,6 +166,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// adds a new floor to the database
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<FloorDto>> InsertNewFloor(FloorDto dto)
         {
             var response = new AlpApiResponse<FloorDto>();
@@ -181,6 +207,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// updates a floor by dto
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> UpdateFloor(FloorDto dto)
         {
             var response = new AlpApiResponse();
@@ -215,6 +246,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// change the locked state of floor
+        /// </summary>
+        /// <param name="floorId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ToggleFloorLockStateById(int floorId)
         {
             var response = new AlpApiResponse();

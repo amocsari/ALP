@@ -1,5 +1,8 @@
 ﻿namespace Common.Model
 {
+    /// <summary>
+    /// The data of a single item imported from an excel sheet
+    /// </summary>
     public class ImportedItem
     {
         public int? YellowNumber { get; set; }

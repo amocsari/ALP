@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Service
 {
+    /// <summary>
+    /// handles itemstate related database operations
+    /// </summary>
     public class ItemStateService : IItemStateService
     {
         private readonly IAlpContext _context;
@@ -22,6 +25,11 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// adds new itemstate
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<ItemStateDto>> AddNewItemState(ItemStateDto dto)
         {
             var response = new AlpApiResponse<ItemStateDto>();
@@ -56,6 +64,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// deletes itemstate by id
+        /// </summary>
+        /// <param name="itemStateId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DeleteItemStateById(int itemStateId)
         {
             var response = new AlpApiResponse();
@@ -87,6 +100,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all itemstates
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemStateDto>>> GetAllItemStates()
         {
             var response = new AlpApiResponse<List<ItemStateDto>>();
@@ -97,7 +114,7 @@ namespace API.Service
                     action = nameof(GetAllItemStates)
                 }.ToString());
 
-                var entites = await _context.ItemState.AsNoTracking().Where(itemState => itemState.ItemStateId != 1 && itemState.ItemStateId != 2).ToListAsync();
+                var entites = await _context.ItemState.AsNoTracking().ToListAsync();
                 response.Value = entites.Select(e => e.EntityToDto()).ToList();
             }
             catch (Exception e)
@@ -116,6 +133,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets not locked itemstates
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemStateDto>>> GetAvailableItemStates()
         {
             var response = new AlpApiResponse<List<ItemStateDto>>();
@@ -145,6 +166,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets an itemstate by id
+        /// </summary>
+        /// <param name="itemStateId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<ItemStateDto>> GetItemStateById(int itemStateId)
         {
             var response = new AlpApiResponse<ItemStateDto>();
@@ -175,6 +201,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// updates itemstate by dto
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> UpdateItemState(ItemStateDto dto)
         {
             var response = new AlpApiResponse();
@@ -188,7 +219,7 @@ namespace API.Service
 
                 dto.Validate();
 
-                if (dto.Id == 1 || dto.Id == 2)
+                if (dto.Id == 1 || dto.Id == 2 || dto.Id == 3)
                 {
                     response.Success = false;
                     response.Message = "Ennek a státusznak az adatai nem változtathatóak!";
@@ -215,6 +246,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// changes locked state if itemstate
+        /// </summary>
+        /// <param name="itemStateId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ToggleItemStateLockStateById(int itemStateId)
         {
             var response = new AlpApiResponse();

@@ -129,7 +129,7 @@
                     <TextBox Text="{Binding Item.Room}" Grid.Column="5" Grid.Row="0" Margin="2,5" />
 
                     <Label Content="Tulajdonos" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="2,5" />
-                    <toolkit:AutoCompleteBox ItemsSource="{Binding EmployeeList}" ValueMemberPath="Name" SelectedItem="{Binding EmployeeName, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" IsTextCompletionEnabled="True" FilterMode="Contains" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" Margin="2,5" />
+                    <toolkit:AutoCompleteBox ItemsSource="{Binding Employees}" ValueMemberPath="Name" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" ItemTemplate="{StaticResource AutoCompleteEmployeeDataTemplate}" IsTextCompletionEnabled="True" FilterMode="Contains" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" Margin="2,5" />
 
                     <Label Content="Állapot" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="2,5" />
                     <ComboBox ItemsSource="{Binding ItemStates}" SelectedItem="{Binding SelectedItemState}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="2" Margin="2,5" />

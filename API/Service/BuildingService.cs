@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Handles building related database operations
+    /// </summary>
     public class BuildingService : IBuildingService
     {
         private readonly IAlpContext _context;
@@ -22,6 +25,11 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// Deletes a building by its id
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DeleteBuildingById(int buildingId)
         {
             var response = new AlpApiResponse();
@@ -53,6 +61,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all the buldings from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<BuildingDto>>> GetAllBuildings()
         {
             var response = new AlpApiResponse<List<BuildingDto>>();
@@ -82,6 +94,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all the non-locked buildings
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<BuildingDto>>> GetAvailableBuildings()
         {
             var response = new AlpApiResponse<List<BuildingDto>>();
@@ -111,6 +127,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets a building by its id
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<BuildingDto>> GetBuildingById(int buildingId)
         {
             var response = new AlpApiResponse<BuildingDto>();
@@ -141,6 +162,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// adds a new building into the database
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<BuildingDto>> InsertNewBuilding(BuildingDto dto)
         {
             var response = new AlpApiResponse<BuildingDto>();
@@ -177,6 +203,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// updates a building by a dto
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> UpdateBuilding(BuildingDto dto)
         {
             var response = new AlpApiResponse();
@@ -210,6 +241,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// changes the lockstate of a building
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ToggleBuildingLockStateById(int buildingId)
         {
             var response = new AlpApiResponse();

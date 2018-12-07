@@ -9,12 +9,25 @@ using Common.Model;
 
 namespace ALP.Service
 {
+    /// <summary>
+    /// Imports items from an excel file
+    /// </summary>
     public class ImportService : IImportService
     {
+        /// <summary>
+        /// Number of rows that are not data
+        /// </summary>
         private static readonly int HeaderRowCount = 2;
 
+        /// <summary>
+        /// Worksheet
+        /// </summary>
         private ExcelWorksheet workSheet;
 
+        /// <summary>
+        /// Imports data from excel
+        /// </summary>
+        /// <returns></returns>
         public List<ImportedItem> ImportFromXls()
         {
             var importedItems = new List<ImportedItem>();
@@ -70,6 +83,11 @@ namespace ALP.Service
             return importedItems;
         }
 
+        /// <summary>
+        /// Reads a row and parses the data
+        /// </summary>
+        /// <param name="rowCount"></param>
+        /// <returns></returns>
         private ImportedItem ReadRow(int rowCount)
         {
             var importedItem = new ImportedItem();
@@ -83,6 +101,11 @@ namespace ALP.Service
             return importedItem;
         }
 
+        /// <summary>
+        /// Validates the read item
+        /// </summary>
+        /// <param name="importedItem"></param>
+        /// <returns></returns>
         private bool ValidateItem(ImportedItem importedItem)
         {
             if (importedItem == null)

@@ -32,10 +32,6 @@ namespace ALP.Navigation
 
         public WelcomeScreenViewModel WelcomeScreenViewModel { get => IocKernel.Get<WelcomeScreenViewModel>(); }
 
-        public SettingsViewModel SettingsViewModel { get => IocKernel.Get<SettingsViewModel>(); }
-
-        public ChangesViewModel ChangesViewModel { get => IocKernel.Get<ChangesViewModel>(); }
-
         public LoginWindowViewModel LoginWindowViewModel { get => IocKernel.Get<LoginWindowViewModel>(); }
         public PasswordChangeWindowViewModel PasswordChangeWindowViewModel { get => IocKernel.Get<PasswordChangeWindowViewModel>(); }
         public NewEmployeeRegisterWindowViewModel NewEmployeeRegisterWindowViewModel { get => IocKernel.Get<NewEmployeeRegisterWindowViewModel>(); }

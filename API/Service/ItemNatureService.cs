@@ -56,6 +56,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all floors from database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DeleteItemNatureById(int itemNatureId)
         {
             var response = new AlpApiResponse();
@@ -87,6 +91,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets all itemnatures
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemNatureDto>>> GetAllItemNatures()
         {
             var response = new AlpApiResponse<List<ItemNatureDto>>();
@@ -116,6 +124,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets a floors without locks
+        /// </summary>
+        /// <param name="floorId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemNatureDto>>> GetAvailableItemNatures()
         {
             var response = new AlpApiResponse<List<ItemNatureDto>>();
@@ -146,6 +159,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets a floor by id
+        /// </summary>
+        /// <param name="floorId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<ItemNatureDto>> GetItemNatureById(int itemNatureId)
         {
             var response = new AlpApiResponse<ItemNatureDto>();
@@ -176,6 +194,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// updates a itemnature by dto
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> UpdateItemNature(ItemNatureDto dto)
         {
             var response = new AlpApiResponse();
@@ -209,6 +232,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// change the itemnature state of floor
+        /// </summary>
+        /// <param name="floorId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ToggleItemNatureLockStateById(int itemNatureId)
         {
             var response = new AlpApiResponse();

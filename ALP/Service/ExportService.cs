@@ -11,10 +11,19 @@ using OfficeOpenXml.Style;
 
 namespace ALP.Service
 {
+    /// <summary>
+    /// Handles excel export
+    /// </summary>
     public class ExportService : IExportService
     {
+        /// <summary>
+        /// Number of rows that are not data
+        /// </summary>
         private static readonly int HeaderOffset = 2;
 
+        /// <summary>
+        /// Injected service
+        /// </summary>
         private readonly IAlpLoggingService<ExportService> _loggingService;
 
         public ExportService(IAlpLoggingService<ExportService> loggingService)
@@ -22,6 +31,11 @@ namespace ALP.Service
             _loggingService = loggingService;
         }
 
+        /// <summary>
+        /// Export
+        /// </summary>
+        /// <param name="itemList"></param>
+        /// <param name="itemTypes"></param>
         public void ExportToExcel(List<ItemDto> itemList, List<ItemPropertyType> itemTypes)
         {
             _loggingService.LogDebug(new
@@ -91,6 +105,12 @@ namespace ALP.Service
             }
         }
 
+        /// <summary>
+        /// "Mapping" the item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="propertyType"></param>
+        /// <returns></returns>
         private string GetItemDataByItemPropertyType(ItemDto item, ItemPropertyType propertyType)
         {
             switch (propertyType)

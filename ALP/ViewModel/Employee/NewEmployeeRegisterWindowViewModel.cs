@@ -9,15 +9,26 @@ using System.Windows.Input;
 
 namespace ALP.ViewModel.Employee
 {
+    /// <summary>
+    /// Registers a new account for an employee
+    /// </summary>
     public class NewEmployeeRegisterWindowViewModel : AlpViewModelBase, IDialogViewModel<object, int>
     {
+        /// <summary>
+        /// employeeid as parameter
+        /// </summary>
         public int Parameter { get; set; }
         public object ReturnParameter { get; set; }
 
-
+        /// <summary>
+        /// injected services
+        /// </summary>
         private readonly IAccountApiService _accountApiService;
         private readonly IAlpDialogService _dialogService;
 
+        /// <summary>
+        /// command
+        /// </summary>
         public ICommand CancelCommand { get; private set; }
 
         public NewEmployeeRegisterWindowViewModel(IAccountApiService accountApiService, IAlpDialogService dialogService)
@@ -29,11 +40,22 @@ namespace ALP.ViewModel.Employee
 
         }
 
+        /// <summary>
+        /// closes the window
+        /// </summary>
+        /// <param name="window"></param>
         private void OnCancelCommand(Window window)
         {
             window.Close();
         }
 
+        /// <summary>
+        /// sends a registration request to the server
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="newPassword"></param>
+        /// <param name="newPasswordRe"></param>
+        /// <returns></returns>
         public async Task RegisterUser(string userName, string newPassword, string newPasswordRe)
         {
             try

@@ -47,6 +47,9 @@ namespace ALP.ViewModel
         public ICommand DepartmentSearchCommand { get; private set; }
         public ICommand LocationCommand { get; private set; }
 
+        /// <summary>
+        /// Data containing the current session
+        /// </summary>
         public static string SessionToken { get; set; }
         private SessionData sessionData;
         public SessionData SessionData
@@ -84,23 +87,23 @@ namespace ALP.ViewModel
 
             LoginCommand = new RelayCommand(OnLoginCommand);
             LogoutCommand = new RelayCommand(OnLogoutCommand);
-            PasswordChangeCommand = new RelayCommand(OnPasswordChangeCommand, IsLoggedIn);
+            PasswordChangeCommand = new RelayCommand(OnPasswordChangeCommand);
             ChangesCommand = new RelayCommand(OnChangesCommand);
-            SystemSettingsCommand = new RelayCommand(OnSystemSettingsCommand, IsLoggedIn && IsAdmin);
+            SystemSettingsCommand = new RelayCommand(OnSystemSettingsCommand);
             ExitCommand = new RelayCommand<Window>(OnExitCommand);
             ItemNatureCommand = new RelayCommand(OnItemNatureCommand);
-            ItemTypeCommand = new RelayCommand(OnItemTypeCommand, IsLoggedIn && IsAdmin);
-            ItemStateCommand = new RelayCommand(OnItemStateCommand, IsLoggedIn && IsAdmin);
-            FloorCommand = new RelayCommand(OnFloorCommand, IsLoggedIn && IsAdmin);
-            SectionCommand = new RelayCommand(OnSectionCommand, IsLoggedIn && IsAdmin);
-            BuildingCommand = new RelayCommand(OnBuildingCommand, IsLoggedIn && IsAdmin);
-            NewItemCommand = new RelayCommand(OnNewItemCommand, IsLoggedIn && IsAdmin);
-            ItemSearchCommand = new RelayCommand(OnItemSearchCommand, IsLoggedIn);
-            RequestsCommand = new RelayCommand(OnRequestsCommand, IsLoggedIn && IsAdmin);
-            ImportCommand = new RelayCommand(OnImportCommand, IsLoggedIn && IsAdmin);
-            EmployeeSearchCommand = new RelayCommand(OnEmployeeSearchCommand, IsLoggedIn && IsAdmin);
-            DepartmentSearchCommand = new RelayCommand(OnDepartmentSearchCommand, IsLoggedIn && IsAdmin);
-            LocationCommand = new RelayCommand(OnLocationCommand, IsLoggedIn && IsAdmin);
+            ItemTypeCommand = new RelayCommand(OnItemTypeCommand);
+            ItemStateCommand = new RelayCommand(OnItemStateCommand);
+            FloorCommand = new RelayCommand(OnFloorCommand);
+            SectionCommand = new RelayCommand(OnSectionCommand);
+            BuildingCommand = new RelayCommand(OnBuildingCommand);
+            NewItemCommand = new RelayCommand(OnNewItemCommand);
+            ItemSearchCommand = new RelayCommand(OnItemSearchCommand);
+            RequestsCommand = new RelayCommand(OnRequestsCommand);
+            ImportCommand = new RelayCommand(OnImportCommand);
+            EmployeeSearchCommand = new RelayCommand(OnEmployeeSearchCommand);
+            DepartmentSearchCommand = new RelayCommand(OnDepartmentSearchCommand);
+            LocationCommand = new RelayCommand(OnLocationCommand);
         }
 
         /// <summary>

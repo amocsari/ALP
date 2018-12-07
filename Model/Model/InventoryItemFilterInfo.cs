@@ -5,6 +5,9 @@ using Common.Model.Dto;
 
 namespace Common.Model
 {
+    /// <summary>
+    /// Stores the filter parameters
+    /// </summary>
     public class InventoryItemFilterInfo
     {
         public List<string> Id { get; set; }
@@ -13,7 +16,6 @@ namespace Common.Model
         public int? BruttoPriceMax { get; set; }
         public DateTime? DateOfCreationMin { get; set; }
         public DateTime? DateOfCreationMax { get; set; }
-        //TODO: int?
         public DateTime? YearOfManufactureMin { get; set; }
         public DateTime? YearOfManufactureMax { get; set; }
         public DateTime? DateOfScrapMin { get; set; }

@@ -8,8 +8,17 @@ using System.Text;
 
 namespace DAL.Extensions
 {
+    /// <summary>
+    /// General extansion methods
+    /// </summary>
     public static partial class Extensions
     {
+        /// <summary>
+        /// builds a string from a list
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static string ListToString<T>(this List<T> list)
         {
             StringBuilder sb = new StringBuilder("{");
@@ -24,16 +33,15 @@ namespace DAL.Extensions
         }
 
 
+        /// <summary>
+        /// Creates a string from linq sql
+        /// for debug purposes
+        /// </summary>
         private static readonly TypeInfo QueryCompilerTypeInfo = typeof(QueryCompiler).GetTypeInfo();
-
         private static readonly FieldInfo QueryCompilerField = typeof(EntityQueryProvider).GetTypeInfo().DeclaredFields.First(x => x.Name == "_queryCompiler");
-
         private static readonly FieldInfo QueryModelGeneratorField = QueryCompilerTypeInfo.DeclaredFields.First(x => x.Name == "_queryModelGenerator");
-
         private static readonly FieldInfo DataBaseField = QueryCompilerTypeInfo.DeclaredFields.Single(x => x.Name == "_database");
-
         private static readonly PropertyInfo DatabaseDependenciesField = typeof(Database).GetTypeInfo().DeclaredProperties.Single(x => x.Name == "Dependencies");
-
         public static string ToSql<TEntity>(this IQueryable<TEntity> query) where TEntity : class
         {
             var queryCompiler = (QueryCompiler)QueryCompilerField.GetValue(query.Provider);

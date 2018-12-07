@@ -7,6 +7,11 @@ namespace ALP.Extensions
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Gets the description attribute value of an enum
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string GetDescription(this Enum value)
         {
             return

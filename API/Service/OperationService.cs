@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Service
 {
+    /// <summary>
+    /// handles operations
+    /// </summary>
     public class OperationService : IOperationService
     {
         private readonly IAlpContext _context;
@@ -26,6 +29,13 @@ namespace API.Service
             _itemService = itemService;
         }
 
+        /// <summary>
+        /// queues the operation for later handling
+        /// if the user is admin, it is immediately handled
+        /// </summary>
+        /// <param name="operationList"></param>
+        /// <param name="sessionToken"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<ItemDto>>> QueueOperations(List<OperationDto> operationList, string sessionToken)
         {
             var response = new AlpApiResponse<List<ItemDto>>();
@@ -81,6 +91,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// handles the operation
+        /// </summary>
+        /// <param name="operationId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DoOperation(int operationId)
         {
             var response = new AlpApiResponse();

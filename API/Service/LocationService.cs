@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Service
 {
+    /// <summary>
+    /// Handles location based database operations
+    /// </summary>
     public class LocationService : ILocationService
     {
         private readonly IAlpContext _context;
@@ -22,6 +25,11 @@ namespace API.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// adds a new location to the database
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<LocationDto>> AddNewLocation(LocationDto dto)
         {
             var response = new AlpApiResponse<LocationDto>();
@@ -57,6 +65,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// deletes a location by id
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> DeleteLocationById(int locationId)
         {
             var response = new AlpApiResponse();
@@ -88,6 +101,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// returns all locations from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<LocationDto>>> GetAllLocations()
         {
             var response = new AlpApiResponse<List<LocationDto>>();
@@ -117,6 +134,10 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// returns all not locked locations
+        /// </summary>
+        /// <returns></returns>
         public async Task<AlpApiResponse<List<LocationDto>>> GetAvailableLocations()
         {
             var response = new AlpApiResponse<List<LocationDto>>();
@@ -146,6 +167,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// gets a location by its id
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse<LocationDto>> GetLocationById(int locationId)
         {
             var response = new AlpApiResponse<LocationDto>();
@@ -176,6 +202,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// updates a location
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> UpdateLocation(LocationDto dto)
         {
             var response = new AlpApiResponse();
@@ -209,6 +240,11 @@ namespace API.Service
             return response;
         }
 
+        /// <summary>
+        /// changes the locked state of a location
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <returns></returns>
         public async Task<AlpApiResponse> ToggleLocationLockStateById(int locationId)
         {
             var response = new AlpApiResponse();

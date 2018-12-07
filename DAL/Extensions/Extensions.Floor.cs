@@ -3,6 +3,9 @@ using Common.Model.Dto;
 
 namespace DAL.Extensions
 {
+    /// <summary>
+    /// Exension methods for the Floor entity and dto
+    /// </summary>
     public static partial class Extensions
     {
         public static FloorDto EntityToDto(this Floor entity)

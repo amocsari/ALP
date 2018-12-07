@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Service
 {
+    /// <summary>
+    /// handles itemtype related 
+    /// </summary>
     public class ItemTypeService : IItemTypeService
     {
         private readonly IAlpContext _context;

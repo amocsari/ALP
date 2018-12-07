@@ -11,6 +11,9 @@ using Common.Model.Dto;
 
 namespace ALP.Service
 {
+    /// <summary>
+    /// Handles the showing of dialogs to the user
+    /// </summary>
     public class AlpDialogService : IAlpDialogService
     {
         private readonly IAlpLoggingService<AlpDialogService> _loggingService;
@@ -20,6 +23,11 @@ namespace ALP.Service
             _loggingService = loggingService;
         }
 
+        /// <summary>
+        /// Returns the editorwindow corresponding to the dto
+        /// </summary>
+        /// <param name="dtoBase"></param>
+        /// <returns></returns>
         private Window GetLookupWindowByDto(LookupDtoBase dtoBase)
         {
             if (dtoBase is LocationDto)
@@ -41,6 +49,12 @@ namespace ALP.Service
             return null;
         }
 
+        /// <summary>
+        /// shows the editor window of the given dto
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public DialogResult<T> ShowDtoEditorWindow<T>(T dto) where T : LookupDtoBase, new()
         {
             _loggingService.LogDebug(new
@@ -66,6 +80,16 @@ namespace ALP.Service
             };
         }
 
+        /// <summary>
+        /// Shows a custom window that implements IDialogViewModel
+        /// Can have a parameter and a return parameter as well
+        /// </summary>
+        /// <typeparam name="TWindow"></typeparam>
+        /// <typeparam name="TViewModel"></typeparam>
+        /// <typeparam name="TParameter"></typeparam>
+        /// <typeparam name="TReturnParameter"></typeparam>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         public DialogResult<TReturnParameter> ShowDialog<TWindow, TViewModel, TParameter, TReturnParameter>(TParameter parameter) where TWindow : Window, new()
                                                                                                                     where TViewModel : IDialogViewModel<TReturnParameter, TParameter>
         {
@@ -92,6 +116,12 @@ namespace ALP.Service
             };
         }
 
+        /// <summary>
+        /// Opens a confirmdialog with texts received in the parameters
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public bool ShowConfirmDialog(string message, string title)
         {
             _loggingService.LogDebug(new
@@ -106,6 +136,11 @@ namespace ALP.Service
             return result == MessageBoxResult.Yes;
         }
 
+        /// <summary>
+        /// Opens an alert window with texts received in the parameters
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
         public void ShowAlert(string message, string title)
         {
             _loggingService.LogDebug(new
@@ -118,6 +153,11 @@ namespace ALP.Service
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.None);
         }
 
+        /// <summary>
+        /// Opens an warning window with texts received in the parameters
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
         public void ShowWarning(string message, string title)
         {
             _loggingService.LogDebug(new
@@ -130,6 +170,11 @@ namespace ALP.Service
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
+        /// <summary>
+        /// Opens an error window with texts received in the parameters
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
         public void ShowError(string message, string title)
         {
             _loggingService.LogDebug(new
