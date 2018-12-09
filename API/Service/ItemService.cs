@@ -577,7 +577,7 @@ namespace API.Service
                 }
 
                 item.DateOfScrap = DateTime.Now;
-                item.ItemStateId = 1;
+                item.ItemStateId = 2;
 
                 await _context.SaveChangesAsync();
             }
