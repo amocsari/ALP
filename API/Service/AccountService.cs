@@ -117,6 +117,7 @@ namespace API.Service
                 {
                     response.Success = false;
                     response.Message = "Hibás régi jelszó!";
+                    return response;
                 }
 
                 if(changePasswordRequest.OldPassword == changePasswordRequest.NewPassword)

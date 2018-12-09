@@ -56,7 +56,7 @@ namespace ALP.ViewModel
         /// <param name="newPassword"></param>
         /// <param name="newPasswordRe"></param>
         /// <returns></returns>
-        public async Task ChangePassword(string oldPassword, string newPassword, string newPasswordRe)
+        public async Task<bool> ChangePassword(string oldPassword, string newPassword, string newPasswordRe)
         {
             try
             {
@@ -71,10 +71,12 @@ namespace ALP.ViewModel
                     NewPassword = newPassword
                 };
                 await _accountApiService.ChangePassword(changePasswordRequest);
+                return true;
             }
             catch (Exception e)
             {
                 _dialogService.ShowWarning(e.Message);
+                return false;
             }
             finally
             {

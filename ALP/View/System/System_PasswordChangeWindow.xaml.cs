@@ -32,8 +32,7 @@ namespace ALP.View
                 return;
             }
             var dataContext = (PasswordChangeWindowViewModel)DataContext;
-            await dataContext.ChangePassword(OldPasswordBox.Password, NewPasswordBox.Password, NewPasswordBoxRe.Password);
-            DialogResult = true;
+            DialogResult = await dataContext.ChangePassword(OldPasswordBox.Password, NewPasswordBox.Password, NewPasswordBoxRe.Password);
         }
     }
 }

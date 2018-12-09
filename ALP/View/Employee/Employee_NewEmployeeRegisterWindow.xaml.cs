@@ -32,8 +32,7 @@ namespace ALP.View.Employee
                 return;
             }
             var dataContext = (NewEmployeeRegisterWindowViewModel)DataContext;
-            await dataContext.RegisterUser(UsernameBox.Text, NewPasswordBox.Password, NewPasswordBoxRe.Password);
-            DialogResult = true;
+            DialogResult = await dataContext.RegisterUser(UsernameBox.Text, NewPasswordBox.Password, NewPasswordBoxRe.Password);
         }
     }
 }

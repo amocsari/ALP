@@ -56,7 +56,7 @@ namespace ALP.ViewModel.Employee
         /// <param name="newPassword"></param>
         /// <param name="newPasswordRe"></param>
         /// <returns></returns>
-        public async Task RegisterUser(string userName, string newPassword, string newPasswordRe)
+        public async Task<bool> RegisterUser(string userName, string newPassword, string newPasswordRe)
         {
             try
             {
@@ -75,11 +75,12 @@ namespace ALP.ViewModel.Employee
 
                 await _accountApiService.RegisterAccount(registerAccountRequest);
 
-                                
+                return true;
             }
             catch (Exception e)
             {
                 _dialogService.ShowWarning(e.Message);
+                return false;
             }
             finally
             {

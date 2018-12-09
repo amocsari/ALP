@@ -147,9 +147,12 @@ namespace ALP.ViewModel.Employee
         {
             try
             {
-                _dialogService.ShowDialog<NewEmployeeRegisterWindow, NewEmployeeRegisterWindowViewModel, int, object>(Employee.Value.Id);
-                _dialogService.ShowAlert($"{Employee.Value.Name} dolgozó felhasználója sikeresen létrehozva!");
-                _navigationService.GoBack();
+                var result = _dialogService.ShowDialog<NewEmployeeRegisterWindow, NewEmployeeRegisterWindowViewModel, int, object>(Employee.Value.Id);
+                if (result.Accepted)
+                {
+                    _dialogService.ShowAlert($"{Employee.Value.Name} dolgozó felhasználója sikeresen létrehozva!");
+                    _navigationService.GoBack();
+                }
             }
             catch (Exception e)
             {
