@@ -307,8 +307,8 @@
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockEmployee], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Employee.Name}" Header="Tulajdonos" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockItemState], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.ItemState.Name}" Header="Állapot" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockComment], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.Comment}" Header="Megjegyzés" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfCreation], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.DateOfCreation.Date}" Header="Nyilvántartásba vétel dátuma" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfScrap], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.DateOfScrap.Date}" Header="Selejtezés dátuma" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfCreation], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.DateOfCreation}" Header="Nyilvántartásba vétel dátuma" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockDateOfScrap], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.DateOfScrap}" Header="Selejtezés dátuma" Width="*" IsReadOnly="True" />
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
