@@ -95,7 +95,6 @@ namespace ALP.ViewModel.Inventory
             {
                 IsLoading = true;
                 ReturnParameter = await _operationApiService.ChangeOwnerToDepartmentChief(Parameter, Priority);
-                window.DialogResult = true;
                 window.Close();
             }
             catch (Exception e)
