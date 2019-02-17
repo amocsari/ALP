@@ -27,7 +27,7 @@ namespace Common.Model.Dto
         {
             var other = (BuildingDto)otherDto;
 
-            return Id == other.Id && Name == other.Name && Locked == other.Locked && LocationId == other.LocationId && Location.Equals(other.Location);
+            return Id == other.Id && Name == other.Name && Locked == other.Locked && LocationId == other.LocationId;
         }
 
         /// <summary>

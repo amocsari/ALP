@@ -37,13 +37,35 @@
                 <ComboBox ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection}" DisplayMemberPath="Name" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="6" Grid.Row="1"  Margin="2,5"/>
             </Grid>
 
-            <DataGrid ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmpolyee}" AlternatingRowBackground="Gray" AutoGenerateColumns="False" CanUserAddRows="False" Margin="30">
+            <DataGrid ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmpolyee}" AlternatingRowBackground="LightGray" AutoGenerateColumns="False" CanUserAddRows="False" Margin="30">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Value.Name}" Header="Név" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Binding="{Binding Value.Department.Name}" Header="Osztály" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Binding="{Binding Value.Section.Name}" Header="Részleg" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Binding="{Binding Value.EmailAddress}" Header="Email cím" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Binding="{Binding Value.RetirementDate}" Header="Munkaviszony vége" Width="*"/>
+                    <DataGridTemplateColumn Header="Hozzáférés" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Value.Access, Mode=OneWay}" Width="auto">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Value.HasAccess}" Value="false">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Value.HasAccess}" Value="true">
+                                                    <Setter Property="Foreground" Value="Green"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">

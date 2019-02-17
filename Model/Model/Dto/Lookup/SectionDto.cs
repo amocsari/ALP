@@ -38,8 +38,8 @@ namespace Common.Model.Dto
             var other = (SectionDto)otherDto;
 
             return Id == other.Id && Name == other.Name && Locked == other.Locked
-                   && DepartmentId == other.DepartmentId && Department.Equals(other.Department)
-                   && FloorId == other.FloorId && Floor.Equals(other.Floor);
+                   && DepartmentId == other.DepartmentId
+                   && FloorId == other.FloorId;
         }
 
         /// <summary>

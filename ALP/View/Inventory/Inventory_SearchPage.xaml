@@ -167,7 +167,7 @@
                     </i:Interaction.Triggers>
                 </TextBlock>
 
-                <TextBlock Name="TextBlockEmployee" Text="Toljadonos" Tag="13" HorizontalAlignment="Center">
+                <TextBlock Name="TextBlockEmployee" Text="Tuljadonos" Tag="13" HorizontalAlignment="Center">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"

@@ -8,6 +8,7 @@ using ALP.Service.Interface;
 using ALP.View.Employee;
 using Common.Model.Dto;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Linq;
 
 namespace ALP.ViewModel.Employee
 {
@@ -64,19 +65,21 @@ namespace ALP.ViewModel.Employee
             }
         }
 
+
+        private DepartmentDto selectedDepartment;
         /// <summary>
         /// The selected department in the combobox
         /// </summary>
         public DepartmentDto SelectedDepartment
         {
-            get { return Employee.Value.Department; }
+            get { return selectedDepartment; }
             set
             {
-                if (Employee.Value.Department == null || Employee.Value.Department != value)
+                if (selectedDepartment == null || selectedDepartment != value)
                 {
-                    Employee.Value.Department = value;
-                    Employee.Value.DepartmentID = value.Id;
-                    RaisePropertyChanged(() => Employee);
+                    selectedDepartment = value;
+                    //Employee.Value.DepartmentID = value.Id;
+                    Set(ref selectedDepartment, value);
                 }
             }
         }
@@ -136,7 +139,7 @@ namespace ALP.ViewModel.Employee
             ListItemsCommand = new RelayCommand(OnListItemsCommand);
             RetireCommand = new RelayCommand(OnRetireCommand);
             CreateAccountCommand = new RelayCommand(OnCreateAccountCommand);
-
+            
             Initialization = InitializeAsync();
         }
 
@@ -265,6 +268,7 @@ namespace ALP.ViewModel.Employee
                     if (_navigationService.Parameter is EmployeeDto param)
                     {
                         Employee.Value = param.Copy();
+                        SelectedDepartment = Employee.Value.Department;
                         RaisePropertyChanged(() => Employee);
                     }
                 }

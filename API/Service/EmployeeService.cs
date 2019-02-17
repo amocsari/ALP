@@ -140,6 +140,11 @@ namespace API.Service
                     .ToListAsync();
 
                 response.Value = employees.Select(employee => employee.EntityToDto()).ToList();
+
+                foreach(var dto in response.Value)
+                {
+                    dto.HasAccess = await _context.Account.AsNoTracking().AnyAsync(acc => acc.EmployeeId == dto.Id);
+                }
             }
             catch (Exception e)
             {

@@ -27,7 +27,7 @@ namespace Common.Model.Dto
         {
             var other = (ItemTypeDto)otherDto;
 
-            return Id == other.Id && Name == other.Name && Locked == other.Locked && ItemNatureId == other.ItemNatureId && ItemNature.Equals(other.ItemNature);
+            return Id == other.Id && Name == other.Name && Locked == other.Locked && ItemNatureId == other.ItemNatureId;
         }
 
         /// <summary>

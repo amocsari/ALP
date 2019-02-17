@@ -11,6 +11,8 @@ namespace Common.Model.Dto
         public int? SectionID { get; set; }
         public string EmailAddress { get; set; }
         public DateTime? RetirementDate { get; set; }
+        public bool HasAccess { get; set; }
+        public string Access => HasAccess ? "✔" : "✖";
 
         public virtual DepartmentDto Department { get; set; }
         public virtual SectionDto Section { get; set; }

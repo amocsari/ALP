@@ -27,7 +27,17 @@ namespace Common.Model.Dto
         {
             var other = (DepartmentDto)otherDto;
 
-            return Id == other.Id && Name == other.Name && Locked == other.Locked && EmployeeId == other.EmployeeId && Employee.Equals(other.Employee);
+            return Id == other.Id && Name == other.Name && Locked == other.Locked && EmployeeId == other.EmployeeId;
+        }
+        public static bool operator ==(DepartmentDto original, DepartmentDto other)
+        {
+            if (Equals(original, null))
+                return Equals(other, null);
+            return original.Equals(other);
+        }
+        public static bool operator !=(DepartmentDto original, DepartmentDto other)
+        {
+            return !(original == other);
         }
 
         /// <summary>

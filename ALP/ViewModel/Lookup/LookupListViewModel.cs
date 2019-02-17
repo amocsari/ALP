@@ -124,15 +124,18 @@ namespace ALP.ViewModel.Lookup
         {
             try
             {
-                IsLoading = true;
-                var dialogResult = _dialogService.ShowDtoEditorWindow(SelectedItem.Value);
-                if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
+                if (SelectedItem != null)
                 {
-                    var updateddto = dialogResult.Value;
-                    if (!updateddto.Equals(SelectedItem))
+                    IsLoading = true;
+                    var dialogResult = _dialogService.ShowDtoEditorWindow(SelectedItem.Value);
+                    if (dialogResult != null && dialogResult.Accepted && dialogResult.Value != null)
                     {
-                        await _lookupApiService.Update(updateddto);
-                        await ReloadList();
+                        var updateddto = dialogResult.Value;
+                        if (!updateddto.Equals(SelectedItem))
+                        {
+                            await _lookupApiService.Update(updateddto);
+                            await ReloadList();
+                        }
                     }
                 }
             }

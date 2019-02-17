@@ -8,7 +8,6 @@ using ALP.Service;
 using ALP.Service.Interface;
 using Common.Model.Dto;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Views;
 using Model.Model;
 
 namespace ALP.ViewModel.Employee
@@ -169,7 +168,10 @@ namespace ALP.ViewModel.Employee
         /// </summary>
         private void OnListItemDoubleClickCommand()
         {
-            _navigationService.NavigateTo(ViewModelLocator.EmployeeEditPage, SelectedEmpolyee.Value);
+            if (SelectedEmpolyee != null)
+            {
+                _navigationService.NavigateTo(ViewModelLocator.EmployeeEditPage, SelectedEmpolyee.Value);
+            }
         }
 
         /// <summary>
@@ -225,16 +227,16 @@ namespace ALP.ViewModel.Employee
             try
             {
                 IsLoading = true;
-                var employees = await _employeeApiService.GetAll();
-                if (employees != null)
-                {
-                    var result = employees.Select(employee => new EmployeeListItemViewModel(employee)).ToList();
-                    Employees = new ObservableCollection<EmployeeListItemViewModel>(result);
-                }
-                else
-                {
-                    Employees = new ObservableCollection<EmployeeListItemViewModel>();
-                }
+                //var employees = await _employeeApiService.GetAll();
+                //if (employees != null)
+                //{
+                //    var result = employees.Select(employee => new EmployeeListItemViewModel(employee)).ToList();
+                //    Employees = new ObservableCollection<EmployeeListItemViewModel>(result);
+                //}
+                //else
+                //{
+                //    Employees = new ObservableCollection<EmployeeListItemViewModel>();
+                //}
 
                 var departmentList = await _departmentApiService.GetAll();
                 if (departmentList != null)

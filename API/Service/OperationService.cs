@@ -58,13 +58,16 @@ namespace API.Service
                     await _context.Operation.AddAsync(entity);
                     await _context.SaveChangesAsync();
 
-                    var result = await DoOperation(entity.OperationId);
-                    if (!result.Success)
+                    if (roleType == RoleType.Admin)
                     {
-                        var item = await _context.Item.FirstOrDefaultAsync(i => i.ItemId == dto.ItemId);
-                        if (item != null)
+                        var result = await DoOperation(entity.OperationId);
+                        if (!result.Success)
                         {
-                            response.Value.Add(item.EntityToDto());
+                            var item = await _context.Item.FirstOrDefaultAsync(i => i.ItemId == dto.ItemId);
+                            if (item != null)
+                            {
+                                response.Value.Add(item.EntityToDto());
+                            }
                         }
                     }
                 }

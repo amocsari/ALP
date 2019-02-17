@@ -219,6 +219,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\EmployeeAccessConverter.cs" />
     <Compile Include="Service\AccountApiService.cs" />
     <Compile Include="Service\DialogResult.cs" />
     <Compile Include="Service\AlpApiService.cs" />
