@@ -53,7 +53,7 @@ namespace Common.Model.Dto
         {
             if (string.IsNullOrEmpty(Name))
             {
-                throw new Exception("Az eszközjelleg nevét kötelező megadni!");
+                throw new Exception("Az eszköz jelleg nevét kötelező megadni!");
             }
         }
 

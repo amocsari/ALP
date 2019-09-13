@@ -160,7 +160,7 @@ namespace API.Service
                 var itemNature = await _context.ItemNature.FirstOrDefaultAsync(itemN => itemN.ItemNatureId == dto.ItemNatureId);
                 if (itemNature == null)
                 {
-                    throw new Exception("A típushoz tartozó eszközjelleget kötelező megadni!");
+                    throw new Exception("A típushoz tartozó eszköz jelleget kötelező megadni!");
                 }
 
                 var entity = dto.DtoToEntity();
@@ -201,7 +201,7 @@ namespace API.Service
                 var itemNature = await _context.ItemNature.FirstOrDefaultAsync(itemN => itemN.ItemNatureId == dto.ItemNatureId);
                 if(itemNature == null)
                 {
-                    throw new Exception("A típushoz tartozó eszközjelleget kötelező megadni!");
+                    throw new Exception("A típushoz tartozó eszköz jelleget kötelező megadni!");
                 }
 
                 var updatedEntity = await _context.ItemType.FirstOrDefaultAsync(itemType => itemType.ItemTypeId == dto.Id);

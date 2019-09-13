@@ -284,6 +284,7 @@ namespace ALP.ViewModel
             {
                 IsLoading = true;
                 var result = _dialogService.ShowDialog<LoginWindow, LoginWindowViewModel, object, SessionData>(null);
+
                 if (result != null && result.Accepted)
                 {
                     SessionData = result.Value;

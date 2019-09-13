@@ -17,7 +17,7 @@
             <DataGrid FontSize="16" ItemsSource="{Binding Values, Mode=TwoWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" CanUserAddRows="False" Margin="30" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Név" Binding="{Binding Value.Name, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Eszközjelleg" Binding="{Binding Value.ItemNature.Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Eszköz jelleg" Binding="{Binding Value.ItemNature.Name}" IsReadOnly="True" Width="*"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

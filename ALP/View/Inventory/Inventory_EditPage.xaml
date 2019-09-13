@@ -8,7 +8,8 @@
       mc:Ignorable="d" 
       xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="EditPage">
+      Title="EditPage"
+      FontSize="15">
     
     <Page.Resources>
         <DataTemplate x:Key="AutoCompleteEmployeeDataTemplate">
@@ -52,7 +53,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Nyilvántartásba vétel dátuma" Grid.Column="0" Grid.Row="0" Margin="2,5"/>
-                    <DatePicker SelectedDate="{Binding Item.DateOfCreation, Mode=TwoWay}" Foreground="Gray" Grid.Column="1" Grid.Row="0" Margin="2,5"/>
+                    <DatePicker SelectedDate="{Binding Item.DateOfCreation, Mode=TwoWay}" Foreground="Gray" Grid.Column="1" Grid.Row="0" Margin="2,5" />
 
                     <Label Content="Eszköz megnevezése" Grid.Column="0" Grid.Row="1" Margin="2,5"/>
                     <TextBox Text="{Binding Item.ItemName}" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" Margin="2,5"/>
@@ -60,13 +61,13 @@
                     <Label Content="Leltári szám" Grid.Column="0" Grid.Row="2" Margin="2,5"/>
                     <TextBox Text="{Binding Item.InventoryNumber}" Grid.Column="1" Grid.Row="2" Margin="2,5"/>
 
-                    <Label Content="Régi leltári szám" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="2,5"/>
+                    <Label Content="Vonalkód" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="2,5"/>
                     <TextBox Text="{Binding Item.OldInventoryNumber}" Grid.Column="3" Grid.Row="2" Margin="2,5"/>
 
                     <Label Content="Gyári szám" Grid.Column="0" Grid.Row="3" Margin="2,5"/>
                     <TextBox Text="{Binding Item.SerialNumber}" Grid.Column="1" Grid.Row="3" Margin="2,5"/>
 
-                    <Label Content="Sárga szám" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" Margin="2,5" />
+                    <Label Content="Eszköz azonosító" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" Margin="2,5" />
                     <TextBox Text="{Binding Item.YellowNumber}" Grid.Column="3" Grid.Row="3" Margin="2,5" />
 
                     <Label Content="Akkreditációs szám" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="4" Margin="2,5" />

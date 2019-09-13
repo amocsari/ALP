@@ -8,7 +8,9 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Name="Window"
-        Title="Login" Height="200" Width="400">
+        Title="Login" Height="200" Width="400"
+        KeyDown="OnKeyDownHandler"
+        FocusManager.FocusedElement="{Binding ElementName=UsernameBox}">
     <Grid>
         <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TextBlock Text="Bejelentkezés" DockPanel.Dock="Top" FontSize="32" HorizontalAlignment="Center" />

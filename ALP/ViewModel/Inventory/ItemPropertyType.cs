@@ -7,13 +7,13 @@ namespace ALP.ViewModel.Inventory
         ItemID = 0,
         [Description("Leltári szám")]
         InventoryNumber = 1,
-        [Description("Régi Leltári szám")]
+        [Description("Vonalkód")]
         OldInventoryNumber = 2,
         [Description("Gyártási szám")]
         SerialNumber = 3,
         [Description("Akkreditációs szám")]
         AccreditationNumber = 4,
-        [Description("Sárga szám")]
+        [Description("Eszköz azonosító")]
         YellowNumber = 5,
         [Description("Név")]
         ItemName = 6,

@@ -26,7 +26,13 @@
             Text="{Binding ApplicationVersion}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="32"
+            FontSize="16"
+            Foreground="White"/>
+        <TextBlock
+            Text="{Binding WelcomeText}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="16"
             Foreground="White"/>
 
     </StackPanel>

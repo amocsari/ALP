@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using ALP.ViewModel;
 
 namespace ALP.View
@@ -12,6 +13,14 @@ namespace ALP.View
         public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                Button_Click(sender, e);
+            }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)

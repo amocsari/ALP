@@ -89,6 +89,8 @@ namespace API.Service
 
                 dto.Validate();
 
+                await CheckIfDuplicateAsync(dto);
+
                 var entity = dto.DtoToEntity();
 
                 entity.Building = null;
@@ -276,6 +278,21 @@ namespace API.Service
 
                     if (containedItem != null)
                     {
+                        if (importedItem.YellowNumber != null)
+                            containedItem.YellowNumber = importedItem.YellowNumber;
+                        if (!string.IsNullOrEmpty(importedItem.SerialNumber))
+                            containedItem.SerialNumber = importedItem.SerialNumber;
+                        if (!string.IsNullOrEmpty(importedItem.Name))
+                            containedItem.ItemName = importedItem.Name;
+                        if (!string.IsNullOrEmpty(importedItem.InventoryNumber))
+                            containedItem.InventoryNumber = importedItem.InventoryNumber;
+                        if (!string.IsNullOrEmpty(importedItem.OldInventoryNumber))
+                            containedItem.OldInventoryNumber = importedItem.OldInventoryNumber;
+                        if (!string.IsNullOrEmpty(importedItem.OwnerName))
+                            await AddEmployeeToItemAsync(containedItem, importedItem, employeeList);
+
+                        dtoList.Add(containedItem.EntityToDto());
+
                         continue;
                     }
 
@@ -291,38 +308,13 @@ namespace API.Service
                     };
 
                     if (!string.IsNullOrEmpty(importedItem.OwnerName))
-                    {
-                        var owner = await _context.Employee.FirstOrDefaultAsync(employee => employee.EmployeeName == importedItem.OwnerName);
-                        if (owner == null)
-                        {
-                            owner = employeeList.FirstOrDefault(employee => employee.EmployeeName == importedItem.OwnerName);
-                        }
-
-                        if (owner != null)
-                        {
-                            newItem.EmployeeId = owner.EmployeeId;
-                        }
-                        else
-                        {
-                            var newEmployee = new Employee
-                            {
-                                EmployeeName = importedItem.OwnerName
-                            };
-                            var insertedRow = await _context.Employee.AddAsync(newEmployee);
-                            employeeList.Add(insertedRow.Entity);
-                            newItem.EmployeeId = insertedRow.Entity.EmployeeId;
-                            insertedRow.State = EntityState.Detached;
-
-                        }
-                    }
+                        await AddEmployeeToItemAsync(newItem, importedItem, employeeList);
 
                     var entity = (await _context.Item.AddAsync(newItem)).Entity;
                     var dto = entity?.EntityToDto();
 
                     if (dto != null)
-                    {
                         dtoList.Add(dto);
-                    }
                 }
                 employeeList.Clear();
                 await _context.SaveChangesAsync();
@@ -595,6 +587,56 @@ namespace API.Service
             }
 
             return response;
+        }
+
+        private async Task CheckIfDuplicateAsync(ItemDto item)
+        {
+            var duplicate = await _context.Item.AsNoTracking()
+                .FirstOrDefaultAsync(i => i.YellowNumber == item.YellowNumber
+                            || i.InventoryNumber == item.InventoryNumber
+                            || i.OldInventoryNumber == item.OldInventoryNumber
+                            || i.SerialNumber == item.SerialNumber
+                            || i.AccreditationNumber == item.AccreditationNumber);
+
+            if (duplicate == null)
+                return;
+
+            if (duplicate.YellowNumber == item.YellowNumber)
+                throw new Exception("Már szerepel ilyen Eszköz azonosító a leltárban!");
+            if (duplicate.InventoryNumber == item.InventoryNumber)
+                throw new Exception("Már szerepel ilyen Leltári szám a leltárban!");
+            if (duplicate.OldInventoryNumber == item.OldInventoryNumber)
+                throw new Exception("Már szerepel ilyen Vonalkód a leltárban!");
+            if (duplicate.SerialNumber == item.SerialNumber)
+                throw new Exception("Már szerepel ilyen Gyári szám a leltárban!");
+            if (duplicate.AccreditationNumber == item.AccreditationNumber)
+                throw new Exception("Már szerepel ilyen Akkreditációs szám a leltárban!");
+        }
+
+        private async Task AddEmployeeToItemAsync(Item item, ImportedItem importedItem, List<Employee> employeeList)
+        {
+            var owner = await _context.Employee.FirstOrDefaultAsync(employee => employee.EmployeeName == importedItem.OwnerName);
+            if (owner == null)
+            {
+                owner = employeeList.FirstOrDefault(employee => employee.EmployeeName == importedItem.OwnerName);
+            }
+
+            if (owner != null)
+            {
+                item.EmployeeId = owner.EmployeeId;
+            }
+            else
+            {
+                var newEmployee = new Employee
+                {
+                    EmployeeName = importedItem.OwnerName
+                };
+                var insertedRow = await _context.Employee.AddAsync(newEmployee);
+                employeeList.Add(insertedRow.Entity);
+                item.EmployeeId = insertedRow.Entity.EmployeeId;
+                insertedRow.State = EntityState.Detached;
+
+            }
         }
     }
 }

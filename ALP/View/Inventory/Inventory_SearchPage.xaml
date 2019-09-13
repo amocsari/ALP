@@ -23,7 +23,7 @@
                 <TextBlock Name="TextBlockInventoryNumber" Text="Leltári szám" Tag="1" HorizontalAlignment="Center"
                            FontWeight="Bold" Foreground="Gray" TextDecorations="Underline"/>
 
-                <TextBlock Name="TextBlockOldInventoryNumber" Text="Régi leltári szám" Tag="2" HorizontalAlignment="Center">
+                <TextBlock Name="TextBlockOldInventoryNumber" Text="Vonalkód" Tag="2" HorizontalAlignment="Center">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
@@ -50,7 +50,7 @@
                     </i:Interaction.Triggers>
                 </TextBlock>
 
-                <TextBlock Name="TextBlockYellowNumber" Text="Sárga szám" Tag="5" HorizontalAlignment="Center">
+                <TextBlock Name="TextBlockYellowNumber" Text="Eszköz azonosító" Tag="5" HorizontalAlignment="Center">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
@@ -59,7 +59,7 @@
                     </i:Interaction.Triggers>
                 </TextBlock>
 
-                <TextBlock Name="TextBlockItemNature" Text="Eszközjelleg" Tag="8" HorizontalAlignment="Center">
+                <TextBlock Name="TextBlockItemNature" Text="Eszköz jelleg" Tag="8" HorizontalAlignment="Center">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <cmd:EventToCommand Command="{Binding MouseLabelClickCommand, Mode=OneWay}"
@@ -290,9 +290,9 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Value.ItemName}" Header="Név" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Binding="{Binding Value.InventoryNumber}" Header="Leltári szám" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockOldInventoryNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.OldInventoryNumber}" Header="Régi leltári szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockOldInventoryNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.OldInventoryNumber}" Header="Vonalkód" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockSerialNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.SerialNumber}" Header="Gyári szám" Width="*" IsReadOnly="True" />
-                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockYellowNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.YellowNumber}" Header="Sárga szám" Width="*" IsReadOnly="True" />
+                            <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockYellowNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.YellowNumber}" Header="Eszköz azonosító" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockAccreditationNumber], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.AccreditationNumber}" Header="Akkreditációs szám" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockProductionYear], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.ProductionYear.Year}" Header="Gyártási év" Width="*" IsReadOnly="True" />
                             <DataGridTextColumn Visibility="{Binding DataContext.Visibilities[TextBlockBruttoPrice], Source={x:Reference DummyFrameWorkElement}}" Binding="{Binding Value.BruttoPrice}" Header="Bruttó ár" Width="*" IsReadOnly="True" />
